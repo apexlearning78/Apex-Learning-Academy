@@ -7,21 +7,27 @@
     <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============ NAVBAR UPGRADE ============ */
-        .main-nav {
-            gap: 2px !important;
+        /* ============ HERO STUDENTS IMAGE ============ */
+        .hero-students-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            border-radius: 24px;
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.35);
+            border: 3px solid rgba(244, 180, 0, 0.25);
+            display: block;
         }
+
+        /* ============ NAVBAR UPGRADE ============ */
+        .main-nav { gap: 2px !important; }
         .main-nav a {
             padding: 9px 13px !important;
             font-size: 13.5px !important;
             white-space: nowrap;
         }
-
-        /* Dropdown */
-        .nav-dropdown {
-            position: relative;
-        }
+        .nav-dropdown { position: relative; }
         .nav-dropdown > a {
             display: flex;
             align-items: center;
@@ -33,9 +39,7 @@
             height: 12px;
             transition: transform 0.25s;
         }
-        .nav-dropdown.open > a svg {
-            transform: rotate(180deg);
-        }
+        .nav-dropdown.open > a svg { transform: rotate(180deg); }
         .nav-dropdown-menu {
             position: absolute;
             top: calc(100% + 8px);
@@ -43,7 +47,7 @@
             transform: translateX(-50%) translateY(-6px);
             background: #FFFFFF;
             border-radius: 12px;
-            box-shadow: 0 20px 50px rgba(10, 37, 64, 0.15);
+            box-shadow: 0 20px 50px rgba(10, 37, 64, 0.18);
             padding: 8px;
             min-width: 220px;
             opacity: 0;
@@ -92,7 +96,7 @@
             flex-shrink: 0;
         }
 
-        /* Mobile toggle */
+        /* Mobile */
         .mobile-toggle {
             display: none;
             color: #FFFFFF;
@@ -105,8 +109,6 @@
             justify-content: center;
             cursor: pointer;
         }
-
-        /* Header actions */
         .header-actions {
             display: flex;
             align-items: center;
@@ -124,26 +126,16 @@
             white-space: nowrap;
         }
 
-        /* ============ RESPONSIVE NAVBAR ============ */
         @media (max-width: 1150px) {
-            .main-nav {
-                display: none !important;
-            }
-            .mobile-toggle {
-                display: flex;
-            }
-            .header-inner {
-                padding: 14px 20px;
-            }
+            .main-nav { display: none !important; }
+            .mobile-toggle { display: flex; }
+            .header-inner { padding: 14px 20px; }
         }
         @media (max-width: 540px) {
-            .btn-login {
-                display: none;
-            }
+            .btn-login { display: none; }
             .brand-text { display: none; }
         }
 
-        /* Mobile menu */
         .mobile-menu {
             display: none;
             background: #0A2540;
@@ -157,9 +149,7 @@
             max-height: calc(100vh - 80px);
             overflow-y: auto;
         }
-        .mobile-menu.open {
-            display: block;
-        }
+        .mobile-menu.open { display: block; }
         .mobile-menu a {
             display: block;
             padding: 13px 16px;
@@ -192,8 +182,14 @@
             padding: 8px 16px;
             margin-top: 6px;
         }
-        .site-header {
-            position: sticky;
+        .site-header { position: sticky; }
+
+        /* Responsive image */
+        @media (max-width: 900px) {
+            .hero-students-img {
+                border-radius: 16px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.28);
+            }
         }
     </style>
 </head>
@@ -210,7 +206,6 @@
             </div>
         </a>
 
-        <!-- DESKTOP NAV -->
         <nav class="main-nav">
             <a href="index.html" class="active">Home</a>
             <a href="courses.html">Courses</a>
@@ -272,13 +267,11 @@
             </div>
         </nav>
 
-        <!-- AUTH ACTIONS (dynamic) -->
         <div class="header-actions" id="authActions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
         </div>
 
-        <!-- MOBILE TOGGLE -->
         <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="3" y1="6" x2="21" y2="6"/>
@@ -288,7 +281,6 @@
         </button>
     </div>
 
-    <!-- MOBILE MENU -->
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html" class="active">Home</a>
         <a href="courses.html">Courses</a>
@@ -354,47 +346,7 @@
             </div>
 
             <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="hero-card-header">
-                        <div class="hero-card-icon">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <polyline points="16 18 22 12 16 6"/>
-                                <polyline points="8 6 2 12 8 18"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <div class="hero-card-title">Coding Course</div>
-                            <div class="hero-card-subtitle">Python + Web Development</div>
-                        </div>
-                    </div>
-                    <div class="hero-progress-item">
-                        <div class="hero-progress-header">
-                            <span>Python Basics</span>
-                            <span>100%</span>
-                        </div>
-                        <div class="hero-progress-bar">
-                            <div class="hero-progress-fill" style="width: 100%"></div>
-                        </div>
-                    </div>
-                    <div class="hero-progress-item">
-                        <div class="hero-progress-header">
-                            <span>Web Development</span>
-                            <span>68%</span>
-                        </div>
-                        <div class="hero-progress-bar">
-                            <div class="hero-progress-fill" style="width: 68%"></div>
-                        </div>
-                    </div>
-                    <div class="hero-progress-item">
-                        <div class="hero-progress-header">
-                            <span>Final Projects</span>
-                            <span>35%</span>
-                        </div>
-                        <div class="hero-progress-bar">
-                            <div class="hero-progress-fill" style="width: 35%"></div>
-                        </div>
-                    </div>
-                </div>
+                <img src="students.png" alt="Students at Apex Learning Academy" class="hero-students-img">
             </div>
         </div>
     </div>
@@ -741,25 +693,18 @@
 
 <!-- ============ NAVBAR SCRIPTS ============ -->
 <script>
-// Dropdown toggle
 function toggleDropdown() {
     document.getElementById('moreDropdown').classList.toggle('open');
 }
-
-// Close dropdown on outside click
 document.addEventListener('click', (e) => {
     const dropdown = document.getElementById('moreDropdown');
     if (dropdown && !dropdown.contains(e.target)) {
         dropdown.classList.remove('open');
     }
 });
-
-// Mobile menu toggle
 function toggleMobileMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
 }
-
-// Close mobile menu on link click
 document.querySelectorAll('.mobile-menu a').forEach(link => {
     link.addEventListener('click', () => {
         document.getElementById('mobileMenu').classList.remove('open');
@@ -780,7 +725,6 @@ onAuthStateChanged(auth, (user) => {
     const mobileLogout = document.getElementById('mobileLogoutLink');
 
     if (user) {
-        // Logged in
         if (authActions) {
             authActions.innerHTML = `
                 <a href="dashboard.html" class="btn-login">Dashboard</a>
@@ -791,7 +735,6 @@ onAuthStateChanged(auth, (user) => {
                 window.location.href = 'index.html';
             });
         }
-
         if (mobileLogin) mobileLogin.style.display = 'none';
         if (mobileRegister) mobileRegister.style.display = 'none';
         if (mobileDashboard) mobileDashboard.style.display = 'block';
@@ -804,14 +747,12 @@ onAuthStateChanged(auth, (user) => {
             });
         }
     } else {
-        // Logged out
         if (authActions) {
             authActions.innerHTML = `
                 <a href="login.html" class="btn-login">Login</a>
                 <a href="register.html" class="btn-header-cta">Register Now</a>
             `;
         }
-
         if (mobileLogin) mobileLogin.style.display = 'block';
         if (mobileRegister) mobileRegister.style.display = 'block';
         if (mobileDashboard) mobileDashboard.style.display = 'none';
