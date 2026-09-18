@@ -126,6 +126,37 @@
         </div>
     </div>
 </footer>
+<script type="module">
+import { db } from './firebase-config.js';
+import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
+document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+
+    try {
+        await addDoc(collection(db, "messages"), {
+            name: document.querySelector('input[name="name"]').value.trim(),
+            email: document.querySelector('input[name="email"]').value.trim().toLowerCase(),
+            subject: document.querySelector('input[name="subject"]').value.trim(),
+            message: document.querySelector('textarea[name="message"]').value.trim(),
+            type: 'contact',
+            sentAt: serverTimestamp()
+        });
+        alert('Message sent successfully! We will get back to you soon.');
+        e.target.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to send message. Please try WhatsApp instead.');
+    } finally {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+    }
+});
+</script>
 </body>
 </html>
