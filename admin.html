@@ -2062,6 +2062,7 @@ window.applyReplyTemplate = function() {
     document.getElementById('replyText').value = template;
 };
 
+// ============ SAVE REPLY (WITH EMAIL) ============
 window.saveReply = async function() {
     const docId = document.getElementById('replyDocId').value;
     const replyText = document.getElementById('replyText').value.trim();
@@ -2071,12 +2072,20 @@ window.saveReply = async function() {
         return;
     }
 
+    const msg = currentReplyContext.message;
+    if (!msg) return;
+
+    const btn = event.target.closest('button');
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = 'Sending...';
+    btn.disabled = true;
+
     try {
         const updates = {
             adminReply: replyText,
             status: 'replied',
             repliedAt: serverTimestamp(),
-            repliedToEmail: currentReplyContext.message.email || '',
+            repliedToEmail: msg.email || '',
             repliedToWhatsApp: currentReplyContext.matchedStudent?.whatsapp || null
         };
 
@@ -2085,14 +2094,50 @@ window.saveReply = async function() {
         const idx = allData.messages.findIndex(m => m.id === docId);
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], ...updates };
 
+        // ============ SEND EMAIL VIA EMAILJS ============
+        const emailParams = {
+            to_email: msg.email || '',
+            to_name: msg.name || 'Student',
+            subject: msg.subject || 'Your Inquiry',
+            original_message: msg.message || '',
+            reply_message: replyText,
+            student_name: msg.name || 'Student',
+            student_email: msg.email || ''
+        };
+
+        let emailStatus = 'sent';
+        let emailError = '';
+
+        try {
+            const response = await emailjs.send(
+                'service_bc14lau',      // Service ID
+                'template_r3prv9y',     // Template ID
+                emailParams
+            );
+            console.log('Email sent successfully:', response);
+        } catch (emailErr) {
+            console.error('Email failed:', emailErr);
+            emailStatus = 'failed';
+            emailError = emailErr.text || emailErr.message || 'Unknown error';
+        }
+
         closeReplyModal();
         renderTab('messages');
-        alert('Reply saved successfully.');
+
+        if (emailStatus === 'sent') {
+            alert('Reply saved successfully and email sent to ' + (msg.email || 'student') + '.');
+        } else {
+            alert('Reply saved successfully, but email failed to send.\n\nReason: ' + emailError + '\n\nYou can still contact the student via WhatsApp.');
+        }
+
     } catch (err) {
+        console.error('Save reply error:', err);
         alert('Failed to save reply: ' + err.message);
+    } finally {
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
     }
 };
-
 window.sendReplyViaWhatsApp = async function() {
     const replyText = document.getElementById('replyText').value.trim();
     const docId = document.getElementById('replyDocId').value;
@@ -2317,6 +2362,14 @@ window.deleteItem = async function(tab, id) {
     }
 };
 </script>
-
+<!-- ============ EMAILJS ============ -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        emailjs.init({
+            publicKey: "0CuJdjkOPS6ovXLMT"
+        });
+    })();
+</script>
 </body>
 </html>
