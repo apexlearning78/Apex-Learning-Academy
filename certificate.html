@@ -3,110 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Certificate | Apex Learning Academy</title>
-    <meta name="description" content="Download your official certificate from Apex Learning Academy.">
+    <title>Certificate | Apex Learning Academy</title>
+    <meta name="description" content="View your official certificate from Apex Learning Academy.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: #E2E8F0;
             padding: 40px 20px;
             color: #0F172A;
             min-height: 100vh;
         }
 
-        /* ============ LOADING ============ */
-        .loading {
-            max-width: 500px;
-            margin: 100px auto;
-            text-align: center;
-            background: white;
-            padding: 48px 32px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-        .loading-spinner {
-            width: 48px; height: 48px;
-            border: 4px solid #E2E8F0;
-            border-top-color: #F4B400;
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .loading p { color: #64748B; font-size: 15px; }
-
-        /* ============ ERROR ============ */
-        .error-box {
-            max-width: 500px;
-            margin: 100px auto;
-            text-align: center;
-            background: white;
-            padding: 48px 32px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-        }
-        .error-icon {
-            width: 64px; height: 64px;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 50%;
+        /* ============ NOTICE BAR ============ */
+        .notice-bar {
+            max-width: 1100px;
+            margin: 0 auto 24px;
+            padding: 16px 24px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
+            gap: 14px;
+            font-size: 14.5px;
+            font-weight: 600;
+            line-height: 1.6;
         }
-        .error-box h2 { font-size: 22px; margin-bottom: 10px; color: #0A2540; }
-        .error-box p { color: #64748B; font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            color: #0A2540;
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-        }
+        .notice-bar svg { flex-shrink: 0; }
+        .notice-info { background: #EFF6FF; border: 1px solid #BFDBFE; color: #1E40AF; }
+        .notice-success { background: #ECFDF5; border: 1px solid #A7F3D0; color: #065F46; }
+        .notice-warning { background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E; }
+        .notice-bar a { color: inherit; font-weight: 800; text-decoration: underline; }
 
         /* ============ ACTION BAR ============ */
         .action-bar {
             max-width: 1100px;
-            margin: 0 auto 24px;
+            margin: 0 auto 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 16px;
             flex-wrap: wrap;
         }
-        .action-bar-info {
-            display: flex;
+        .action-bar-buttons { display: flex; gap: 10px; flex-wrap: wrap; margin-left: auto; }
+
+        .btn {
+            display: inline-flex;
             align-items: center;
-            gap: 12px;
-            color: #475569;
-            font-size: 14px;
-            font-weight: 500;
+            gap: 8px;
+            padding: 11px 22px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 13.5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
         }
-        .action-bar-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
-
-        .btn-secondary {
-            background: white;
-            color: #0A2540;
-            border: 2px solid #E2E8F0;
-        }
+        .btn-secondary { background: white; color: #0A2540; border: 2px solid #E2E8F0; }
         .btn-secondary:hover { border-color: #0A2540; }
-
-        .btn-print {
-            background: #0A2540;
-            color: white;
-        }
+        .btn-print { background: #0A2540; color: white; }
+        .btn-print:hover { background: #1a3a5c; transform: translateY(-1px); }
 
         /* ============ CERTIFICATE ============ */
         .certificate-wrapper {
@@ -118,7 +80,6 @@
             aspect-ratio: 297 / 210;
         }
 
-        /* Outer navy border */
         .certificate-outer {
             position: absolute;
             inset: 0;
@@ -126,12 +87,11 @@
             background: #0A2540;
         }
 
-        /* Inner gold border */
         .certificate-inner {
             position: relative;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #FDFBF5 0%, #FFFFFF 55%, #FDFBF5 100%);
+            background: #FFFFFF;
             border: 3px solid #F4B400;
             padding: 42px 56px 38px;
             display: flex;
@@ -139,7 +99,7 @@
             overflow: hidden;
         }
 
-        /* Watermark */
+        /* Watermark Logo */
         .certificate-inner::before {
             content: '';
             position: absolute;
@@ -151,12 +111,12 @@
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.035;
+            opacity: 0.04;
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Corner ornaments */
+        /* Corner Ornaments */
         .corner {
             position: absolute;
             width: 70px;
@@ -169,7 +129,7 @@
         .corner-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
         .corner-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
 
-        /* ============ HEADER ============ */
+        /* HEADER */
         .cert-header {
             display: flex;
             justify-content: space-between;
@@ -178,16 +138,9 @@
             z-index: 2;
             padding-bottom: 20px;
         }
-
-        .cert-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
+        .cert-brand { display: flex; align-items: center; gap: 14px; }
         .cert-logo {
-            width: 74px;
-            height: 74px;
+            width: 74px; height: 74px;
             border-radius: 14px;
             overflow: hidden;
             background: linear-gradient(135deg, #F4B400, #d99f00);
@@ -196,31 +149,24 @@
             justify-content: center;
             box-shadow: 0 6px 18px rgba(244, 180, 0, 0.35);
         }
-        .cert-logo img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-        }
-
+        .cert-logo img { width: 100%; height: 100%; object-fit: cover; }
         .cert-brand-text h3 {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
             color: #0A2540;
-            font-weight: 800;
-            letter-spacing: 2.5px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
             line-height: 1;
             margin-bottom: 5px;
         }
         .cert-brand-text p {
             font-size: 10px;
             color: #F4B400;
-            letter-spacing: 3.5px;
+            letter-spacing: 3px;
             font-weight: 700;
             text-transform: uppercase;
         }
-
-        .cert-ref {
-            text-align: right;
-        }
+        .cert-ref { text-align: right; }
         .cert-ref-label {
             font-size: 9px;
             color: #94A3B8;
@@ -230,14 +176,14 @@
             margin-bottom: 4px;
         }
         .cert-ref-value {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 14px;
             color: #0A2540;
             font-weight: 800;
             letter-spacing: 1px;
         }
 
-        /* ============ TITLE ============ */
+        /* TITLE */
         .cert-title-block {
             text-align: center;
             position: relative;
@@ -245,43 +191,33 @@
             margin-top: 6px;
         }
         .cert-title-main {
-            font-family: 'Cinzel', serif;
-            font-size: 46px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
             color: #0A2540;
-            font-weight: 700;
-            letter-spacing: 12px;
+            font-weight: 900;
+            letter-spacing: 8px;
             line-height: 1;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .cert-title-divider {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 12px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
-        .cert-title-line {
-            width: 70px;
-            height: 2px;
-            background: #F4B400;
-        }
-        .cert-title-diamond {
-            width: 8px;
-            height: 8px;
-            background: #F4B400;
-            transform: rotate(45deg);
-        }
+        .cert-title-line { width: 70px; height: 3px; background: #F4B400; }
+        .cert-title-diamond { width: 10px; height: 10px; background: #F4B400; transform: rotate(45deg); }
         .cert-title-sub {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 17px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
             color: #64748B;
             letter-spacing: 6px;
             text-transform: uppercase;
-            font-style: italic;
-            font-weight: 500;
+            font-weight: 700;
         }
 
-        /* ============ BODY ============ */
+        /* BODY */
         .cert-body {
             flex: 1;
             text-align: center;
@@ -292,74 +228,69 @@
             flex-direction: column;
             justify-content: center;
         }
-
         .cert-pre-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 17px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
             color: #64748B;
-            font-style: italic;
             letter-spacing: 1px;
-            margin-bottom: 8px;
+            font-weight: 500;
+            margin-bottom: 10px;
         }
-
         .cert-student-name {
-            font-family: 'Great Vibes', cursive;
-            font-size: 62px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 48px;
             color: #0A2540;
-            line-height: 1.1;
+            font-weight: 800;
+            line-height: 1.2;
             margin-bottom: 6px;
             padding: 0 20px;
             word-break: break-word;
+            letter-spacing: 1px;
         }
-
         .cert-name-underline {
             width: 380px;
             max-width: 70%;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #F4B400, transparent);
-            margin: 0 auto 20px;
+            height: 3px;
+            background: #F4B400;
+            margin: 0 auto 22px;
         }
-
         .cert-middle-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
             color: #64748B;
-            font-style: italic;
             letter-spacing: 0.5px;
-            margin-bottom: 12px;
+            font-weight: 500;
+            margin-bottom: 14px;
         }
-
         .cert-course-name {
-            font-family: 'Cinzel', serif;
-            font-size: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 26px;
             color: #0A2540;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
             padding: 0 30px;
             line-height: 1.3;
         }
-
         .cert-course-line {
             width: 240px;
             max-width: 60%;
-            height: 1.5px;
+            height: 2px;
             background: #F4B400;
-            margin: 0 auto 14px;
+            margin: 0 auto 16px;
         }
-
         .cert-desc-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
             color: #64748B;
-            font-style: italic;
-            max-width: 620px;
+            max-width: 640px;
             margin: 0 auto;
             line-height: 1.7;
             padding: 0 20px;
+            font-weight: 500;
         }
 
-        /* ============ FOOTER ============ */
+        /* FOOTER */
         .cert-footer {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -370,9 +301,7 @@
             padding-top: 20px;
             margin-top: 10px;
         }
-
         .cert-footer-col { text-align: center; }
-
         .cert-footer-line {
             width: 170px;
             max-width: 90%;
@@ -380,7 +309,6 @@
             background: #0A2540;
             margin: 0 auto 10px;
         }
-
         .cert-footer-label {
             font-size: 10px;
             color: #94A3B8;
@@ -389,39 +317,41 @@
             font-weight: 700;
             margin-bottom: 6px;
         }
-
         .cert-footer-value {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 14px;
             color: #0A2540;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
 
-        .cert-signature {
-            font-family: 'Great Vibes', cursive;
-            font-size: 36px;
-            color: #0A2540;
-            line-height: 1;
+        /* SIGNATURE IMAGE */
+        .cert-signature-img {
+            height: 70px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
             margin-bottom: 4px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            mix-blend-mode: multiply;
         }
-
         .cert-signature-name {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 13px;
             color: #0A2540;
             font-weight: 800;
             letter-spacing: 0.5px;
         }
-
         .cert-signature-role {
             font-size: 11px;
             color: #64748B;
-            font-style: italic;
+            font-weight: 600;
             margin-top: 2px;
         }
 
-        /* ============ BOTTOM STRIP ============ */
+        /* BOTTOM STRIP */
         .cert-bottom-strip {
             position: relative;
             z-index: 2;
@@ -432,34 +362,23 @@
             padding-top: 12px;
             border-top: 1px solid rgba(10, 37, 64, 0.08);
         }
-
         .cert-verify-text {
             font-size: 10.5px;
             color: #94A3B8;
             letter-spacing: 0.5px;
             line-height: 1.5;
+            font-weight: 500;
         }
-        .cert-verify-text strong {
-            color: #0A2540;
-            font-weight: 700;
-        }
-
-        .cert-qr-block {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
+        .cert-verify-text strong { color: #0A2540; font-weight: 700; }
+        .cert-qr-block { display: flex; align-items: center; gap: 10px; }
         .cert-qr {
-            width: 58px;
-            height: 58px;
+            width: 58px; height: 58px;
             border: 1.5px solid #0A2540;
             padding: 4px;
             background: white;
             border-radius: 4px;
         }
         .cert-qr img { width: 100%; height: 100%; display: block; }
-
         .cert-qr-label {
             font-size: 9px;
             color: #94A3B8;
@@ -468,96 +387,94 @@
             font-weight: 700;
         }
 
-        /* ============ GUILLOCHE PATTERN (subtle) ============ */
-        .guilloche {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            opacity: 0.5;
+        /* BLANK STATE (login ke bina) */
+        .is-blank .cert-student-name,
+        .is-blank .cert-course-name,
+        .is-blank .cert-ref-value,
+        .is-blank .cert-footer-value,
+        .is-blank .cert-signature-name,
+        .is-blank .cert-signature-role {
+            color: #CBD5E1;
+        }
+        .is-blank .cert-signature-img {
+            opacity: 0.25;
+            filter: grayscale(100%);
         }
 
-        /* ============ PRINT STYLES ============ */
+        /* PRINT STYLES */
         @media print {
             body { background: white; padding: 0; }
-            .action-bar { display: none; }
+            .notice-bar, .action-bar { display: none !important; }
             .certificate-wrapper {
                 box-shadow: none;
                 max-width: 100%;
                 page-break-inside: avoid;
             }
-            @page {
-                size: A4 landscape;
-                margin: 0;
-            }
+            @page { size: A4 landscape; margin: 0; }
         }
 
-        /* ============ RESPONSIVE ============ */
+        /* RESPONSIVE */
         @media (max-width: 900px) {
             .certificate-wrapper { aspect-ratio: auto; }
             .certificate-outer { padding: 14px; position: relative; }
             .certificate-inner { padding: 26px 22px 22px; border-width: 2px; }
             .corner { width: 44px; height: 44px; }
             .cert-logo { width: 54px; height: 54px; }
-            .cert-brand-text h3 { font-size: 15px; letter-spacing: 1.5px; }
+            .cert-brand-text h3 { font-size: 17px; letter-spacing: 1px; }
             .cert-brand-text p { font-size: 8px; letter-spacing: 2px; }
             .cert-ref-value { font-size: 12px; }
-            .cert-title-main { font-size: 30px; letter-spacing: 6px; }
+            .cert-title-main { font-size: 30px; letter-spacing: 4px; }
             .cert-title-sub { font-size: 13px; letter-spacing: 3px; }
-            .cert-student-name { font-size: 40px; }
-            .cert-course-name { font-size: 17px; letter-spacing: 1px; }
-            .cert-desc-text { font-size: 13px; }
+            .cert-student-name { font-size: 32px; }
+            .cert-course-name { font-size: 18px; }
+            .cert-desc-text { font-size: 12.5px; }
             .cert-footer { grid-template-columns: 1fr; gap: 16px; padding-top: 16px; }
-            .cert-signature { font-size: 28px; }
+            .cert-signature-img { height: 55px; }
             .cert-bottom-strip { flex-direction: column; gap: 12px; text-align: center; }
             .certificate-inner::before { width: 260px; height: 260px; }
+            .notice-bar { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-<!-- ============ LOADING ============ -->
-<div class="loading" id="loadingView">
-    <div class="loading-spinner"></div>
-    <p>Loading your certificate...</p>
-</div>
-
-<!-- ============ ERROR ============ -->
-<div class="error-box" id="errorView" style="display: none;">
-    <div class="error-icon">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-    </div>
-    <h2 id="errorTitle">Certificate Not Available</h2>
-    <p id="errorMessage">Aapka certificate abhi issue nahi hua. Course complete karne ke baad yeh automatically available ho jayega.</p>
-    <a href="dashboard.html" class="btn">Back to Dashboard</a>
+<!-- ============ NOTICE BAR ============ -->
+<div class="notice-bar notice-info" id="noticeBar">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="16" x2="12" y2="12"/>
+        <line x1="12" y1="8" x2="12.01" y2="8"/>
+    </svg>
+    <span id="noticeText">This is a sample certificate preview. Login to view and download your personal certificate.</span>
 </div>
 
 <!-- ============ ACTION BAR ============ -->
-<div class="action-bar" id="actionBar" style="display: none;">
-    <div class="action-bar-info">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5">
-            <polyline points="20 6 9 17 4 12"/>
-        </svg>
-        <span>Congratulations! Aapka certificate ready hai.</span>
-    </div>
+<div class="action-bar" id="actionBar">
     <div class="action-bar-buttons">
-        <a href="dashboard.html" class="btn btn-secondary btn-sm" style="padding: 10px 20px; font-size: 13px;">Back to Dashboard</a>
-        <button onclick="window.print()" class="btn btn-print" style="padding: 10px 22px; font-size: 13px;">
-            Download / Print
+        <a href="login.html" class="btn btn-secondary" id="loginBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+            </svg>
+            Login to Download
+        </a>
+        <button onclick="window.print()" class="btn btn-print" id="downloadBtn" style="display: none;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Download / Print Certificate
         </button>
     </div>
 </div>
 
 <!-- ============ CERTIFICATE ============ -->
-<div class="certificate-wrapper" id="certificateView" style="display: none;">
+<div class="certificate-wrapper" id="certificateView">
     <div class="certificate-outer">
-        <div class="certificate-inner">
+        <div class="certificate-inner" id="certInner">
 
-            <!-- Corner ornaments -->
             <div class="corner corner-tl"></div>
             <div class="corner corner-tr"></div>
             <div class="corner corner-bl"></div>
@@ -576,7 +493,7 @@
                 </div>
                 <div class="cert-ref">
                     <div class="cert-ref-label">Certificate ID</div>
-                    <div class="cert-ref-value" id="certId">APEX-2026-000</div>
+                    <div class="cert-ref-value" id="certId">APEX-XXXX-XXX</div>
                 </div>
             </div>
 
@@ -615,7 +532,7 @@
                 <div class="cert-footer-col">
                     <div class="cert-footer-line"></div>
                     <div class="cert-footer-label">Date of Issue</div>
-                    <div class="cert-footer-value" id="issueDate">17 September 2026</div>
+                    <div class="cert-footer-value" id="issueDate">DD Month YYYY</div>
                 </div>
 
                 <div class="cert-footer-col">
@@ -625,9 +542,9 @@
                 </div>
 
                 <div class="cert-footer-col">
-                    <div class="cert-signature">Mukesh Kewal</div>
+                    <img src="signature.png" alt="Mukesh Kewal Signature" class="cert-signature-img" id="signatureImage">
                     <div class="cert-footer-line"></div>
-                    <div class="cert-signature-name">Mukesh Kewal</div>
+                    <div class="cert-signature-name" id="signatureName">Mukesh Kewal</div>
                     <div class="cert-signature-role">Founder &amp; Lead Instructor</div>
                 </div>
             </div>
@@ -650,90 +567,91 @@
     </div>
 </div>
 
-<!-- ============ FIREBASE SCRIPT ============ -->
 <script type="module">
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const loadingView = document.getElementById('loadingView');
-const errorView = document.getElementById('errorView');
-const certificateView = document.getElementById('certificateView');
-const actionBar = document.getElementById('actionBar');
+const noticeBar = document.getElementById('noticeBar');
+const noticeText = document.getElementById('noticeText');
+const loginBtn = document.getElementById('loginBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const certInner = document.getElementById('certInner');
 
-function showError(title, message) {
-    loadingView.style.display = 'none';
-    certificateView.style.display = 'none';
-    actionBar.style.display = 'none';
-    errorView.style.display = 'block';
-    document.getElementById('errorTitle').textContent = title;
-    document.getElementById('errorMessage').textContent = message;
+function setBlankCertificate() {
+    certInner.classList.add('is-blank');
+    document.getElementById('certId').textContent = 'APEX-XXXX-XXX';
+    document.getElementById('studentName').textContent = 'Student Name';
+    document.getElementById('courseName').textContent = 'Course Name';
+    document.getElementById('issueDate').textContent = 'DD Month YYYY';
+    document.getElementById('signatureName').textContent = 'Mukesh Kewal';
+
+    const verifyUrl = `https://apexlearning78.github.io/Apex-Learning-Academy/verify.html`;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(verifyUrl)}&bgcolor=FFFFFF&color=0A2540&margin=0`;
+    document.getElementById('qrCode').src = qrUrl;
 }
 
-function showCertificate(cert) {
-    loadingView.style.display = 'none';
-    errorView.style.display = 'none';
-    actionBar.style.display = 'flex';
-    certificateView.style.display = 'block';
-
-    // Fill in student data
-    document.getElementById('certId').textContent = cert.certificateId || 'APEX-2026-000';
+function setRealCertificate(cert) {
+    certInner.classList.remove('is-blank');
+    document.getElementById('certId').textContent = cert.certificateId || 'APEX-XXXX-XXX';
     document.getElementById('studentName').textContent = cert.studentName || 'Student Name';
     document.getElementById('courseName').textContent = cert.course || 'Course Name';
-    document.getElementById('issueDate').textContent = cert.issueDate || new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' });
+    document.getElementById('issueDate').textContent = cert.issueDate || 'DD Month YYYY';
+    document.getElementById('signatureName').textContent = 'Mukesh Kewal';
 
-    // QR Code generate karo
     const verifyUrl = `https://apexlearning78.github.io/Apex-Learning-Academy/verify.html?id=${encodeURIComponent(cert.certificateId || '')}`;
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(verifyUrl)}&bgcolor=FFFFFF&color=0A2540&margin=0`;
     document.getElementById('qrCode').src = qrUrl;
-
-    // Page title update
-    document.title = `${cert.studentName || 'Certificate'} | Apex Learning Academy`;
 }
+
+function showNotice(type, htmlContent) {
+    noticeBar.className = 'notice-bar notice-' + type;
+    noticeText.innerHTML = htmlContent;
+}
+
+setBlankCertificate();
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        showError(
-            'Please Login',
-            'Certificate dekhne ke liye aapko login karna hoga. Login page pe jayein.'
-        );
-        setTimeout(() => window.location.href = 'login.html', 2000);
+        setBlankCertificate();
+        showNotice('info', 'This is a sample certificate preview. <a href="login.html">Login</a> to view and download your personal certificate.');
+        loginBtn.style.display = 'inline-flex';
+        downloadBtn.style.display = 'none';
+        document.title = 'Sample Certificate | Apex Learning Academy';
         return;
     }
 
     try {
-        // 1. Check if student has a certificate in certificates collection
-        const emailQuery = query(collection(db, "certificates"), where("email", "==", user.email));
-        const emailSnapshot = await getDocs(emailQuery);
-
-        if (!emailSnapshot.empty) {
-            const cert = emailSnapshot.docs[0].data();
-            showCertificate(cert);
-            return;
-        }
-
-        // 2. Also check by uid
-        const uidQuery = query(collection(db, "certificates"), where("uid", "==", user.uid));
-        const uidSnapshot = await getDocs(uidQuery);
-
-        if (!uidSnapshot.empty) {
-            const cert = uidSnapshot.docs[0].data();
-            showCertificate(cert);
-            return;
-        }
-
-        // 3. No certificate found — show error
-        showError(
-            'Certificate Not Yet Issued',
-            'Aapka certificate abhi issue nahi hua. Course complete karne ke baad, hamari team certificate issue karegi. Koi sawal? WhatsApp: 0341 034 9929'
+        let certSnapshot = await getDocs(
+            query(collection(db, "certificates"), where("email", "==", user.email))
         );
 
+        if (certSnapshot.empty) {
+            certSnapshot = await getDocs(
+                query(collection(db, "certificates"), where("uid", "==", user.uid))
+            );
+        }
+
+        if (!certSnapshot.empty) {
+            const cert = certSnapshot.docs[0].data();
+            setRealCertificate(cert);
+            showNotice('success', '<strong>Certificate verified.</strong> This is your official certificate from Apex Learning Academy. You may download or print it.');
+            loginBtn.style.display = 'none';
+            downloadBtn.style.display = 'inline-flex';
+            document.title = `${cert.studentName || 'My Certificate'} | Apex Learning Academy`;
+        } else {
+            setBlankCertificate();
+            showNotice('warning', 'Your certificate has not been issued yet. It will be available here after you complete your course. Need help? <a href="https://wa.me/923410349929">Contact us on WhatsApp</a>.');
+            loginBtn.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            document.title = 'Certificate Pending | Apex Learning Academy';
+        }
     } catch (error) {
-        console.error('Certificate error:', error);
-        showError(
-            'Unable to Load Certificate',
-            'Kuch technical masla aaya. Please try again later or contact us on WhatsApp.'
-        );
+        console.error('Certificate fetch error:', error);
+        setBlankCertificate();
+        showNotice('warning', 'Unable to load your certificate right now. Please try again later or <a href="https://wa.me/923410349929">contact us on WhatsApp</a>.');
+        loginBtn.style.display = 'none';
+        downloadBtn.style.display = 'none';
     }
 });
 </script>
