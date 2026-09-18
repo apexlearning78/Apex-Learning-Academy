@@ -15,7 +15,7 @@
             min-height: 100vh;
         }
 
-        /* LOGIN */
+        /* ============ LOGIN ============ */
         .login-screen {
             min-height: 100vh;
             display: flex;
@@ -60,7 +60,7 @@
         }
         .login-error.active { display: block; }
 
-        /* HEADER */
+        /* ============ HEADER ============ */
         .admin-header {
             background: #0A2540;
             color: #FFFFFF;
@@ -128,7 +128,7 @@
 
         .admin-body { padding: 28px; max-width: 1400px; margin: 0 auto; }
 
-        /* STATS */
+        /* ============ STATS ============ */
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
@@ -175,7 +175,7 @@
             line-height: 1;
         }
 
-        /* PANEL */
+        /* ============ PANEL ============ */
         .admin-panel {
             background: #FFFFFF;
             border-radius: 16px;
@@ -219,21 +219,6 @@
             cursor: pointer;
         }
         .btn-refresh:hover { background: #1a3a5c; }
-        .btn-new-announcement {
-            padding: 11px 20px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            color: #0A2540;
-            border: none;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 800;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-new-announcement:hover { transform: translateY(-1px); }
 
         .panel-body { max-height: 650px; overflow-y: auto; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
@@ -277,6 +262,7 @@
         .badge-info { background: #E0E7FF; color: #3730A3; }
         .badge-success { background: #D1FAE5; color: #065F46; }
         .badge-warning { background: #FEF3C7; color: #92400E; }
+        .badge-replied { background: #DBEAFE; color: #1E40AF; }
 
         .empty-state { padding: 60px 20px; text-align: center; color: #64748B; }
         .empty-state svg { width: 48px; height: 48px; color: #CBD5E1; margin-bottom: 16px; }
@@ -285,7 +271,7 @@
         .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
 
         /* Buttons */
-        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-edit {
+        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply {
             padding: 6px 12px;
             border-radius: 6px;
             border: none;
@@ -305,6 +291,8 @@
         .btn-publish:hover { background: #D1FAE5; }
         .btn-host { background: #FEF9E7; color: #78350F; }
         .btn-host:hover { background: #FEF3C7; }
+        .btn-reply { background: #E0E7FF; color: #3730A3; }
+        .btn-reply:hover { background: #C7D2FE; }
 
         /* Modal */
         .modal-overlay {
@@ -319,7 +307,7 @@
             padding: 20px;
         }
         .modal-overlay.active { display: flex; }
-        .detail-modal {
+        .detail-modal, .publish-modal {
             background: #FFFFFF;
             border-radius: 20px;
             max-width: 620px;
@@ -343,7 +331,7 @@
             color: #64748B;
         }
         .modal-close:hover { background: #E2E8F0; }
-        .detail-modal h3 {
+        .detail-modal h3, .publish-modal h3 {
             font-family: 'Poppins', sans-serif;
             font-size: 20px;
             color: #0A2540;
@@ -376,83 +364,7 @@
             word-break: break-word;
         }
 
-        /* JITSI MODAL */
-        .jitsi-modal {
-            position: fixed;
-            inset: 0;
-            background: #051429;
-            display: none;
-            z-index: 10000;
-            flex-direction: column;
-        }
-        .jitsi-modal.active { display: flex; }
-        .jitsi-topbar {
-            background: #0A2540;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-        .jitsi-info { display: flex; align-items: center; gap: 14px; color: #FFFFFF; }
-        .jitsi-logo {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            border-radius: 8px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .jitsi-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .jitsi-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px; }
-        .jitsi-sub { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 500; }
-        .jitsi-badge-host {
-            display: inline-block;
-            background: #F4B400;
-            color: #0A2540;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 8px;
-        }
-        .btn-end-class {
-            background: #EF4444;
-            color: #FFFFFF;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .btn-end-class:hover { background: #DC2626; }
-        #jitsiContainer { flex: 1; width: 100%; }
-
-        /* Publish / Form Modal */
-        .publish-modal {
-            background: #FFFFFF;
-            border-radius: 20px;
-            max-width: 560px;
-            width: 100%;
-            padding: 32px;
-            max-height: 88vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .publish-modal h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-            color: #0A2540;
-            font-weight: 800;
-            margin-bottom: 20px;
-            padding-right: 40px;
-        }
+        /* Form Fields */
         .form-field { margin-bottom: 14px; }
         .form-field label {
             display: block;
@@ -493,6 +405,63 @@
         }
         .btn-save-publish:hover { transform: translateY(-1px); }
 
+        /* JITSI Modal */
+        .jitsi-modal {
+            position: fixed;
+            inset: 0;
+            background: #051429;
+            display: none;
+            z-index: 10000;
+            flex-direction: column;
+        }
+        .jitsi-modal.active { display: flex; }
+        .jitsi-topbar {
+            background: #0A2540;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .jitsi-info { display: flex; align-items: center; gap: 14px; color: #FFFFFF; }
+        .jitsi-logo {
+            width: 36px; height: 36px;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .jitsi-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .jitsi-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px; }
+        .jitsi-sub { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 500; }
+        .jitsi-badge-host {
+            display: inline-block;
+            background: #F4B400;
+            color: #0A2540;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 100px;
+            margin-left: 8px;
+        }
+        .btn-end-class {
+            background: #EF4444;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-end-class:hover { background: #DC2626; }
+        #jitsiContainer { flex: 1; width: 100%; }
+
         @media (max-width: 768px) {
             .admin-header { padding: 14px 16px; }
             .admin-body { padding: 16px; }
@@ -501,6 +470,7 @@
             .admin-stat-value { font-size: 22px; }
             .admin-user-email { display: none; }
             .panel-search { width: 100%; }
+            .admin-stats { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -561,7 +531,6 @@
 
     <div class="admin-body">
 
-        <!-- Stats -->
         <div class="admin-stats">
             <div class="admin-stat-card active" data-tab="students" onclick="switchTab('students')">
                 <div class="admin-stat-label">Students</div>
@@ -597,7 +566,6 @@
             </div>
         </div>
 
-        <!-- Panel -->
         <div class="admin-panel">
             <div class="panel-header">
                 <div class="panel-title" id="panelTitle">Students</div>
@@ -694,12 +662,10 @@
             <label>Title</label>
             <input type="text" id="annTitle" placeholder="e.g. New Batch Starting Monday">
         </div>
-
         <div class="form-field">
             <label>Message</label>
             <textarea id="annMessage" rows="4" placeholder="Write the announcement message here..."></textarea>
         </div>
-
         <div class="form-field">
             <label>Type</label>
             <select id="annType">
@@ -708,7 +674,6 @@
                 <option value="warning">Warning (Yellow)</option>
             </select>
         </div>
-
         <div class="form-field">
             <label>Visibility</label>
             <select id="annActive">
@@ -720,6 +685,65 @@
         <button class="btn-save-publish" onclick="saveAnnouncement()" style="background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
             Publish Announcement
         </button>
+    </div>
+</div>
+
+<!-- ============ REPLY MODAL ============ -->
+<div class="modal-overlay" id="replyModal">
+    <div class="publish-modal" style="max-width: 640px;">
+        <button class="modal-close" onclick="closeReplyModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Reply to Message</h3>
+        <input type="hidden" id="replyDocId">
+
+        <div class="form-field">
+            <label>To</label>
+            <input type="text" id="replyTo" readonly style="background:#F8FAFC;">
+        </div>
+        <div class="form-field">
+            <label>Subject</label>
+            <input type="text" id="replySubject" readonly style="background:#F8FAFC;">
+        </div>
+        <div class="form-field">
+            <label>Original Message</label>
+            <textarea id="replyOriginal" rows="3" readonly style="background:#F8FAFC;"></textarea>
+        </div>
+
+        <div class="form-field">
+            <label>Quick Templates</label>
+            <select id="replyTemplate" onchange="applyReplyTemplate()">
+                <option value="">— Choose a professional template —</option>
+                <option value="thanks">Thank You (General)</option>
+                <option value="fees">Course Fees Inquiry</option>
+                <option value="timing">Class Timing Inquiry</option>
+                <option value="enrollment">Enrollment Process</option>
+                <option value="demo">Free Demo Class</option>
+                <option value="certificate">Certificate Inquiry</option>
+                <option value="technical">Technical Issue</option>
+                <option value="payment">Payment Methods</option>
+                <option value="batch">Batch Information</option>
+                <option value="refund">Refund Policy</option>
+                <option value="custom">Custom Reply</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Your Reply</label>
+            <textarea id="replyText" rows="10" placeholder="Type your response here..." style="font-size: 13.5px; line-height: 1.7;"></textarea>
+        </div>
+
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-save-publish" onclick="saveReply()" style="background: linear-gradient(135deg, #2563EB, #1E40AF); color: #FFFFFF; flex: 1;">
+                Save Reply
+            </button>
+            <button class="btn-save-publish" onclick="copyReplyAndWhatsApp()" style="background: linear-gradient(135deg, #25D366, #128C7E); color: #FFFFFF; flex: 1;">
+                Copy & WhatsApp
+            </button>
+        </div>
     </div>
 </div>
 
@@ -762,7 +786,6 @@
     <div id="jitsiContainer"></div>
 </div>
 
-<!-- JITSI API -->
 <script src="https://meet.jit.si/external_api.js"></script>
 
 <script type="module">
@@ -770,10 +793,12 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// ⚠️ APNA ADMIN UID YAHAN
+// ============ ADMIN CONFIG ============
 const ADMIN_UID = 'VHbqYaHK6yXP2f8IF9WKc33kkD73';
 const ADMIN_NAME = 'Mukesh Kewal';
+const ADMIN_WHATSAPP = '923410349929';
 
+// ============ STATE ============
 let allData = {
     students: [],
     instructors: [],
@@ -789,6 +814,7 @@ let currentSearch = '';
 let jitsiApi = null;
 let currentHostClass = null;
 
+// ============ DEFAULT SCHEDULE ============
 const DEFAULT_SCHEDULE = [
     { id: 'default-coding-mon', subjectLabel: 'Coding Course', title: 'Python — Functions & Modules', day: 'Monday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-Coding-Batch1' },
     { id: 'default-ai-tue', subjectLabel: 'AI Course', title: 'Introduction to Machine Learning', day: 'Tuesday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-AI-Batch1' },
@@ -796,6 +822,254 @@ const DEFAULT_SCHEDULE = [
     { id: 'default-ai-thu', subjectLabel: 'AI Course', title: 'Prompt Engineering Workshop', day: 'Thursday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-AI-Batch1' },
     { id: 'default-doubt-sat', subjectLabel: 'Doubt Session', title: 'Open Q&A — All Students Welcome', day: 'Saturday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-DoubtSession' }
 ];
+
+// ============ REPLY TEMPLATES ============
+const REPLY_TEMPLATES = {
+    thanks: `Assalam-o-Alaikum {NAME},
+
+Thank you for reaching out to Apex Learning Academy.
+
+We have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.
+
+We appreciate your interest in our academy and look forward to helping you achieve your learning goals.
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.
+Contact: 0341 034 9929`,
+
+    fees: `Assalam-o-Alaikum {NAME},
+
+Thank you for your interest in Apex Learning Academy.
+
+Course Fee Details:
+
+• Coding (Python + Web Development)
+  — Rs. 3,000 per month
+  — Duration: 3 months
+
+• Artificial Intelligence
+  — Rs. 4,000 per month
+  — Duration: 4 months
+
+Both courses include:
+  ✓ Live interactive classes (evening 6:00 PM - 8:00 PM)
+  ✓ Small batch size (10-15 students)
+  ✓ Real-world projects & portfolio building
+  ✓ Certificate on successful completion
+  ✓ Lifetime access to class recordings
+
+Affordable fees with quality education — our mission is to make quality tech education accessible to every Pakistani student.
+
+For enrollment, please contact us:
+WhatsApp: 0341 034 9929
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    timing: `Assalam-o-Alaikum {NAME},
+
+Thank you for your inquiry about class timings at Apex Learning Academy.
+
+Weekly Live Class Schedule (Pakistan Standard Time):
+
+• Monday — Coding: 6:00 PM to 8:00 PM
+• Tuesday — Artificial Intelligence: 6:00 PM to 8:00 PM
+• Wednesday — Coding: 6:00 PM to 8:00 PM
+• Thursday — Artificial Intelligence: 6:00 PM to 8:00 PM
+• Saturday — Open Doubt Session: 6:00 PM to 8:00 PM
+
+All classes are conducted online through Jitsi Meet (no download required). Students can join from anywhere in Pakistan.
+
+Recordings are available for all sessions so you can catch up anytime.
+
+For registration, contact us:
+WhatsApp: 0341 034 9929
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    enrollment: `Assalam-o-Alaikum {NAME},
+
+Thank you for your interest in enrolling at Apex Learning Academy.
+
+Simple Enrollment Process:
+
+1. Visit our website
+2. Click "Register Now" and fill the registration form
+3. Our team will contact you within 24 hours on WhatsApp
+4. Book your FREE demo class
+5. Make payment via JazzCash / EasyPaisa / Bank Transfer
+6. Your enrollment will be activated within 24 hours
+
+What you'll receive after enrollment:
+  ✓ Access to Google Classroom
+  ✓ Live class schedule & Jitsi Meet links
+  ✓ Course materials & resources
+  ✓ Student community access
+  ✓ Dashboard for progress tracking
+
+For assistance, please contact us:
+WhatsApp: 0341 034 9929
+
+We look forward to welcoming you to Apex Learning Academy!
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    demo: `Assalam-o-Alaikum {NAME},
+
+Thank you for your interest in our FREE demo class at Apex Learning Academy.
+
+We offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment. There is absolutely no obligation.
+
+What to expect in your demo:
+  ✓ Introduction to the course topic
+  ✓ Live interaction with the instructor
+  ✓ Sample lesson from the curriculum
+  ✓ Q&A session
+  ✓ Overview of projects & certificate
+
+To book your free demo:
+WhatsApp us at: 0341 034 9929
+
+Our team will schedule the demo at your preferred time.
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    certificate: `Assalam-o-Alaikum {NAME},
+
+Thank you for your inquiry about certificates at Apex Learning Academy.
+
+Certificate Details:
+
+✓ Issued upon successful course completion
+✓ Requires 75% attendance and final project submission
+✓ Includes a unique Certificate ID for verification
+✓ Can be verified online at our verification portal
+✓ QR code included for instant verification
+✓ Professional design with founder's signature
+
+Students can:
+  • View certificate from their dashboard
+  • Download as PDF
+  • Share on LinkedIn & social media
+  • Provide to employers as verified proof
+
+For any certificate-related questions:
+WhatsApp: 0341 034 9929
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    technical: `Assalam-o-Alaikum {NAME},
+
+Thank you for reporting the technical issue at Apex Learning Academy.
+
+We sincerely apologize for any inconvenience caused. Our technical team will investigate and resolve the matter as quickly as possible.
+
+To help us resolve faster, please share:
+  • Screenshot of the issue (if possible)
+  • Browser and device you are using
+  • Exact steps that led to the problem
+  • Any error messages you saw
+
+For urgent assistance:
+WhatsApp: 0341 034 9929
+
+We appreciate your patience and will get back to you soon.
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    payment: `Assalam-o-Alaikum {NAME},
+
+Thank you for your inquiry about payment methods at Apex Learning Academy.
+
+Accepted Payment Options:
+
+1. JazzCash (Mobile Wallet)
+2. EasyPaisa (Mobile Wallet)
+3. Bank Transfer (Direct)
+
+Payment Process:
+1. Choose your course and confirm enrollment
+2. Our team will share the payment details on WhatsApp
+3. Make the payment through your preferred method
+4. Send us the payment screenshot
+5. Your enrollment will be activated within 24 hours
+
+Fees:
+• Coding: Rs. 3,000 per month
+• AI: Rs. 4,000 per month
+
+Fees are payable monthly in advance.
+
+For payment assistance:
+WhatsApp: 0341 034 9929
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    batch: `Assalam-o-Alaikum {NAME},
+
+Thank you for your interest in joining Apex Learning Academy.
+
+Batch Information:
+
+Our batches are kept small — only 10 to 15 students per batch — so that every student receives personal attention from the instructor.
+
+Current Batches:
+• Coding Batch 1 — Monday & Wednesday, 6:00 PM to 8:00 PM
+• AI Batch 1 — Tuesday & Thursday, 6:00 PM to 8:00 PM
+• Weekend Special — Saturday, 6:00 PM to 8:00 PM
+• Open Doubt Session — Saturday evening
+
+Why small batches?
+  ✓ Personal attention for every student
+  ✓ Individual doubt clearing
+  ✓ Better learning outcomes
+  ✓ Direct interaction with instructor
+
+New batches start every month. To reserve your seat:
+WhatsApp: 0341 034 9929
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    refund: `Assalam-o-Alaikum {NAME},
+
+Thank you for your inquiry about our refund policy at Apex Learning Academy.
+
+Refund Policy:
+
+• Fees are non-refundable once a course has started
+• For new enrollments, cancellation must be requested BEFORE the first class
+• In case of duplicate payment, full refund will be processed within 7 working days
+• Course fees can be adjusted toward a different course (once)
+• All refund requests must be made in writing via WhatsApp or email
+
+Our team is committed to transparency and fairness. If you have any special circumstances, please discuss with us — we handle each case individually.
+
+For refund-related questions:
+WhatsApp: 0341 034 9929
+Email: mukeshkewal19@gmail.com
+
+Best regards,
+Apex Learning Academy Team
+Learn. Rise. Achieve.`,
+
+    custom: ''
+};
 
 // ============ LOGIN ============
 document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
@@ -820,7 +1094,7 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
     }
 });
 
-// ============ AUTH STATE ============
+// ============ AUTH ============
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         document.getElementById('loginScreen').style.display = 'flex';
@@ -936,7 +1210,6 @@ function renderTab(tab) {
         data = data.filter(item => JSON.stringify(item).toLowerCase().includes(currentSearch));
     }
 
-    // Announcements tab ke liye special header (New button ke saath)
     if (tab === 'announcements') {
         renderAnnouncements(data);
         return;
@@ -963,6 +1236,7 @@ function renderTab(tab) {
     else if (tab === 'attendance') renderAttendance(data);
 }
 
+// ============ RENDER STUDENTS ============
 function renderStudents(data) {
     const rows = data.map(s => `
         <tr>
@@ -988,6 +1262,7 @@ function renderStudents(data) {
         </table>`;
 }
 
+// ============ RENDER INSTRUCTORS ============
 function renderInstructors(data) {
     const rows = data.map(i => `
         <tr>
@@ -1013,30 +1288,45 @@ function renderInstructors(data) {
         </table>`;
 }
 
+// ============ RENDER MESSAGES (with Reply) ============
 function renderMessages(data) {
-    const rows = data.map(m => `
-        <tr>
-            <td><strong>${m.name || '—'}</strong></td>
-            <td>${m.email || '—'}</td>
-            <td><span class="truncate">${m.subject || '—'}</span></td>
-            <td><span class="truncate">${m.message || '—'}</span></td>
-            <td>${m.type || 'contact'}</td>
-            <td>
-                <button class="btn-view" onclick="viewDetail('messages', '${m.id}')">View</button>
-                <button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">Delete</button>
-            </td>
-        </tr>
-    `).join('');
+    const rows = data.map(m => {
+        let dateStr = '—';
+        if (m.sentAt && m.sentAt.seconds) {
+            dateStr = new Date(m.sentAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        let statusBadge = '<span class="badge badge-pending">UNREAD</span>';
+        if (m.status === 'read') statusBadge = '<span class="badge badge-active">READ</span>';
+        else if (m.status === 'replied') statusBadge = '<span class="badge badge-replied">REPLIED</span>';
+
+        return `
+            <tr>
+                <td><strong>${m.name || '—'}</strong></td>
+                <td>${m.email || '—'}</td>
+                <td><span class="truncate">${m.subject || '—'}</span></td>
+                <td><span class="truncate">${m.message || '—'}</span></td>
+                <td>${statusBadge}</td>
+                <td>${dateStr}</td>
+                <td>
+                    <button class="btn-view" onclick="viewDetail('messages', '${m.id}')">View</button>
+                    <button class="btn-reply" onclick="openReplyModal('${m.id}')">Reply</button>
+                    <button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">Delete</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
 
     document.getElementById('panelBody').innerHTML = `
         <table class="data-table">
             <thead><tr>
-                <th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Type</th><th>Actions</th>
+                <th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th>
             </tr></thead>
             <tbody>${rows}</tbody>
         </table>`;
 }
 
+// ============ RENDER CERTIFICATES ============
 function renderCertificates(data) {
     const rows = data.map(c => `
         <tr>
@@ -1062,6 +1352,7 @@ function renderCertificates(data) {
         </table>`;
 }
 
+// ============ RENDER TESTS ============
 function renderTests(data) {
     const rows = data.map(t => {
         const statusBadge = t.status === 'published'
@@ -1098,6 +1389,7 @@ function renderTests(data) {
         </table>`;
 }
 
+// ============ RENDER LIVE CLASSES ============
 function renderLiveClasses(data) {
     const rows = data.map((cls, idx) => `
         <tr>
@@ -1124,6 +1416,7 @@ function renderLiveClasses(data) {
     window._currentLiveClasses = data;
 }
 
+// ============ RENDER ATTENDANCE ============
 function renderAttendance(data) {
     const sorted = [...data].reverse();
     const rows = sorted.map(a => {
@@ -1159,18 +1452,15 @@ function renderAttendance(data) {
         </table>`;
 }
 
+// ============ RENDER ANNOUNCEMENTS ============
 function renderAnnouncements(data) {
     const header = `
         <div style="padding: 16px 20px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
             <div style="font-size: 13px; color: #64748B; font-weight: 600;">
                 Total: <strong style="color: #0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}
             </div>
-            <button class="btn-new-announcement" onclick="openAnnouncementModal()">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                    <line x1="12" y1="5" x2="12" y2="19"/>
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
-                New Announcement
+            <button class="btn-publish" onclick="openAnnouncementModal()" style="padding: 11px 20px; font-size: 13px; background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
+                + New Announcement
             </button>
         </div>
     `;
@@ -1254,7 +1544,7 @@ window.viewDetail = function(tab, id) {
         html += `
             <div class="detail-row">
                 <div class="detail-label">${label}</div>
-                <div class="detail-value">${value || '—'}</div>
+                <div class="detail-value" style="white-space: pre-line;">${value || '—'}</div>
             </div>`;
     });
 
@@ -1354,10 +1644,7 @@ window.saveAnnouncement = async function() {
 
     try {
         await addDoc(collection(db, 'announcements'), {
-            title,
-            message,
-            type,
-            active,
+            title, message, type, active,
             createdAt: serverTimestamp()
         });
 
@@ -1367,6 +1654,128 @@ window.saveAnnouncement = async function() {
     } catch (err) {
         alert('Failed to publish: ' + err.message);
     }
+};
+
+// ============ REPLY SYSTEM ============
+window.openReplyModal = function(msgId) {
+    const msg = allData.messages.find(m => m.id === msgId);
+    if (!msg) return;
+
+    document.getElementById('replyDocId').value = msg.id;
+    document.getElementById('replyTo').value = `${msg.name || ''} <${msg.email || ''}>`;
+    document.getElementById('replySubject').value = `Re: ${msg.subject || ''}`;
+    document.getElementById('replyOriginal').value = msg.message || '';
+    document.getElementById('replyText').value = msg.adminReply || '';
+    document.getElementById('replyTemplate').value = '';
+
+    // Mark as read
+    if (msg.status === 'unread') {
+        updateDoc(doc(db, 'messages', msg.id), { status: 'read' }).catch(() => {});
+        const idx = allData.messages.findIndex(m => m.id === msg.id);
+        if (idx >= 0) allData.messages[idx].status = 'read';
+    }
+
+    document.getElementById('replyModal').classList.add('active');
+};
+
+window.closeReplyModal = function() {
+    document.getElementById('replyModal').classList.remove('active');
+};
+
+document.getElementById('replyModal').addEventListener('click', (e) => {
+    if (e.target.id === 'replyModal') closeReplyModal();
+});
+
+window.applyReplyTemplate = function() {
+    const key = document.getElementById('replyTemplate').value;
+    if (!key || !REPLY_TEMPLATES[key]) return;
+
+    const msgId = document.getElementById('replyDocId').value;
+    const msg = allData.messages.find(m => m.id === msgId);
+    if (!msg) return;
+
+    const template = REPLY_TEMPLATES[key]
+        .replace(/{NAME}/g, msg.name || 'Student')
+        .replace(/{SUBJECT}/g, msg.subject || '')
+        .replace(/{EMAIL}/g, msg.email || '');
+
+    document.getElementById('replyText').value = template;
+};
+
+window.saveReply = async function() {
+    const docId = document.getElementById('replyDocId').value;
+    const replyText = document.getElementById('replyText').value.trim();
+
+    if (!docId || !replyText) {
+        alert('Please write a reply before saving.');
+        return;
+    }
+
+    try {
+        const updates = {
+            adminReply: replyText,
+            status: 'replied',
+            repliedAt: serverTimestamp()
+        };
+
+        await updateDoc(doc(db, 'messages', docId), updates);
+
+        const idx = allData.messages.findIndex(m => m.id === docId);
+        if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], ...updates };
+
+        closeReplyModal();
+        renderTab('messages');
+        alert('✅ Reply saved successfully!\n\nTip: Use "Copy & WhatsApp" to send the reply to the student.');
+    } catch (err) {
+        alert('Failed to save reply: ' + err.message);
+    }
+};
+
+window.copyReplyAndWhatsApp = async function() {
+    const replyText = document.getElementById('replyText').value.trim();
+    const docId = document.getElementById('replyDocId').value;
+    const msg = allData.messages.find(m => m.id === docId);
+
+    if (!replyText) {
+        alert('Please select a template or write a reply first.');
+        return;
+    }
+
+    // Copy to clipboard
+    try {
+        await navigator.clipboard.writeText(replyText);
+    } catch (e) {
+        console.warn('Copy failed');
+    }
+
+    // Save reply
+    if (docId) {
+        try {
+            await updateDoc(doc(db, 'messages', docId), {
+                adminReply: replyText,
+                status: 'replied',
+                repliedAt: serverTimestamp()
+            });
+            const idx = allData.messages.findIndex(m => m.id === docId);
+            if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], adminReply: replyText, status: 'replied' };
+        } catch (e) {}
+    }
+
+    // Open WhatsApp (student ke number ka pata nahi, so open generic)
+    // Agar message mein phone hai to woh use karo
+    let phone = msg && msg.whatsapp ? msg.whatsapp.replace(/\D/g, '') : '';
+    if (phone && !phone.startsWith('92')) {
+        phone = '92' + phone.substring(1);
+    }
+
+    if (phone) {
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(replyText)}`, '_blank');
+    } else {
+        window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${encodeURIComponent(replyText)}`, '_blank');
+    }
+
+    closeReplyModal();
+    renderTab('messages');
 };
 
 // ============ HOST LIVE CLASS ============
@@ -1462,11 +1871,7 @@ async function launchHostJitsi(cls) {
 
     try {
         jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', options);
-
-        jitsiApi.addEventListener('participantJoined', (p) => {
-            console.log('Joined:', p.displayName);
-        });
-
+        jitsiApi.addEventListener('participantJoined', (p) => console.log('Joined:', p.displayName));
         jitsiApi.addEventListener('videoConferenceLeft', () => endHostedClass());
         jitsiApi.addEventListener('readyToClose', () => endHostedClass());
     } catch(e) {
