@@ -39,8 +39,7 @@
             <p class="section-desc">Fill in your details and our team will contact you within 24 hours on WhatsApp.</p>
         </div>
 
-<form class="register-form" onsubmit="return false;">
-              style="max-width: 800px; margin: 0 auto; background: var(--white); padding: 48px; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);">
+        <form class="register-form" id="registerForm" style="max-width: 800px; margin: 0 auto; background: var(--white); padding: 48px; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);">
             
             <h3 style="font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy-800); padding-bottom: 12px; border-bottom: 2px solid var(--gold-500); margin-bottom: 24px;">Personal Information</h3>
             
@@ -140,12 +139,13 @@
         </div>
     </div>
 </footer>
+
 <script type="module">
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-document.querySelector('.register-form').addEventListener('submit', async (e) => {
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -162,8 +162,7 @@ document.querySelector('.register-form').addEventListener('submit', async (e) =>
         education: document.querySelector('select[name="education"]').value,
         course: document.querySelector('select[name="course"]').value,
         timing: document.querySelector('select[name="timing"]').value,
-        reason: document.querySelector('textarea[name="reason"]')?.value.trim() || '',
-        laptop: document.querySelector('select[name="laptop"]')?.value || ''
+        reason: document.querySelector('textarea[name="reason"]')?.value.trim() || ''
     };
 
     if (!formData.fullName || !formData.email || !formData.whatsapp) {
@@ -201,14 +200,13 @@ document.querySelector('.register-form').addEventListener('submit', async (e) =>
             course: formData.course,
             timing: formData.timing,
             reason: formData.reason,
-            laptop: formData.laptop,
             enrolledAt: serverTimestamp(),
             status: 'pending',
             attendance: 0,
             progress: 0
         });
 
-        alert(`Registration successful!\n\nEmail: ${formData.email}\nHamari team 24 ghante mein WhatsApp pe rabta karegi.`);
+        alert('Registration successful!\n\nEmail: ' + formData.email + '\nHamari team 24 ghante mein WhatsApp pe rabta karegi.');
         window.location.href = 'index.html';
 
     } catch (error) {
@@ -219,5 +217,6 @@ document.querySelector('.register-form').addEventListener('submit', async (e) =>
     }
 });
 </script>
+
 </body>
 </html>
