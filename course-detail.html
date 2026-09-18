@@ -15,6 +15,9 @@
             position: relative;
             overflow: hidden;
         }
+        .course-hero.ai-theme {
+            background: linear-gradient(160deg, #042F2E 0%, #065F56 50%, #00A896 100%);
+        }
         .course-hero::before {
             content: '';
             position: absolute;
@@ -80,7 +83,6 @@
             color: #F4B400;
         }
 
-        /* Sidebar Card */
         .enroll-card {
             background: #FFFFFF;
             border-radius: 20px;
@@ -171,14 +173,9 @@
             cursor: pointer;
             transition: all 0.25s;
         }
-        .btn-secondary-course:hover {
-            border-color: #0A2540;
-        }
+        .btn-secondary-course:hover { border-color: #0A2540; }
 
-        /* Tabs */
-        .course-content {
-            padding: 64px 0;
-        }
+        .course-content { padding: 64px 0; }
         .tabs {
             display: flex;
             gap: 4px;
@@ -228,10 +225,7 @@
             line-height: 1.8;
             font-weight: 500;
         }
-        .content-box ul {
-            list-style: none;
-            padding: 0;
-        }
+        .content-box ul { list-style: none; padding: 0; }
         .content-box ul li {
             padding: 10px 0 10px 32px;
             position: relative;
@@ -272,10 +266,7 @@
             color: #64748B;
             font-weight: 600;
         }
-        .module-body {
-            padding: 16px 22px;
-            display: none;
-        }
+        .module-body { padding: 16px 22px; display: none; }
         .module.open .module-body { display: block; }
         .module-body ul li {
             padding: 8px 0 8px 26px;
@@ -283,12 +274,9 @@
             border-bottom: 1px solid #F1F5F9;
         }
         .module-body ul li:last-child { border-bottom: none; }
-        .module-body ul li::before {
-            top: 15px;
-            width: 14px; height: 14px;
-        }
+        .module-body ul li::before { top: 15px; width: 14px; height: 14px; }
 
-        /* ============ PAYMENT MODAL ============ */
+        /* Payment Modal */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -302,10 +290,7 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
+        .modal-overlay.active { display: flex; opacity: 1; }
         .payment-modal {
             background: #FFFFFF;
             border-radius: 22px;
@@ -320,9 +305,7 @@
             max-height: 92vh;
             overflow-y: auto;
         }
-        .modal-overlay.active .payment-modal {
-            transform: translateY(0) scale(1);
-        }
+        .modal-overlay.active .payment-modal { transform: translateY(0) scale(1); }
         .payment-modal::before {
             content: '';
             position: absolute;
@@ -344,10 +327,7 @@
             transition: all 0.25s;
             color: #64748B;
         }
-        .modal-close:hover {
-            background: #E2E8F0;
-            color: #0A2540;
-        }
+        .modal-close:hover { background: #E2E8F0; color: #0A2540; }
         .modal-icon {
             width: 76px; height: 76px;
             margin: 0 auto 20px;
@@ -358,10 +338,7 @@
             justify-content: center;
             box-shadow: 0 12px 30px rgba(244,180,0,0.35);
         }
-        .modal-icon svg {
-            width: 36px; height: 36px;
-            color: #0A2540;
-        }
+        .modal-icon svg { width: 36px; height: 36px; color: #0A2540; }
         .modal-title {
             font-family: 'Poppins', sans-serif;
             font-size: 24px;
@@ -369,7 +346,6 @@
             color: #0A2540;
             text-align: center;
             margin-bottom: 10px;
-            letter-spacing: -0.3px;
         }
         .modal-subtitle {
             font-size: 14.5px;
@@ -394,7 +370,6 @@
             border-radius: 12px;
             padding: 18px 16px;
             text-align: center;
-            transition: all 0.25s;
         }
         .payment-method-icon {
             font-family: 'Poppins', sans-serif;
@@ -414,7 +389,6 @@
         .payment-method.easypaisa { border-left: 4px solid #10B981; }
         .payment-method.bank { border-left: 4px solid #0A2540; }
         .payment-method.whatsapp { border-left: 4px solid #25D366; }
-
         .modal-note {
             background: #FEF9E7;
             border-left: 4px solid #F4B400;
@@ -426,10 +400,7 @@
             line-height: 1.7;
             font-weight: 500;
         }
-        .modal-note strong {
-            color: #0A2540;
-            font-weight: 800;
-        }
+        .modal-note strong { color: #0A2540; font-weight: 800; }
         .btn-whatsapp {
             display: flex;
             align-items: center;
@@ -447,18 +418,11 @@
             background: linear-gradient(135deg, #25D366, #128C7E);
             color: #FFFFFF;
             box-shadow: 0 10px 28px rgba(37,211,102,0.35);
-            letter-spacing: 0.3px;
             margin-bottom: 12px;
             transition: all 0.25s;
         }
-        .btn-whatsapp:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 34px rgba(37,211,102,0.45);
-        }
-        .btn-whatsapp svg {
-            width: 20px; height: 20px;
-            fill: currentColor;
-        }
+        .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(37,211,102,0.45); }
+        .btn-whatsapp svg { width: 20px; height: 20px; fill: currentColor; }
         .btn-modal-secondary {
             display: block;
             width: 100%;
@@ -472,12 +436,8 @@
             background: #FFFFFF;
             color: #64748B;
             cursor: pointer;
-            transition: all 0.25s;
         }
-        .btn-modal-secondary:hover {
-            border-color: #0A2540;
-            color: #0A2540;
-        }
+        .btn-modal-secondary:hover { border-color: #0A2540; color: #0A2540; }
 
         @media (max-width: 900px) {
             .course-hero-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -489,7 +449,6 @@
 </head>
 <body>
 
-<!-- ============ HEADER ============ -->
 <header class="site-header">
     <div class="header-inner">
         <a href="index.html" class="brand">
@@ -516,16 +475,16 @@
     </div>
 </header>
 
-<!-- ============ COURSE HERO ============ -->
-<section class="course-hero">
+<!-- ============ COURSE HERO (DYNAMIC) ============ -->
+<section class="course-hero" id="courseHero">
     <div class="container">
         <div class="course-hero-grid">
             <div>
                 <span class="course-hero-tag" id="courseTag">Programming</span>
                 <h1 id="courseTitle">Coding: Python + Web Development</h1>
                 <p id="courseSubtitle">
-                    A complete 3-month journey from zero to job-ready. Master Python, build responsive websites, 
-                    and create real projects you can showcase to employers and clients.
+                    A complete journey from zero to job-ready. Master Python, build responsive websites, 
+                    and create real projects you can showcase.
                 </p>
                 <div class="course-hero-meta">
                     <div class="course-hero-meta-item">
@@ -547,7 +506,7 @@
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
                         </svg>
-                        <span id="courseLang">Urdu + English</span>
+                        <span>Urdu + English</span>
                     </div>
                 </div>
             </div>
@@ -561,31 +520,14 @@
                     <div class="enroll-note">Affordable fees. Quality education.</div>
 
                     <ul class="enroll-features">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            Free demo class available
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            Small batches (10-15 students)
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            Real projects &amp; portfolio
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            Certificate on completion
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                            Lifetime access to recordings
-                        </li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Free demo class available</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Small batches (10-15 students)</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Real projects &amp; portfolio</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Certificate on completion</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>Lifetime access to recordings</li>
                     </ul>
 
-                    <button class="btn-enroll" onclick="openPaymentModal()">
-                        Enroll Now / Make Payment
-                    </button>
+                    <button class="btn-enroll" onclick="openPaymentModal()">Enroll Now / Make Payment</button>
                     <a href="register.html" class="btn-secondary-course">Book Free Demo Class</a>
                 </div>
             </div>
@@ -593,7 +535,7 @@
     </div>
 </section>
 
-<!-- ============ COURSE CONTENT ============ -->
+<!-- ============ COURSE CONTENT (DYNAMIC) ============ -->
 <section class="course-content">
     <div class="container">
         <div class="tabs">
@@ -604,135 +546,39 @@
             <button class="tab-btn" onclick="switchTab(event, 'instructor')">Instructor</button>
         </div>
 
-        <!-- Overview -->
         <div class="tab-content active" id="overview">
             <div class="content-box">
                 <h3>About This Course</h3>
-                <p id="overviewText">
-                    This comprehensive course is designed for absolute beginners who want to build a career in 
-                    programming and web development. You will start with the fundamentals of Python and progress 
-                    to building complete, responsive websites using HTML, CSS, and JavaScript.
-                </p>
-                <p style="margin-top: 14px;">
-                    Every concept is taught through practical examples and real projects. By the end of this course, 
-                    you will have a strong portfolio to showcase your skills.
-                </p>
+                <p id="overviewText">Loading...</p>
+                <p style="margin-top: 14px;" id="overviewExtra"></p>
             </div>
-
             <div class="content-box">
                 <h3>What You Will Learn</h3>
-                <ul id="learnList">
-                    <li>Python programming from absolute basics to advanced concepts</li>
-                    <li>Object Oriented Programming (OOP) with real-world examples</li>
-                    <li>HTML5 and CSS3 for modern web design</li>
-                    <li>JavaScript fundamentals and DOM manipulation</li>
-                    <li>Responsive design for mobile and desktop</li>
-                    <li>Git and GitHub for version control</li>
-                    <li>Building 3 complete real-world projects</li>
-                    <li>Problem solving and logical thinking</li>
-                </ul>
+                <ul id="learnList"></ul>
             </div>
         </div>
 
-        <!-- Curriculum -->
         <div class="tab-content" id="curriculum">
             <div class="content-box">
                 <h3>Course Curriculum</h3>
-                <div class="module open">
-                    <div class="module-header" onclick="toggleModule(this)">
-                        Module 1 — Python Fundamentals
-                        <span>Weeks 1-3</span>
-                    </div>
-                    <div class="module-body">
-                        <ul>
-                            <li>Introduction to programming and Python setup</li>
-                            <li>Variables, data types, and operators</li>
-                            <li>Conditional statements and loops</li>
-                            <li>Functions and parameters</li>
-                            <li>Lists, tuples, dictionaries, sets</li>
-                            <li>File handling and error handling</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="module">
-                    <div class="module-header" onclick="toggleModule(this)">
-                        Module 2 — Object Oriented Programming
-                        <span>Weeks 4-5</span>
-                    </div>
-                    <div class="module-body">
-                        <ul>
-                            <li>Classes and objects</li>
-                            <li>Inheritance and polymorphism</li>
-                            <li>Encapsulation and abstraction</li>
-                            <li>Building a real OOP project</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="module">
-                    <div class="module-header" onclick="toggleModule(this)">
-                        Module 3 — Web Development
-                        <span>Weeks 6-9</span>
-                    </div>
-                    <div class="module-body">
-                        <ul>
-                            <li>HTML5 structure and semantic tags</li>
-                            <li>CSS3 styling, flexbox, and grid</li>
-                            <li>Responsive design and media queries</li>
-                            <li>JavaScript fundamentals</li>
-                            <li>DOM manipulation and events</li>
-                            <li>Building a complete portfolio website</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="module">
-                    <div class="module-header" onclick="toggleModule(this)">
-                        Module 4 — Git, GitHub & Final Projects
-                        <span>Weeks 10-12</span>
-                    </div>
-                    <div class="module-body">
-                        <ul>
-                            <li>Git version control basics</li>
-                            <li>GitHub repository management</li>
-                            <li>Building a Calculator App</li>
-                            <li>Building a To-Do List App</li>
-                            <li>Building a Portfolio Website</li>
-                            <li>Final project defense and certificate</li>
-                        </ul>
-                    </div>
-                </div>
+                <div id="curriculumContent"></div>
             </div>
         </div>
 
-        <!-- Projects -->
         <div class="tab-content" id="projects">
             <div class="content-box">
                 <h3>Real Projects You Will Build</h3>
-                <ul>
-                    <li><strong>Calculator Application</strong> — A fully functional calculator with Python</li>
-                    <li><strong>To-Do List App</strong> — Task management with file storage</li>
-                    <li><strong>Personal Portfolio Website</strong> — Complete responsive website with HTML, CSS, JS</li>
-                    <li><strong>Weather App</strong> — Live weather data using public APIs</li>
-                </ul>
+                <ul id="projectsList"></ul>
             </div>
         </div>
 
-        <!-- Requirements -->
         <div class="tab-content" id="requirements">
             <div class="content-box">
                 <h3>Requirements</h3>
-                <ul>
-                    <li>A laptop or desktop computer (Windows, Mac, or Linux)</li>
-                    <li>Stable internet connection</li>
-                    <li>Willingness to practice daily (1-2 hours minimum)</li>
-                    <li>No prior programming experience needed</li>
-                </ul>
+                <ul id="requirementsList"></ul>
             </div>
         </div>
 
-        <!-- Instructor -->
         <div class="tab-content" id="instructor">
             <div class="content-box">
                 <h3>Your Instructor</h3>
@@ -747,8 +593,7 @@
                 </div>
                 <p style="margin-top: 20px;">
                     Mukesh Kewal is a passionate programmer and educator with a mission to make 
-                    quality technology education accessible and affordable for every Pakistani student. 
-                    His teaching style focuses on practical, project-based learning with real-world examples.
+                    quality technology education accessible and affordable for every Pakistani student.
                 </p>
             </div>
         </div>
@@ -802,15 +647,12 @@
             Once payment is confirmed, your enrollment will be activated within 24 hours.
         </div>
 
-        <a href="https://wa.me/923410349929?text=Assalam-o-Alaikum%2C%20I%20want%20to%20enroll%20in%20a%20course%20at%20Apex%20Learning%20Academy.%20Please%20guide%20me%20with%20the%20payment%20process." 
-           target="_blank" class="btn-whatsapp">
+        <a href="#" id="whatsappLink" target="_blank" class="btn-whatsapp">
             <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg>
             Contact on WhatsApp
         </a>
 
-        <button class="btn-modal-secondary" onclick="closePaymentModal()">
-            Maybe Later
-        </button>
+        <button class="btn-modal-secondary" onclick="closePaymentModal()">Maybe Later</button>
     </div>
 </div>
 
@@ -825,12 +667,160 @@
 </footer>
 
 <script>
-// ============ MODULE TOGGLE ============
+// ==========================================================
+// COURSE DATA — Coding aur AI ki saari details
+// ==========================================================
+const COURSES = {
+    coding: {
+        tag: 'Programming',
+        title: 'Coding: Python + Web Development',
+        subtitle: 'A complete 3-month journey from zero to job-ready. Master Python, build responsive websites, and create real projects you can showcase to employers and clients.',
+        duration: '3 Months',
+        level: 'Beginner to Advanced',
+        fee: 'Rs. 3,000',
+        theme: 'coding',
+        overview: 'This comprehensive course is designed for absolute beginners who want to build a career in programming and web development. You will start with the fundamentals of Python and progress to building complete, responsive websites using HTML, CSS, and JavaScript.',
+        overviewExtra: 'Every concept is taught through practical examples and real projects. By the end of this course, you will have a strong portfolio to showcase your skills.',
+        learn: [
+            'Python programming from absolute basics to advanced concepts',
+            'Object Oriented Programming (OOP) with real-world examples',
+            'HTML5 and CSS3 for modern web design',
+            'JavaScript fundamentals and DOM manipulation',
+            'Responsive design for mobile and desktop',
+            'Git and GitHub for version control',
+            'Building 3 complete real-world projects',
+            'Problem solving and logical thinking'
+        ],
+        curriculum: [
+            { title: 'Module 1 — Python Fundamentals', weeks: 'Weeks 1-3', items: ['Introduction to programming and Python setup', 'Variables, data types, and operators', 'Conditional statements and loops', 'Functions and parameters', 'Lists, tuples, dictionaries, sets', 'File handling and error handling'] },
+            { title: 'Module 2 — Object Oriented Programming', weeks: 'Weeks 4-5', items: ['Classes and objects', 'Inheritance and polymorphism', 'Encapsulation and abstraction', 'Building a real OOP project'] },
+            { title: 'Module 3 — Web Development', weeks: 'Weeks 6-9', items: ['HTML5 structure and semantic tags', 'CSS3 styling, flexbox, and grid', 'Responsive design and media queries', 'JavaScript fundamentals', 'DOM manipulation and events', 'Building a complete portfolio website'] },
+            { title: 'Module 4 — Git, GitHub & Final Projects', weeks: 'Weeks 10-12', items: ['Git version control basics', 'GitHub repository management', 'Building a Calculator App', 'Building a To-Do List App', 'Building a Portfolio Website', 'Final project defense and certificate'] }
+        ],
+        projects: [
+            '<strong>Calculator Application</strong> — A fully functional calculator with Python',
+            '<strong>To-Do List App</strong> — Task management with file storage',
+            '<strong>Personal Portfolio Website</strong> — Complete responsive website with HTML, CSS, JS',
+            '<strong>Weather App</strong> — Live weather data using public APIs'
+        ],
+        requirements: [
+            'A laptop or desktop computer (Windows, Mac, or Linux)',
+            'Stable internet connection',
+            'Willingness to practice daily (1-2 hours minimum)',
+            'No prior programming experience needed'
+        ]
+    },
+    ai: {
+        tag: 'Artificial Intelligence',
+        title: 'AI: Foundations & Machine Learning',
+        subtitle: 'Learn how modern AI works — from ChatGPT and prompt engineering to building your own AI applications with Python and Machine Learning.',
+        duration: '4 Months',
+        level: 'Beginner to Advanced',
+        fee: 'Rs. 4,000',
+        theme: 'ai',
+        overview: 'This course is designed for students who want to understand Artificial Intelligence from the ground up. You will learn the fundamentals of AI, how machine learning works, and how to build real AI applications using Python.',
+        overviewExtra: 'By the end of this course, you will have hands-on experience with AI models, prompt engineering, and real-world AI projects.',
+        learn: [
+            'AI fundamentals and core concepts',
+            'Python programming for AI and data science',
+            'NumPy, Pandas, and data manipulation',
+            'Machine Learning fundamentals',
+            'Supervised and unsupervised learning',
+            'ChatGPT and prompt engineering',
+            'Building real AI applications',
+            'Introduction to Deep Learning'
+        ],
+        curriculum: [
+            { title: 'Module 1 — Python for AI', weeks: 'Weeks 1-4', items: ['Python basics for AI', 'NumPy for numerical computing', 'Pandas for data manipulation', 'Matplotlib and Seaborn for visualization', 'Working with real datasets'] },
+            { title: 'Module 2 — AI Foundations', weeks: 'Weeks 5-8', items: ['What is AI and Machine Learning', 'Types of machine learning', 'Supervised vs unsupervised learning', 'Model training and evaluation', 'Training your first ML model'] },
+            { title: 'Module 3 — Prompt Engineering & ChatGPT', weeks: 'Weeks 9-12', items: ['Understanding Large Language Models', 'Prompt engineering patterns', 'Building applications with ChatGPT API', 'Practical AI use cases', 'Real-world AI automation'] },
+            { title: 'Module 4 — AI Projects', weeks: 'Weeks 13-16', items: ['Building an AI Chatbot', 'Building an Image Classifier', 'Building a Prediction Model', 'Final project defense and certificate'] }
+        ],
+        projects: [
+            '<strong>AI Chatbot</strong> — A conversational AI using ChatGPT API',
+            '<strong>Image Classifier</strong> — Machine learning model to classify images',
+            '<strong>Prediction Model</strong> — Real-world prediction using ML',
+            '<strong>AI Automation Tool</strong> — Automate tasks with AI'
+        ],
+        requirements: [
+            'A laptop or desktop computer (Windows, Mac, or Linux)',
+            'Stable internet connection',
+            'Basic computer skills',
+            'Willingness to learn mathematics (no advanced math required)',
+            'No prior AI or coding experience needed'
+        ]
+    }
+};
+
+// ==========================================================
+// URL PARAMETER PADHO
+// ==========================================================
+const params = new URLSearchParams(window.location.search);
+const courseKey = (params.get('course') || 'coding').toLowerCase();
+const course = COURSES[courseKey] || COURSES.coding;
+
+// ==========================================================
+// PAGE UPDATE KARO
+// ==========================================================
+function loadCourse(c) {
+    // Title
+    document.title = `${c.title} | Apex Learning Academy`;
+
+    // Hero theme
+    const heroSection = document.getElementById('courseHero');
+    if (c.theme === 'ai') heroSection.classList.add('ai-theme');
+
+    // Hero content
+    document.getElementById('courseTag').textContent = c.tag;
+    document.getElementById('courseTitle').textContent = c.title;
+    document.getElementById('courseSubtitle').textContent = c.subtitle;
+    document.getElementById('courseDuration').textContent = c.duration;
+    document.getElementById('courseLevel').textContent = c.level;
+    document.getElementById('courseFee').textContent = c.fee;
+
+    // Overview
+    document.getElementById('overviewText').textContent = c.overview;
+    document.getElementById('overviewExtra').textContent = c.overviewExtra;
+
+    // What you will learn
+    document.getElementById('learnList').innerHTML = c.learn.map(i => `<li>${i}</li>`).join('');
+
+    // Curriculum
+    document.getElementById('curriculumContent').innerHTML = c.curriculum.map((m, idx) => `
+        <div class="module${idx === 0 ? ' open' : ''}">
+            <div class="module-header" onclick="toggleModule(this)">
+                ${m.title}
+                <span>${m.weeks}</span>
+            </div>
+            <div class="module-body">
+                <ul>${m.items.map(i => `<li>${i}</li>`).join('')}</ul>
+            </div>
+        </div>
+    `).join('');
+
+    // Projects
+    document.getElementById('projectsList').innerHTML = c.projects.map(p => `<li>${p}</li>`).join('');
+
+    // Requirements
+    document.getElementById('requirementsList').innerHTML = c.requirements.map(r => `<li>${r}</li>`).join('');
+
+    // WhatsApp link
+    const waMsg = `Assalam-o-Alaikum, I want to enroll in the ${c.title} course at Apex Learning Academy. Please guide me with the payment process.`;
+    document.getElementById('whatsappLink').href = `https://wa.me/923410349929?text=${encodeURIComponent(waMsg)}`;
+}
+
+loadCourse(course);
+
+// ==========================================================
+// MODULE TOGGLE
+// ==========================================================
 function toggleModule(header) {
     header.parentElement.classList.toggle('open');
 }
 
-// ============ TAB SWITCH ============
+// ==========================================================
+// TAB SWITCH
+// ==========================================================
 function switchTab(e, tabId) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -838,7 +828,9 @@ function switchTab(e, tabId) {
     document.getElementById(tabId).classList.add('active');
 }
 
-// ============ PAYMENT MODAL ============
+// ==========================================================
+// PAYMENT MODAL
+// ==========================================================
 function openPaymentModal() {
     document.getElementById('paymentModal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -855,7 +847,6 @@ document.addEventListener('keydown', (e) => {
 });
 </script>
 
-<!-- Dynamic Navbar -->
 <script type="module" src="auth-nav.js"></script>
 
 </body>
