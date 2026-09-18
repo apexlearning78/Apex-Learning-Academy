@@ -4,42 +4,598 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live Classes | Apex Learning Academy</title>
+    <meta name="description" content="Join live classes at Apex Learning Academy. Interactive sessions with expert instructors.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============ NAVBAR ============ */
+        .main-nav { gap: 2px !important; }
+        .main-nav a {
+            padding: 9px 13px !important;
+            font-size: 13.5px !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .nav-dropdown > a svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.25s;
+        }
+        .nav-dropdown.open > a svg { transform: rotate(180deg); }
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(10, 37, 64, 0.18);
+            padding: 8px;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s;
+            z-index: 100;
+            border: 1px solid #E2E8F0;
+        }
+        .nav-dropdown.open .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            border-left: 1px solid #E2E8F0;
+        }
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px !important;
+            color: #334155 !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-dropdown-menu a:hover {
+            background: #F8FAFC;
+            color: #0A2540 !important;
+            padding-left: 16px !important;
+        }
+        .nav-dropdown-menu a svg {
+            width: 15px;
+            height: 15px;
+            color: #F4B400;
+            flex-shrink: 0;
+        }
+
+        .mobile-toggle {
+            display: none;
+            color: #FFFFFF;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .btn-login {
+            padding: 9px 16px;
+            font-size: 13.5px;
+            white-space: nowrap;
+        }
+        .btn-header-cta {
+            padding: 10px 18px;
+            font-size: 13.5px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 1150px) {
+            .main-nav { display: none !important; }
+            .mobile-toggle { display: flex; }
+            .header-inner { padding: 14px 20px; }
+        }
+        @media (max-width: 540px) {
+            .btn-login { display: none; }
+            .brand-text { display: none; }
+        }
+
+        .mobile-menu {
+            display: none;
+            background: #0A2540;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 16px 20px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 13px 16px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .mobile-menu a:hover, .mobile-menu a.active {
+            background: rgba(255,255,255,0.08);
+            color: #F4B400;
+        }
+        .mobile-menu-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+            margin: 12px 0;
+        }
+        .mobile-menu-label {
+            font-size: 11px;
+            color: #F4B400;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            padding: 8px 16px;
+            margin-top: 6px;
+        }
+        .site-header { position: sticky; }
+
+        /* ============ LIVE CLASS CARDS ============ */
+        .live-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            gap: 16px;
+        }
+        .live-card {
+            background: var(--white);
+            padding: 24px;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            transition: all 0.25s;
+        }
+        .live-card:hover {
+            box-shadow: 0 12px 32px rgba(10, 37, 64, 0.1);
+            transform: translateY(-2px);
+        }
+        .live-card.coding { border-left: 4px solid var(--teal-500); }
+        .live-card.ai { border-left: 4px solid var(--gold-500); }
+        .live-card.doubt { border-left: 4px solid var(--navy-800); }
+
+        .live-info { flex: 1; min-width: 200px; }
+        .live-subject {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 6px;
+        }
+        .live-subject.coding { color: var(--teal-500); }
+        .live-subject.ai { color: var(--gold-600); }
+        .live-subject.doubt { color: var(--navy-800); }
+
+        .live-title {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: var(--navy-800);
+            font-family: var(--font-heading);
+            font-weight: 700;
+        }
+        .live-meta {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .live-live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #FEF2F2;
+            color: #991B1B;
+            padding: 3px 9px;
+            border-radius: 100px;
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .live-live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #EF4444;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .join-btn {
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            color: #0A2540;
+            padding: 11px 22px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 13.5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            box-shadow: 0 6px 18px rgba(244,180,0,0.28);
+        }
+        .join-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(244,180,0,0.38);
+        }
+        .join-btn svg { width: 15px; height: 15px; }
+
+        /* Empty state */
+        .empty-live {
+            text-align: center;
+            padding: 60px 24px;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+        .empty-live svg { width: 60px; height: 60px; color: #CBD5E1; margin-bottom: 16px; }
+        .empty-live h3 { color: var(--navy-800); margin-bottom: 8px; }
+        .empty-live p { color: var(--text-muted); font-size: 15px; }
+
+        /* ============ JOIN MODAL ============ */
+        .join-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 37, 64, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+        }
+        .join-modal.active { display: flex; }
+        .join-modal-box {
+            background: #FFFFFF;
+            border-radius: 20px;
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 32px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            animation: modalIn 0.35s ease;
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .join-modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #F4B400, #d99f00);
+        }
+        .join-modal-icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 28px rgba(244,180,0,0.35);
+        }
+        .join-modal-icon svg { width: 32px; height: 32px; color: #0A2540; }
+        .join-modal-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #0A2540;
+            margin-bottom: 8px;
+        }
+        .join-modal-subtitle {
+            font-size: 14px;
+            color: #64748B;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+        .join-modal-class-info {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+            text-align: left;
+            border-left: 4px solid #F4B400;
+        }
+        .join-modal-class-label {
+            font-size: 11px;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .join-modal-class-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0A2540;
+            margin-bottom: 4px;
+        }
+        .join-modal-class-time {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 600;
+        }
+        .join-modal-input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 15px;
+            color: #0A2540;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+        .join-modal-input:focus {
+            outline: none;
+            border-color: #F4B400;
+            box-shadow: 0 0 0 3px rgba(244,180,0,0.12);
+        }
+        .btn-join-confirm {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(16,185,129,0.32);
+            transition: all 0.25s;
+            margin-bottom: 10px;
+        }
+        .btn-join-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(16,185,129,0.42);
+        }
+        .btn-join-cancel {
+            width: 100%;
+            padding: 13px;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            border: 2px solid #E2E8F0;
+            background: #FFFFFF;
+            color: #64748B;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .btn-join-cancel:hover { border-color: #0A2540; color: #0A2540; }
+
+        /* ============ JITSI CONTAINER MODAL ============ */
+        .jitsi-modal {
+            position: fixed;
+            inset: 0;
+            background: #0A2540;
+            display: none;
+            z-index: 10000;
+            flex-direction: column;
+        }
+        .jitsi-modal.active { display: flex; }
+        .jitsi-topbar {
+            background: #051429;
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            flex-wrap: wrap;
+        }
+        .jitsi-topbar-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: #FFFFFF;
+        }
+        .jitsi-topbar-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .jitsi-topbar-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .jitsi-topbar-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+        }
+        .jitsi-topbar-sub {
+            font-size: 11.5px;
+            color: rgba(255,255,255,0.6);
+            font-weight: 500;
+        }
+        .btn-leave-class {
+            background: #EF4444;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 13.5px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.25s;
+        }
+        .btn-leave-class:hover { background: #DC2626; }
+
+        #jitsiContainer {
+            flex: 1;
+            width: 100%;
+            background: #051429;
+        }
+    </style>
 </head>
 <body>
 
+<!-- ============ HEADER ============ -->
 <header class="site-header">
     <div class="header-inner">
         <a href="index.html" class="brand">
             <div class="brand-logo"><img src="logo.png" alt="Apex"></div>
-            <div class="brand-text"><span class="brand-name">APEX</span><span class="brand-sub">LEARNING ACADEMY</span></div>
+            <div class="brand-text">
+                <span class="brand-name">APEX</span>
+                <span class="brand-sub">LEARNING ACADEMY</span>
+            </div>
         </a>
+
         <nav class="main-nav">
             <a href="index.html">Home</a>
             <a href="courses.html">Courses</a>
             <a href="live-classes.html" class="active">Live Classes</a>
-            <a href="instructors.html">Instructors</a>
             <a href="resources.html">Resources</a>
-            <a href="about.html">About</a>
-            <a href="blog.html">Blog</a>
-            <a href="contact.html">Contact</a>
+            
+            <div class="nav-dropdown" id="moreDropdown">
+                <a href="javascript:void(0)" onclick="toggleDropdown()">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </a>
+                <div class="nav-dropdown-menu">
+                    <a href="instructors.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        Instructors
+                    </a>
+                    <a href="about.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        About Us
+                    </a>
+                    <a href="blog.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        Blog
+                    </a>
+                    <a href="test.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        Entrance Test
+                    </a>
+                    <a href="check-result.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        Check Result
+                    </a>
+                    <a href="contact.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Contact
+                    </a>
+                </div>
+            </div>
         </nav>
-        <div class="header-actions">
+
+        <div class="header-actions" id="authActions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
         </div>
+
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="live-classes.html" class="active">Live Classes</a>
+        <a href="resources.html">Resources</a>
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        <a href="instructors.html">Instructors</a>
+        <a href="about.html">About Us</a>
+        <a href="blog.html">Blog</a>
+        <a href="test.html">Entrance Test</a>
+        <a href="check-result.html">Check Result</a>
+        <a href="contact.html">Contact</a>
+        <div class="mobile-menu-divider"></div>
+        <a href="login.html" id="mobileLoginLink">Login</a>
+        <a href="register.html" id="mobileRegisterLink">Register Now</a>
+        <a href="dashboard.html" id="mobileDashboardLink" style="display:none;">Dashboard</a>
+        <a href="#" id="mobileLogoutLink" style="display:none;">Logout</a>
     </div>
 </header>
 
+<!-- ============ HERO ============ -->
 <section class="hero" style="padding: 64px 0 56px;">
     <div class="container" style="text-align: center;">
         <span class="hero-badge"><span class="hero-badge-dot"></span>Live Sessions Running</span>
         <h1 style="font-size: 2.75rem; margin: 20px 0 16px;">Live Class Schedule</h1>
-        <p style="font-size: 17px; color: rgba(255,255,255,0.78); max-width: 620px; margin: 0 auto;">Join interactive live sessions with your instructor. All classes held via Google Meet and Jitsi Meet.</p>
+        <p style="font-size: 17px; color: rgba(255,255,255,0.78); max-width: 620px; margin: 0 auto;">
+            Join interactive live sessions with your instructor. All classes held via Jitsi Meet — no download required.
+        </p>
     </div>
 </section>
 
+<!-- ============ LIVE CLASSES ============ -->
 <section class="section">
     <div class="container">
         <div class="section-head">
@@ -48,57 +604,13 @@
             <p class="section-desc">All times are in Pakistan Standard Time (PKT).</p>
         </div>
 
-        <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 16px;">
-
-            <div style="background: var(--white); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); border-left: 4px solid var(--teal-500); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--teal-500); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">Coding Course</div>
-                    <h4 style="font-size: 18px; margin-bottom: 6px;">Python — Functions & Modules</h4>
-                    <p style="font-size: 13.5px; color: var(--text-muted);">Monday — 6:00 PM to 8:00 PM | Google Meet</p>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm">Join Class</a>
-            </div>
-
-            <div style="background: var(--white); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); border-left: 4px solid var(--gold-500); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--gold-600); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">AI Course</div>
-                    <h4 style="font-size: 18px; margin-bottom: 6px;">Introduction to Machine Learning</h4>
-                    <p style="font-size: 13.5px; color: var(--text-muted);">Tuesday — 6:00 PM to 8:00 PM | Google Meet</p>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm">Join Class</a>
-            </div>
-
-            <div style="background: var(--white); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); border-left: 4px solid var(--teal-500); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--teal-500); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">Coding Course</div>
-                    <h4 style="font-size: 18px; margin-bottom: 6px;">HTML & CSS — Responsive Layouts</h4>
-                    <p style="font-size: 13.5px; color: var(--text-muted);">Wednesday — 6:00 PM to 8:00 PM | Google Meet</p>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm">Join Class</a>
-            </div>
-
-            <div style="background: var(--white); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); border-left: 4px solid var(--gold-500); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--gold-600); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">AI Course</div>
-                    <h4 style="font-size: 18px; margin-bottom: 6px;">Prompt Engineering Workshop</h4>
-                    <p style="font-size: 13.5px; color: var(--text-muted);">Thursday — 6:00 PM to 8:00 PM | Jitsi Meet</p>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm">Join Class</a>
-            </div>
-
-            <div style="background: var(--white); padding: 24px; border-radius: var(--radius-lg); border: 1px solid var(--border-color); border-left: 4px solid var(--teal-500); display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px;">
-                    <div style="font-size: 11px; font-weight: 700; color: var(--teal-500); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;">Doubt Session</div>
-                    <h4 style="font-size: 18px; margin-bottom: 6px;">Open Q&A — All Students Welcome</h4>
-                    <p style="font-size: 13.5px; color: var(--text-muted);">Saturday — 6:00 PM to 8:00 PM | Google Meet</p>
-                </div>
-                <a href="#" class="btn btn-primary btn-sm">Join Class</a>
-            </div>
-
+        <div class="live-grid" id="liveGrid">
+            <!-- Cards injected by JS -->
         </div>
     </div>
 </section>
 
+<!-- ============ HOW IT WORKS ============ -->
 <section class="section section-alt">
     <div class="container">
         <div class="section-head">
@@ -131,14 +643,487 @@
     </div>
 </section>
 
+<!-- ============ JOIN MODAL ============ -->
+<div class="join-modal" id="joinModal">
+    <div class="join-modal-box">
+        <div class="join-modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="23 7 16 12 23 17 23 7"/>
+                <rect x="1" y="5" width="15" height="14" rx="2"/>
+            </svg>
+        </div>
+        <h2 class="join-modal-title">Join Live Class</h2>
+        <p class="join-modal-subtitle">Enter your name to join the class. This name will be visible to the instructor.</p>
+
+        <div class="join-modal-class-info">
+            <div class="join-modal-class-label">Class</div>
+            <div class="join-modal-class-name" id="modalClassName">—</div>
+            <div class="join-modal-class-time" id="modalClassTime">—</div>
+        </div>
+
+        <input type="text" id="studentJoinName" class="join-modal-input" placeholder="Enter your full name" autocomplete="off">
+
+        <button class="btn-join-confirm" onclick="confirmJoin()">
+            Join Class Now
+        </button>
+        <button class="btn-join-cancel" onclick="closeJoinModal()">
+            Cancel
+        </button>
+    </div>
+</div>
+
+<!-- ============ JITSI ROOM MODAL ============ -->
+<div class="jitsi-modal" id="jitsiModal">
+    <div class="jitsi-topbar">
+        <div class="jitsi-topbar-info">
+            <div class="jitsi-topbar-logo"><img src="logo.png" alt="Apex"></div>
+            <div>
+                <div class="jitsi-topbar-title" id="jitsiTitle">Live Class</div>
+                <div class="jitsi-topbar-sub" id="jitsiSubtitle">Apex Learning Academy</div>
+            </div>
+        </div>
+        <button class="btn-leave-class" onclick="leaveClass()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Leave Class
+        </button>
+    </div>
+    <div id="jitsiContainer"></div>
+</div>
+
+<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
     <div class="container">
-        <div class="footer-bottom" style="border-top: none;">
+        <div class="footer-grid">
+            <div class="footer-brand-block">
+                <div class="brand">
+                    <div class="brand-logo"><img src="logo.png" alt="Apex"></div>
+                    <div class="brand-text">
+                        <span class="brand-name">APEX</span>
+                        <span class="brand-sub">LEARNING ACADEMY</span>
+                    </div>
+                </div>
+                <p>Pakistan's most affordable online academy for Coding and Artificial Intelligence. Practical learning, personal attention, and real results.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C4.9 19 12 19 12 19s7.1 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+                    <a href="https://wa.me/923410349929" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academy</h4>
+                <a href="about.html">About Us</a>
+                <a href="instructors.html">Instructors</a>
+                <a href="live-classes.html">Live Classes</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Learning</h4>
+                <a href="courses.html">All Courses</a>
+                <a href="resources.html">Resources</a>
+                <a href="test.html">Entrance Test</a>
+                <a href="check-result.html">Check Result</a>
+                <a href="verify.html">Verify Certificate</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/923410349929">WhatsApp: 0341 034 9929</a>
+                <a href="mailto:mukeshkewal19@gmail.com">mukeshkewal19@gmail.com</a>
+                <a href="https://whatsapp.com/channel/0029VbDZS7a3bbV6vpN9Ra0P">WhatsApp Channel</a>
+                <a href="#">Online Classes Only</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
             <span>&copy; 2026 Apex Learning Academy. All rights reserved.</span>
             <span>Learn. Rise. Achieve.</span>
         </div>
     </div>
 </footer>
+
+<!-- ============ JITSI MEET API ============ -->
+<script src="https://meet.jit.si/external_api.js"></script>
+
+<!-- ============ NAVBAR SCRIPTS ============ -->
+<script>
+function toggleDropdown() {
+    document.getElementById('moreDropdown').classList.toggle('open');
+}
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('moreDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+    }
+});
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+    });
+});
+</script>
+
+<!-- ============ MAIN SCRIPT ============ -->
+<script type="module">
+import { auth, db } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// ==================== LIVE CLASS SCHEDULE ====================
+// Agar Firestore mein classes nahi hain, yeh default schedule use hoga
+const DEFAULT_SCHEDULE = [
+    {
+        id: 'coding-mon',
+        subject: 'coding',
+        subjectLabel: 'Coding Course',
+        title: 'Python — Functions & Modules',
+        day: 'Monday',
+        time: '6:00 PM to 8:00 PM',
+        roomName: 'ApexLearning-Coding-Batch1',
+        platform: 'Jitsi Meet',
+        status: 'scheduled'
+    },
+    {
+        id: 'ai-tue',
+        subject: 'ai',
+        subjectLabel: 'AI Course',
+        title: 'Introduction to Machine Learning',
+        day: 'Tuesday',
+        time: '6:00 PM to 8:00 PM',
+        roomName: 'ApexLearning-AI-Batch1',
+        platform: 'Jitsi Meet',
+        status: 'scheduled'
+    },
+    {
+        id: 'coding-wed',
+        subject: 'coding',
+        subjectLabel: 'Coding Course',
+        title: 'HTML & CSS — Responsive Layouts',
+        day: 'Wednesday',
+        time: '6:00 PM to 8:00 PM',
+        roomName: 'ApexLearning-Coding-Batch1',
+        platform: 'Jitsi Meet',
+        status: 'scheduled'
+    },
+    {
+        id: 'ai-thu',
+        subject: 'ai',
+        subjectLabel: 'AI Course',
+        title: 'Prompt Engineering Workshop',
+        day: 'Thursday',
+        time: '6:00 PM to 8:00 PM',
+        roomName: 'ApexLearning-AI-Batch1',
+        platform: 'Jitsi Meet',
+        status: 'scheduled'
+    },
+    {
+        id: 'doubt-sat',
+        subject: 'doubt',
+        subjectLabel: 'Doubt Session',
+        title: 'Open Q&A — All Students Welcome',
+        day: 'Saturday',
+        time: '6:00 PM to 8:00 PM',
+        roomName: 'ApexLearning-DoubtSession',
+        platform: 'Jitsi Meet',
+        status: 'scheduled'
+    }
+];
+
+let currentUser = null;
+let currentClass = null;
+let jitsiApi = null;
+
+// ==================== AUTH ====================
+onAuthStateChanged(auth, (user) => {
+    currentUser = user;
+
+    const authActions = document.getElementById('authActions');
+    const mobileLogin = document.getElementById('mobileLoginLink');
+    const mobileRegister = document.getElementById('mobileRegisterLink');
+    const mobileDashboard = document.getElementById('mobileDashboardLink');
+    const mobileLogout = document.getElementById('mobileLogoutLink');
+
+    if (user) {
+        if (authActions) {
+            authActions.innerHTML = `
+                <a href="dashboard.html" class="btn-login">Dashboard</a>
+                <button id="navLogoutBtn" class="btn-header-cta" style="border:none; cursor:pointer; font-family:inherit; font-size:13.5px;">Logout</button>
+            `;
+            document.getElementById('navLogoutBtn').addEventListener('click', async () => {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            });
+        }
+        if (mobileLogin) mobileLogin.style.display = 'none';
+        if (mobileRegister) mobileRegister.style.display = 'none';
+        if (mobileDashboard) mobileDashboard.style.display = 'block';
+        if (mobileLogout) {
+            mobileLogout.style.display = 'block';
+            mobileLogout.addEventListener('click', async (e) => {
+                e.preventDefault();
+                await signOut(auth);
+                window.location.href = 'index.html';
+            });
+        }
+    } else {
+        if (authActions) {
+            authActions.innerHTML = `
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-header-cta">Register Now</a>
+            `;
+        }
+        if (mobileLogin) mobileLogin.style.display = 'block';
+        if (mobileRegister) mobileRegister.style.display = 'block';
+        if (mobileDashboard) mobileDashboard.style.display = 'none';
+        if (mobileLogout) mobileLogout.style.display = 'none';
+    }
+});
+
+// ==================== LOAD SCHEDULE ====================
+async function loadSchedule() {
+    const grid = document.getElementById('liveGrid');
+    let classes = DEFAULT_SCHEDULE;
+
+    // Try to load from Firestore
+    try {
+        const snapshot = await getDocs(collection(db, 'liveClasses'));
+        if (!snapshot.empty) {
+            classes = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+        }
+    } catch (err) {
+        console.warn('Using default schedule:', err.message);
+    }
+
+    // Render
+    grid.innerHTML = classes.map(cls => {
+        const subjectClass = cls.subject === 'coding' ? 'coding' : (cls.subject === 'ai' ? 'ai' : 'doubt');
+        const isLive = cls.status === 'live';
+
+        return `
+            <div class="live-card ${subjectClass}">
+                <div class="live-info">
+                    <div class="live-subject ${subjectClass}">
+                        ${cls.subjectLabel || cls.subject}
+                        ${isLive ? '<span class="live-live-badge">LIVE NOW</span>' : ''}
+                    </div>
+                    <h4 class="live-title">${cls.title}</h4>
+                    <div class="live-meta">
+                        <span>${cls.day} — ${cls.time}</span>
+                        <span>|</span>
+                        <span>${cls.platform || 'Jitsi Meet'}</span>
+                    </div>
+                </div>
+                <button class="join-btn" onclick="openJoinModal('${cls.id}')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <polygon points="23 7 16 12 23 17 23 7"/>
+                        <rect x="1" y="5" width="15" height="14" rx="2"/>
+                    </svg>
+                    Join Class
+                </button>
+            </div>
+        `;
+    }).join('');
+
+    // Save classes globally
+    window._liveClasses = classes;
+}
+
+loadSchedule();
+
+// ==================== OPEN JOIN MODAL ====================
+window.openJoinModal = function(classId) {
+    const classes = window._liveClasses || DEFAULT_SCHEDULE;
+    const cls = classes.find(c => c.id === classId);
+    if (!cls) return;
+
+    currentClass = cls;
+
+    document.getElementById('modalClassName').textContent = cls.title;
+    document.getElementById('modalClassTime').textContent = `${cls.day} — ${cls.time}`;
+
+    // Pre-fill name if logged in
+    const nameInput = document.getElementById('studentJoinName');
+    if (currentUser && currentUser.displayName) {
+        nameInput.value = currentUser.displayName;
+    } else {
+        nameInput.value = '';
+    }
+
+    document.getElementById('joinModal').classList.add('active');
+    setTimeout(() => nameInput.focus(), 200);
+};
+
+window.closeJoinModal = function() {
+    document.getElementById('joinModal').classList.remove('active');
+};
+
+document.getElementById('joinModal').addEventListener('click', (e) => {
+    if (e.target.id === 'joinModal') closeJoinModal();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeJoinModal();
+    }
+});
+
+// Enter key on name input
+document.getElementById('studentJoinName').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') confirmJoin();
+});
+
+// ==================== CONFIRM JOIN ====================
+window.confirmJoin = async function() {
+    const name = document.getElementById('studentJoinName').value.trim();
+
+    if (!name) {
+        alert('Please enter your name to join the class.');
+        return;
+    }
+
+    if (name.length < 3) {
+        alert('Please enter your full name (at least 3 characters).');
+        return;
+    }
+
+    // Save attendance to Firestore
+    try {
+        await addDoc(collection(db, 'attendance'), {
+            studentName: name,
+            studentEmail: currentUser ? currentUser.email : 'guest',
+            studentUid: currentUser ? currentUser.uid : 'guest',
+            classId: currentClass.id,
+            className: currentClass.title,
+            subject: currentClass.subject,
+            joinedAt: serverTimestamp(),
+            status: 'joined'
+        });
+    } catch (err) {
+        console.warn('Attendance save failed:', err.message);
+    }
+
+    closeJoinModal();
+    startJitsi(name);
+};
+
+// ==================== START JITSI ====================
+function startJitsi(displayName) {
+    const modal = document.getElementById('jitsiModal');
+    document.getElementById('jitsiTitle').textContent = currentClass.title;
+    document.getElementById('jitsiSubtitle').textContent = `${currentClass.subjectLabel} | Apex Learning Academy`;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Container clear karo
+    const container = document.getElementById('jitsiContainer');
+    container.innerHTML = '';
+
+    // Jitsi options
+    const options = {
+        roomName: currentClass.roomName,
+        width: '100%',
+        height: '100%',
+        parentNode: container,
+        userInfo: {
+            displayName: displayName
+        },
+        configOverwrite: {
+            startWithAudioMuted: true,
+            startWithVideoMuted: false,
+            prejoinPageEnabled: false,
+            disableDeepLinking: true,
+            toolbarButtons: [
+                'microphone', 'camera', 'closedcaptions', 'desktop',
+                'fullscreen', 'fodeviceselection', 'hangup', 'chat',
+                'raisehand', 'videoquality', 'tileview', 'select-background',
+                'download', 'help', 'mute-everyone', 'settings'
+            ]
+        },
+        interfaceConfigOverwrite: {
+            SHOW_JITSI_WATERMARK: false,
+            SHOW_WATERMARK_FOR_GUESTS: false,
+            SHOW_BRAND_WATERMARK: false,
+            DEFAULT_BACKGROUND: '#0A2540',
+            TOOLBAR_ALWAYS_VISIBLE: false,
+            DISABLE_JOIN_LEAVE_NOTIFICATIONS: false
+        }
+    };
+
+    try {
+        jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', options);
+
+        // ============ ATTENDANCE EVENTS ============
+        jitsiApi.addEventListener('participantJoined', (participant) => {
+            console.log('✅ Participant joined:', participant.displayName);
+        });
+
+        jitsiApi.addEventListener('participantLeft', (participant) => {
+            console.log('👋 Participant left:', participant.displayName);
+        });
+
+        jitsiApi.addEventListener('videoConferenceLeft', () => {
+            leaveClass();
+        });
+
+        jitsiApi.addEventListener('readyToClose', () => {
+            leaveClass();
+        });
+
+    } catch (err) {
+        console.error('Jitsi error:', err);
+        alert('Unable to start live class. Please try again.');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// ==================== LEAVE CLASS ====================
+window.leaveClass = async function() {
+    // Save leave time to Firestore
+    if (currentClass && currentUser) {
+        try {
+            await addDoc(collection(db, 'attendance'), {
+                studentName: currentUser.displayName || 'Student',
+                studentEmail: currentUser.email,
+                studentUid: currentUser.uid,
+                classId: currentClass.id,
+                className: currentClass.title,
+                subject: currentClass.subject,
+                leftAt: serverTimestamp(),
+                status: 'left'
+            });
+        } catch (err) {
+            console.warn('Leave save failed:', err.message);
+        }
+    }
+
+    // Dispose Jitsi
+    if (jitsiApi) {
+        try {
+            jitsiApi.dispose();
+        } catch (e) {}
+        jitsiApi = null;
+    }
+
+    // Close modal
+    document.getElementById('jitsiModal').classList.remove('active');
+    document.getElementById('jitsiContainer').innerHTML = '';
+    document.body.style.overflow = '';
+
+    currentClass = null;
+};
+</script>
 
 </body>
 </html>
