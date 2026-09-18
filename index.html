@@ -3,24 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | Apex Learning Academy</title>
+    <title>Apex Learning Academy | Coding & Artificial Intelligence</title>
+    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence. Project-based learning with personal attention.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- ============ HEADER ============ -->
 <header class="site-header">
     <div class="header-inner">
         <a href="index.html" class="brand">
-            <div class="brand-logo"><img src="logo.png" alt="Apex"></div>
+            <div class="brand-logo">
+                <img src="logo.png" alt="Apex Learning Academy">
+            </div>
             <div class="brand-text">
                 <span class="brand-name">APEX</span>
                 <span class="brand-sub">LEARNING ACADEMY</span>
             </div>
         </a>
+
         <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="courses.html" class="active">Courses</a>
+            <a href="index.html" class="active">Home</a>
+            <a href="courses.html">Courses</a>
             <a href="live-classes.html">Live Classes</a>
             <a href="instructors.html">Instructors</a>
             <a href="resources.html">Resources</a>
@@ -28,19 +33,175 @@
             <a href="blog.html">Blog</a>
             <a href="contact.html">Contact</a>
         </nav>
+
         <div class="header-actions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
+            <button class="mobile-toggle" aria-label="Menu">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
         </div>
     </div>
 </header>
 
-<section class="section" style="padding-top: 64px;">
+<!-- ============ HERO ============ -->
+<section class="hero">
     <div class="container">
-        <div class="section-head" style="margin-bottom: 40px;">
-            <span class="section-eyebrow">Course Catalog</span>
-            <h2 class="section-title">Explore Our Programs</h2>
-            <p class="section-desc">Industry-focused courses designed to make you job-ready.</p>
+        <div class="hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Pakistan's Most Affordable Tech Academy
+                </div>
+                <h1>Learn. Rise. <span class="accent">Achieve.</span></h1>
+                <p class="hero-subtitle">
+                    Master Coding and Artificial Intelligence with practical, project-based learning. 
+                    Small batches, expert instruction, and affordable fees — designed for every Pakistani student.
+                </p>
+                <div class="hero-cta">
+                    <a href="courses.html" class="btn btn-primary btn-lg">
+                        Explore Courses
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="register.html" class="btn btn-outline btn-lg">Book Free Demo</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">100+</div>
+                        <div class="hero-stat-label">Target Students</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">2</div>
+                        <div class="hero-stat-label">Expert Courses</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">100%</div>
+                        <div class="hero-stat-label">Online Classes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div class="hero-card-icon">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="16 18 22 12 16 6"/>
+                                <polyline points="8 6 2 12 8 18"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="hero-card-title">Coding Course</div>
+                            <div class="hero-card-subtitle">Python + Web Development</div>
+                        </div>
+                    </div>
+                    <div class="hero-progress-item">
+                        <div class="hero-progress-header">
+                            <span>Python Basics</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="hero-progress-bar">
+                            <div class="hero-progress-fill" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div class="hero-progress-item">
+                        <div class="hero-progress-header">
+                            <span>Web Development</span>
+                            <span>68%</span>
+                        </div>
+                        <div class="hero-progress-bar">
+                            <div class="hero-progress-fill" style="width: 68%"></div>
+                        </div>
+                    </div>
+                    <div class="hero-progress-item">
+                        <div class="hero-progress-header">
+                            <span>Final Projects</span>
+                            <span>35%</span>
+                        </div>
+                        <div class="hero-progress-bar">
+                            <div class="hero-progress-fill" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">Why Choose Us</span>
+            <h2 class="section-title">Four Pillars of Our Teaching</h2>
+            <p class="section-desc">Every aspect of Apex Learning Academy is designed to deliver real results, not just information.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Project-Based Learning</h3>
+                <p>Theory minimum, practice maximum. Every concept ends with a real project you build and deploy yourself.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3>Personal Attention</h3>
+                <p>Small batches of 10-15 students. Every student receives individual guidance, doubt clearing, and mentorship.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                <h3>Real-World Examples</h3>
+                <p>Coding and AI concepts explained through real projects, industry scenarios, and practical applications.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <h3>Urdu + English Instruction</h3>
+                <p>Concepts explained in Urdu, code written in English. Designed so every student understands clearly.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ COURSES ============ -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">Our Courses</span>
+            <h2 class="section-title">Industry-Focused Programs</h2>
+            <p class="section-desc">Designed for beginners and professionals alike — practical skills you can use immediately.</p>
         </div>
 
         <div class="courses-grid">
@@ -55,11 +216,19 @@
                 <div class="course-body">
                     <div class="course-category">Programming</div>
                     <h3 class="course-title">Coding: Python + Web Development</h3>
-                    <p class="course-desc">Master Python programming and modern web development from scratch.</p>
+                    <p class="course-desc">Master Python programming and modern web development. Build real projects from scratch.</p>
+                    
                     <div class="course-meta">
-                        <div class="course-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>3 Months</span></div>
-                        <div class="course-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Beginner</span></div>
+                        <div class="course-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>3 Months</span>
+                        </div>
+                        <div class="course-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Beginner to Advanced</span>
+                        </div>
                     </div>
+                    
                     <div class="course-footer">
                         <div class="course-price">Rs. 3,000 <span>/ month</span></div>
                         <a href="course-detail.html" class="btn btn-primary btn-sm">View Course</a>
@@ -73,20 +242,32 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <rect x="4" y="4" width="16" height="16" rx="2"/>
                         <rect x="9" y="9" width="6" height="6"/>
-                        <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
-                        <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
-                        <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
-                        <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+                        <line x1="9" y1="1" x2="9" y2="4"/>
+                        <line x1="15" y1="1" x2="15" y2="4"/>
+                        <line x1="9" y1="20" x2="9" y2="23"/>
+                        <line x1="15" y1="20" x2="15" y2="23"/>
+                        <line x1="20" y1="9" x2="23" y2="9"/>
+                        <line x1="20" y1="14" x2="23" y2="14"/>
+                        <line x1="1" y1="9" x2="4" y2="9"/>
+                        <line x1="1" y1="14" x2="4" y2="14"/>
                     </svg>
                 </div>
                 <div class="course-body">
                     <div class="course-category">Artificial Intelligence</div>
                     <h3 class="course-title">AI: Foundations & Machine Learning</h3>
-                    <p class="course-desc">Learn AI fundamentals, prompt engineering, and build real AI applications.</p>
+                    <p class="course-desc">Learn AI fundamentals, prompt engineering, and build real AI applications with Python.</p>
+                    
                     <div class="course-meta">
-                        <div class="course-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>4 Months</span></div>
-                        <div class="course-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span>Beginner</span></div>
+                        <div class="course-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>4 Months</span>
+                        </div>
+                        <div class="course-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Beginner to Advanced</span>
+                        </div>
                     </div>
+                    
                     <div class="course-footer">
                         <div class="course-price">Rs. 4,000 <span>/ month</span></div>
                         <a href="course-detail.html" class="btn btn-primary btn-sm">View Course</a>
@@ -97,9 +278,204 @@
     </div>
 </section>
 
+<!-- ============ INSTRUCTOR ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">Meet The Founder</span>
+            <h2 class="section-title">Learn From An Expert</h2>
+            <p class="section-desc">Dedicated to making technology education accessible and affordable for every Pakistani student.</p>
+        </div>
+
+        <div class="instructors-grid" style="max-width: 320px; margin: 0 auto;">
+            <div class="instructor-card">
+                <div class="instructor-avatar">
+                    <img src="founder.png" alt="Mukesh Kewal">
+                </div>
+                <div class="instructor-name">Mukesh Kewal</div>
+                <div class="instructor-role">Founder & Lead Instructor</div>
+                <p class="instructor-bio">Passionate programmer and educator with a mission to make quality tech education affordable for every student in Pakistan.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">Student Voices</span>
+            <h2 class="section-title">What Our Students Say</h2>
+            <p class="section-desc">Real feedback from students who chose Apex Learning Academy.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"Sir ne bohot acha padhaya. 2 mahine mein Python seekh liya aur apna pehla project bana liya. Teaching style bohot practical hai."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">A</div>
+                    <div>
+                        <div class="testimonial-name">Ahmad Khan</div>
+                        <div class="testimonial-role">Coding Student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"AI course ne meri soch badal di. Ab main khud chatbot bana sakti hoon. Fees bohot affordable hai aur teaching quality top class."</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">F</div>
+                    <div>
+                        <div class="testimonial-name">Fatima Ali</div>
+                        <div class="testimonial-role">AI Student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">"Best affordable academy in Pakistan. Small batch size ki wajah se har student pe dhyan diya jata hai. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">A</div>
+                    <div>
+                        <div class="testimonial-name">Ali Raza</div>
+                        <div class="testimonial-role">Coding Student</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">Questions</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc">Everything you need to know before joining Apex Learning Academy.</p>
+        </div>
+
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>What is the fee structure?</summary>
+                <div class="faq-answer">Coding course fee is Rs. 3,000 per month, and Artificial Intelligence course fee is Rs. 4,000 per month. Fees are payable in advance at the beginning of each month.</div>
+            </details>
+            <details class="faq-item">
+                <summary>What are the class timings?</summary>
+                <div class="faq-answer">Classes are held in the evening from 6:00 PM to 8:00 PM, Monday through Saturday. A weekend special batch is also available for working professionals.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Are classes online or on-campus?</summary>
+                <div class="faq-answer">All classes are conducted 100% online through Google Meet or Jitsi Meet. Students can attend from anywhere in Pakistan.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Will I receive a certificate?</summary>
+                <div class="faq-answer">Yes. Upon successful completion of the course and final project submission, students receive a professional certificate from Apex Learning Academy with a unique verification ID.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Can complete beginners join?</summary>
+                <div class="faq-answer">Absolutely. Our courses start from zero. No prior coding or technical knowledge is required. We build your skills from the ground up.</div>
+            </details>
+            <details class="faq-item">
+                <summary>Is the demo class really free?</summary>
+                <div class="faq-answer">Yes. Your first demo class is completely free. You can experience our teaching style and course structure before making any payment.</div>
+            </details>
+            <details class="faq-item">
+                <summary>How can I pay the fees?</summary>
+                <div class="faq-answer">We accept payments through JazzCash, EasyPaisa, and direct Bank Transfer. Payment details are shared after registration confirmation.</div>
+            </details>
+            <details class="faq-item">
+                <summary>What is the batch size?</summary>
+                <div class="faq-answer">We maintain small batches of 10 to 15 students to ensure every student receives personal attention and individual doubt clearing.</div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+    <div class="container">
+        <div class="cta-banner">
+            <h2>Ready to Start Your Tech Journey?</h2>
+            <p>Join Apex Learning Academy today and take the first step towards a rewarding career in Coding and Artificial Intelligence.</p>
+            <div class="cta-buttons">
+                <a href="register.html" class="btn btn-primary btn-lg">Register Now</a>
+                <a href="contact.html" class="btn btn-outline btn-lg">Contact Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
 <footer class="site-footer">
     <div class="container">
-        <div class="footer-bottom" style="border-top: none;">
+        <div class="footer-grid">
+            <div class="footer-brand-block">
+                <div class="brand">
+                    <div class="brand-logo"><img src="logo.png" alt="Apex"></div>
+                    <div class="brand-text">
+                        <span class="brand-name">APEX</span>
+                        <span class="brand-sub">LEARNING ACADEMY</span>
+                    </div>
+                </div>
+                <p>Pakistan's most affordable online academy for Coding and Artificial Intelligence. Practical learning, personal attention, and real results.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C4.9 19 12 19 12 19s7.1 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+                    <a href="https://wa.me/923410349929" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academy</h4>
+                <a href="about.html">About Us</a>
+                <a href="instructors.html">Instructors</a>
+                <a href="live-classes.html">Live Classes</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Learning</h4>
+                <a href="courses.html">All Courses</a>
+                <a href="resources.html">Resources</a>
+                <a href="verify.html">Verify Certificate</a>
+                <a href="register.html">Register</a>
+                <a href="login.html">Student Login</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/923410349929">WhatsApp: 0341 034 9929</a>
+                <a href="mailto:mukeshkewal19@gmail.com">mukeshkewal19@gmail.com</a>
+                <a href="https://whatsapp.com/channel/0029VbDZS7a3bbV6vpN9Ra0P">WhatsApp Channel</a>
+                <a href="#">Online Classes Only</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
             <span>&copy; 2026 Apex Learning Academy. All rights reserved.</span>
             <span>Learn. Rise. Achieve.</span>
         </div>
