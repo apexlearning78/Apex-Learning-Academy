@@ -6,6 +6,174 @@
     <title>Register | Apex Learning Academy</title>
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============ MODAL STYLES ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 37, 64, 0.75);
+            backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-box {
+            background: #FFFFFF;
+            border-radius: 20px;
+            max-width: 520px;
+            width: 100%;
+            padding: 48px 40px 40px;
+            box-shadow: 0 32px 80px rgba(10, 37, 64, 0.35);
+            text-align: center;
+            position: relative;
+            transform: translateY(20px) scale(0.96);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        .modal-overlay.active .modal-box {
+            transform: translateY(0) scale(1);
+        }
+        .modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #F4B400, #d99f00);
+        }
+        .modal-icon {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .modal-icon::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            animation: pulseRing 2s ease-out infinite;
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.25); opacity: 0; }
+        }
+        .modal-icon svg {
+            width: 44px;
+            height: 44px;
+        }
+        .modal-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 26px;
+            font-weight: 800;
+            color: #0A2540;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .modal-subtitle {
+            font-size: 15.5px;
+            color: #64748B;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .modal-details {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 28px;
+            text-align: left;
+            border: 1px solid #E2E8F0;
+        }
+        .modal-detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+        .modal-detail-row:not(:last-child) {
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .modal-detail-label {
+            color: #64748B;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11.5px;
+            letter-spacing: 1px;
+        }
+        .modal-detail-value {
+            color: #0A2540;
+            font-weight: 700;
+            text-align: right;
+            font-size: 14px;
+            max-width: 60%;
+            word-break: break-word;
+        }
+        .modal-note {
+            background: #FEF9E7;
+            border-left: 4px solid #F4B400;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 28px;
+            font-size: 13.5px;
+            color: #78350F;
+            line-height: 1.65;
+            text-align: left;
+        }
+        .modal-note strong {
+            color: #0A2540;
+            font-weight: 700;
+        }
+        .modal-btn {
+            width: 100%;
+            padding: 15px 28px;
+            border-radius: 10px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.25s ease;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            color: #0A2540;
+            box-shadow: 0 8px 24px rgba(244, 180, 0, 0.32);
+        }
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(244, 180, 0, 0.42);
+        }
+        .modal-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 540px) {
+            .modal-box { padding: 36px 24px 28px; }
+            .modal-title { font-size: 22px; }
+            .modal-icon { width: 72px; height: 72px; }
+            .modal-icon svg { width: 36px; height: 36px; }
+            .modal-detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .modal-detail-value { text-align: left; max-width: 100%; }
+        }
+    </style>
 </head>
 <body>
 
@@ -140,10 +308,72 @@
     </div>
 </footer>
 
+<!-- ============ SUCCESS MODAL ============ -->
+<div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+        <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </div>
+
+        <h2 class="modal-title">Registration Successful</h2>
+        <p class="modal-subtitle">
+            Your student account has been created successfully. Our admissions team will contact you shortly.
+        </p>
+
+        <div class="modal-details">
+            <div class="modal-detail-row">
+                <span class="modal-detail-label">Student Name</span>
+                <span class="modal-detail-value" id="modalName">—</span>
+            </div>
+            <div class="modal-detail-row">
+                <span class="modal-detail-label">Email Address</span>
+                <span class="modal-detail-value" id="modalEmail">—</span>
+            </div>
+            <div class="modal-detail-row">
+                <span class="modal-detail-label">Course Selected</span>
+                <span class="modal-detail-value" id="modalCourse">—</span>
+            </div>
+        </div>
+
+        <div class="modal-note">
+            <strong>Next Step:</strong> Our team will contact you on WhatsApp within 24 hours to discuss your enrollment, batch timing, and payment details.
+        </div>
+
+        <button type="button" class="modal-btn" onclick="closeSuccessModal()">
+            Continue to Homepage
+        </button>
+    </div>
+</div>
+
 <script type="module">
 import { db, auth } from './firebase-config.js';
 import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const modal = document.getElementById('successModal');
+
+function showSuccessModal(name, email, course) {
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalEmail').textContent = email;
+    document.getElementById('modalCourse').textContent = course;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+window.closeSuccessModal = function() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+    window.location.href = 'index.html';
+};
+
+// Close modal on overlay click (optional)
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeSuccessModal();
+    }
+});
 
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -206,8 +436,8 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             progress: 0
         });
 
-        alert('Registration successful!\n\nEmail: ' + formData.email + '\nHamari team 24 ghante mein WhatsApp pe rabta karegi.');
-        window.location.href = 'index.html';
+        // Show professional modal
+        showSuccessModal(formData.fullName, formData.email, formData.course);
 
     } catch (error) {
         console.error('Registration error:', error);
