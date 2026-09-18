@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apex Learning Academy | Coding & Artificial Intelligence</title>
-    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence. Project-based learning with personal attention.">
+    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -14,9 +14,7 @@
 <header class="site-header">
     <div class="header-inner">
         <a href="index.html" class="brand">
-            <div class="brand-logo">
-                <img src="logo.png" alt="Apex Learning Academy">
-            </div>
+            <div class="brand-logo"><img src="logo.png" alt="Apex"></div>
             <div class="brand-text">
                 <span class="brand-name">APEX</span>
                 <span class="brand-sub">LEARNING ACADEMY</span>
@@ -32,19 +30,12 @@
             <a href="about.html">About</a>
             <a href="blog.html">Blog</a>
             <a href="contact.html">Contact</a>
-            <a href="login.html">Login</a>
         </nav>
 
-        <div class="header-actions">
+        <!-- YEH HEADER ACTIONS DYNAMIC HAI -->
+        <div class="header-actions" id="authActions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
-            <button class="mobile-toggle" aria-label="Menu">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="3" y1="6" x2="21" y2="6"/>
-                    <line x1="3" y1="12" x2="21" y2="12"/>
-                    <line x1="3" y1="18" x2="21" y2="18"/>
-                </svg>
-            </button>
         </div>
     </div>
 </header>
@@ -279,7 +270,7 @@
     </div>
 </section>
 
-<!-- ============ INSTRUCTOR ============ -->
+<!-- ============ FOUNDER ============ -->
 <section class="section">
     <div class="container">
         <div class="section-head">
@@ -402,14 +393,6 @@
                 <summary>Is the demo class really free?</summary>
                 <div class="faq-answer">Yes. Your first demo class is completely free. You can experience our teaching style and course structure before making any payment.</div>
             </details>
-            <details class="faq-item">
-                <summary>How can I pay the fees?</summary>
-                <div class="faq-answer">We accept payments through JazzCash, EasyPaisa, and direct Bank Transfer. Payment details are shared after registration confirmation.</div>
-            </details>
-            <details class="faq-item">
-                <summary>What is the batch size?</summary>
-                <div class="faq-answer">We maintain small batches of 10 to 15 students to ensure every student receives personal attention and individual doubt clearing.</div>
-            </details>
         </div>
     </div>
 </section>
@@ -482,6 +465,39 @@
         </div>
     </div>
 </footer>
+
+<!-- ============ DYNAMIC NAVBAR SCRIPT ============ -->
+<script type="module">
+import { auth } from './firebase-config.js';
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+onAuthStateChanged(auth, (user) => {
+    const authActions = document.getElementById('authActions');
+    if (!authActions) return;
+
+    if (user) {
+        // ===== LOGGED IN =====
+        authActions.innerHTML = `
+            <a href="dashboard.html" class="btn-login">Dashboard</a>
+            <button id="navLogoutBtn" class="btn-header-cta" style="border:none; cursor:pointer; font-family:inherit; font-size:14px;">Logout</button>
+        `;
+
+        const logoutBtn = document.getElementById('navLogoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            });
+        }
+    } else {
+        // ===== LOGGED OUT =====
+        authActions.innerHTML = `
+            <a href="login.html" class="btn-login">Login</a>
+            <a href="register.html" class="btn-header-cta">Register Now</a>
+        `;
+    }
+});
+</script>
 
 </body>
 </html>
