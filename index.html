@@ -7,6 +7,195 @@
     <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence.">
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* ============ NAVBAR UPGRADE ============ */
+        .main-nav {
+            gap: 2px !important;
+        }
+        .main-nav a {
+            padding: 9px 13px !important;
+            font-size: 13.5px !important;
+            white-space: nowrap;
+        }
+
+        /* Dropdown */
+        .nav-dropdown {
+            position: relative;
+        }
+        .nav-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .nav-dropdown > a svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.25s;
+        }
+        .nav-dropdown.open > a svg {
+            transform: rotate(180deg);
+        }
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(10, 37, 64, 0.15);
+            padding: 8px;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s;
+            z-index: 100;
+            border: 1px solid #E2E8F0;
+        }
+        .nav-dropdown.open .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            border-left: 1px solid #E2E8F0;
+        }
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px !important;
+            color: #334155 !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-dropdown-menu a:hover {
+            background: #F8FAFC;
+            color: #0A2540 !important;
+            padding-left: 16px !important;
+        }
+        .nav-dropdown-menu a svg {
+            width: 15px;
+            height: 15px;
+            color: #F4B400;
+            flex-shrink: 0;
+        }
+
+        /* Mobile toggle */
+        .mobile-toggle {
+            display: none;
+            color: #FFFFFF;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* Header actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        .btn-login {
+            padding: 9px 16px;
+            font-size: 13.5px;
+            white-space: nowrap;
+        }
+        .btn-header-cta {
+            padding: 10px 18px;
+            font-size: 13.5px;
+            white-space: nowrap;
+        }
+
+        /* ============ RESPONSIVE NAVBAR ============ */
+        @media (max-width: 1150px) {
+            .main-nav {
+                display: none !important;
+            }
+            .mobile-toggle {
+                display: flex;
+            }
+            .header-inner {
+                padding: 14px 20px;
+            }
+        }
+        @media (max-width: 540px) {
+            .btn-login {
+                display: none;
+            }
+            .brand-text { display: none; }
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            background: #0A2540;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 16px 20px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 13px 16px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .mobile-menu a:hover {
+            background: rgba(255,255,255,0.08);
+            color: #FFFFFF;
+        }
+        .mobile-menu a.active {
+            color: #F4B400;
+            background: rgba(244,180,0,0.08);
+        }
+        .mobile-menu-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.08);
+            margin: 12px 0;
+        }
+        .mobile-menu-label {
+            font-size: 11px;
+            color: #F4B400;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            padding: 8px 16px;
+            margin-top: 6px;
+        }
+        .site-header {
+            position: sticky;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,24 +210,106 @@
             </div>
         </a>
 
+        <!-- DESKTOP NAV -->
         <nav class="main-nav">
             <a href="index.html" class="active">Home</a>
             <a href="courses.html">Courses</a>
             <a href="live-classes.html">Live Classes</a>
-            <a href="instructors.html">Instructors</a>
             <a href="resources.html">Resources</a>
-            <a href="about.html">About</a>
-            <a href="blog.html">Blog</a>
-            <a href="contact.html">Contact</a>
-            <a href="test.html">Entrance Test</a>
-<a href="check-result.html">Check Result</a>
+            
+            <div class="nav-dropdown" id="moreDropdown">
+                <a href="javascript:void(0)" onclick="toggleDropdown()">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </a>
+                <div class="nav-dropdown-menu">
+                    <a href="instructors.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                        </svg>
+                        Instructors
+                    </a>
+                    <a href="about.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="16" x2="12" y2="12"/>
+                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                        </svg>
+                        About Us
+                    </a>
+                    <a href="blog.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                        Blog
+                    </a>
+                    <a href="test.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"/>
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                        </svg>
+                        Entrance Test
+                    </a>
+                    <a href="check-result.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        Check Result
+                    </a>
+                    <a href="contact.html">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Contact
+                    </a>
+                </div>
+            </div>
         </nav>
 
-        <!-- YEH HEADER ACTIONS DYNAMIC HAI -->
+        <!-- AUTH ACTIONS (dynamic) -->
         <div class="header-actions" id="authActions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
         </div>
+
+        <!-- MOBILE TOGGLE -->
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="active">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="live-classes.html">Live Classes</a>
+        <a href="resources.html">Resources</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        
+        <a href="instructors.html">Instructors</a>
+        <a href="about.html">About Us</a>
+        <a href="blog.html">Blog</a>
+        <a href="test.html">Entrance Test</a>
+        <a href="check-result.html">Check Result</a>
+        <a href="contact.html">Contact</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <a href="login.html" id="mobileLoginLink">Login</a>
+        <a href="register.html" id="mobileRegisterLink">Register Now</a>
+        <a href="dashboard.html" id="mobileDashboardLink" style="display:none;">Dashboard</a>
+        <a href="#" id="mobileLogoutLink" style="display:none;">Logout</a>
     </div>
 </header>
 
@@ -312,7 +583,7 @@
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-                <p class="testimonial-text">"Sir ne bohot acha padhaya. 2 mahine mein Python seekh liya aur apna pehla project bana liya. Teaching style bohot practical hai."</p>
+                <p class="testimonial-text">"Sir taught very well. I learned Python in 2 months and built my first project. Teaching style is very practical."</p>
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">A</div>
                     <div>
@@ -330,7 +601,7 @@
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-                <p class="testimonial-text">"AI course ne meri soch badal di. Ab main khud chatbot bana sakti hoon. Fees bohot affordable hai aur teaching quality top class."</p>
+                <p class="testimonial-text">"The AI course changed my thinking. I can now build my own chatbot. Fees are affordable and quality is top class."</p>
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">F</div>
                     <div>
@@ -348,7 +619,7 @@
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-                <p class="testimonial-text">"Best affordable academy in Pakistan. Small batch size ki wajah se har student pe dhyan diya jata hai. Highly recommended!"</p>
+                <p class="testimonial-text">"Best affordable academy in Pakistan. Small batch size means every student gets attention. Highly recommended!"</p>
                 <div class="testimonial-author">
                     <div class="testimonial-avatar">A</div>
                     <div>
@@ -447,9 +718,9 @@
                 <h4>Learning</h4>
                 <a href="courses.html">All Courses</a>
                 <a href="resources.html">Resources</a>
+                <a href="test.html">Entrance Test</a>
+                <a href="check-result.html">Check Result</a>
                 <a href="verify.html">Verify Certificate</a>
-                <a href="register.html">Register</a>
-                <a href="login.html">Student Login</a>
             </div>
 
             <div class="footer-col">
@@ -468,61 +739,86 @@
     </div>
 </footer>
 
-<!-- ============ DYNAMIC NAVBAR SCRIPT ============ -->
+<!-- ============ NAVBAR SCRIPTS ============ -->
+<script>
+// Dropdown toggle
+function toggleDropdown() {
+    document.getElementById('moreDropdown').classList.toggle('open');
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('moreDropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+        dropdown.classList.remove('open');
+    }
+});
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+    });
+});
+</script>
+
+<!-- ============ FIREBASE AUTH (Dynamic Navbar) ============ -->
 <script type="module">
 import { auth } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 onAuthStateChanged(auth, (user) => {
     const authActions = document.getElementById('authActions');
-    if (!authActions) return;
+    const mobileLogin = document.getElementById('mobileLoginLink');
+    const mobileRegister = document.getElementById('mobileRegisterLink');
+    const mobileDashboard = document.getElementById('mobileDashboardLink');
+    const mobileLogout = document.getElementById('mobileLogoutLink');
 
     if (user) {
-        // ===== LOGGED IN =====
-        authActions.innerHTML = `
-            <a href="dashboard.html" class="btn-login">Dashboard</a>
-            <button id="navLogoutBtn" class="btn-header-cta" style="border:none; cursor:pointer; font-family:inherit; font-size:14px;">Logout</button>
-        `;
+        // Logged in
+        if (authActions) {
+            authActions.innerHTML = `
+                <a href="dashboard.html" class="btn-login">Dashboard</a>
+                <button id="navLogoutBtn" class="btn-header-cta" style="border:none; cursor:pointer; font-family:inherit; font-size:13.5px;">Logout</button>
+            `;
+            document.getElementById('navLogoutBtn').addEventListener('click', async () => {
+                await signOut(auth);
+                window.location.href = 'index.html';
+            });
+        }
 
-        const logoutBtn = document.getElementById('navLogoutBtn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', async () => {
+        if (mobileLogin) mobileLogin.style.display = 'none';
+        if (mobileRegister) mobileRegister.style.display = 'none';
+        if (mobileDashboard) mobileDashboard.style.display = 'block';
+        if (mobileLogout) {
+            mobileLogout.style.display = 'block';
+            mobileLogout.addEventListener('click', async (e) => {
+                e.preventDefault();
                 await signOut(auth);
                 window.location.href = 'index.html';
             });
         }
     } else {
-        // ===== LOGGED OUT =====
-        authActions.innerHTML = `
-            <a href="login.html" class="btn-login">Login</a>
-            <a href="register.html" class="btn-header-cta">Register Now</a>
-        `;
-    }
-});
-</script>
-<script type="module">
-import { auth } from './firebase-config.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        // Logged out
+        if (authActions) {
+            authActions.innerHTML = `
+                <a href="login.html" class="btn-login">Login</a>
+                <a href="register.html" class="btn-header-cta">Register Now</a>
+            `;
+        }
 
-onAuthStateChanged(auth, (user) => {
-    const authActions = document.getElementById('authActions');
-    if (!authActions) return;
-    if (user) {
-        authActions.innerHTML = `
-            <a href="dashboard.html" class="btn-login">Dashboard</a>
-            <button id="navLogoutBtn" class="btn-header-cta" style="border:none; cursor:pointer; font-family:inherit; font-size:14px;">Logout</button>
-        `;
-        document.getElementById('navLogoutBtn').addEventListener('click', async () => {
-            await signOut(auth);
-            window.location.href = 'index.html';
-        });
-    } else {
-        authActions.innerHTML = `
-            <a href="login.html" class="btn-login">Login</a>
-            <a href="register.html" class="btn-header-cta">Register Now</a>
-        `;
+        if (mobileLogin) mobileLogin.style.display = 'block';
+        if (mobileRegister) mobileRegister.style.display = 'block';
+        if (mobileDashboard) mobileDashboard.style.display = 'none';
+        if (mobileLogout) mobileLogout.style.display = 'none';
     }
 });
 </script>
+
 </body>
 </html>
