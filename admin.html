@@ -131,7 +131,7 @@
         /* STATS */
         .admin-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
             gap: 16px;
             margin-bottom: 28px;
         }
@@ -158,6 +158,7 @@
         .admin-stat-card.blue { border-left-color: #2563EB; }
         .admin-stat-card.green { border-left-color: #10B981; }
         .admin-stat-card.orange { border-left-color: #F59E0B; }
+        .admin-stat-card.pink { border-left-color: #EC4899; }
         .admin-stat-label {
             font-size: 11px;
             text-transform: uppercase;
@@ -218,6 +219,21 @@
             cursor: pointer;
         }
         .btn-refresh:hover { background: #1a3a5c; }
+        .btn-new-announcement {
+            padding: 11px 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            color: #0A2540;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-new-announcement:hover { transform: translateY(-1px); }
 
         .panel-body { max-height: 650px; overflow-y: auto; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
@@ -258,6 +274,9 @@
         .badge-fail { background: #FEE2E2; color: #991B1B; }
         .badge-live { background: #FEE2E2; color: #991B1B; }
         .badge-scheduled { background: #E0E7FF; color: #3730A3; }
+        .badge-info { background: #E0E7FF; color: #3730A3; }
+        .badge-success { background: #D1FAE5; color: #065F46; }
+        .badge-warning { background: #FEF3C7; color: #92400E; }
 
         .empty-state { padding: 60px 20px; text-align: center; color: #64748B; }
         .empty-state svg { width: 48px; height: 48px; color: #CBD5E1; margin-bottom: 16px; }
@@ -286,8 +305,6 @@
         .btn-publish:hover { background: #D1FAE5; }
         .btn-host { background: #FEF9E7; color: #78350F; }
         .btn-host:hover { background: #FEF3C7; }
-        .btn-edit { background: #F3E8FF; color: #6B21A8; }
-        .btn-edit:hover { background: #E9D5FF; }
 
         /* Modal */
         .modal-overlay {
@@ -417,7 +434,7 @@
         .btn-end-class:hover { background: #DC2626; }
         #jitsiContainer { flex: 1; width: 100%; }
 
-        /* Publish Result Modal */
+        /* Publish / Form Modal */
         .publish-modal {
             background: #FFFFFF;
             border-radius: 20px;
@@ -426,6 +443,7 @@
             padding: 32px;
             max-height: 88vh;
             overflow-y: auto;
+            position: relative;
         }
         .publish-modal h3 {
             font-family: 'Poppins', sans-serif;
@@ -433,10 +451,9 @@
             color: #0A2540;
             font-weight: 800;
             margin-bottom: 20px;
+            padding-right: 40px;
         }
-        .form-field {
-            margin-bottom: 14px;
-        }
+        .form-field { margin-bottom: 14px; }
         .form-field label {
             display: block;
             font-size: 12px;
@@ -460,6 +477,7 @@
             outline: none;
             border-color: #F4B400;
         }
+        .form-field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
         .btn-save-publish {
             width: 100%;
             padding: 14px;
@@ -570,8 +588,12 @@
                 <div class="admin-stat-value" id="statLiveClasses">—</div>
             </div>
             <div class="admin-stat-card orange" data-tab="attendance" onclick="switchTab('attendance')">
-                <div class="admin-stat-label">Attendance Records</div>
+                <div class="admin-stat-label">Attendance</div>
                 <div class="admin-stat-value" id="statAttendance">—</div>
+            </div>
+            <div class="admin-stat-card pink" data-tab="announcements" onclick="switchTab('announcements')">
+                <div class="admin-stat-label">Announcements</div>
+                <div class="admin-stat-value" id="statAnnouncements">—</div>
             </div>
         </div>
 
@@ -625,7 +647,7 @@
             <input type="text" id="pubRollNumber" readonly>
         </div>
         <div class="form-field">
-            <label>Score (out of 50)</label>
+            <label>Score</label>
             <input type="text" id="pubScore" readonly>
         </div>
         <div class="form-field">
@@ -654,6 +676,50 @@
         </div>
 
         <button class="btn-save-publish" onclick="savePublishResult()">Publish Result</button>
+    </div>
+</div>
+
+<!-- ============ ANNOUNCEMENT MODAL ============ -->
+<div class="modal-overlay" id="announcementModal">
+    <div class="publish-modal">
+        <button class="modal-close" onclick="closeAnnouncementModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>New Announcement</h3>
+
+        <div class="form-field">
+            <label>Title</label>
+            <input type="text" id="annTitle" placeholder="e.g. New Batch Starting Monday">
+        </div>
+
+        <div class="form-field">
+            <label>Message</label>
+            <textarea id="annMessage" rows="4" placeholder="Write the announcement message here..."></textarea>
+        </div>
+
+        <div class="form-field">
+            <label>Type</label>
+            <select id="annType">
+                <option value="info">Info (Blue)</option>
+                <option value="success">Success (Green)</option>
+                <option value="warning">Warning (Yellow)</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Visibility</label>
+            <select id="annActive">
+                <option value="true">Active (Students can see)</option>
+                <option value="false">Hidden (Draft)</option>
+            </select>
+        </div>
+
+        <button class="btn-save-publish" onclick="saveAnnouncement()" style="background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
+            Publish Announcement
+        </button>
     </div>
 </div>
 
@@ -702,7 +768,7 @@
 <script type="module">
 import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc, serverTimestamp, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 // ⚠️ APNA ADMIN UID YAHAN
 const ADMIN_UID = 'VHbqYaHK6yXP2f8IF9WKc33kkD73';
@@ -715,7 +781,8 @@ let allData = {
     certificates: [],
     tests: [],
     liveClasses: [],
-    attendance: []
+    attendance: [],
+    announcements: []
 };
 let currentTab = 'students';
 let currentSearch = '';
@@ -789,14 +856,15 @@ async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
 
     try {
-        const [s, i, m, c, t, l, a] = await Promise.all([
+        const [s, i, m, c, t, l, a, ann] = await Promise.all([
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'certificates')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'testSubmissions')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'liveClasses')).catch(() => ({ docs: [] })),
-            getDocs(collection(db, 'attendance')).catch(() => ({ docs: [] }))
+            getDocs(collection(db, 'attendance')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'announcements')).catch(() => ({ docs: [] }))
         ]);
 
         allData.students = s.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -806,6 +874,7 @@ async function loadAllData() {
         allData.tests = t.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.liveClasses = l.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.attendance = a.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.announcements = ann.docs.map(d => ({ id: d.id, ...d.data() }));
 
         document.getElementById('statStudents').textContent = allData.students.length;
         document.getElementById('statInstructors').textContent = allData.instructors.length;
@@ -814,6 +883,7 @@ async function loadAllData() {
         document.getElementById('statTests').textContent = allData.tests.length;
         document.getElementById('statLiveClasses').textContent = (allData.liveClasses.length || DEFAULT_SCHEDULE.length);
         document.getElementById('statAttendance').textContent = allData.attendance.length;
+        document.getElementById('statAnnouncements').textContent = allData.announcements.length;
 
         renderTab(currentTab);
     } catch (err) {
@@ -838,7 +908,8 @@ window.switchTab = function(tab) {
         certificates: 'Certificates Issued',
         tests: 'Test Submissions',
         liveClasses: 'Live Classes',
-        attendance: 'Attendance Records'
+        attendance: 'Attendance Records',
+        announcements: 'Announcements'
     };
     document.getElementById('panelTitle').textContent = titles[tab];
     document.getElementById('searchInput').value = '';
@@ -857,13 +928,18 @@ function renderTab(tab) {
     const body = document.getElementById('panelBody');
     let data = allData[tab];
 
-    // Live classes empty → default dikhao
     if (tab === 'liveClasses' && data.length === 0) {
         data = DEFAULT_SCHEDULE;
     }
 
     if (currentSearch) {
         data = data.filter(item => JSON.stringify(item).toLowerCase().includes(currentSearch));
+    }
+
+    // Announcements tab ke liye special header (New button ke saath)
+    if (tab === 'announcements') {
+        renderAnnouncements(data);
+        return;
     }
 
     if (data.length === 0) {
@@ -1045,12 +1121,10 @@ function renderLiveClasses(data) {
             <tbody>${rows}</tbody>
         </table>`;
 
-    // Save current list for host function
     window._currentLiveClasses = data;
 }
 
 function renderAttendance(data) {
-    // Sort by latest
     const sorted = [...data].reverse();
     const rows = sorted.map(a => {
         let timeStr = '—';
@@ -1085,6 +1159,69 @@ function renderAttendance(data) {
         </table>`;
 }
 
+function renderAnnouncements(data) {
+    const header = `
+        <div style="padding: 16px 20px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <div style="font-size: 13px; color: #64748B; font-weight: 600;">
+                Total: <strong style="color: #0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}
+            </div>
+            <button class="btn-new-announcement" onclick="openAnnouncementModal()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                New Announcement
+            </button>
+        </div>
+    `;
+
+    if (data.length === 0) {
+        document.getElementById('panelBody').innerHTML = header + `
+            <div class="empty-state">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+                </svg>
+                <p>No announcements yet. Click "New Announcement" to create one.</p>
+            </div>`;
+        return;
+    }
+
+    const rows = data.map(a => {
+        let dateStr = '—';
+        if (a.createdAt && a.createdAt.seconds) {
+            dateStr = new Date(a.createdAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        const typeBadge = a.type === 'success'
+            ? '<span class="badge badge-success">SUCCESS</span>'
+            : a.type === 'warning'
+            ? '<span class="badge badge-warning">WARNING</span>'
+            : '<span class="badge badge-info">INFO</span>';
+
+        return `
+            <tr>
+                <td><strong>${a.title || '—'}</strong></td>
+                <td><span class="truncate">${a.message || '—'}</span></td>
+                <td>${typeBadge}</td>
+                <td>${a.active ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Hidden</span>'}</td>
+                <td>${dateStr}</td>
+                <td>
+                    <button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">View</button>
+                    <button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">Delete</button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    document.getElementById('panelBody').innerHTML = header + `
+        <table class="data-table">
+            <thead><tr>
+                <th>Title</th><th>Message</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table>`;
+}
+
 // ============ VIEW DETAIL ============
 window.viewDetail = function(tab, id) {
     const item = allData[tab].find(x => x.id === id);
@@ -1097,7 +1234,8 @@ window.viewDetail = function(tab, id) {
         certificates: 'Certificate Details',
         tests: 'Test Submission Details',
         liveClasses: 'Live Class Details',
-        attendance: 'Attendance Details'
+        attendance: 'Attendance Details',
+        announcements: 'Announcement Details'
     };
     document.getElementById('detailTitle').textContent = titles[tab] || 'Details';
 
@@ -1175,13 +1313,57 @@ window.savePublishResult = async function() {
     try {
         await updateDoc(doc(db, 'testSubmissions', docId), updates);
 
-        // Update local
         const idx = allData.tests.findIndex(t => t.id === docId);
         if (idx >= 0) allData.tests[idx] = { ...allData.tests[idx], ...updates };
 
         closePublishModal();
         renderTab('tests');
         alert('✅ Result published successfully!');
+    } catch (err) {
+        alert('Failed to publish: ' + err.message);
+    }
+};
+
+// ============ ANNOUNCEMENTS ============
+window.openAnnouncementModal = function() {
+    document.getElementById('annTitle').value = '';
+    document.getElementById('annMessage').value = '';
+    document.getElementById('annType').value = 'info';
+    document.getElementById('annActive').value = 'true';
+    document.getElementById('announcementModal').classList.add('active');
+};
+
+window.closeAnnouncementModal = function() {
+    document.getElementById('announcementModal').classList.remove('active');
+};
+
+document.getElementById('announcementModal').addEventListener('click', (e) => {
+    if (e.target.id === 'announcementModal') closeAnnouncementModal();
+});
+
+window.saveAnnouncement = async function() {
+    const title = document.getElementById('annTitle').value.trim();
+    const message = document.getElementById('annMessage').value.trim();
+    const type = document.getElementById('annType').value;
+    const active = document.getElementById('annActive').value === 'true';
+
+    if (!title || !message) {
+        alert('Please fill title and message.');
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, 'announcements'), {
+            title,
+            message,
+            type,
+            active,
+            createdAt: serverTimestamp()
+        });
+
+        closeAnnouncementModal();
+        await loadAllData();
+        alert('✅ Announcement published successfully!');
     } catch (err) {
         alert('Failed to publish: ' + err.message);
     }
@@ -1199,7 +1381,7 @@ window.showHostClassList = function() {
                 <div style="font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #0A2540; margin-bottom: 4px;">${cls.title}</div>
                 <div style="font-size: 12px; color: #64748B; font-weight: 500;">${cls.day || ''} — ${cls.time || ''}</div>
             </div>
-            <button class="btn-host" style="background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; padding: 12px 22px; font-size: 13px; border-radius: 10px;" onclick="startHostClassByIdx(${idx})">
+            <button class="btn-host" style="background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; padding: 12px 22px; font-size: 13px; border-radius: 10px; margin: 0;" onclick="startHostClassByIdx(${idx})">
                 Start Class
             </button>
         </div>
@@ -1241,7 +1423,6 @@ async function launchHostJitsi(cls) {
     const container = document.getElementById('jitsiContainer');
     container.innerHTML = '';
 
-    // Log host join
     try {
         await addDoc(collection(db, 'attendance'), {
             studentName: ADMIN_NAME + ' (Host)',
@@ -1328,7 +1509,8 @@ window.deleteItem = async function(tab, id) {
         certificates: 'certificates',
         tests: 'testSubmissions',
         liveClasses: 'liveClasses',
-        attendance: 'attendance'
+        attendance: 'attendance',
+        announcements: 'announcements'
     };
 
     try {
@@ -1342,7 +1524,8 @@ window.deleteItem = async function(tab, id) {
             certificates: 'statCertificates',
             tests: 'statTests',
             liveClasses: 'statLiveClasses',
-            attendance: 'statAttendance'
+            attendance: 'statAttendance',
+            announcements: 'statAnnouncements'
         };
         document.getElementById(statMap[tab]).textContent = allData[tab].length;
 
