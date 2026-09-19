@@ -7,54 +7,49 @@
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* ============ MODAL STYLES ============ */
+        /* ============ SUCCESS MODAL ============ */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(10, 37, 64, 0.75);
-            backdrop-filter: blur(6px);
+            background: rgba(10, 37, 64, 0.8);
+            backdrop-filter: blur(8px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 9999;
             padding: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-        .modal-box {
+        .modal-overlay.active { display: flex; }
+        .success-modal {
             background: #FFFFFF;
-            border-radius: 20px;
+            border-radius: 22px;
             max-width: 520px;
             width: 100%;
-            padding: 48px 40px 40px;
-            box-shadow: 0 32px 80px rgba(10, 37, 64, 0.35);
+            padding: 44px 36px 36px;
             text-align: center;
             position: relative;
-            transform: translateY(20px) scale(0.96);
-            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            max-height: 92vh;
+            overflow-y: auto;
+            animation: modalPop 0.4s ease;
         }
-        .modal-overlay.active .modal-box {
-            transform: translateY(0) scale(1);
+        @keyframes modalPop {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .modal-box::before {
+        .success-modal::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 6px;
-            background: linear-gradient(90deg, #F4B400, #d99f00);
+            background: linear-gradient(90deg, #10B981, #059669);
         }
-        .modal-icon {
-            width: 88px;
-            height: 88px;
-            margin: 0 auto 24px;
+        .success-icon {
+            width: 88px; height: 88px;
+            margin: 0 auto 22px;
             background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
             border-radius: 50%;
             display: flex;
@@ -62,122 +57,448 @@
             justify-content: center;
             position: relative;
         }
-        .modal-icon::after {
+        .success-icon::after {
             content: '';
             position: absolute;
             inset: -8px;
             border-radius: 50%;
-            border: 2px solid rgba(16, 185, 129, 0.2);
+            border: 2px solid rgba(16,185,129,0.2);
             animation: pulseRing 2s ease-out infinite;
         }
         @keyframes pulseRing {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.25); opacity: 0; }
+            100% { transform: scale(1.3); opacity: 0; }
         }
-        .modal-icon svg {
-            width: 44px;
-            height: 44px;
-        }
-        .modal-title {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 26px;
+        .success-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
             font-weight: 800;
             color: #0A2540;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            margin-bottom: 10px;
         }
-        .modal-subtitle {
-            font-size: 15.5px;
+        .success-subtitle {
+            font-size: 14.5px;
             color: #64748B;
             line-height: 1.7;
-            margin-bottom: 28px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 24px;
+            font-weight: 500;
         }
-        .modal-details {
+        .success-details {
             background: #F8FAFC;
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin-bottom: 28px;
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin-bottom: 22px;
             text-align: left;
             border: 1px solid #E2E8F0;
         }
-        .modal-detail-row {
+        .success-details-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            font-size: 14px;
+            font-size: 13.5px;
+            gap: 14px;
         }
-        .modal-detail-row:not(:last-child) {
+        .success-details-row:not(:last-child) {
             border-bottom: 1px solid #E2E8F0;
         }
-        .modal-detail-label {
+        .success-details-label {
             color: #64748B;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            font-size: 11.5px;
+            font-size: 10.5px;
             letter-spacing: 1px;
         }
-        .modal-detail-value {
+        .success-details-value {
             color: #0A2540;
             font-weight: 700;
             text-align: right;
-            font-size: 14px;
-            max-width: 60%;
             word-break: break-word;
+            max-width: 60%;
         }
-        .modal-note {
+        .success-note {
             background: #FEF9E7;
             border-left: 4px solid #F4B400;
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin-bottom: 28px;
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 22px;
             font-size: 13.5px;
             color: #78350F;
             line-height: 1.65;
             text-align: left;
+            font-weight: 500;
         }
-        .modal-note strong {
-            color: #0A2540;
-            font-weight: 700;
-        }
-        .modal-btn {
+        .success-note strong { color: #0A2540; font-weight: 800; }
+        .btn-modal-primary {
+            display: block;
             width: 100%;
-            padding: 15px 28px;
-            border-radius: 10px;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
+            padding: 15px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
             font-size: 15px;
-            letter-spacing: 0.3px;
-            cursor: pointer;
+            text-align: center;
             border: none;
-            transition: all 0.25s ease;
+            cursor: pointer;
             background: linear-gradient(135deg, #F4B400, #d99f00);
             color: #0A2540;
-            box-shadow: 0 8px 24px rgba(244, 180, 0, 0.32);
+            box-shadow: 0 10px 28px rgba(244,180,0,0.32);
+            margin-bottom: 10px;
+            text-decoration: none;
+            transition: all 0.25s;
         }
-        .modal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(244, 180, 0, 0.42);
+        .btn-modal-primary:hover { transform: translateY(-2px); }
+        .btn-modal-wa {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #FFFFFF;
+            transition: all 0.25s;
         }
-        .modal-btn:active {
-            transform: translateY(0);
+        .btn-modal-wa:hover { transform: translateY(-2px); }
+        .btn-modal-wa svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* ============ COUPON FIELD ============ */
+        .coupon-input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+        .coupon-input-wrapper input {
+            flex: 1;
+            padding: 13px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            color: #0A2540;
+            transition: all 0.25s;
+        }
+        .coupon-input-wrapper input:focus {
+            outline: none;
+            border-color: #F4B400;
+            box-shadow: 0 0 0 4px rgba(244,180,0,0.12);
+        }
+        .coupon-input-wrapper input::placeholder {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0;
+            text-transform: none;
+            font-weight: 500;
+            color: #94A3B8;
+        }
+        .btn-apply-coupon {
+            padding: 13px 24px;
+            border-radius: 10px;
+            background: #0A2540;
+            color: #FFFFFF;
+            border: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            white-space: nowrap;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+        }
+        .btn-apply-coupon:hover { background: #1a3a5c; transform: translateY(-1px); }
+        .btn-apply-coupon:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .coupon-message {
+            margin-top: 12px;
+            font-size: 13.5px;
+            font-weight: 700;
+            display: none;
+            padding: 12px 16px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        .coupon-message.success {
+            display: block;
+            background: #ECFDF5;
+            border-left: 4px solid #10B981;
+            color: #065F46;
+        }
+        .coupon-message.error {
+            display: block;
+            background: #FEF2F2;
+            border-left: 4px solid #EF4444;
+            color: #991B1B;
+        }
+        .coupon-message.loading {
+            display: block;
+            background: #F1F5F9;
+            border-left: 4px solid #64748B;
+            color: #475569;
         }
 
+        /* ============ NAVBAR ============ */
+        .main-nav { gap: 2px !important; }
+        .main-nav a {
+            padding: 9px 13px !important;
+            font-size: 13.5px !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown { position: relative; }
+        .nav-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .nav-dropdown > a svg { width: 12px; height: 12px; transition: transform 0.25s; }
+        .nav-dropdown.open > a svg { transform: rotate(180deg); }
+        .nav-dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(-6px);
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(10, 37, 64, 0.18);
+            padding: 8px;
+            min-width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.25s;
+            z-index: 100;
+            border: 1px solid #E2E8F0;
+        }
+        .nav-dropdown.open .nav-dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            width: 12px;
+            height: 12px;
+            background: #FFFFFF;
+            border-top: 1px solid #E2E8F0;
+            border-left: 1px solid #E2E8F0;
+        }
+        .nav-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px !important;
+            color: #334155 !important;
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .nav-dropdown-menu a:hover { background: #F8FAFC; color: #0A2540 !important; }
+
+        .mobile-toggle {
+            display: none;
+            color: #FFFFFF;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .header-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .btn-login { padding: 9px 16px; font-size: 13.5px; white-space: nowrap; }
+        .btn-header-cta { padding: 10px 18px; font-size: 13.5px; white-space: nowrap; }
+
+        @media (max-width: 1150px) {
+            .main-nav { display: none !important; }
+            .mobile-toggle { display: flex; }
+            .header-inner { padding: 14px 20px; }
+        }
         @media (max-width: 540px) {
-            .modal-box { padding: 36px 24px 28px; }
-            .modal-title { font-size: 22px; }
-            .modal-icon { width: 72px; height: 72px; }
-            .modal-icon svg { width: 36px; height: 36px; }
-            .modal-detail-row { flex-direction: column; align-items: flex-start; gap: 4px; }
-            .modal-detail-value { text-align: left; max-width: 100%; }
+            .btn-login { display: none; }
+            .brand-text { display: none; }
+        }
+
+        .mobile-menu {
+            display: none;
+            background: #0A2540;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 16px 20px;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        .mobile-menu.open { display: block; }
+        .mobile-menu a {
+            display: block;
+            padding: 13px 16px;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .mobile-menu a:hover, .mobile-menu a.active { background: rgba(255,255,255,0.08); color: #F4B400; }
+        .mobile-menu-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 12px 0; }
+        .mobile-menu-label {
+            font-size: 11px;
+            color: #F4B400;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 800;
+            padding: 8px 16px;
+            margin-top: 6px;
+        }
+
+        /* ============ FORM SECTION ============ */
+        .register-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 48px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+        }
+        .form-section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--navy-800);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gold-500);
+            margin-bottom: 24px;
+            margin-top: 32px;
+            font-weight: 700;
+        }
+        .form-section-title:first-child { margin-top: 0; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .form-group { margin-bottom: 24px; }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy-800);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 13px 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            color: var(--navy-800);
+            transition: all 0.25s;
+            font-weight: 500;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-500);
+            box-shadow: 0 0 0 3px rgba(244,180,0,0.1);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+            line-height: 1.6;
+        }
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            cursor: pointer;
+            line-height: 1.6;
+        }
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--gold-500);
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            color: #0A2540;
+            box-shadow: 0 10px 28px rgba(244,180,0,0.32);
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(244,180,0,0.42);
+        }
+        .btn-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .form-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .form-note a {
+            color: var(--teal-500);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .register-form { padding: 28px 20px; border-radius: 16px; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            .coupon-input-wrapper { flex-direction: column; }
+            .btn-apply-coupon { width: 100%; }
+            .success-modal { padding: 32px 24px 28px; }
+            .success-title { font-size: 20px; }
+            .success-icon { width: 72px; height: 72px; }
         }
     </style>
 </head>
 <body>
 
+<!-- HEADER -->
 <header class="site-header">
     <div class="header-inner">
         <a href="index.html" class="brand">
@@ -190,16 +511,60 @@
         <nav class="main-nav">
             <a href="index.html">Home</a>
             <a href="courses.html">Courses</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
+            <a href="live-classes.html">Live Classes</a>
+            <a href="resources.html">Resources</a>
+            <div class="nav-dropdown" id="moreDropdown">
+                <a href="javascript:void(0)" onclick="toggleDropdown()">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </a>
+                <div class="nav-dropdown-menu">
+                    <a href="instructors.html">Instructors</a>
+                    <a href="about.html">About Us</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="test.html">Entrance Test</a>
+                    <a href="check-result.html">Check Result</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </div>
         </nav>
-        <div class="header-actions">
+        <div class="header-actions" id="authActions">
             <a href="login.html" class="btn-login">Login</a>
             <a href="register.html" class="btn-header-cta">Register Now</a>
         </div>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="courses.html">Courses</a>
+        <a href="live-classes.html">Live Classes</a>
+        <a href="resources.html">Resources</a>
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        <a href="instructors.html">Instructors</a>
+        <a href="about.html">About Us</a>
+        <a href="blog.html">Blog</a>
+        <a href="test.html">Entrance Test</a>
+        <a href="check-result.html">Check Result</a>
+        <a href="contact.html">Contact</a>
+        <div class="mobile-menu-divider"></div>
+        <a href="login.html" id="mobileLoginLink">Login</a>
+        <a href="register.html" id="mobileRegisterLink">Register Now</a>
+        <a href="dashboard.html" id="mobileDashboardLink" style="display:none;">Dashboard</a>
+        <a href="#" id="mobileLogoutLink" style="display:none;">Logout</a>
     </div>
 </header>
 
+<!-- FORM SECTION -->
 <section class="section section-alt" style="padding-top: 64px;">
     <div class="container">
         <div class="section-head">
@@ -208,44 +573,45 @@
             <p class="section-desc">Fill in your details and our team will contact you within 24 hours on WhatsApp.</p>
         </div>
 
-        <form class="register-form" id="registerForm" style="max-width: 800px; margin: 0 auto; background: var(--white); padding: 48px; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);">
-            
-            <h3 style="font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy-800); padding-bottom: 12px; border-bottom: 2px solid var(--gold-500); margin-bottom: 24px;">Personal Information</h3>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Full Name *</label>
-                    <input type="text" name="full_name" required placeholder="Enter full name" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+        <form class="register-form" id="registerForm">
+
+            <!-- PERSONAL INFORMATION -->
+            <h3 class="form-section-title">Personal Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" name="full_name" required placeholder="Enter your full name">
                 </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Father's Name *</label>
-                    <input type="text" name="father_name" required placeholder="Enter father's name" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+                <div class="form-group">
+                    <label>Father's Name *</label>
+                    <input type="text" name="father_name" required placeholder="Enter father's name">
                 </div>
             </div>
 
-            <h3 style="font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy-800); padding-bottom: 12px; border-bottom: 2px solid var(--gold-500); margin-bottom: 24px; margin-top: 32px;">Contact Information</h3>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">WhatsApp Number *</label>
-                    <input type="tel" name="whatsapp" required placeholder="03XX-XXXXXXX" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+            <h3 class="form-section-title">Contact Information</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>WhatsApp Number *</label>
+                    <input type="tel" name="whatsapp" required placeholder="03XX-XXXXXXX">
                 </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Email Address *</label>
-                    <input type="email" name="email" required placeholder="your@email.com" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" name="email" required placeholder="your@email.com">
                 </div>
             </div>
 
-            <h3 style="font-size: 15px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--navy-800); padding-bottom: 12px; border-bottom: 2px solid var(--gold-500); margin-bottom: 24px; margin-top: 32px;">Education & Course</h3>
-            
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">City *</label>
-                    <input type="text" name="city" required placeholder="Your city" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+            <h3 class="form-section-title">Education & Course</h3>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>City *</label>
+                    <input type="text" name="city" required placeholder="Your city">
                 </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Education Level *</label>
-                    <select name="education" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+                <div class="form-group">
+                    <label>Education Level *</label>
+                    <select name="education" required>
                         <option value="">Select level</option>
                         <option>Matric</option>
                         <option>Intermediate</option>
@@ -256,18 +622,18 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Course Interested In *</label>
-                    <select name="course" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Course Interested In *</label>
+                    <select name="course" required>
                         <option value="">Select course</option>
                         <option>Coding (Python + Web Development)</option>
                         <option>Artificial Intelligence</option>
                     </select>
                 </div>
-                <div>
-                    <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Preferred Timing *</label>
-                    <select name="timing" required style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px;">
+                <div class="form-group">
+                    <label>Preferred Timing *</label>
+                    <select name="timing" required>
                         <option value="">Select timing</option>
                         <option>Evening 6:00 PM - 8:00 PM</option>
                         <option>Weekend Special</option>
@@ -275,31 +641,106 @@
                 </div>
             </div>
 
-            <div style="margin-bottom: 24px;">
-                <label style="display: block; font-size: 14px; font-weight: 600; color: var(--navy-800); margin-bottom: 8px;">Why do you want to join?</label>
-                <textarea name="reason" rows="3" placeholder="Briefly describe your motivation" style="width: 100%; padding: 13px 16px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: inherit; font-size: 15px; resize: vertical;"></textarea>
+            <!-- COUPON CODE -->
+            <h3 class="form-section-title">Coupon Code (Optional)</h3>
+
+            <div class="form-group">
+                <label>Have a coupon code? Apply it here for discount</label>
+                <div class="coupon-input-wrapper">
+                    <input type="text" id="couponCode" placeholder="Enter coupon code (e.g. LAUNCH50)" maxlength="20" autocomplete="off">
+                    <button type="button" class="btn-apply-coupon" id="applyCouponBtn" onclick="applyCoupon()">
+                        Apply
+                    </button>
+                </div>
+                <div class="coupon-message" id="couponMessage"></div>
             </div>
 
-            <div style="margin-bottom: 24px;">
-                <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; margin-bottom: 12px; cursor: pointer;">
-                    <input type="checkbox" required style="width: 18px; height: 18px; accent-color: var(--gold-500);">
+            <!-- ADDITIONAL INFO -->
+            <h3 class="form-section-title">Additional Information</h3>
+
+            <div class="form-group">
+                <label>Why do you want to join this course?</label>
+                <textarea name="reason" rows="3" placeholder="Briefly describe your motivation"></textarea>
+            </div>
+
+            <!-- TERMS -->
+            <h3 class="form-section-title">Terms & Conditions</h3>
+
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" required>
                     I agree to the Terms & Conditions
                 </label>
-                <label style="display: flex; align-items: center; gap: 10px; font-size: 14px; cursor: pointer;">
-                    <input type="checkbox" required style="width: 18px; height: 18px; accent-color: var(--gold-500);">
+                <label>
+                    <input type="checkbox" required>
                     I agree to receive updates on WhatsApp
                 </label>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Registration</button>
+            <button type="submit" id="submitBtn" class="btn-submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+                Submit Registration
+            </button>
 
-            <p style="text-align: center; margin-top: 20px; font-size: 14px; color: var(--text-muted);">
-                Need help? WhatsApp us at <a href="https://wa.me/923410349929" style="color: var(--teal-500); font-weight: 700;">0341 034 9929</a>
+            <p class="form-note">
+                Need help? WhatsApp us at <a href="https://wa.me/923410349929">0341 034 9929</a>
             </p>
         </form>
     </div>
 </section>
 
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="successModal">
+    <div class="success-modal">
+        <div class="success-icon">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+            </svg>
+        </div>
+
+        <h2 class="success-title">Registration Successful</h2>
+        <p class="success-subtitle">
+            Your student account has been created successfully. Our admissions team will contact you shortly.
+        </p>
+
+        <div class="success-details">
+            <div class="success-details-row">
+                <span class="success-details-label">Student Name</span>
+                <span class="success-details-value" id="modalName">—</span>
+            </div>
+            <div class="success-details-row">
+                <span class="success-details-label">Email Address</span>
+                <span class="success-details-value" id="modalEmail">—</span>
+            </div>
+            <div class="success-details-row">
+                <span class="success-details-label">Course Selected</span>
+                <span class="success-details-value" id="modalCourse">—</span>
+            </div>
+            <div class="success-details-row" id="modalCouponRow" style="display: none;">
+                <span class="success-details-label">Coupon Applied</span>
+                <span class="success-details-value" id="modalCoupon" style="color: #10B981;">—</span>
+            </div>
+        </div>
+
+        <div class="success-note">
+            <strong>Next Step:</strong> Our team will contact you on WhatsApp within 24 hours to discuss your enrollment, batch timing, and payment details.
+        </div>
+
+        <button type="button" class="btn-modal-primary" onclick="closeSuccessModal()">
+            Continue to Homepage
+        </button>
+
+        <a href="https://wa.me/923410349929" target="_blank" class="btn-modal-wa">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg>
+            Contact us on WhatsApp
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <footer class="site-footer">
     <div class="container">
         <div class="footer-bottom" style="border-top: none;">
@@ -309,79 +750,130 @@
     </div>
 </footer>
 
-<!-- ============ SUCCESS MODAL ============ -->
-<div class="modal-overlay" id="successModal">
-    <div class="modal-box">
-        <div class="modal-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-            </svg>
-        </div>
-
-        <h2 class="modal-title">Registration Successful</h2>
-        <p class="modal-subtitle">
-            Your student account has been created successfully. Our admissions team will contact you shortly.
-        </p>
-
-        <div class="modal-details">
-            <div class="modal-detail-row">
-                <span class="modal-detail-label">Student Name</span>
-                <span class="modal-detail-value" id="modalName">—</span>
-            </div>
-            <div class="modal-detail-row">
-                <span class="modal-detail-label">Email Address</span>
-                <span class="modal-detail-value" id="modalEmail">—</span>
-            </div>
-            <div class="modal-detail-row">
-                <span class="modal-detail-label">Course Selected</span>
-                <span class="modal-detail-value" id="modalCourse">—</span>
-            </div>
-        </div>
-
-        <div class="modal-note">
-            <strong>Next Step:</strong> Our team will contact you on WhatsApp within 24 hours to discuss your enrollment, batch timing, and payment details.
-        </div>
-
-        <button type="button" class="modal-btn" onclick="closeSuccessModal()">
-            Continue to Homepage
-        </button>
-    </div>
-</div>
-
 <script type="module">
 import { db, auth } from './firebase-config.js';
-import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { collection, addDoc, serverTimestamp, query, where, getDocs, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-const modal = document.getElementById('successModal');
+// ============ COUPON STATE ============
+let appliedCoupon = null;
 
-function showSuccessModal(name, email, course) {
-    document.getElementById('modalName').textContent = name;
-    document.getElementById('modalEmail').textContent = email;
-    document.getElementById('modalCourse').textContent = course;
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+// ============ NAV FUNCTIONS ============
+function toggleDropdown() {
+    document.getElementById('moreDropdown').classList.toggle('open');
 }
-
-window.closeSuccessModal = function() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-    window.location.href = 'index.html';
-};
-
-// Close modal on overlay click (optional)
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-        closeSuccessModal();
-    }
+document.addEventListener('click', (e) => {
+    const dropdown = document.getElementById('moreDropdown');
+    if (dropdown && !dropdown.contains(e.target)) dropdown.classList.remove('open');
+});
+function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('open');
+    });
 });
 
+// ============ APPLY COUPON ============
+window.applyCoupon = async function() {
+    const codeInput = document.getElementById('couponCode');
+    const msgBox = document.getElementById('couponMessage');
+    const btn = document.getElementById('applyCouponBtn');
+    const code = codeInput.value.trim().toUpperCase().replace(/\s/g, '');
+
+    // Reset
+    msgBox.className = 'coupon-message';
+    msgBox.textContent = '';
+    appliedCoupon = null;
+
+    if (!code) {
+        msgBox.className = 'coupon-message error';
+        msgBox.textContent = 'Please enter a coupon code.';
+        return;
+    }
+
+    if (code.length < 3) {
+        msgBox.className = 'coupon-message error';
+        msgBox.textContent = 'Coupon code must be at least 3 characters.';
+        return;
+    }
+
+    // Loading state
+    msgBox.className = 'coupon-message loading';
+    msgBox.textContent = 'Checking coupon...';
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    try {
+        const q = query(collection(db, 'coupons'), where('code', '==', code));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+            msgBox.className = 'coupon-message error';
+            msgBox.textContent = 'Invalid coupon code. Please check and try again.';
+            return;
+        }
+
+        const couponDoc = snap.docs[0];
+        const coupon = couponDoc.data();
+
+        // Check active
+        if (!coupon.active) {
+            msgBox.className = 'coupon-message error';
+            msgBox.textContent = 'This coupon is no longer active.';
+            return;
+        }
+
+        // Check expiry
+        if (coupon.expiresAt) {
+            const expiryDate = new Date(coupon.expiresAt);
+            if (new Date() > expiryDate) {
+                msgBox.className = 'coupon-message error';
+                msgBox.textContent = 'This coupon has expired.';
+                return;
+            }
+        }
+
+        // Check max uses
+        if (coupon.maxUses > 0 && coupon.usedCount >= coupon.maxUses) {
+            msgBox.className = 'coupon-message error';
+            msgBox.textContent = 'This coupon has reached its maximum usage limit.';
+            return;
+        }
+
+        // SUCCESS!
+        appliedCoupon = {
+            id: couponDoc.id,
+            code: coupon.code,
+            discountPercent: coupon.discountPercent,
+            description: coupon.description || ''
+        };
+
+        msgBox.className = 'coupon-message success';
+        msgBox.innerHTML = `Coupon applied successfully! You get <strong>${coupon.discountPercent}% OFF</strong> on your course fee.${coupon.description ? ' <br><span style="font-size:12.5px;opacity:0.85;">' + coupon.description + '</span>' : ''}`;
+
+        // Disable input
+        codeInput.disabled = true;
+        btn.textContent = 'Applied ✓';
+        btn.style.background = '#10B981';
+
+    } catch (err) {
+        console.error('Coupon check error:', err);
+        msgBox.className = 'coupon-message error';
+        msgBox.textContent = 'Unable to verify coupon. Please try again.';
+    } finally {
+        btn.disabled = false;
+    }
+};
+
+// ============ FORM SUBMIT ============
 document.getElementById('registerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Submitting...';
+
+    const submitBtn = document.getElementById('submitBtn');
+    const originalHTML = submitBtn.innerHTML;
+    submitBtn.innerHTML = 'Submitting...';
     submitBtn.disabled = true;
 
     const formData = {
@@ -393,19 +885,22 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         education: document.querySelector('select[name="education"]').value,
         course: document.querySelector('select[name="course"]').value,
         timing: document.querySelector('select[name="timing"]').value,
-        reason: document.querySelector('textarea[name="reason"]')?.value.trim() || ''
+        reason: document.querySelector('textarea[name="reason"]').value.trim(),
+        couponCode: appliedCoupon ? appliedCoupon.code : '',
+        couponDiscount: appliedCoupon ? appliedCoupon.discountPercent : 0
     };
 
+    // Validation
     if (!formData.fullName || !formData.email || !formData.whatsapp) {
-        alert('Please fill all required fields');
-        submitBtn.textContent = originalText;
+        alert('Please fill all required fields.');
+        submitBtn.innerHTML = originalHTML;
         submitBtn.disabled = false;
         return;
     }
 
     try {
         const tempPassword = 'Apex@' + Math.random().toString(36).slice(-8);
-        
+
         let user;
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, formData.email, tempPassword);
@@ -413,14 +908,15 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         } catch (authError) {
             if (authError.code === 'auth/email-already-in-use') {
                 alert('This email is already registered. Please login instead.');
-                submitBtn.textContent = originalText;
+                submitBtn.innerHTML = originalHTML;
                 submitBtn.disabled = false;
                 return;
             }
             throw authError;
         }
 
-        await addDoc(collection(db, "students"), {
+        // Save student record
+        await addDoc(collection(db, 'students'), {
             uid: user.uid,
             fullName: formData.fullName,
             fatherName: formData.fatherName,
@@ -431,23 +927,81 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
             course: formData.course,
             timing: formData.timing,
             reason: formData.reason,
+            couponCode: formData.couponCode,
+            couponDiscount: formData.couponDiscount,
             enrolledAt: serverTimestamp(),
             status: 'pending',
             attendance: 0,
             progress: 0
         });
 
-        // Show professional modal
-        showSuccessModal(formData.fullName, formData.email, formData.course);
+        // Increment coupon usage
+        if (appliedCoupon) {
+            try {
+                await updateDoc(doc(db, 'coupons', appliedCoupon.id), {
+                    usedCount: increment(1)
+                });
+            } catch (err) {
+                console.warn('Coupon usage increment failed:', err.message);
+            }
+        }
+
+        // Save notification message
+        await addDoc(collection(db, 'messages'), {
+            type: 'new_registration',
+            studentName: formData.fullName,
+            email: formData.email,
+            phone: formData.whatsapp,
+            course: formData.course,
+            coupon: formData.couponCode || 'None',
+            sentAt: serverTimestamp()
+        });
+
+        // Show success modal
+        document.getElementById('modalName').textContent = formData.fullName;
+        document.getElementById('modalEmail').textContent = formData.email;
+        document.getElementById('modalCourse').textContent = formData.course;
+
+        if (appliedCoupon) {
+            document.getElementById('modalCouponRow').style.display = 'flex';
+            document.getElementById('modalCoupon').textContent = `${appliedCoupon.code} (-${appliedCoupon.discountPercent}%)`;
+        } else {
+            document.getElementById('modalCouponRow').style.display = 'none';
+        }
+
+        document.getElementById('successModal').classList.add('active');
+        document.body.style.overflow = 'hidden';
 
     } catch (error) {
         console.error('Registration error:', error);
         alert('Registration failed: ' + error.message);
-        submitBtn.textContent = originalText;
+        submitBtn.innerHTML = originalHTML;
         submitBtn.disabled = false;
     }
 });
+
+// ============ CLOSE SUCCESS MODAL ============
+window.closeSuccessModal = function() {
+    document.getElementById('successModal').classList.remove('active');
+    document.body.style.overflow = '';
+    window.location.href = 'index.html';
+};
+
+// Close modal on overlay click
+document.getElementById('successModal').addEventListener('click', (e) => {
+    if (e.target.id === 'successModal') closeSuccessModal();
+});
+
+// ============ COUPON INPUT ENTER KEY ============
+document.getElementById('couponCode').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        applyCoupon();
+    }
+});
 </script>
-<script type="module" src="visitor-tracker.js"></script>
+
+<script type="module" src="auth-nav.js"></script>
+
 </body>
 </html>
