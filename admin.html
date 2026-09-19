@@ -162,6 +162,7 @@
         .admin-stat-card.pink { border-left-color: #EC4899; }
         .admin-stat-card.cyan { border-left-color: #06B6D4; }
         .admin-stat-card.indigo { border-left-color: #6366F1; }
+        .admin-stat-card.amber { border-left-color: #F59E0B; }
         .admin-stat-label {
             font-size: 10.5px;
             text-transform: uppercase;
@@ -273,6 +274,8 @@
         .badge-read { background: #F1F5F9; color: #475569; }
         .badge-cyan { background: #CFFAFE; color: #155E75; }
         .badge-indigo { background: #E0E7FF; color: #3730A3; }
+        .badge-amber { background: #FEF3C7; color: #92400E; }
+        .badge-rejected { background: #FEE2E2; color: #991B1B; }
 
         .empty-state { padding: 60px 20px; text-align: center; color: #64748B; }
         .empty-state svg { width: 48px; height: 48px; color: #CBD5E1; margin-bottom: 16px; }
@@ -281,7 +284,7 @@
         .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
 
         /* Buttons */
-        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply {
+        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject {
             padding: 6px 12px;
             border-radius: 6px;
             border: none;
@@ -296,7 +299,7 @@
             align-items: center;
             gap: 5px;
         }
-        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-host svg, .btn-reply svg {
+        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg {
             width: 12px;
             height: 12px;
         }
@@ -310,6 +313,10 @@
         .btn-host:hover { background: #FEF3C7; }
         .btn-reply { background: #E0E7FF; color: #3730A3; }
         .btn-reply:hover { background: #C7D2FE; }
+        .btn-approve { background: #ECFDF5; color: #065F46; }
+        .btn-approve:hover { background: #D1FAE5; }
+        .btn-reject { background: #FEF2F2; color: #991B1B; }
+        .btn-reject:hover { background: #FEE2E2; }
 
         /* Modal */
         .modal-overlay {
@@ -517,6 +524,89 @@
             line-height: 1.6;
         }
 
+        /* Review Detail Modal */
+        .review-detail-modal {
+            background: #FFFFFF;
+            border-radius: 20px;
+            max-width: 560px;
+            width: 100%;
+            padding: 36px;
+            position: relative;
+        }
+        .review-detail-modal h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            color: #0A2540;
+            font-weight: 800;
+            margin-bottom: 20px;
+            padding-right: 40px;
+        }
+        .review-detail-student {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #F1F5F9;
+            margin-bottom: 18px;
+        }
+        .review-detail-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F4B400, #d99f00);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: #0A2540;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+        .review-detail-name {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: #0A2540;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .review-detail-email {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 500;
+        }
+        .review-detail-stars {
+            font-size: 26px;
+            color: #F4B400;
+            margin-bottom: 16px;
+            letter-spacing: 4px;
+        }
+        .review-detail-text {
+            background: #F8FAFC;
+            border-radius: 12px;
+            padding: 20px 22px;
+            font-size: 14.5px;
+            color: #334155;
+            line-height: 1.75;
+            font-weight: 500;
+            margin-bottom: 20px;
+            border-left: 4px solid #F4B400;
+        }
+        .review-detail-meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            font-size: 12.5px;
+            color: #64748B;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .review-detail-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
         /* JITSI Modal */
         .jitsi-modal {
             position: fixed;
@@ -589,7 +679,7 @@
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
+<!-- LOGIN -->
 <div class="login-screen" id="loginScreen">
     <div class="login-box">
         <div style="text-align: center; margin-bottom: 20px;">
@@ -618,7 +708,7 @@
     </div>
 </div>
 
-<!-- ============ ADMIN PANEL ============ -->
+<!-- ADMIN PANEL -->
 <div id="adminPanel" style="display: none;">
 
     <div class="admin-header">
@@ -665,6 +755,10 @@
                 <div class="admin-stat-label">Messages</div>
                 <div class="admin-stat-value" id="statMessages">—</div>
             </div>
+            <div class="admin-stat-card amber" data-tab="reviews" onclick="switchTab('reviews')">
+                <div class="admin-stat-label">Reviews</div>
+                <div class="admin-stat-value" id="statReviews">—</div>
+            </div>
             <div class="admin-stat-card purple" data-tab="certificates" onclick="switchTab('certificates')">
                 <div class="admin-stat-label">Certificates</div>
                 <div class="admin-stat-value" id="statCertificates">—</div>
@@ -689,7 +783,7 @@
 
         <div class="admin-panel">
             <div class="panel-header">
-                <div class="panel-title" id="panelTitle">Unique Visitors</div>
+                <div class="panel-title" id="panelTitle">Students</div>
                 <input type="text" class="panel-search" id="searchInput" placeholder="Search...">
                 <button class="btn-refresh" onclick="loadAllData()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -707,7 +801,7 @@
     </div>
 </div>
 
-<!-- ============ DETAIL MODAL ============ -->
+<!-- DETAIL MODAL -->
 <div class="modal-overlay" id="detailModal">
     <div class="detail-modal">
         <button class="modal-close" onclick="closeDetail()">
@@ -721,7 +815,21 @@
     </div>
 </div>
 
-<!-- ============ PUBLISH RESULT MODAL ============ -->
+<!-- REVIEW DETAIL MODAL -->
+<div class="modal-overlay" id="reviewDetailModal">
+    <div class="review-detail-modal">
+        <button class="modal-close" onclick="closeReviewDetail()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Review Details</h3>
+        <div id="reviewDetailBody"></div>
+    </div>
+</div>
+
+<!-- PUBLISH RESULT MODAL -->
 <div class="modal-overlay" id="publishModal">
     <div class="publish-modal">
         <button class="modal-close" onclick="closePublishModal()">
@@ -757,7 +865,7 @@
     </div>
 </div>
 
-<!-- ============ ANNOUNCEMENT MODAL ============ -->
+<!-- ANNOUNCEMENT MODAL -->
 <div class="modal-overlay" id="announcementModal">
     <div class="publish-modal">
         <button class="modal-close" onclick="closeAnnouncementModal()">
@@ -793,7 +901,7 @@
     </div>
 </div>
 
-<!-- ============ REPLY MODAL ============ -->
+<!-- REPLY MODAL -->
 <div class="modal-overlay" id="replyModal">
     <div class="publish-modal" style="max-width: 680px;">
         <button class="modal-close" onclick="closeReplyModal()">
@@ -906,7 +1014,7 @@
     </div>
 </div>
 
-<!-- ============ HOST CLASS MODAL ============ -->
+<!-- HOST CLASS MODAL -->
 <div class="modal-overlay" id="hostModal">
     <div class="detail-modal" style="max-width: 620px;">
         <button class="modal-close" onclick="closeHostModal()">
@@ -921,7 +1029,7 @@
     </div>
 </div>
 
-<!-- ============ JITSI MODAL ============ -->
+<!-- JITSI MODAL -->
 <div class="jitsi-modal" id="jitsiModal">
     <div class="jitsi-topbar">
         <div class="jitsi-info">
@@ -955,29 +1063,26 @@ import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc, serverTimestamp
 // ============ ADMIN CONFIG ============
 const ADMIN_UID = 'VHbqYaHK6yXP2f8IF9WKc33kkD73';
 const ADMIN_NAME = 'Mukesh Kewal';
-const ADMIN_WHATSAPP = '923410349929';
 
 // ============ STATE ============
 let allData = {
+    visitors: [],
+    visits: [],
     students: [],
     instructors: [],
     messages: [],
+    reviews: [],
     certificates: [],
     tests: [],
     liveClasses: [],
     attendance: [],
-    announcements: [],
-    visitors: [],
-    visits: []
+    announcements: []
 };
-let currentTab = 'visitors';
+let currentTab = 'students';
 let currentSearch = '';
 let jitsiApi = null;
 let currentHostClass = null;
-let currentReplyContext = {
-    message: null,
-    matchedStudent: null
-};
+let currentReplyContext = { message: null, matchedStudent: null };
 
 // ============ DEFAULT SCHEDULE ============
 const DEFAULT_SCHEDULE = [
@@ -990,207 +1095,16 @@ const DEFAULT_SCHEDULE = [
 
 // ============ REPLY TEMPLATES ============
 const REPLY_TEMPLATES = {
-    thanks: `Assalam-o-Alaikum {NAME},
-
-Thank you for reaching out to Apex Learning Academy.
-
-We have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.
-
-We appreciate your interest in our academy and look forward to helping you achieve your learning goals.
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.
-Contact: 0341 034 9929`,
-
-    fees: `Assalam-o-Alaikum {NAME},
-
-Thank you for your interest in Apex Learning Academy.
-
-Course Fee Details:
-
-• Coding (Python + Web Development)
-  - Rs. 3,000 per month
-  - Duration: 3 months
-
-• Artificial Intelligence
-  - Rs. 4,000 per month
-  - Duration: 4 months
-
-Both courses include:
-  - Live interactive classes (evening 6:00 PM - 8:00 PM)
-  - Small batch size (10-15 students)
-  - Real-world projects and portfolio building
-  - Certificate on successful completion
-  - Lifetime access to class recordings
-
-For enrollment, please contact us:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    timing: `Assalam-o-Alaikum {NAME},
-
-Thank you for your inquiry about class timings at Apex Learning Academy.
-
-Weekly Live Class Schedule (Pakistan Standard Time):
-
-• Monday — Coding: 6:00 PM to 8:00 PM
-• Tuesday — Artificial Intelligence: 6:00 PM to 8:00 PM
-• Wednesday — Coding: 6:00 PM to 8:00 PM
-• Thursday — Artificial Intelligence: 6:00 PM to 8:00 PM
-• Saturday — Open Doubt Session: 6:00 PM to 8:00 PM
-
-All classes are conducted online through Jitsi Meet.
-
-For registration, contact us:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    enrollment: `Assalam-o-Alaikum {NAME},
-
-Thank you for your interest in enrolling at Apex Learning Academy.
-
-Simple Enrollment Process:
-
-1. Visit our website
-2. Click "Register Now" and fill the registration form
-3. Our team will contact you within 24 hours on WhatsApp
-4. Book your FREE demo class
-5. Make payment via JazzCash / EasyPaisa / Bank Transfer
-6. Your enrollment will be activated within 24 hours
-
-For assistance, please contact us:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    demo: `Assalam-o-Alaikum {NAME},
-
-Thank you for your interest in our FREE demo class at Apex Learning Academy.
-
-We offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment.
-
-What to expect in your demo:
-  - Introduction to the course topic
-  - Live interaction with the instructor
-  - Sample lesson from the curriculum
-  - Q&A session
-
-To book your free demo:
-WhatsApp us at: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    certificate: `Assalam-o-Alaikum {NAME},
-
-Thank you for your inquiry about certificates at Apex Learning Academy.
-
-Certificate Details:
-
-- Issued upon successful course completion
-- Requires 75% attendance and final project submission
-- Includes a unique Certificate ID for verification
-- Can be verified online at our verification portal
-- QR code included for instant verification
-
-For any certificate-related questions:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    technical: `Assalam-o-Alaikum {NAME},
-
-Thank you for reporting the technical issue at Apex Learning Academy.
-
-We sincerely apologize for any inconvenience caused. Our technical team will investigate and resolve the matter as quickly as possible.
-
-To help us resolve faster, please share:
-  - Screenshot of the issue (if possible)
-  - Browser and device you are using
-  - Exact steps that led to the problem
-
-For urgent assistance:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
-
-    payment: `Assalam-o-Alaikum {NAME},
-
-Thank you for your inquiry about payment methods.
-
-Accepted Payment Options:
-1. JazzCash (Mobile Wallet)
-2. EasyPaisa (Mobile Wallet)
-3. Bank Transfer
-
-Payment Process:
-1. Choose your course
-2. Our team will share payment details on WhatsApp
-3. Make the payment
-4. Send us the screenshot
-5. Enrollment activated within 24 hours
-
-Fees:
-• Coding: Rs. 3,000/month
-• AI: Rs. 4,000/month
-
-For payment assistance:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team`,
-
-    batch: `Assalam-o-Alaikum {NAME},
-
-Thank you for your interest in joining Apex Learning Academy.
-
-Batch Information:
-
-Small batches of 10-15 students for personal attention.
-
-Current Batches:
-• Coding — Monday & Wednesday, 6-8 PM
-• AI — Tuesday & Thursday, 6-8 PM
-• Doubt Session — Saturday evening
-
-New batches start every month.
-
-To reserve your seat:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team`,
-
-    refund: `Assalam-o-Alaikum {NAME},
-
-Thank you for your inquiry about our refund policy.
-
-Refund Policy:
-- Fees are non-refundable once a course has started
-- Cancellation must be requested BEFORE the first class
-- Duplicate payments refunded within 7 working days
-- Course fees can be adjusted toward a different course (once)
-
-For refund-related questions:
-WhatsApp: 0341 034 9929
-
-Best regards,
-Apex Learning Academy Team`,
-
+    thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.\n\nWe appreciate your interest in our academy and look forward to helping you achieve your learning goals.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
+    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development)\n  - Rs. 3,000 per month\n  - Duration: 3 months\n\n• Artificial Intelligence\n  - Rs. 4,000 per month\n  - Duration: 4 months\n\nBoth courses include:\n  - Live interactive classes (evening 6:00 PM - 8:00 PM)\n  - Small batch size (10-15 students)\n  - Real-world projects and portfolio building\n  - Certificate on successful completion\n  - Lifetime access to class recordings\n\nFor enrollment, please contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    timing: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about class timings at Apex Learning Academy.\n\nWeekly Live Class Schedule (Pakistan Standard Time):\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — Artificial Intelligence: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — Artificial Intelligence: 6:00 PM to 8:00 PM\n• Saturday — Open Doubt Session: 6:00 PM to 8:00 PM\n\nAll classes are conducted online through Jitsi Meet.\n\nFor registration, contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    enrollment: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in enrolling at Apex Learning Academy.\n\nSimple Enrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the registration form\n3. Our team will contact you within 24 hours on WhatsApp\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Your enrollment will be activated within 24 hours\n\nFor assistance, please contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class at Apex Learning Academy.\n\nWe offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment.\n\nWhat to expect in your demo:\n  - Introduction to the course topic\n  - Live interaction with the instructor\n  - Sample lesson from the curriculum\n  - Q&A session\n\nTo book your free demo:\nWhatsApp us at: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    certificate: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about certificates at Apex Learning Academy.\n\nCertificate Details:\n\n- Issued upon successful course completion\n- Requires 75% attendance and final project submission\n- Includes a unique Certificate ID for verification\n- Can be verified online at our verification portal\n- QR code included for instant verification\n\nFor any certificate-related questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    technical: `Assalam-o-Alaikum {NAME},\n\nThank you for reporting the technical issue at Apex Learning Academy.\n\nWe sincerely apologize for any inconvenience caused. Our technical team will investigate and resolve the matter as quickly as possible.\n\nTo help us resolve faster, please share:\n  - Screenshot of the issue (if possible)\n  - Browser and device you are using\n  - Exact steps that led to the problem\n\nFor urgent assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
+    payment: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about payment methods.\n\nAccepted Payment Options:\n1. JazzCash (Mobile Wallet)\n2. EasyPaisa (Mobile Wallet)\n3. Bank Transfer\n\nPayment Process:\n1. Choose your course\n2. Our team will share payment details on WhatsApp\n3. Make the payment\n4. Send us the screenshot\n5. Enrollment activated within 24 hours\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    batch: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in joining Apex Learning Academy.\n\nBatch Information:\n\nSmall batches of 10-15 students for personal attention.\n\nCurrent Batches:\n• Coding — Monday & Wednesday, 6-8 PM\n• AI — Tuesday & Thursday, 6-8 PM\n• Doubt Session — Saturday evening\n\nNew batches start every month.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    refund: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about our refund policy.\n\nRefund Policy:\n- Fees are non-refundable once a course has started\n- Cancellation must be requested BEFORE the first class\n- Duplicate payments refunded within 7 working days\n- Course fees can be adjusted toward a different course (once)\n\nFor refund-related questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
     custom: ''
 };
 
@@ -1224,7 +1138,6 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById('adminPanel').style.display = 'none';
         return;
     }
-
     if (user.uid !== ADMIN_UID) {
         await signOut(auth);
         document.getElementById('loginError').textContent = 'Access denied. You are not authorized as an admin.';
@@ -1233,11 +1146,9 @@ onAuthStateChanged(auth, async (user) => {
         document.getElementById('adminLoginBtn').disabled = false;
         return;
     }
-
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminPanel').style.display = 'block';
     document.getElementById('adminUserEmail').textContent = user.email;
-
     await loadAllData();
 });
 
@@ -1253,35 +1164,38 @@ async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
 
     try {
-        const [s, i, m, c, t, l, a, ann, v, vst] = await Promise.all([
+        const [v, vst, s, i, m, rev, c, t, l, a, ann] = await Promise.all([
+            getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'visits')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'reviews')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'certificates')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'testSubmissions')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'liveClasses')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'attendance')).catch(() => ({ docs: [] })),
-            getDocs(collection(db, 'announcements')).catch(() => ({ docs: [] })),
-            getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
-            getDocs(collection(db, 'visits')).catch(() => ({ docs: [] }))
+            getDocs(collection(db, 'announcements')).catch(() => ({ docs: [] }))
         ]);
 
+        allData.visitors = v.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.visits = vst.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.students = s.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.instructors = i.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.messages = m.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.reviews = rev.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.certificates = c.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.tests = t.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.liveClasses = l.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.attendance = a.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.announcements = ann.docs.map(d => ({ id: d.id, ...d.data() }));
-        allData.visitors = v.docs.map(d => ({ id: d.id, ...d.data() }));
-        allData.visits = vst.docs.map(d => ({ id: d.id, ...d.data() }));
 
         document.getElementById('statVisitors').textContent = allData.visitors.length;
         document.getElementById('statVisits').textContent = allData.visits.length;
         document.getElementById('statStudents').textContent = allData.students.length;
         document.getElementById('statInstructors').textContent = allData.instructors.length;
         document.getElementById('statMessages').textContent = allData.messages.length;
+        document.getElementById('statReviews').textContent = allData.reviews.length;
         document.getElementById('statCertificates').textContent = allData.certificates.length;
         document.getElementById('statTests').textContent = allData.tests.length;
         document.getElementById('statLiveClasses').textContent = (allData.liveClasses.length || DEFAULT_SCHEDULE.length);
@@ -1291,10 +1205,7 @@ async function loadAllData() {
         renderTab(currentTab);
     } catch (err) {
         console.error('Load error:', err);
-        document.getElementById('panelBody').innerHTML = `
-            <div class="empty-state">
-                <p style="color:#991B1B;">Error loading data: ${err.message}</p>
-            </div>`;
+        document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p style="color:#991B1B;">Error loading data: ${err.message}</p></div>`;
     }
 }
 
@@ -1305,16 +1216,11 @@ window.switchTab = function(tab) {
     document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
 
     const titles = {
-        visitors: 'Unique Visitors',
-        visits: 'Page Views',
-        students: 'Students',
-        instructors: 'Instructor Applications',
-        messages: 'Contact Messages',
-        certificates: 'Certificates Issued',
-        tests: 'Test Submissions',
-        liveClasses: 'Live Classes',
-        attendance: 'Attendance Records',
-        announcements: 'Announcements'
+        visitors: 'Unique Visitors', visits: 'Page Views', students: 'Students',
+        instructors: 'Instructor Applications', messages: 'Contact Messages',
+        reviews: 'Student Reviews', certificates: 'Certificates Issued',
+        tests: 'Test Submissions', liveClasses: 'Live Classes',
+        attendance: 'Attendance Records', announcements: 'Announcements'
     };
     document.getElementById('panelTitle').textContent = titles[tab];
     document.getElementById('searchInput').value = '';
@@ -1332,29 +1238,13 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
 function renderTab(tab) {
     const body = document.getElementById('panelBody');
     let data = allData[tab];
+    if (tab === 'liveClasses' && data.length === 0) data = DEFAULT_SCHEDULE;
+    if (currentSearch) data = data.filter(item => JSON.stringify(item).toLowerCase().includes(currentSearch));
 
-    if (tab === 'liveClasses' && data.length === 0) {
-        data = DEFAULT_SCHEDULE;
-    }
-
-    if (currentSearch) {
-        data = data.filter(item => JSON.stringify(item).toLowerCase().includes(currentSearch));
-    }
-
-    if (tab === 'announcements') {
-        renderAnnouncements(data);
-        return;
-    }
+    if (tab === 'announcements') { renderAnnouncements(data); return; }
 
     if (data.length === 0) {
-        body.innerHTML = `
-            <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                    <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                <p>No ${tab} found${currentSearch ? ' matching your search' : ''}.</p>
-            </div>`;
+        body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No ${tab} found${currentSearch ? ' matching your search' : ''}.</p></div>`;
         return;
     }
 
@@ -1363,390 +1253,225 @@ function renderTab(tab) {
     else if (tab === 'students') renderStudents(data);
     else if (tab === 'instructors') renderInstructors(data);
     else if (tab === 'messages') renderMessages(data);
+    else if (tab === 'reviews') renderReviews(data);
     else if (tab === 'certificates') renderCertificates(data);
     else if (tab === 'tests') renderTests(data);
     else if (tab === 'liveClasses') renderLiveClasses(data);
     else if (tab === 'attendance') renderAttendance(data);
 }
 
-// ============ RENDER VISITORS ============
+// ============ VISITORS ============
 function renderVisitors(data) {
     const sorted = [...data].sort((a, b) => (b.lastVisit?.seconds || 0) - (a.lastVisit?.seconds || 0));
-
     const rows = sorted.map(v => {
-        let firstVisit = '—';
-        let lastVisit = '—';
-
-        if (v.firstVisit?.seconds) {
-            firstVisit = new Date(v.firstVisit.seconds * 1000).toLocaleString('en-GB');
-        }
-        if (v.lastVisit?.seconds) {
-            lastVisit = new Date(v.lastVisit.seconds * 1000).toLocaleString('en-GB');
-        }
-
-        return `
-            <tr>
-                <td><strong>${v.visitorId?.slice(-8) || '—'}</strong></td>
-                <td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td>
-                <td>${v.device || '—'}</td>
-                <td>${v.browser || '—'} / ${v.os || '—'}</td>
-                <td><span class="badge badge-cyan">${v.totalVisits || 1}</span></td>
-                <td>${firstVisit}</td>
-                <td>${lastVisit}</td>
-                <td>
-                    <button class="btn-delete" onclick="deleteItem('visitors', '${v.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        `;
+        let firstVisit = '—', lastVisit = '—';
+        if (v.firstVisit?.seconds) firstVisit = new Date(v.firstVisit.seconds * 1000).toLocaleString('en-GB');
+        if (v.lastVisit?.seconds) lastVisit = new Date(v.lastVisit.seconds * 1000).toLocaleString('en-GB');
+        return `<tr><td><strong>${v.visitorId?.slice(-8) || '—'}</strong></td><td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td><td>${v.device || '—'}</td><td>${v.browser || '—'} / ${v.os || '—'}</td><td><span class="badge badge-cyan">${v.totalVisits || 1}</span></td><td>${firstVisit}</td><td>${lastVisit}</td><td><button class="btn-delete" onclick="deleteItem('visitors', '${v.id}')">Delete</button></td></tr>`;
     }).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600;">
-            Total Unique Visitors: <strong style="color: #0A2540;">${data.length}</strong>
-        </div>
-        <table class="data-table">
-            <thead><tr>
-                <th>Visitor ID</th><th>Location</th><th>Device</th><th>Browser/OS</th><th>Visits</th><th>First Visit</th><th>Last Visit</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Total Unique Visitors: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Visitor ID</th><th>Location</th><th>Device</th><th>Browser/OS</th><th>Visits</th><th>First Visit</th><th>Last Visit</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER VISITS ============
+// ============ VISITS ============
 function renderVisits(data) {
     const sorted = [...data].sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
-
     const rows = sorted.slice(0, 200).map(v => {
         let timeStr = '—';
-        if (v.timestamp?.seconds) {
-            timeStr = new Date(v.timestamp.seconds * 1000).toLocaleString('en-GB');
-        }
-
-        return `
-            <tr>
-                <td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td>
-                <td><span class="truncate">${v.page || '—'}</span></td>
-                <td>${v.device || '—'}</td>
-                <td>${v.browser || '—'}</td>
-                <td><span class="truncate" style="font-size:11.5px;">${v.referrer || 'Direct'}</span></td>
-                <td>${timeStr}</td>
-                <td>
-                    <button class="btn-delete" onclick="deleteItem('visits', '${v.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        `;
+        if (v.timestamp?.seconds) timeStr = new Date(v.timestamp.seconds * 1000).toLocaleString('en-GB');
+        return `<tr><td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td><td><span class="truncate">${v.page || '—'}</span></td><td>${v.device || '—'}</td><td>${v.browser || '—'}</td><td><span class="truncate" style="font-size:11.5px;">${v.referrer || 'Direct'}</span></td><td>${timeStr}</td><td><button class="btn-delete" onclick="deleteItem('visits', '${v.id}')">Delete</button></td></tr>`;
     }).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600;">
-            Showing latest 200 visits — Total: <strong style="color: #0A2540;">${data.length}</strong>
-        </div>
-        <table class="data-table">
-            <thead><tr>
-                <th>Location</th><th>Page</th><th>Device</th><th>Browser</th><th>Referrer</th><th>Time</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Showing latest 200 visits — Total: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Location</th><th>Page</th><th>Device</th><th>Browser</th><th>Referrer</th><th>Time</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER STUDENTS ============
+// ============ STUDENTS ============
 function renderStudents(data) {
-    const rows = data.map(s => `
-        <tr>
-            <td><strong>${s.fullName || '—'}</strong></td>
-            <td>${s.email || '—'}</td>
-            <td>${s.whatsapp || '—'}</td>
-            <td><span class="truncate">${s.course || '—'}</span></td>
-            <td>${s.city || '—'}</td>
-            <td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td>
-            <td>
-                <button class="btn-view" onclick="viewDetail('students', '${s.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    View
-                </button>
-                <button class="btn-delete" onclick="deleteItem('students', '${s.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Delete
-                </button>
-            </td>
-        </tr>
-    `).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Name</th><th>Email</th><th>WhatsApp</th><th>Course</th><th>City</th><th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong></td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Course</th><th>City</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER INSTRUCTORS ============
+// ============ INSTRUCTORS ============
 function renderInstructors(data) {
-    const rows = data.map(i => `
-        <tr>
-            <td><strong>${i.fullName || '—'}</strong></td>
-            <td>${i.email || '—'}</td>
-            <td>${i.whatsapp || '—'}</td>
-            <td>${i.subject || '—'}</td>
-            <td>${i.experience || '—'}</td>
-            <td><span class="badge badge-pending">${i.status || 'pending'}</span></td>
-            <td>
-                <button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">View</button>
-                <button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">Delete</button>
-            </td>
-        </tr>
-    `).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Name</th><th>Email</th><th>WhatsApp</th><th>Subject</th><th>Experience</th><th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    const rows = data.map(i => `<tr><td><strong>${i.fullName || '—'}</strong></td><td>${i.email || '—'}</td><td>${i.whatsapp || '—'}</td><td>${i.subject || '—'}</td><td>${i.experience || '—'}</td><td><span class="badge badge-pending">${i.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">View</button><button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">Delete</button></td></tr>`).join('');
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Subject</th><th>Experience</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER MESSAGES ============
+// ============ MESSAGES ============
 function renderMessages(data) {
     const rows = data.map(m => {
         let dateStr = '—';
-        if (m.sentAt && m.sentAt.seconds) {
-            dateStr = new Date(m.sentAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-        }
-
+        if (m.sentAt && m.sentAt.seconds) dateStr = new Date(m.sentAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
         let statusBadge = '<span class="badge badge-pending">UNREAD</span>';
         if (m.status === 'read') statusBadge = '<span class="badge badge-read">READ</span>';
         else if (m.status === 'replied') statusBadge = '<span class="badge badge-replied">REPLIED</span>';
+        return `<tr><td><strong>${m.name || '—'}</strong></td><td>${m.email || '—'}</td><td><span class="truncate">${m.subject || '—'}</span></td><td><span class="truncate">${m.message || '—'}</span></td><td>${statusBadge}</td><td>${dateStr}</td><td><button class="btn-view" onclick="viewDetail('messages', '${m.id}')">View</button><button class="btn-reply" onclick="openReplyModal('${m.id}')">Reply</button><button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">Delete</button></td></tr>`;
+    }).join('');
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
 
-        return `
-            <tr>
-                <td><strong>${m.name || '—'}</strong></td>
-                <td>${m.email || '—'}</td>
-                <td><span class="truncate">${m.subject || '—'}</span></td>
-                <td><span class="truncate">${m.message || '—'}</span></td>
-                <td>${statusBadge}</td>
-                <td>${dateStr}</td>
-                <td>
-                    <button class="btn-view" onclick="viewDetail('messages', '${m.id}')">View</button>
-                    <button class="btn-reply" onclick="openReplyModal('${m.id}')">Reply</button>
-                    <button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">Delete</button>
-                </td>
-            </tr>
-        `;
+// ============ REVIEWS ============
+function renderReviews(data) {
+    const sorted = [...data].sort((a, b) => (b.submittedAt?.seconds || 0) - (a.submittedAt?.seconds || 0));
+
+    const rows = sorted.map(r => {
+        let dateStr = '—';
+        if (r.submittedAt?.seconds) dateStr = new Date(r.submittedAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+        const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+
+        let statusBadge = '<span class="badge badge-pending">PENDING</span>';
+        if (r.status === 'approved') statusBadge = '<span class="badge badge-active">APPROVED</span>';
+        else if (r.status === 'rejected') statusBadge = '<span class="badge badge-rejected">REJECTED</span>';
+
+        const approveBtn = r.status !== 'approved'
+            ? `<button class="btn-approve" onclick="updateReviewStatus('${r.id}', 'approved')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                Approve
+            </button>` : '';
+        const rejectBtn = r.status !== 'rejected'
+            ? `<button class="btn-reject" onclick="updateReviewStatus('${r.id}', 'rejected')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Reject
+            </button>` : '';
+
+        return `<tr>
+            <td><strong>${r.studentName || '—'}</strong></td>
+            <td><span style="color: #F4B400; font-size: 15px; letter-spacing: 1px;">${stars}</span></td>
+            <td><span class="truncate" style="max-width: 300px;">${r.reviewText || '—'}</span></td>
+            <td><span class="truncate">${r.course || '—'}</span></td>
+            <td>${statusBadge}</td>
+            <td>${dateStr}</td>
+            <td>
+                <button class="btn-view" onclick="viewReviewDetail('${r.id}')">View</button>
+                ${approveBtn}
+                ${rejectBtn}
+                <button class="btn-delete" onclick="deleteItem('reviews', '${r.id}')">Delete</button>
+            </td>
+        </tr>`;
     }).join('');
 
+    const approvedCount = data.filter(r => r.status === 'approved').length;
+    const pendingCount = data.filter(r => r.status === 'pending').length;
+
     document.getElementById('panelBody').innerHTML = `
+        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600; display: flex; gap: 20px; flex-wrap: wrap;">
+            <span>Total: <strong style="color: #0A2540;">${data.length}</strong></span>
+            <span>Approved: <strong style="color: #10B981;">${approvedCount}</strong></span>
+            <span>Pending: <strong style="color: #F59E0B;">${pendingCount}</strong></span>
+        </div>
         <table class="data-table">
             <thead><tr>
-                <th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th>
+                <th>Student</th><th>Rating</th><th>Review</th><th>Course</th><th>Status</th><th>Date</th><th>Actions</th>
             </tr></thead>
             <tbody>${rows}</tbody>
         </table>`;
 }
 
-// ============ RENDER CERTIFICATES ============
+window.updateReviewStatus = async function(reviewId, newStatus) {
+    try {
+        await updateDoc(doc(db, 'reviews', reviewId), { status: newStatus });
+        const idx = allData.reviews.findIndex(r => r.id === reviewId);
+        if (idx >= 0) allData.reviews[idx].status = newStatus;
+        renderTab('reviews');
+    } catch (err) {
+        alert('Failed to update: ' + err.message);
+    }
+};
+
+window.viewReviewDetail = function(reviewId) {
+    const r = allData.reviews.find(x => x.id === reviewId);
+    if (!r) return;
+
+    let dateStr = '—';
+    if (r.submittedAt?.seconds) dateStr = new Date(r.submittedAt.seconds * 1000).toLocaleString('en-GB');
+
+    const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+    const initial = (r.studentName || 'S').charAt(0).toUpperCase();
+
+    document.getElementById('reviewDetailBody').innerHTML = `
+        <div class="review-detail-student">
+            <div class="review-detail-avatar">${initial}</div>
+            <div>
+                <div class="review-detail-name">${r.studentName || 'Student'}</div>
+                <div class="review-detail-email">${r.studentEmail || '—'}</div>
+            </div>
+        </div>
+        <div class="review-detail-stars">${stars}</div>
+        <div class="review-detail-text">"${r.reviewText || '—'}"</div>
+        <div class="review-detail-meta">
+            <span><strong>Course:</strong> ${r.course || '—'}</span>
+            <span><strong>Date:</strong> ${dateStr}</span>
+            <span><strong>Status:</strong> ${(r.status || 'pending').toUpperCase()}</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            ${r.status !== 'approved' ? `<button onclick="updateReviewStatus('${r.id}', 'approved'); closeReviewDetail();" style="padding: 13px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13.5px; border: none; cursor: pointer; background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;">Approve Review</button>` : ''}
+            ${r.status !== 'rejected' ? `<button onclick="updateReviewStatus('${r.id}', 'rejected'); closeReviewDetail();" style="padding: 13px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13.5px; border: none; cursor: pointer; background: linear-gradient(135deg, #EF4444, #DC2626); color: #FFFFFF;">Reject Review</button>` : ''}
+        </div>
+    `;
+
+    document.getElementById('reviewDetailModal').classList.add('active');
+};
+
+window.closeReviewDetail = function() {
+    document.getElementById('reviewDetailModal').classList.remove('active');
+};
+
+document.getElementById('reviewDetailModal').addEventListener('click', (e) => {
+    if (e.target.id === 'reviewDetailModal') closeReviewDetail();
+});
+
+// ============ CERTIFICATES ============
 function renderCertificates(data) {
-    const rows = data.map(c => `
-        <tr>
-            <td><strong>${c.certificateId || '—'}</strong></td>
-            <td>${c.studentName || '—'}</td>
-            <td>${c.email || '—'}</td>
-            <td><span class="truncate">${c.course || '—'}</span></td>
-            <td>${c.issueDate || '—'}</td>
-            <td><span class="badge badge-valid">${c.status || 'valid'}</span></td>
-            <td>
-                <button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">View</button>
-                <button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">Delete</button>
-            </td>
-        </tr>
-    `).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Certificate ID</th><th>Student</th><th>Email</th><th>Course</th><th>Issue Date</th><th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    const rows = data.map(c => `<tr><td><strong>${c.certificateId || '—'}</strong></td><td>${c.studentName || '—'}</td><td>${c.email || '—'}</td><td><span class="truncate">${c.course || '—'}</span></td><td>${c.issueDate || '—'}</td><td><span class="badge badge-valid">${c.status || 'valid'}</span></td><td><button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">View</button><button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">Delete</button></td></tr>`).join('');
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Certificate ID</th><th>Student</th><th>Email</th><th>Course</th><th>Issue Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER TESTS ============
+// ============ TESTS ============
 function renderTests(data) {
     const rows = data.map(t => {
-        const statusBadge = t.status === 'published'
-            ? '<span class="badge badge-valid">Published</span>'
-            : '<span class="badge badge-pending">Pending</span>';
-
-        const publishBtn = t.status === 'published'
-            ? ''
-            : `<button class="btn-publish" onclick="openPublishModal('${t.id}')">Publish</button>`;
-
-        return `
-            <tr>
-                <td><strong>${t.rollNumber || '—'}</strong></td>
-                <td>${t.studentName || '—'}</td>
-                <td>${t.subject === 'ai' ? 'AI' : (t.subject === 'coding' ? 'Web Dev' : t.subject || '—')}</td>
-                <td>${t.score || 0} / ${t.totalQuestions || 50}</td>
-                <td>${t.percentage || 0}%</td>
-                <td>${statusBadge}</td>
-                <td>
-                    <button class="btn-view" onclick="viewDetail('tests', '${t.id}')">View</button>
-                    ${publishBtn}
-                    <button class="btn-delete" onclick="deleteItem('tests', '${t.id}')">Delete</button>
-                </td>
-            </tr>
-        `;
+        const statusBadge = t.status === 'published' ? '<span class="badge badge-valid">Published</span>' : '<span class="badge badge-pending">Pending</span>';
+        const publishBtn = t.status === 'published' ? '' : `<button class="btn-publish" onclick="openPublishModal('${t.id}')">Publish</button>`;
+        return `<tr><td><strong>${t.rollNumber || '—'}</strong></td><td>${t.studentName || '—'}</td><td>${t.subject === 'ai' ? 'AI' : (t.subject === 'coding' ? 'Web Dev' : t.subject || '—')}</td><td>${t.score || 0} / ${t.totalQuestions || 50}</td><td>${t.percentage || 0}%</td><td>${statusBadge}</td><td><button class="btn-view" onclick="viewDetail('tests', '${t.id}')">View</button>${publishBtn}<button class="btn-delete" onclick="deleteItem('tests', '${t.id}')">Delete</button></td></tr>`;
     }).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Roll No</th><th>Student</th><th>Subject</th><th>Score</th><th>%</th><th>Status</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Roll No</th><th>Student</th><th>Subject</th><th>Score</th><th>%</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER LIVE CLASSES ============
+// ============ LIVE CLASSES ============
 function renderLiveClasses(data) {
-    const rows = data.map((cls, idx) => `
-        <tr>
-            <td><strong>${cls.subjectLabel || cls.subject || '—'}</strong></td>
-            <td>${cls.title || '—'}</td>
-            <td>${cls.day || '—'}</td>
-            <td>${cls.time || '—'}</td>
-            <td><span class="truncate" style="font-size:12px;">${cls.roomName || '—'}</span></td>
-            <td>
-                <button class="btn-host" onclick="startHostClass(${idx})">Start as Host</button>
-                ${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">Delete</button>` : ''}
-            </td>
-        </tr>
-    `).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Subject</th><th>Title</th><th>Day</th><th>Time</th><th>Room</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
-
+    const rows = data.map((cls, idx) => `<tr><td><strong>${cls.subjectLabel || cls.subject || '—'}</strong></td><td>${cls.title || '—'}</td><td>${cls.day || '—'}</td><td>${cls.time || '—'}</td><td><span class="truncate" style="font-size:12px;">${cls.roomName || '—'}</span></td><td><button class="btn-host" onclick="startHostClass(${idx})">Start as Host</button>${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">Delete</button>` : ''}</td></tr>`).join('');
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Subject</th><th>Title</th><th>Day</th><th>Time</th><th>Room</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
     window._currentLiveClasses = data;
 }
 
-// ============ RENDER ATTENDANCE ============
+// ============ ATTENDANCE ============
 function renderAttendance(data) {
     const sorted = [...data].reverse();
     const rows = sorted.map(a => {
         let timeStr = '—';
-        if (a.joinedAt && a.joinedAt.seconds) {
-            timeStr = new Date(a.joinedAt.seconds * 1000).toLocaleString('en-GB');
-        } else if (a.leftAt && a.leftAt.seconds) {
-            timeStr = new Date(a.leftAt.seconds * 1000).toLocaleString('en-GB');
-        }
-
-        const roleBadge = a.role === 'host'
-            ? '<span class="badge badge-live">HOST</span>'
-            : '<span class="badge badge-active">STUDENT</span>';
-
-        return `
-            <tr>
-                <td><strong>${a.studentName || '—'}</strong></td>
-                <td>${a.studentEmail || '—'}</td>
-                <td>${roleBadge}</td>
-                <td><span class="truncate">${a.className || '—'}</span></td>
-                <td>${a.status || '—'}</td>
-                <td>${timeStr}</td>
-            </tr>
-        `;
+        if (a.joinedAt && a.joinedAt.seconds) timeStr = new Date(a.joinedAt.seconds * 1000).toLocaleString('en-GB');
+        else if (a.leftAt && a.leftAt.seconds) timeStr = new Date(a.leftAt.seconds * 1000).toLocaleString('en-GB');
+        const roleBadge = a.role === 'host' ? '<span class="badge badge-live">HOST</span>' : '<span class="badge badge-active">STUDENT</span>';
+        return `<tr><td><strong>${a.studentName || '—'}</strong></td><td>${a.studentEmail || '—'}</td><td>${roleBadge}</td><td><span class="truncate">${a.className || '—'}</span></td><td>${a.status || '—'}</td><td>${timeStr}</td></tr>`;
     }).join('');
-
-    document.getElementById('panelBody').innerHTML = `
-        <table class="data-table">
-            <thead><tr>
-                <th>Name</th><th>Email</th><th>Role</th><th>Class</th><th>Status</th><th>Time</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Class</th><th>Status</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER ANNOUNCEMENTS ============
+// ============ ANNOUNCEMENTS ============
 function renderAnnouncements(data) {
-    const header = `
-        <div style="padding: 16px 20px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <div style="font-size: 13px; color: #64748B; font-weight: 600;">
-                Total: <strong style="color: #0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}
-            </div>
-            <button class="btn-publish" onclick="openAnnouncementModal()" style="padding: 11px 20px; font-size: 13px; background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
-                + New Announcement
-            </button>
-        </div>
-    `;
+    const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}</div><button class="btn-publish" onclick="openAnnouncementModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#F4B400,#d99f00);color:#0A2540;">+ New Announcement</button></div>`;
 
     if (data.length === 0) {
-        document.getElementById('panelBody').innerHTML = header + `
-            <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 11l19-9-9 19-2-8-8-2z"/>
-                </svg>
-                <p>No announcements yet. Click "New Announcement" to create one.</p>
-            </div>`;
+        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg><p>No announcements yet.</p></div>`;
         return;
     }
 
     const rows = data.map(a => {
         let dateStr = '—';
-        if (a.createdAt && a.createdAt.seconds) {
-            dateStr = new Date(a.createdAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-        }
-
-        const typeBadge = a.type === 'success'
-            ? '<span class="badge badge-success">SUCCESS</span>'
-            : a.type === 'warning'
-            ? '<span class="badge badge-warning">WARNING</span>'
-            : '<span class="badge badge-info">INFO</span>';
-
-        return `
-            <tr>
-                <td><strong>${a.title || '—'}</strong></td>
-                <td><span class="truncate">${a.message || '—'}</span></td>
-                <td>${typeBadge}</td>
-                <td>${a.active ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Hidden</span>'}</td>
-                <td>${dateStr}</td>
-                <td>
-                    <button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">View</button>
-                    <button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">Delete</button>
-                </td>
-            </tr>
-        `;
+        if (a.createdAt && a.createdAt.seconds) dateStr = new Date(a.createdAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+        const typeBadge = a.type === 'success' ? '<span class="badge badge-success">SUCCESS</span>' : a.type === 'warning' ? '<span class="badge badge-warning">WARNING</span>' : '<span class="badge badge-info">INFO</span>';
+        return `<tr><td><strong>${a.title || '—'}</strong></td><td><span class="truncate">${a.message || '—'}</span></td><td>${typeBadge}</td><td>${a.active ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Hidden</span>'}</td><td>${dateStr}</td><td><button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">View</button><button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">Delete</button></td></tr>`;
     }).join('');
 
-    document.getElementById('panelBody').innerHTML = header + `
-        <table class="data-table">
-            <thead><tr>
-                <th>Title</th><th>Message</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = header + `<table class="data-table"><thead><tr><th>Title</th><th>Message</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 // ============ VIEW DETAIL ============
@@ -1755,16 +1480,10 @@ window.viewDetail = function(tab, id) {
     if (!item) return;
 
     const titles = {
-        visitors: 'Visitor Details',
-        visits: 'Visit Details',
-        students: 'Student Details',
-        instructors: 'Instructor Application',
-        messages: 'Message Details',
-        certificates: 'Certificate Details',
-        tests: 'Test Submission Details',
-        liveClasses: 'Live Class Details',
-        attendance: 'Attendance Details',
-        announcements: 'Announcement Details'
+        students: 'Student Details', instructors: 'Instructor Application',
+        messages: 'Message Details', certificates: 'Certificate Details',
+        tests: 'Test Submission Details', liveClasses: 'Live Class Details',
+        attendance: 'Attendance Details', announcements: 'Announcement Details'
     };
     document.getElementById('detailTitle').textContent = titles[tab] || 'Details';
 
@@ -1772,38 +1491,23 @@ window.viewDetail = function(tab, id) {
     Object.keys(item).forEach(key => {
         if (key === 'id' || key === 'answers') return;
         let value = item[key];
-
-        if (value && typeof value === 'object' && value.seconds) {
-            value = new Date(value.seconds * 1000).toLocaleString();
-        } else if (value && typeof value === 'object') {
-            value = JSON.stringify(value);
-        }
-
+        if (value && typeof value === 'object' && value.seconds) value = new Date(value.seconds * 1000).toLocaleString();
+        else if (value && typeof value === 'object') value = JSON.stringify(value);
         const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
-        html += `
-            <div class="detail-row">
-                <div class="detail-label">${label}</div>
-                <div class="detail-value" style="white-space: pre-line;">${value || '—'}</div>
-            </div>`;
+        html += `<div class="detail-row"><div class="detail-label">${label}</div><div class="detail-value" style="white-space: pre-line;">${value || '—'}</div></div>`;
     });
 
     document.getElementById('detailBody').innerHTML = html;
     document.getElementById('detailModal').classList.add('active');
 };
 
-window.closeDetail = function() {
-    document.getElementById('detailModal').classList.remove('active');
-};
-
-document.getElementById('detailModal').addEventListener('click', (e) => {
-    if (e.target.id === 'detailModal') closeDetail();
-});
+window.closeDetail = function() { document.getElementById('detailModal').classList.remove('active'); };
+document.getElementById('detailModal').addEventListener('click', (e) => { if (e.target.id === 'detailModal') closeDetail(); });
 
 // ============ PUBLISH RESULT ============
 window.openPublishModal = function(testId) {
     const test = allData.tests.find(t => t.id === testId);
     if (!test) return;
-
     document.getElementById('publishDocId').value = test.id;
     document.getElementById('pubStudentName').value = test.studentName || '';
     document.getElementById('pubRollNumber').value = test.rollNumber || '';
@@ -1813,22 +1517,15 @@ window.openPublishModal = function(testId) {
     document.getElementById('pubFeesPaid').value = test.feesPaid || 'Rs. 0';
     document.getElementById('pubFeesRemaining').value = test.feesRemaining || 'Rs. 0';
     document.getElementById('pubAdminNotes').value = test.adminNotes || '';
-
     document.getElementById('publishModal').classList.add('active');
 };
 
-window.closePublishModal = function() {
-    document.getElementById('publishModal').classList.remove('active');
-};
-
-document.getElementById('publishModal').addEventListener('click', (e) => {
-    if (e.target.id === 'publishModal') closePublishModal();
-});
+window.closePublishModal = function() { document.getElementById('publishModal').classList.remove('active'); };
+document.getElementById('publishModal').addEventListener('click', (e) => { if (e.target.id === 'publishModal') closePublishModal(); });
 
 window.savePublishResult = async function() {
     const docId = document.getElementById('publishDocId').value;
     if (!docId) return;
-
     const updates = {
         status: 'published',
         attendance: parseInt(document.getElementById('pubAttendance').value) || 0,
@@ -1838,19 +1535,14 @@ window.savePublishResult = async function() {
         adminNotes: document.getElementById('pubAdminNotes').value.trim() || '',
         publishedAt: serverTimestamp()
     };
-
     try {
         await updateDoc(doc(db, 'testSubmissions', docId), updates);
-
         const idx = allData.tests.findIndex(t => t.id === docId);
         if (idx >= 0) allData.tests[idx] = { ...allData.tests[idx], ...updates };
-
         closePublishModal();
         renderTab('tests');
         alert('Result published successfully.');
-    } catch (err) {
-        alert('Failed to publish: ' + err.message);
-    }
+    } catch (err) { alert('Failed to publish: ' + err.message); }
 };
 
 // ============ ANNOUNCEMENTS ============
@@ -1861,59 +1553,38 @@ window.openAnnouncementModal = function() {
     document.getElementById('annActive').value = 'true';
     document.getElementById('announcementModal').classList.add('active');
 };
-
-window.closeAnnouncementModal = function() {
-    document.getElementById('announcementModal').classList.remove('active');
-};
-
-document.getElementById('announcementModal').addEventListener('click', (e) => {
-    if (e.target.id === 'announcementModal') closeAnnouncementModal();
-});
+window.closeAnnouncementModal = function() { document.getElementById('announcementModal').classList.remove('active'); };
+document.getElementById('announcementModal').addEventListener('click', (e) => { if (e.target.id === 'announcementModal') closeAnnouncementModal(); });
 
 window.saveAnnouncement = async function() {
     const title = document.getElementById('annTitle').value.trim();
     const message = document.getElementById('annMessage').value.trim();
     const type = document.getElementById('annType').value;
     const active = document.getElementById('annActive').value === 'true';
-
-    if (!title || !message) {
-        alert('Please fill title and message.');
-        return;
-    }
-
+    if (!title || !message) { alert('Please fill title and message.'); return; }
     try {
-        await addDoc(collection(db, 'announcements'), {
-            title, message, type, active,
-            createdAt: serverTimestamp()
-        });
-
+        await addDoc(collection(db, 'announcements'), { title, message, type, active, createdAt: serverTimestamp() });
         closeAnnouncementModal();
         await loadAllData();
         alert('Announcement published successfully.');
-    } catch (err) {
-        alert('Failed to publish: ' + err.message);
-    }
+    } catch (err) { alert('Failed to publish: ' + err.message); }
 };
 
 // ============ REPLY SYSTEM ============
 window.openReplyModal = async function(msgId) {
     const msg = allData.messages.find(m => m.id === msgId);
     if (!msg) return;
-
     currentReplyContext.message = msg;
     currentReplyContext.matchedStudent = null;
-
     document.getElementById('studentMatchBox').style.display = 'none';
     document.getElementById('notRegisteredBox').style.display = 'none';
     document.getElementById('replyWhatsApp').value = '';
-
     document.getElementById('replyDocId').value = msg.id;
     document.getElementById('replyTo').value = msg.email || '—';
     document.getElementById('replySubject').value = `Re: ${msg.subject || ''}`;
     document.getElementById('replyOriginal').value = msg.message || '';
     document.getElementById('replyText').value = msg.adminReply || '';
     document.getElementById('replyTemplate').value = '';
-
     document.getElementById('replyModal').classList.add('active');
 
     if (msg.status === 'unread') {
@@ -1924,139 +1595,89 @@ window.openReplyModal = async function(msgId) {
 
     try {
         const studentEmail = (msg.email || '').trim().toLowerCase();
-
-        let matched = allData.students.find(s =>
-            (s.email || '').toLowerCase().trim() === studentEmail
-        );
-
+        let matched = allData.students.find(s => (s.email || '').toLowerCase().trim() === studentEmail);
         if (!matched) {
             const q = query(collection(db, 'students'), where('email', '==', studentEmail));
             const snap = await getDocs(q);
-            if (!snap.empty) {
-                matched = { id: snap.docs[0].id, ...snap.docs[0].data() };
-            }
+            if (!snap.empty) matched = { id: snap.docs[0].id, ...snap.docs[0].data() };
         }
-
         if (matched) {
             currentReplyContext.matchedStudent = matched;
-
             document.getElementById('matchStudentName').textContent = matched.fullName || 'Student';
             document.getElementById('matchEmail').textContent = matched.email || '—';
             document.getElementById('matchPhone').textContent = matched.whatsapp || 'Not provided';
             document.getElementById('matchCourse').textContent = matched.course || '—';
             document.getElementById('matchAvatar').textContent = (matched.fullName || 'S').charAt(0).toUpperCase();
-
-            document.getElementById('replyWhatsApp').value = matched.whatsapp || 'Not provided in registration';
+            document.getElementById('replyWhatsApp').value = matched.whatsapp || 'Not provided';
             document.getElementById('studentMatchBox').style.display = 'block';
-
             const waBtn = document.getElementById('whatsappReplyBtn');
             waBtn.disabled = !matched.whatsapp;
             waBtn.style.opacity = matched.whatsapp ? '1' : '0.5';
         } else {
             document.getElementById('notRegisteredBox').style.display = 'block';
             document.getElementById('replyWhatsApp').value = 'Not registered';
-
             const waBtn = document.getElementById('whatsappReplyBtn');
             waBtn.disabled = true;
             waBtn.style.opacity = '0.5';
         }
     } catch (err) {
-        console.warn('Student match lookup failed:', err.message);
         document.getElementById('notRegisteredBox').style.display = 'block';
     }
 };
 
-window.closeReplyModal = function() {
-    document.getElementById('replyModal').classList.remove('active');
-};
-
-document.getElementById('replyModal').addEventListener('click', (e) => {
-    if (e.target.id === 'replyModal') closeReplyModal();
-});
+window.closeReplyModal = function() { document.getElementById('replyModal').classList.remove('active'); };
+document.getElementById('replyModal').addEventListener('click', (e) => { if (e.target.id === 'replyModal') closeReplyModal(); });
 
 window.applyReplyTemplate = function() {
     const key = document.getElementById('replyTemplate').value;
     if (!key || !REPLY_TEMPLATES[key]) return;
-
     const msg = currentReplyContext.message;
     if (!msg) return;
-
     const template = REPLY_TEMPLATES[key]
         .replace(/{NAME}/g, msg.name || 'Student')
         .replace(/{SUBJECT}/g, msg.subject || '')
         .replace(/{EMAIL}/g, msg.email || '');
-
     document.getElementById('replyText').value = template;
 };
 
-// ============ SAVE REPLY (WITH EMAIL) ============
 window.saveReply = async function() {
     const docId = document.getElementById('replyDocId').value;
     const replyText = document.getElementById('replyText').value.trim();
-
-    if (!docId || !replyText) {
-        alert('Please write a reply before saving.');
-        return;
-    }
-
+    if (!docId || !replyText) { alert('Please write a reply before saving.'); return; }
     const msg = currentReplyContext.message;
     if (!msg) return;
-
     const btn = event.target.closest('button');
     const originalHTML = btn.innerHTML;
     btn.innerHTML = 'Sending...';
     btn.disabled = true;
-
     try {
         const updates = {
-            adminReply: replyText,
-            status: 'replied',
-            repliedAt: serverTimestamp(),
+            adminReply: replyText, status: 'replied', repliedAt: serverTimestamp(),
             repliedToEmail: msg.email || '',
             repliedToWhatsApp: currentReplyContext.matchedStudent?.whatsapp || null
         };
-
         await updateDoc(doc(db, 'messages', docId), updates);
-
         const idx = allData.messages.findIndex(m => m.id === docId);
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], ...updates };
 
         const emailParams = {
-            to_email: msg.email || '',
-            to_name: msg.name || 'Student',
-            subject: msg.subject || 'Your Inquiry',
-            original_message: msg.message || '',
-            reply_message: replyText,
-            student_name: msg.name || 'Student',
+            to_email: msg.email || '', to_name: msg.name || 'Student',
+            subject: msg.subject || 'Your Inquiry', original_message: msg.message || '',
+            reply_message: replyText, student_name: msg.name || 'Student',
             student_email: msg.email || ''
         };
-
-        let emailStatus = 'sent';
-        let emailError = '';
-
+        let emailStatus = 'sent', emailError = '';
         try {
-            const response = await emailjs.send(
-                'service_bnv0t4n',
-                'template_r3prv9y',
-                emailParams
-            );
-            console.log('Email sent successfully:', response);
+            await emailjs.send('service_bnv0t4n', 'template_r3prv9y', emailParams);
         } catch (emailErr) {
-            console.error('Email failed:', emailErr);
             emailStatus = 'failed';
             emailError = emailErr.text || emailErr.message || 'Unknown error';
         }
-
         closeReplyModal();
         renderTab('messages');
-
-        if (emailStatus === 'sent') {
-            alert('Reply saved successfully and email sent to ' + (msg.email || 'student') + '.');
-        } else {
-            alert('Reply saved successfully, but email failed to send.\n\nReason: ' + emailError);
-        }
+        if (emailStatus === 'sent') alert('Reply saved and email sent to ' + (msg.email || 'student') + '.');
+        else alert('Reply saved, but email failed.\n\nReason: ' + emailError);
     } catch (err) {
-        console.error('Save reply error:', err);
         alert('Failed to save reply: ' + err.message);
     } finally {
         btn.innerHTML = originalHTML;
@@ -2068,149 +1689,89 @@ window.sendReplyViaWhatsApp = async function() {
     const replyText = document.getElementById('replyText').value.trim();
     const docId = document.getElementById('replyDocId').value;
     const student = currentReplyContext.matchedStudent;
-
-    if (!replyText) {
-        alert('Please write or select a reply first.');
-        return;
-    }
-
-    if (!student || !student.whatsapp) {
-        alert('No WhatsApp number available. Please save the reply and contact via email.');
-        return;
-    }
-
+    if (!replyText) { alert('Please write or select a reply first.'); return; }
+    if (!student || !student.whatsapp) { alert('No WhatsApp number available.'); return; }
     let phone = student.whatsapp.replace(/\D/g, '');
     if (phone.startsWith('0')) phone = '92' + phone.substring(1);
     if (!phone.startsWith('92')) phone = '92' + phone;
-
     try {
         await updateDoc(doc(db, 'messages', docId), {
-            adminReply: replyText,
-            status: 'replied',
-            repliedAt: serverTimestamp(),
-            repliedVia: 'whatsapp',
-            repliedToWhatsApp: phone
+            adminReply: replyText, status: 'replied', repliedAt: serverTimestamp(),
+            repliedVia: 'whatsapp', repliedToWhatsApp: phone
         });
         const idx = allData.messages.findIndex(m => m.id === docId);
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], adminReply: replyText, status: 'replied' };
     } catch (e) {}
-
     const greeting = `Assalam-o-Alaikum ${student.fullName?.split(' ')[0] || ''},\n\n`;
-    const fullMessage = greeting + replyText;
-
-    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(fullMessage)}`;
-    window.open(waUrl, '_blank');
-
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(greeting + replyText)}`, '_blank');
     closeReplyModal();
     renderTab('messages');
 };
 
 window.copyReplyToClipboard = async function() {
     const replyText = document.getElementById('replyText').value.trim();
-    if (!replyText) {
-        alert('Nothing to copy. Please write a reply first.');
-        return;
-    }
-
+    if (!replyText) { alert('Nothing to copy.'); return; }
     try {
         await navigator.clipboard.writeText(replyText);
         alert('Reply copied to clipboard.');
-    } catch (e) {
-        alert('Failed to copy. Please select and copy manually.');
-    }
+    } catch (e) { alert('Failed to copy.'); }
 };
 
 // ============ HOST LIVE CLASS ============
 window.showHostClassList = function() {
     const list = document.getElementById('hostClassList');
     const classes = allData.liveClasses.length > 0 ? allData.liveClasses : DEFAULT_SCHEDULE;
-
     list.innerHTML = classes.map((cls, idx) => `
-        <div style="background: #F8FAFC; border-radius: 12px; padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap; border-left: 4px solid #F4B400;">
-            <div style="flex: 1; min-width: 200px;">
-                <div style="font-size: 11px; color: #F4B400; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 4px;">${cls.subjectLabel || cls.subject || 'Class'}</div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #0A2540; margin-bottom: 4px;">${cls.title}</div>
-                <div style="font-size: 12px; color: #64748B; font-weight: 500;">${cls.day || ''} — ${cls.time || ''}</div>
+        <div style="background:#F8FAFC;border-radius:12px;padding:18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;border-left:4px solid #F4B400;">
+            <div style="flex:1;min-width:200px;">
+                <div style="font-size:11px;color:#F4B400;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:4px;">${cls.subjectLabel || cls.subject || 'Class'}</div>
+                <div style="font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;color:#0A2540;margin-bottom:4px;">${cls.title}</div>
+                <div style="font-size:12px;color:#64748B;font-weight:500;">${cls.day || ''} — ${cls.time || ''}</div>
             </div>
-            <button class="btn-host" style="background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; padding: 12px 22px; font-size: 13px; border-radius: 10px; margin: 0;" onclick="startHostClassByIdx(${idx})">
-                Start Class
-            </button>
+            <button class="btn-host" style="background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;padding:12px 22px;font-size:13px;border-radius:10px;margin:0;" onclick="startHostClassByIdx(${idx})">Start Class</button>
         </div>
     `).join('');
-
     window._hostClasses = classes;
     document.getElementById('hostModal').classList.add('active');
 };
 
-window.closeHostModal = function() {
-    document.getElementById('hostModal').classList.remove('active');
-};
-
-document.getElementById('hostModal').addEventListener('click', (e) => {
-    if (e.target.id === 'hostModal') closeHostModal();
-});
-
+window.closeHostModal = function() { document.getElementById('hostModal').classList.remove('active'); };
+document.getElementById('hostModal').addEventListener('click', (e) => { if (e.target.id === 'hostModal') closeHostModal(); });
 window.startHostClassByIdx = function(idx) {
     const cls = window._hostClasses[idx];
     if (!cls) return;
     closeHostModal();
     launchHostJitsi(cls);
 };
-
-window.startHostClass = function(idx) {
-    startHostClassByIdx(idx);
-};
+window.startHostClass = function(idx) { startHostClassByIdx(idx); };
 
 async function launchHostJitsi(cls) {
     currentHostClass = cls;
-
-    const modal = document.getElementById('jitsiModal');
     document.getElementById('jitsiTitle').textContent = cls.title;
     document.getElementById('jitsiSubtitle').textContent = `${cls.subjectLabel || ''} | ${cls.roomName}`;
-
-    modal.classList.add('active');
+    document.getElementById('jitsiModal').classList.add('active');
     document.body.style.overflow = 'hidden';
-
     const container = document.getElementById('jitsiContainer');
     container.innerHTML = '';
-
     try {
         await addDoc(collection(db, 'attendance'), {
-            studentName: ADMIN_NAME + ' (Host)',
-            role: 'host',
-            classId: cls.id,
-            className: cls.title,
-            joinedAt: serverTimestamp(),
-            status: 'host_joined'
+            studentName: ADMIN_NAME + ' (Host)', role: 'host', classId: cls.id,
+            className: cls.title, joinedAt: serverTimestamp(), status: 'host_joined'
         });
     } catch(e) {}
-
     const options = {
-        roomName: cls.roomName,
-        width: '100%',
-        height: '100%',
-        parentNode: container,
-        userInfo: { displayName: ADMIN_NAME + ' (Host)' },
+        roomName: cls.roomName, width: '100%', height: '100%',
+        parentNode: container, userInfo: { displayName: ADMIN_NAME + ' (Host)' },
         configOverwrite: {
-            startWithAudioMuted: false,
-            startWithVideoMuted: false,
-            prejoinPageEnabled: false,
-            disableDeepLinking: true,
-            toolbarButtons: [
-                'microphone', 'camera', 'closedcaptions', 'desktop',
-                'fullscreen', 'fodeviceselection', 'hangup', 'chat',
-                'raisehand', 'videoquality', 'tileview', 'select-background',
-                'download', 'help', 'mute-everyone', 'settings', 'security'
-            ]
+            startWithAudioMuted: false, startWithVideoMuted: false,
+            prejoinPageEnabled: false, disableDeepLinking: true,
+            toolbarButtons: ['microphone','camera','closedcaptions','desktop','fullscreen','fodeviceselection','hangup','chat','raisehand','videoquality','tileview','select-background','download','help','mute-everyone','settings','security']
         },
         interfaceConfigOverwrite: {
-            SHOW_JITSI_WATERMARK: false,
-            SHOW_BRAND_WATERMARK: false,
-            DEFAULT_BACKGROUND: '#0A2540',
-            TOOLBAR_ALWAYS_VISIBLE: true
+            SHOW_JITSI_WATERMARK: false, SHOW_BRAND_WATERMARK: false,
+            DEFAULT_BACKGROUND: '#0A2540', TOOLBAR_ALWAYS_VISIBLE: true
         }
     };
-
     try {
         jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', options);
         jitsiApi.addEventListener('participantJoined', (p) => console.log('Joined:', p.displayName));
@@ -2218,7 +1779,7 @@ async function launchHostJitsi(cls) {
         jitsiApi.addEventListener('readyToClose', () => endHostedClass());
     } catch(e) {
         alert('Unable to start class: ' + e.message);
-        modal.classList.remove('active');
+        document.getElementById('jitsiModal').classList.remove('active');
         document.body.style.overflow = '';
     }
 }
@@ -2227,18 +1788,13 @@ window.endHostedClass = async function() {
     if (currentHostClass) {
         try {
             await addDoc(collection(db, 'attendance'), {
-                studentName: ADMIN_NAME + ' (Host)',
-                role: 'host',
-                classId: currentHostClass.id,
-                className: currentHostClass.title,
-                endedAt: serverTimestamp(),
-                status: 'host_left'
+                studentName: ADMIN_NAME + ' (Host)', role: 'host',
+                classId: currentHostClass.id, className: currentHostClass.title,
+                endedAt: serverTimestamp(), status: 'host_left'
             });
         } catch(e) {}
     }
-
     if (jitsiApi) { try { jitsiApi.dispose(); } catch(e){} jitsiApi = null; }
-
     document.getElementById('jitsiModal').classList.remove('active');
     document.getElementById('jitsiContainer').innerHTML = '';
     document.body.style.overflow = '';
@@ -2248,52 +1804,32 @@ window.endHostedClass = async function() {
 // ============ DELETE ============
 window.deleteItem = async function(tab, id) {
     if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) return;
-
     const collectionMap = {
-        visitors: 'visitors',
-        visits: 'visits',
-        students: 'students',
-        instructors: 'instructorApplications',
-        messages: 'messages',
-        certificates: 'certificates',
-        tests: 'testSubmissions',
-        liveClasses: 'liveClasses',
-        attendance: 'attendance',
-        announcements: 'announcements'
+        visitors: 'visitors', visits: 'visits', students: 'students',
+        instructors: 'instructorApplications', messages: 'messages',
+        reviews: 'reviews', certificates: 'certificates', tests: 'testSubmissions',
+        liveClasses: 'liveClasses', attendance: 'attendance', announcements: 'announcements'
     };
-
     try {
         await deleteDoc(doc(db, collectionMap[tab], id));
         allData[tab] = allData[tab].filter(x => x.id !== id);
-
         const statMap = {
-            visitors: 'statVisitors',
-            visits: 'statVisits',
-            students: 'statStudents',
-            instructors: 'statInstructors',
-            messages: 'statMessages',
-            certificates: 'statCertificates',
-            tests: 'statTests',
-            liveClasses: 'statLiveClasses',
-            attendance: 'statAttendance',
-            announcements: 'statAnnouncements'
+            visitors: 'statVisitors', visits: 'statVisits', students: 'statStudents',
+            instructors: 'statInstructors', messages: 'statMessages',
+            reviews: 'statReviews', certificates: 'statCertificates', tests: 'statTests',
+            liveClasses: 'statLiveClasses', attendance: 'statAttendance', announcements: 'statAnnouncements'
         };
         document.getElementById(statMap[tab]).textContent = allData[tab].length;
-
         renderTab(tab);
-    } catch (err) {
-        alert('Failed to delete: ' + err.message);
-    }
+    } catch (err) { alert('Failed to delete: ' + err.message); }
 };
 </script>
 
-<!-- ============ EMAILJS ============ -->
+<!-- EMAILJS -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
     (function() {
-        emailjs.init({
-            publicKey: "0CuJdjkOPS6ovXLMT"
-        });
+        emailjs.init({ publicKey: "0CuJdjkOPS6ovXLMT" });
     })();
 </script>
 
