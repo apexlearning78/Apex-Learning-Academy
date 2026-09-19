@@ -15,7 +15,7 @@
             min-height: 100vh;
         }
 
-        /* ============ LOGIN ============ */
+        /* LOGIN */
         .login-screen {
             min-height: 100vh;
             display: flex;
@@ -60,7 +60,7 @@
         }
         .login-error.active { display: block; }
 
-        /* ============ HEADER ============ */
+        /* HEADER */
         .admin-header {
             background: #0A2540;
             color: #FFFFFF;
@@ -129,16 +129,16 @@
 
         .admin-body { padding: 28px; max-width: 1400px; margin: 0 auto; }
 
-        /* ============ STATS ============ */
+        /* STATS */
         .admin-stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
             margin-bottom: 28px;
         }
         .admin-stat-card {
             background: #FFFFFF;
-            padding: 20px;
+            padding: 18px;
             border-radius: 14px;
             border: 1px solid #E2E8F0;
             border-left: 4px solid #F4B400;
@@ -160,23 +160,25 @@
         .admin-stat-card.green { border-left-color: #10B981; }
         .admin-stat-card.orange { border-left-color: #F59E0B; }
         .admin-stat-card.pink { border-left-color: #EC4899; }
+        .admin-stat-card.cyan { border-left-color: #06B6D4; }
+        .admin-stat-card.indigo { border-left-color: #6366F1; }
         .admin-stat-label {
-            font-size: 11px;
+            font-size: 10.5px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.3px;
             color: #64748B;
             font-weight: 700;
             margin-bottom: 8px;
         }
         .admin-stat-value {
             font-family: 'Poppins', sans-serif;
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 800;
             color: #0A2540;
             line-height: 1;
         }
 
-        /* ============ PANEL ============ */
+        /* PANEL */
         .admin-panel {
             background: #FFFFFF;
             border-radius: 16px;
@@ -269,6 +271,8 @@
         .badge-warning { background: #FEF3C7; color: #92400E; }
         .badge-replied { background: #DBEAFE; color: #1E40AF; }
         .badge-read { background: #F1F5F9; color: #475569; }
+        .badge-cyan { background: #CFFAFE; color: #155E75; }
+        .badge-indigo { background: #E0E7FF; color: #3730A3; }
 
         .empty-state { padding: 60px 20px; text-align: center; color: #64748B; }
         .empty-state svg { width: 48px; height: 48px; color: #CBD5E1; margin-bottom: 16px; }
@@ -641,6 +645,14 @@
     <div class="admin-body">
 
         <div class="admin-stats">
+            <div class="admin-stat-card cyan" data-tab="visitors" onclick="switchTab('visitors')">
+                <div class="admin-stat-label">Unique Visitors</div>
+                <div class="admin-stat-value" id="statVisitors">—</div>
+            </div>
+            <div class="admin-stat-card indigo" data-tab="visits" onclick="switchTab('visits')">
+                <div class="admin-stat-label">Page Views</div>
+                <div class="admin-stat-value" id="statVisits">—</div>
+            </div>
             <div class="admin-stat-card active" data-tab="students" onclick="switchTab('students')">
                 <div class="admin-stat-label">Students</div>
                 <div class="admin-stat-value" id="statStudents">—</div>
@@ -677,7 +689,7 @@
 
         <div class="admin-panel">
             <div class="panel-header">
-                <div class="panel-title" id="panelTitle">Students</div>
+                <div class="panel-title" id="panelTitle">Unique Visitors</div>
                 <input type="text" class="panel-search" id="searchInput" placeholder="Search...">
                 <button class="btn-refresh" onclick="loadAllData()">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -720,23 +732,10 @@
         </button>
         <h3>Publish Test Result</h3>
         <input type="hidden" id="publishDocId">
-
-        <div class="form-field">
-            <label>Student Name</label>
-            <input type="text" id="pubStudentName" readonly>
-        </div>
-        <div class="form-field">
-            <label>Roll Number</label>
-            <input type="text" id="pubRollNumber" readonly>
-        </div>
-        <div class="form-field">
-            <label>Score</label>
-            <input type="text" id="pubScore" readonly>
-        </div>
-        <div class="form-field">
-            <label>Attendance (%)</label>
-            <input type="number" id="pubAttendance" placeholder="e.g. 85" min="0" max="100">
-        </div>
+        <div class="form-field"><label>Student Name</label><input type="text" id="pubStudentName" readonly></div>
+        <div class="form-field"><label>Roll Number</label><input type="text" id="pubRollNumber" readonly></div>
+        <div class="form-field"><label>Score</label><input type="text" id="pubScore" readonly></div>
+        <div class="form-field"><label>Attendance (%)</label><input type="number" id="pubAttendance" placeholder="e.g. 85" min="0" max="100"></div>
         <div class="form-field">
             <label>Fees Status</label>
             <select id="pubFeesStatus">
@@ -745,19 +744,9 @@
                 <option value="unpaid">Unpaid</option>
             </select>
         </div>
-        <div class="form-field">
-            <label>Paid Amount (PKR)</label>
-            <input type="text" id="pubFeesPaid" placeholder="e.g. Rs. 3000">
-        </div>
-        <div class="form-field">
-            <label>Remaining Balance (PKR)</label>
-            <input type="text" id="pubFeesRemaining" placeholder="e.g. Rs. 0">
-        </div>
-        <div class="form-field">
-            <label>Remarks / Notes</label>
-            <textarea id="pubAdminNotes" rows="3" placeholder="e.g. Excellent performance!"></textarea>
-        </div>
-
+        <div class="form-field"><label>Paid Amount (PKR)</label><input type="text" id="pubFeesPaid" placeholder="e.g. Rs. 3000"></div>
+        <div class="form-field"><label>Remaining Balance (PKR)</label><input type="text" id="pubFeesRemaining" placeholder="e.g. Rs. 0"></div>
+        <div class="form-field"><label>Remarks / Notes</label><textarea id="pubAdminNotes" rows="3" placeholder="e.g. Excellent performance!"></textarea></div>
         <button class="btn-save-publish" onclick="savePublishResult()">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
@@ -778,15 +767,8 @@
             </svg>
         </button>
         <h3>New Announcement</h3>
-
-        <div class="form-field">
-            <label>Title</label>
-            <input type="text" id="annTitle" placeholder="e.g. New Batch Starting Monday">
-        </div>
-        <div class="form-field">
-            <label>Message</label>
-            <textarea id="annMessage" rows="4" placeholder="Write the announcement message here..."></textarea>
-        </div>
+        <div class="form-field"><label>Title</label><input type="text" id="annTitle" placeholder="e.g. New Batch Starting Monday"></div>
+        <div class="form-field"><label>Message</label><textarea id="annMessage" rows="4" placeholder="Write the announcement message here..."></textarea></div>
         <div class="form-field">
             <label>Type</label>
             <select id="annType">
@@ -802,7 +784,6 @@
                 <option value="false">Hidden (Draft)</option>
             </select>
         </div>
-
         <button class="btn-save-publish" onclick="saveAnnouncement()" style="background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M3 11l19-9-9 19-2-8-8-2z"/>
@@ -824,7 +805,6 @@
         <h3>Reply to Message</h3>
         <input type="hidden" id="replyDocId">
 
-        <!-- Student Match Box -->
         <div class="student-match-box" id="studentMatchBox" style="display: none;">
             <div class="student-match-header">
                 <div class="student-match-avatar" id="matchAvatar">A</div>
@@ -860,7 +840,6 @@
             </div>
         </div>
 
-        <!-- Not Registered Box -->
         <div class="not-registered-box" id="notRegisteredBox" style="display: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <circle cx="12" cy="12" r="10"/>
@@ -872,25 +851,10 @@
             </div>
         </div>
 
-        <div class="form-field">
-            <label>Reply To (Email)</label>
-            <input type="text" id="replyTo" readonly style="background:#F8FAFC;">
-        </div>
-
-        <div class="form-field">
-            <label>WhatsApp Number</label>
-            <input type="text" id="replyWhatsApp" readonly style="background:#F8FAFC;" placeholder="Not available">
-        </div>
-
-        <div class="form-field">
-            <label>Subject</label>
-            <input type="text" id="replySubject" readonly style="background:#F8FAFC;">
-        </div>
-
-        <div class="form-field">
-            <label>Original Message</label>
-            <textarea id="replyOriginal" rows="3" readonly style="background:#F8FAFC;"></textarea>
-        </div>
+        <div class="form-field"><label>Reply To (Email)</label><input type="text" id="replyTo" readonly style="background:#F8FAFC;"></div>
+        <div class="form-field"><label>WhatsApp Number</label><input type="text" id="replyWhatsApp" readonly style="background:#F8FAFC;" placeholder="Not available"></div>
+        <div class="form-field"><label>Subject</label><input type="text" id="replySubject" readonly style="background:#F8FAFC;"></div>
+        <div class="form-field"><label>Original Message</label><textarea id="replyOriginal" rows="3" readonly style="background:#F8FAFC;"></textarea></div>
 
         <div class="form-field">
             <label>Quick Templates</label>
@@ -1002,9 +966,11 @@ let allData = {
     tests: [],
     liveClasses: [],
     attendance: [],
-    announcements: []
+    announcements: [],
+    visitors: [],
+    visits: []
 };
-let currentTab = 'students';
+let currentTab = 'visitors';
 let currentSearch = '';
 let jitsiApi = null;
 let currentHostClass = null;
@@ -1058,8 +1024,6 @@ Both courses include:
   - Certificate on successful completion
   - Lifetime access to class recordings
 
-Affordable fees with quality education — our mission is to make quality tech education accessible to every Pakistani student.
-
 For enrollment, please contact us:
 WhatsApp: 0341 034 9929
 
@@ -1079,9 +1043,7 @@ Weekly Live Class Schedule (Pakistan Standard Time):
 • Thursday — Artificial Intelligence: 6:00 PM to 8:00 PM
 • Saturday — Open Doubt Session: 6:00 PM to 8:00 PM
 
-All classes are conducted online through Jitsi Meet (no download required). Students can join from anywhere in Pakistan.
-
-Recordings are available for all sessions so you can catch up anytime.
+All classes are conducted online through Jitsi Meet.
 
 For registration, contact us:
 WhatsApp: 0341 034 9929
@@ -1103,17 +1065,8 @@ Simple Enrollment Process:
 5. Make payment via JazzCash / EasyPaisa / Bank Transfer
 6. Your enrollment will be activated within 24 hours
 
-What you will receive after enrollment:
-  - Access to Google Classroom
-  - Live class schedule and Jitsi Meet links
-  - Course materials and resources
-  - Student community access
-  - Dashboard for progress tracking
-
 For assistance, please contact us:
 WhatsApp: 0341 034 9929
-
-We look forward to welcoming you to Apex Learning Academy!
 
 Best regards,
 Apex Learning Academy Team
@@ -1123,19 +1076,16 @@ Learn. Rise. Achieve.`,
 
 Thank you for your interest in our FREE demo class at Apex Learning Academy.
 
-We offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment. There is absolutely no obligation.
+We offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment.
 
 What to expect in your demo:
   - Introduction to the course topic
   - Live interaction with the instructor
   - Sample lesson from the curriculum
   - Q&A session
-  - Overview of projects and certificate
 
 To book your free demo:
 WhatsApp us at: 0341 034 9929
-
-Our team will schedule the demo at your preferred time.
 
 Best regards,
 Apex Learning Academy Team
@@ -1152,13 +1102,6 @@ Certificate Details:
 - Includes a unique Certificate ID for verification
 - Can be verified online at our verification portal
 - QR code included for instant verification
-- Professional design with founder's signature
-
-Students can:
-  - View certificate from their dashboard
-  - Download as PDF
-  - Share on LinkedIn and social media
-  - Provide to employers as verified proof
 
 For any certificate-related questions:
 WhatsApp: 0341 034 9929
@@ -1177,12 +1120,9 @@ To help us resolve faster, please share:
   - Screenshot of the issue (if possible)
   - Browser and device you are using
   - Exact steps that led to the problem
-  - Any error messages you saw
 
 For urgent assistance:
 WhatsApp: 0341 034 9929
-
-We appreciate your patience and will get back to you soon.
 
 Best regards,
 Apex Learning Academy Team
@@ -1190,33 +1130,29 @@ Learn. Rise. Achieve.`,
 
     payment: `Assalam-o-Alaikum {NAME},
 
-Thank you for your inquiry about payment methods at Apex Learning Academy.
+Thank you for your inquiry about payment methods.
 
 Accepted Payment Options:
-
 1. JazzCash (Mobile Wallet)
 2. EasyPaisa (Mobile Wallet)
-3. Bank Transfer (Direct)
+3. Bank Transfer
 
 Payment Process:
-1. Choose your course and confirm enrollment
-2. Our team will share the payment details on WhatsApp
-3. Make the payment through your preferred method
-4. Send us the payment screenshot
-5. Your enrollment will be activated within 24 hours
+1. Choose your course
+2. Our team will share payment details on WhatsApp
+3. Make the payment
+4. Send us the screenshot
+5. Enrollment activated within 24 hours
 
 Fees:
-• Coding: Rs. 3,000 per month
-• AI: Rs. 4,000 per month
-
-Fees are payable monthly in advance.
+• Coding: Rs. 3,000/month
+• AI: Rs. 4,000/month
 
 For payment assistance:
 WhatsApp: 0341 034 9929
 
 Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
+Apex Learning Academy Team`,
 
     batch: `Assalam-o-Alaikum {NAME},
 
@@ -1224,48 +1160,36 @@ Thank you for your interest in joining Apex Learning Academy.
 
 Batch Information:
 
-Our batches are kept small — only 10 to 15 students per batch — so that every student receives personal attention from the instructor.
+Small batches of 10-15 students for personal attention.
 
 Current Batches:
-• Coding Batch 1 — Monday & Wednesday, 6:00 PM to 8:00 PM
-• AI Batch 1 — Tuesday & Thursday, 6:00 PM to 8:00 PM
-• Weekend Special — Saturday, 6:00 PM to 8:00 PM
-• Open Doubt Session — Saturday evening
+• Coding — Monday & Wednesday, 6-8 PM
+• AI — Tuesday & Thursday, 6-8 PM
+• Doubt Session — Saturday evening
 
-Why small batches?
-  - Personal attention for every student
-  - Individual doubt clearing
-  - Better learning outcomes
-  - Direct interaction with instructor
+New batches start every month.
 
-New batches start every month. To reserve your seat:
+To reserve your seat:
 WhatsApp: 0341 034 9929
 
 Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
+Apex Learning Academy Team`,
 
     refund: `Assalam-o-Alaikum {NAME},
 
-Thank you for your inquiry about our refund policy at Apex Learning Academy.
+Thank you for your inquiry about our refund policy.
 
 Refund Policy:
-
 - Fees are non-refundable once a course has started
-- For new enrollments, cancellation must be requested BEFORE the first class
-- In case of duplicate payment, full refund will be processed within 7 working days
+- Cancellation must be requested BEFORE the first class
+- Duplicate payments refunded within 7 working days
 - Course fees can be adjusted toward a different course (once)
-- All refund requests must be made in writing via WhatsApp or email
-
-Our team is committed to transparency and fairness. If you have any special circumstances, please discuss with us — we handle each case individually.
 
 For refund-related questions:
 WhatsApp: 0341 034 9929
-Email: mukeshkewal19@gmail.com
 
 Best regards,
-Apex Learning Academy Team
-Learn. Rise. Achieve.`,
+Apex Learning Academy Team`,
 
     custom: ''
 };
@@ -1329,7 +1253,7 @@ async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
 
     try {
-        const [s, i, m, c, t, l, a, ann] = await Promise.all([
+        const [s, i, m, c, t, l, a, ann, v, vst] = await Promise.all([
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
@@ -1337,7 +1261,9 @@ async function loadAllData() {
             getDocs(collection(db, 'testSubmissions')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'liveClasses')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'attendance')).catch(() => ({ docs: [] })),
-            getDocs(collection(db, 'announcements')).catch(() => ({ docs: [] }))
+            getDocs(collection(db, 'announcements')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'visits')).catch(() => ({ docs: [] }))
         ]);
 
         allData.students = s.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -1348,7 +1274,11 @@ async function loadAllData() {
         allData.liveClasses = l.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.attendance = a.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.announcements = ann.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.visitors = v.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.visits = vst.docs.map(d => ({ id: d.id, ...d.data() }));
 
+        document.getElementById('statVisitors').textContent = allData.visitors.length;
+        document.getElementById('statVisits').textContent = allData.visits.length;
         document.getElementById('statStudents').textContent = allData.students.length;
         document.getElementById('statInstructors').textContent = allData.instructors.length;
         document.getElementById('statMessages').textContent = allData.messages.length;
@@ -1375,6 +1305,8 @@ window.switchTab = function(tab) {
     document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
 
     const titles = {
+        visitors: 'Unique Visitors',
+        visits: 'Page Views',
         students: 'Students',
         instructors: 'Instructor Applications',
         messages: 'Contact Messages',
@@ -1426,13 +1358,107 @@ function renderTab(tab) {
         return;
     }
 
-    if (tab === 'students') renderStudents(data);
+    if (tab === 'visitors') renderVisitors(data);
+    else if (tab === 'visits') renderVisits(data);
+    else if (tab === 'students') renderStudents(data);
     else if (tab === 'instructors') renderInstructors(data);
     else if (tab === 'messages') renderMessages(data);
     else if (tab === 'certificates') renderCertificates(data);
     else if (tab === 'tests') renderTests(data);
     else if (tab === 'liveClasses') renderLiveClasses(data);
     else if (tab === 'attendance') renderAttendance(data);
+}
+
+// ============ RENDER VISITORS ============
+function renderVisitors(data) {
+    const sorted = [...data].sort((a, b) => (b.lastVisit?.seconds || 0) - (a.lastVisit?.seconds || 0));
+
+    const rows = sorted.map(v => {
+        let firstVisit = '—';
+        let lastVisit = '—';
+
+        if (v.firstVisit?.seconds) {
+            firstVisit = new Date(v.firstVisit.seconds * 1000).toLocaleString('en-GB');
+        }
+        if (v.lastVisit?.seconds) {
+            lastVisit = new Date(v.lastVisit.seconds * 1000).toLocaleString('en-GB');
+        }
+
+        return `
+            <tr>
+                <td><strong>${v.visitorId?.slice(-8) || '—'}</strong></td>
+                <td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td>
+                <td>${v.device || '—'}</td>
+                <td>${v.browser || '—'} / ${v.os || '—'}</td>
+                <td><span class="badge badge-cyan">${v.totalVisits || 1}</span></td>
+                <td>${firstVisit}</td>
+                <td>${lastVisit}</td>
+                <td>
+                    <button class="btn-delete" onclick="deleteItem('visitors', '${v.id}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    document.getElementById('panelBody').innerHTML = `
+        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600;">
+            Total Unique Visitors: <strong style="color: #0A2540;">${data.length}</strong>
+        </div>
+        <table class="data-table">
+            <thead><tr>
+                <th>Visitor ID</th><th>Location</th><th>Device</th><th>Browser/OS</th><th>Visits</th><th>First Visit</th><th>Last Visit</th><th>Actions</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table>`;
+}
+
+// ============ RENDER VISITS ============
+function renderVisits(data) {
+    const sorted = [...data].sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
+
+    const rows = sorted.slice(0, 200).map(v => {
+        let timeStr = '—';
+        if (v.timestamp?.seconds) {
+            timeStr = new Date(v.timestamp.seconds * 1000).toLocaleString('en-GB');
+        }
+
+        return `
+            <tr>
+                <td>${v.country || '—'}${v.city && v.city !== 'Unknown' ? ', ' + v.city : ''}</td>
+                <td><span class="truncate">${v.page || '—'}</span></td>
+                <td>${v.device || '—'}</td>
+                <td>${v.browser || '—'}</td>
+                <td><span class="truncate" style="font-size:11.5px;">${v.referrer || 'Direct'}</span></td>
+                <td>${timeStr}</td>
+                <td>
+                    <button class="btn-delete" onclick="deleteItem('visits', '${v.id}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="3 6 5 6 21 6"/>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+                        </svg>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    document.getElementById('panelBody').innerHTML = `
+        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600;">
+            Showing latest 200 visits — Total: <strong style="color: #0A2540;">${data.length}</strong>
+        </div>
+        <table class="data-table">
+            <thead><tr>
+                <th>Location</th><th>Page</th><th>Device</th><th>Browser</th><th>Referrer</th><th>Time</th><th>Actions</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table>`;
 }
 
 // ============ RENDER STUDENTS ============
@@ -1484,20 +1510,8 @@ function renderInstructors(data) {
             <td>${i.experience || '—'}</td>
             <td><span class="badge badge-pending">${i.status || 'pending'}</span></td>
             <td>
-                <button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    View
-                </button>
-                <button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Delete
-                </button>
+                <button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">View</button>
+                <button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">Delete</button>
             </td>
         </tr>
     `).join('');
@@ -1532,27 +1546,9 @@ function renderMessages(data) {
                 <td>${statusBadge}</td>
                 <td>${dateStr}</td>
                 <td>
-                    <button class="btn-view" onclick="viewDetail('messages', '${m.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        View
-                    </button>
-                    <button class="btn-reply" onclick="openReplyModal('${m.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="9 17 4 12 9 7"/>
-                            <path d="M20 18v-2a4 4 0 0 0-4-4H4"/>
-                        </svg>
-                        Reply
-                    </button>
-                    <button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
+                    <button class="btn-view" onclick="viewDetail('messages', '${m.id}')">View</button>
+                    <button class="btn-reply" onclick="openReplyModal('${m.id}')">Reply</button>
+                    <button class="btn-delete" onclick="deleteItem('messages', '${m.id}')">Delete</button>
                 </td>
             </tr>
         `;
@@ -1578,20 +1574,8 @@ function renderCertificates(data) {
             <td>${c.issueDate || '—'}</td>
             <td><span class="badge badge-valid">${c.status || 'valid'}</span></td>
             <td>
-                <button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
-                    View
-                </button>
-                <button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Delete
-                </button>
+                <button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">View</button>
+                <button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">Delete</button>
             </td>
         </tr>
     `).join('');
@@ -1614,13 +1598,7 @@ function renderTests(data) {
 
         const publishBtn = t.status === 'published'
             ? ''
-            : `<button class="btn-publish" onclick="openPublishModal('${t.id}')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                </svg>
-                Publish
-            </button>`;
+            : `<button class="btn-publish" onclick="openPublishModal('${t.id}')">Publish</button>`;
 
         return `
             <tr>
@@ -1631,21 +1609,9 @@ function renderTests(data) {
                 <td>${t.percentage || 0}%</td>
                 <td>${statusBadge}</td>
                 <td>
-                    <button class="btn-view" onclick="viewDetail('tests', '${t.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        View
-                    </button>
+                    <button class="btn-view" onclick="viewDetail('tests', '${t.id}')">View</button>
                     ${publishBtn}
-                    <button class="btn-delete" onclick="deleteItem('tests', '${t.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
+                    <button class="btn-delete" onclick="deleteItem('tests', '${t.id}')">Delete</button>
                 </td>
             </tr>
         `;
@@ -1670,20 +1636,8 @@ function renderLiveClasses(data) {
             <td>${cls.time || '—'}</td>
             <td><span class="truncate" style="font-size:12px;">${cls.roomName || '—'}</span></td>
             <td>
-                <button class="btn-host" onclick="startHostClass(${idx})">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polygon points="23 7 16 12 23 17 23 7"/>
-                        <rect x="1" y="5" width="15" height="14" rx="2"/>
-                    </svg>
-                    Start as Host
-                </button>
-                ${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                    </svg>
-                    Delete
-                </button>` : ''}
+                <button class="btn-host" onclick="startHostClass(${idx})">Start as Host</button>
+                ${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">Delete</button>` : ''}
             </td>
         </tr>
     `).join('');
@@ -1743,11 +1697,7 @@ function renderAnnouncements(data) {
                 Total: <strong style="color: #0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}
             </div>
             <button class="btn-publish" onclick="openAnnouncementModal()" style="padding: 11px 20px; font-size: 13px; background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="12" y1="5" x2="12" y2="19"/>
-                    <line x1="5" y1="12" x2="19" y2="12"/>
-                </svg>
-                New Announcement
+                + New Announcement
             </button>
         </div>
     `;
@@ -1783,20 +1733,8 @@ function renderAnnouncements(data) {
                 <td>${a.active ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Hidden</span>'}</td>
                 <td>${dateStr}</td>
                 <td>
-                    <button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                            <circle cx="12" cy="12" r="3"/>
-                        </svg>
-                        View
-                    </button>
-                    <button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <polyline points="3 6 5 6 21 6"/>
-                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                        </svg>
-                        Delete
-                    </button>
+                    <button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">View</button>
+                    <button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">Delete</button>
                 </td>
             </tr>
         `;
@@ -1817,6 +1755,8 @@ window.viewDetail = function(tab, id) {
     if (!item) return;
 
     const titles = {
+        visitors: 'Visitor Details',
+        visits: 'Visit Details',
         students: 'Student Details',
         instructors: 'Instructor Application',
         messages: 'Message Details',
@@ -1963,12 +1903,10 @@ window.openReplyModal = async function(msgId) {
     currentReplyContext.message = msg;
     currentReplyContext.matchedStudent = null;
 
-    // Reset UI
     document.getElementById('studentMatchBox').style.display = 'none';
     document.getElementById('notRegisteredBox').style.display = 'none';
     document.getElementById('replyWhatsApp').value = '';
 
-    // Fill basic info
     document.getElementById('replyDocId').value = msg.id;
     document.getElementById('replyTo').value = msg.email || '—';
     document.getElementById('replySubject').value = `Re: ${msg.subject || ''}`;
@@ -1976,26 +1914,21 @@ window.openReplyModal = async function(msgId) {
     document.getElementById('replyText').value = msg.adminReply || '';
     document.getElementById('replyTemplate').value = '';
 
-    // Show modal
     document.getElementById('replyModal').classList.add('active');
 
-    // Mark as read
     if (msg.status === 'unread') {
         updateDoc(doc(db, 'messages', msg.id), { status: 'read' }).catch(() => {});
         const idx = allData.messages.findIndex(m => m.id === msg.id);
         if (idx >= 0) allData.messages[idx].status = 'read';
     }
 
-    // Check if email belongs to a registered student
     try {
         const studentEmail = (msg.email || '').trim().toLowerCase();
 
-        // Search in loaded students
         let matched = allData.students.find(s =>
             (s.email || '').toLowerCase().trim() === studentEmail
         );
 
-        // If not found, query Firestore
         if (!matched) {
             const q = query(collection(db, 'students'), where('email', '==', studentEmail));
             const snap = await getDocs(q);
@@ -2013,18 +1946,12 @@ window.openReplyModal = async function(msgId) {
             document.getElementById('matchCourse').textContent = matched.course || '—';
             document.getElementById('matchAvatar').textContent = (matched.fullName || 'S').charAt(0).toUpperCase();
 
-            if (matched.whatsapp) {
-                document.getElementById('replyWhatsApp').value = matched.whatsapp;
-            } else {
-                document.getElementById('replyWhatsApp').value = 'Not provided in registration';
-            }
-
+            document.getElementById('replyWhatsApp').value = matched.whatsapp || 'Not provided in registration';
             document.getElementById('studentMatchBox').style.display = 'block';
 
             const waBtn = document.getElementById('whatsappReplyBtn');
             waBtn.disabled = !matched.whatsapp;
             waBtn.style.opacity = matched.whatsapp ? '1' : '0.5';
-
         } else {
             document.getElementById('notRegisteredBox').style.display = 'block';
             document.getElementById('replyWhatsApp').value = 'Not registered';
@@ -2094,7 +2021,6 @@ window.saveReply = async function() {
         const idx = allData.messages.findIndex(m => m.id === docId);
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], ...updates };
 
-        // ============ SEND EMAIL VIA EMAILJS ============
         const emailParams = {
             to_email: msg.email || '',
             to_name: msg.name || 'Student',
@@ -2110,8 +2036,8 @@ window.saveReply = async function() {
 
         try {
             const response = await emailjs.send(
-                'service_bnv0t4n',     // Service ID
-                'template_r3prv9y',     // Template ID
+                'service_bnv0t4n',
+                'template_r3prv9y',
                 emailParams
             );
             console.log('Email sent successfully:', response);
@@ -2127,9 +2053,8 @@ window.saveReply = async function() {
         if (emailStatus === 'sent') {
             alert('Reply saved successfully and email sent to ' + (msg.email || 'student') + '.');
         } else {
-            alert('Reply saved successfully, but email failed to send.\n\nReason: ' + emailError + '\n\nYou can still contact the student via WhatsApp.');
+            alert('Reply saved successfully, but email failed to send.\n\nReason: ' + emailError);
         }
-
     } catch (err) {
         console.error('Save reply error:', err);
         alert('Failed to save reply: ' + err.message);
@@ -2138,6 +2063,7 @@ window.saveReply = async function() {
         btn.disabled = false;
     }
 };
+
 window.sendReplyViaWhatsApp = async function() {
     const replyText = document.getElementById('replyText').value.trim();
     const docId = document.getElementById('replyDocId').value;
@@ -2153,12 +2079,10 @@ window.sendReplyViaWhatsApp = async function() {
         return;
     }
 
-    // Format phone
     let phone = student.whatsapp.replace(/\D/g, '');
     if (phone.startsWith('0')) phone = '92' + phone.substring(1);
     if (!phone.startsWith('92')) phone = '92' + phone;
 
-    // Save reply
     try {
         await updateDoc(doc(db, 'messages', docId), {
             adminReply: replyText,
@@ -2171,7 +2095,6 @@ window.sendReplyViaWhatsApp = async function() {
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], adminReply: replyText, status: 'replied' };
     } catch (e) {}
 
-    // Build WhatsApp message
     const greeting = `Assalam-o-Alaikum ${student.fullName?.split(' ')[0] || ''},\n\n`;
     const fullMessage = greeting + replyText;
 
@@ -2210,9 +2133,6 @@ window.showHostClassList = function() {
                 <div style="font-size: 12px; color: #64748B; font-weight: 500;">${cls.day || ''} — ${cls.time || ''}</div>
             </div>
             <button class="btn-host" style="background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; padding: 12px 22px; font-size: 13px; border-radius: 10px; margin: 0;" onclick="startHostClassByIdx(${idx})">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
                 Start Class
             </button>
         </div>
@@ -2330,6 +2250,8 @@ window.deleteItem = async function(tab, id) {
     if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) return;
 
     const collectionMap = {
+        visitors: 'visitors',
+        visits: 'visits',
         students: 'students',
         instructors: 'instructorApplications',
         messages: 'messages',
@@ -2345,6 +2267,8 @@ window.deleteItem = async function(tab, id) {
         allData[tab] = allData[tab].filter(x => x.id !== id);
 
         const statMap = {
+            visitors: 'statVisitors',
+            visits: 'statVisits',
             students: 'statStudents',
             instructors: 'statInstructors',
             messages: 'statMessages',
@@ -2362,6 +2286,7 @@ window.deleteItem = async function(tab, id) {
     }
 };
 </script>
+
 <!-- ============ EMAILJS ============ -->
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
@@ -2371,5 +2296,6 @@ window.deleteItem = async function(tab, id) {
         });
     })();
 </script>
+
 </body>
 </html>
