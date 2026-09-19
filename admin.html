@@ -10,7 +10,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Montserrat', sans-serif; background: #F1F5F9; color: #0F172A; min-height: 100vh; }
 
-        /* LOGIN */
         .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(160deg, #051429 0%, #0A2540 50%, #1a3a5c 100%); }
         .login-box { background: #FFFFFF; padding: 44px 40px; border-radius: 20px; max-width: 440px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
         .login-box h1 { font-family: 'Poppins', sans-serif; font-size: 26px; color: #0A2540; font-weight: 800; text-align: center; margin-bottom: 8px; }
@@ -18,7 +17,6 @@
         .login-error { display: none; padding: 14px 18px; background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px; color: #991B1B; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
         .login-error.active { display: block; }
 
-        /* HEADER */
         .admin-header { background: #0A2540; color: #FFFFFF; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 4px 20px rgba(10, 37, 64, 0.15); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
         .admin-brand { display: flex; align-items: center; gap: 14px; }
         .admin-brand-logo { width: 44px; height: 44px; background: linear-gradient(135deg, #F4B400, #d99f00); border-radius: 10px; overflow: hidden; }
@@ -35,7 +33,6 @@
 
         .admin-body { padding: 28px; max-width: 1400px; margin: 0 auto; }
 
-        /* STATS */
         .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
         .admin-stat-card { background: #FFFFFF; padding: 18px; border-radius: 14px; border: 1px solid #E2E8F0; border-left: 4px solid #F4B400; cursor: pointer; transition: all 0.25s; }
         .admin-stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(10, 37, 64, 0.1); }
@@ -52,10 +49,10 @@
         .admin-stat-card.amber { border-left-color: #F59E0B; }
         .admin-stat-card.emerald { border-left-color: #10B981; }
         .admin-stat-card.money { border-left-color: #14B8A6; }
+        .admin-stat-card.progress-color { border-left-color: #8B5CF6; }
         .admin-stat-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.3px; color: #64748B; font-weight: 700; margin-bottom: 8px; }
         .admin-stat-value { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800; color: #0A2540; line-height: 1; }
 
-        /* PANEL */
         .admin-panel { background: #FFFFFF; border-radius: 16px; border: 1px solid #E2E8F0; overflow: hidden; }
         .panel-header { padding: 20px 24px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
         .panel-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 800; color: #0A2540; }
@@ -91,6 +88,7 @@
         .badge-indigo { background: #E0E7FF; color: #3730A3; }
         .badge-amber { background: #FEF3C7; color: #92400E; }
         .badge-rejected { background: #FEE2E2; color: #991B1B; }
+        .badge-purple { background: #F3E8FF; color: #6B21A8; }
 
         .empty-state { padding: 60px 20px; text-align: center; color: #64748B; }
         .empty-state svg { width: 48px; height: 48px; color: #CBD5E1; margin-bottom: 16px; }
@@ -98,10 +96,10 @@
         .loading-spinner { text-align: center; padding: 40px; color: #64748B; font-size: 14px; font-weight: 600; }
         .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
 
-        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject, .btn-fee, .btn-remind {
+        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject, .btn-fee, .btn-remind, .btn-progress {
             padding: 6px 12px; border-radius: 6px; border: none; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-right: 4px; margin-bottom: 4px; display: inline-flex; align-items: center; gap: 5px;
         }
-        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg, .btn-fee svg, .btn-remind svg { width: 12px; height: 12px; }
+        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg, .btn-fee svg, .btn-remind svg, .btn-progress svg { width: 12px; height: 12px; }
         .btn-view { background: #EFF6FF; color: #1E40AF; }
         .btn-view:hover { background: #DBEAFE; }
         .btn-delete { background: #FEF2F2; color: #991B1B; }
@@ -120,8 +118,9 @@
         .btn-fee:hover { background: #CCFBF1; }
         .btn-remind { background: #FEF9E7; color: #78350F; }
         .btn-remind:hover { background: #FEF3C7; }
+        .btn-progress { background: #F3E8FF; color: #6B21A8; }
+        .btn-progress:hover { background: #E9D5FF; }
 
-        /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(10, 37, 64, 0.7); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
         .modal-overlay.active { display: flex; }
         .detail-modal, .publish-modal { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; padding: 32px; max-height: 88vh; overflow-y: auto; position: relative; }
@@ -151,7 +150,6 @@
         .student-match-info { display: grid; gap: 8px; font-size: 13px; color: #065F46; font-weight: 600; }
         .student-match-info-row { display: flex; align-items: center; gap: 8px; }
         .student-match-info-row svg { width: 14px; height: 14px; flex-shrink: 0; }
-        .student-match-note { font-size: 11.5px; color: #065F46; margin-top: 10px; font-weight: 600; opacity: 0.85; }
 
         .not-registered-box { background: #FEF9E7; border-left: 4px solid #F4B400; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; }
         .not-registered-box svg { width: 20px; height: 20px; color: #78350F; flex-shrink: 0; margin-top: 2px; }
@@ -182,7 +180,6 @@
         .btn-end-class svg { width: 14px; height: 14px; }
         #jitsiContainer { flex: 1; width: 100%; }
 
-        /* FEE SUMMARY BAR */
         .fee-summary-bar {
             padding: 16px 20px;
             border-bottom: 1px solid #E2E8F0;
@@ -193,16 +190,8 @@
             font-weight: 700;
             background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
         }
-        .fee-summary-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .fee-summary-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
+        .fee-summary-item { display: flex; align-items: center; gap: 6px; }
+        .fee-summary-dot { width: 8px; height: 8px; border-radius: 50%; }
         .fee-summary-dot.paid { background: #10B981; }
         .fee-summary-dot.pending { background: #F59E0B; }
         .fee-summary-dot.unpaid { background: #DC2626; }
@@ -292,6 +281,10 @@
             <div class="admin-stat-card money" data-tab="fees" onclick="switchTab('fees')">
                 <div class="admin-stat-label">Fee Management</div>
                 <div class="admin-stat-value" id="statFees">—</div>
+            </div>
+            <div class="admin-stat-card progress-color" data-tab="progress" onclick="switchTab('progress')">
+                <div class="admin-stat-label">Course Progress</div>
+                <div class="admin-stat-value" id="statProgress">—</div>
             </div>
             <div class="admin-stat-card teal" data-tab="instructors" onclick="switchTab('instructors')">
                 <div class="admin-stat-label">Instructors</div>
@@ -529,16 +522,8 @@
             </div>
         </div>
 
-        <div class="form-field">
-            <label>Month *</label>
-            <input type="month" id="feeMonth">
-        </div>
-
-        <div class="form-field">
-            <label>Fee Amount (PKR) *</label>
-            <input type="number" id="feeAmount" placeholder="e.g. 3000">
-        </div>
-
+        <div class="form-field"><label>Month *</label><input type="month" id="feeMonth"></div>
+        <div class="form-field"><label>Fee Amount (PKR) *</label><input type="number" id="feeAmount" placeholder="e.g. 3000"></div>
         <div class="form-field">
             <label>Fee Status *</label>
             <select id="feeStatus">
@@ -547,19 +532,10 @@
                 <option value="paid">Paid</option>
             </select>
         </div>
-
+        <div class="form-field"><label>Due Date</label><input type="date" id="feeDueDate"></div>
+        <div class="form-field"><label>Paid Date</label><input type="date" id="feePaidDate"></div>
         <div class="form-field">
-            <label>Due Date</label>
-            <input type="date" id="feeDueDate">
-        </div>
-
-        <div class="form-field">
-            <label>Paid Date (agar paid hai)</label>
-            <input type="date" id="feePaidDate">
-        </div>
-
-        <div class="form-field">
-            <label>Payment Method (agar paid hai)</label>
+            <label>Payment Method</label>
             <select id="feeMethod">
                 <option value="">Select method</option>
                 <option>JazzCash</option>
@@ -568,32 +544,66 @@
                 <option>Cash</option>
             </select>
         </div>
-
-        <div class="form-field">
-            <label>Transaction ID / Reference</label>
-            <input type="text" id="feeTransaction" placeholder="e.g. TXN123456">
-        </div>
-
-        <div class="form-field">
-            <label>Notes</label>
-            <textarea id="feeNotes" rows="3" placeholder="Any additional notes..."></textarea>
-        </div>
+        <div class="form-field"><label>Transaction ID</label><input type="text" id="feeTransaction" placeholder="e.g. TXN123456"></div>
+        <div class="form-field"><label>Notes</label><textarea id="feeNotes" rows="3" placeholder="Any additional notes..."></textarea></div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <button class="btn-save-publish" onclick="saveFee()" style="background: linear-gradient(135deg, #14B8A6, #0D9488); color: #FFFFFF;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
                 Save Fee
             </button>
             <button class="btn-save-publish" onclick="sendFeeReminder()" style="background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
                 Send Reminder
             </button>
         </div>
+    </div>
+</div>
+
+<!-- PROGRESS MODAL -->
+<div class="modal-overlay" id="progressModal">
+    <div class="publish-modal" style="max-width: 640px;">
+        <button class="modal-close" onclick="closeProgressModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Update Course Progress</h3>
+        <input type="hidden" id="progressDocId">
+        <input type="hidden" id="progressStudentId">
+
+        <div class="student-match-box" style="display: block; margin-bottom: 20px; background: linear-gradient(135deg, #F3E8FF 0%, #E9D5FF 100%); border-left-color: #8B5CF6;">
+            <div class="student-match-header">
+                <div class="student-match-avatar" id="progressAvatar" style="background: #8B5CF6;">S</div>
+                <div>
+                    <div class="student-match-label" style="color: #6B21A8;">Student</div>
+                    <div class="student-match-name" id="progressStudentName" style="color: #6B21A8;">—</div>
+                </div>
+            </div>
+            <div class="student-match-info" style="color: #6B21A8;">
+                <div class="student-match-info-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span id="progressEmail">—</span>
+                </div>
+                <div class="student-match-info-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span id="progressCourse">—</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-field"><label>Coding Course Progress (%)</label><input type="number" id="progCoding" min="0" max="100" placeholder="0-100"></div>
+        <div class="form-field"><label>AI Course Progress (%)</label><input type="number" id="progAI" min="0" max="100" placeholder="0-100"></div>
+        <div class="form-field"><label>Modules Completed</label><input type="text" id="progModules" placeholder="e.g. Module 1, Module 2, Module 3"></div>
+        <div class="form-field"><label>Current Module</label><input type="text" id="progCurrent" placeholder="e.g. Module 4: Web Development"></div>
+        <div class="form-field"><label>Next Module</label><input type="text" id="progNext" placeholder="e.g. Module 5: Git & GitHub"></div>
+        <div class="form-field"><label>Instructor Notes</label><textarea id="progNotes" rows="3" placeholder="e.g. Excellent progress!"></textarea></div>
+
+        <button class="btn-save-publish" onclick="saveProgress()" style="background: linear-gradient(135deg, #8B5CF6, #7C3AED); color: #FFFFFF;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Update Progress
+        </button>
     </div>
 </div>
 
@@ -631,12 +641,11 @@
                     <span id="matchCourse">—</span>
                 </div>
             </div>
-            <div class="student-match-note">This person is a registered student. Reply will be sent to the message email, but you can also contact via WhatsApp.</div>
         </div>
 
         <div class="not-registered-box" id="notRegisteredBox" style="display: none;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <div class="not-registered-text">This email is not registered in our students database. Reply will be sent to the email provided in the message.</div>
+            <div class="not-registered-text">This email is not registered in our students database.</div>
         </div>
 
         <div class="form-field"><label>Reply To (Email)</label><input type="text" id="replyTo" readonly style="background:#F8FAFC;"></div>
@@ -674,10 +683,6 @@
                 Send via WhatsApp
             </button>
         </div>
-        <button class="btn-save-publish" onclick="copyReplyToClipboard()" style="background: #F1F5F9; color: #0A2540; margin-top: 10px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Copy Reply Text
-        </button>
     </div>
 </div>
 
@@ -727,14 +732,13 @@ import { auth, db } from './firebase-config.js';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { collection, getDocs, doc, deleteDoc, updateDoc, addDoc, serverTimestamp, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// ============ ADMIN CONFIG ============
 const ADMIN_UID = 'VHbqYaHK6yXP2f8IF9WKc33kkD73';
 const ADMIN_NAME = 'Mukesh Kewal';
 
-// ============ STATE ============
 let allData = {
-    visitors: [], visits: [], students: [], fees: [], instructors: [], messages: [],
-    reviews: [], coupons: [], certificates: [], tests: [], liveClasses: [],
+    visitors: [], visits: [], students: [], fees: [], progress: [],
+    instructors: [], messages: [], reviews: [], coupons: [],
+    certificates: [], tests: [], liveClasses: [],
     attendance: [], announcements: []
 };
 let currentTab = 'students';
@@ -743,7 +747,6 @@ let jitsiApi = null;
 let currentHostClass = null;
 let currentReplyContext = { message: null, matchedStudent: null };
 
-// ============ DEFAULT SCHEDULE ============
 const DEFAULT_SCHEDULE = [
     { id: 'default-coding-mon', subjectLabel: 'Coding Course', title: 'Python — Functions & Modules', day: 'Monday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-Coding-Batch1' },
     { id: 'default-ai-tue', subjectLabel: 'AI Course', title: 'Introduction to Machine Learning', day: 'Tuesday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-AI-Batch1' },
@@ -752,22 +755,21 @@ const DEFAULT_SCHEDULE = [
     { id: 'default-doubt-sat', subjectLabel: 'Doubt Session', title: 'Open Q&A — All Students Welcome', day: 'Saturday', time: '6:00 PM to 8:00 PM', roomName: 'ApexLearning-DoubtSession' }
 ];
 
-// ============ REPLY TEMPLATES ============
 const REPLY_TEMPLATES = {
     thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
-    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development) — Rs. 3,000/month (3 months)\n• Artificial Intelligence — Rs. 4,000/month (4 months)\n\nFor enrollment:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    timing: `Assalam-o-Alaikum {NAME},\n\nWeekly Live Class Schedule:\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — AI: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — AI: 6:00 PM to 8:00 PM\n• Saturday — Doubt Session: 6:00 PM to 8:00 PM\n\nFor registration:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    enrollment: `Assalam-o-Alaikum {NAME},\n\nEnrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the form\n3. Our team will contact you within 24 hours\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Enrollment activated within 24 hours\n\nFor assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class.\n\nTo book your free demo:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    certificate: `Assalam-o-Alaikum {NAME},\n\nCertificate Details:\n- Issued upon course completion\n- Requires 75% attendance\n- Unique Certificate ID for verification\n- QR code included\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    technical: `Assalam-o-Alaikum {NAME},\n\nWe apologize for the inconvenience. Please share:\n  - Screenshot of the issue\n  - Browser and device\n\nFor urgent help:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    payment: `Assalam-o-Alaikum {NAME},\n\nAccepted Payment Options:\n1. JazzCash\n2. EasyPaisa\n3. Bank Transfer\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    batch: `Assalam-o-Alaikum {NAME},\n\nSmall batches of 10-15 students for personal attention.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    refund: `Assalam-o-Alaikum {NAME},\n\nRefund Policy:\n- Fees non-refundable once course starts\n- Cancellation must be before first class\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    fees: `Assalam-o-Alaikum {NAME},\n\nCourse Fee Details:\n\n• Coding (Python + Web Development) — Rs. 3,000/month (3 months)\n• Artificial Intelligence — Rs. 4,000/month (4 months)\n\nFor enrollment:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    timing: `Assalam-o-Alaikum {NAME},\n\nWeekly Live Class Schedule:\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — AI: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — AI: 6:00 PM to 8:00 PM\n• Saturday — Doubt Session: 6:00 PM to 8:00 PM\n\nFor registration:\nWhatsApp: 0341 034 9929`,
+    enrollment: `Assalam-o-Alaikum {NAME},\n\nEnrollment Process:\n\n1. Visit our website\n2. Click "Register Now"\n3. Our team will contact you within 24 hours\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n\nFor assistance:\nWhatsApp: 0341 034 9929`,
+    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class.\n\nTo book:\nWhatsApp: 0341 034 9929`,
+    certificate: `Assalam-o-Alaikum {NAME},\n\nCertificate Details:\n- Issued upon course completion\n- Requires 75% attendance\n- Unique Certificate ID for verification\n\nFor questions:\nWhatsApp: 0341 034 9929`,
+    technical: `Assalam-o-Alaikum {NAME},\n\nWe apologize for the inconvenience. Please share screenshot and browser details.\n\nWhatsApp: 0341 034 9929`,
+    payment: `Assalam-o-Alaikum {NAME},\n\nAccepted Payment Options:\n1. JazzCash\n2. EasyPaisa\n3. Bank Transfer\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nWhatsApp: 0341 034 9929`,
+    batch: `Assalam-o-Alaikum {NAME},\n\nSmall batches of 10-15 students.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929`,
+    refund: `Assalam-o-Alaikum {NAME},\n\nRefund Policy:\n- Fees non-refundable once course starts\n- Cancellation must be before first class\n\nWhatsApp: 0341 034 9929`,
     custom: ''
 };
 
-// ============ LOGIN ============
+// LOGIN
 document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const errorBox = document.getElementById('loginError');
@@ -787,7 +789,7 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
     }
 });
 
-// ============ AUTH ============
+// AUTH
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         document.getElementById('loginScreen').style.display = 'flex';
@@ -796,7 +798,7 @@ onAuthStateChanged(auth, async (user) => {
     }
     if (user.uid !== ADMIN_UID) {
         await signOut(auth);
-        document.getElementById('loginError').textContent = 'Access denied. You are not authorized as an admin.';
+        document.getElementById('loginError').textContent = 'Access denied.';
         document.getElementById('loginError').classList.add('active');
         document.getElementById('adminLoginBtn').textContent = 'Login to Admin Panel';
         document.getElementById('adminLoginBtn').disabled = false;
@@ -808,22 +810,23 @@ onAuthStateChanged(auth, async (user) => {
     await loadAllData();
 });
 
-// ============ LOGOUT ============
+// LOGOUT
 document.getElementById('adminLogoutBtn').addEventListener('click', async () => {
     if (jitsiApi) { try { jitsiApi.dispose(); } catch(e){} jitsiApi = null; }
     await signOut(auth);
     window.location.reload();
 });
 
-// ============ LOAD DATA ============
+// LOAD DATA
 async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
     try {
-        const [v, vst, s, fees, i, m, rev, coup, c, t, l, a, ann] = await Promise.all([
+        const [v, vst, s, fees, prog, i, m, rev, coup, c, t, l, a, ann] = await Promise.all([
             getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'visits')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'fees')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'courseProgress')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'reviews')).catch(() => ({ docs: [] })),
@@ -839,6 +842,7 @@ async function loadAllData() {
         allData.visits = vst.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.students = s.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.fees = fees.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.progress = prog.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.instructors = i.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.messages = m.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.reviews = rev.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -853,6 +857,7 @@ async function loadAllData() {
         document.getElementById('statVisits').textContent = allData.visits.length;
         document.getElementById('statStudents').textContent = allData.students.length;
         document.getElementById('statFees').textContent = allData.fees.length;
+        document.getElementById('statProgress').textContent = allData.progress.length;
         document.getElementById('statInstructors').textContent = allData.instructors.length;
         document.getElementById('statMessages').textContent = allData.messages.length;
         document.getElementById('statReviews').textContent = allData.reviews.length;
@@ -866,19 +871,18 @@ async function loadAllData() {
         renderTab(currentTab);
     } catch (err) {
         console.error('Load error:', err);
-        document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p style="color:#991B1B;">Error loading data: ${err.message}</p></div>`;
+        document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p style="color:#991B1B;">Error: ${err.message}</p></div>`;
     }
 }
 
-// ============ TAB SWITCH ============
+// TAB SWITCH
 window.switchTab = function(tab) {
     currentTab = tab;
     document.querySelectorAll('.admin-stat-card').forEach(c => c.classList.remove('active'));
     document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
-
     const titles = {
         visitors: 'Unique Visitors', visits: 'Page Views', students: 'Students',
-        fees: 'Fee Management',
+        fees: 'Fee Management', progress: 'Course Progress',
         instructors: 'Instructor Applications', messages: 'Contact Messages',
         reviews: 'Student Reviews', coupons: 'Coupon Codes',
         certificates: 'Certificates Issued', tests: 'Test Submissions',
@@ -891,13 +895,12 @@ window.switchTab = function(tab) {
     renderTab(tab);
 };
 
-// ============ SEARCH ============
 document.getElementById('searchInput').addEventListener('input', (e) => {
     currentSearch = e.target.value.toLowerCase();
     renderTab(currentTab);
 });
 
-// ============ RENDER TAB ============
+// RENDER TAB
 function renderTab(tab) {
     const body = document.getElementById('panelBody');
     let data = allData[tab];
@@ -907,9 +910,10 @@ function renderTab(tab) {
     if (tab === 'announcements') { renderAnnouncements(data); return; }
     if (tab === 'coupons') { renderCoupons(data); return; }
     if (tab === 'fees') { renderFees(data); return; }
+    if (tab === 'progress') { renderProgress(data); return; }
 
     if (data.length === 0) {
-        body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No ${tab} found${currentSearch ? ' matching your search' : ''}.</p></div>`;
+        body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No ${tab} found.</p></div>`;
         return;
     }
 
@@ -925,7 +929,7 @@ function renderTab(tab) {
     else if (tab === 'attendance') renderAttendance(data);
 }
 
-// ============ RENDER VISITORS ============
+// VISITORS
 function renderVisitors(data) {
     const sorted = [...data].sort((a, b) => (b.lastVisit?.seconds || 0) - (a.lastVisit?.seconds || 0));
     const rows = sorted.map(v => {
@@ -937,7 +941,7 @@ function renderVisitors(data) {
     document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Total Unique Visitors: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Visitor ID</th><th>Location</th><th>Device</th><th>Browser/OS</th><th>Visits</th><th>First Visit</th><th>Last Visit</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER VISITS ============
+// VISITS
 function renderVisits(data) {
     const sorted = [...data].sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
     const rows = sorted.slice(0, 200).map(v => {
@@ -948,16 +952,15 @@ function renderVisits(data) {
     document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Showing latest 200 visits — Total: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Location</th><th>Page</th><th>Device</th><th>Browser</th><th>Referrer</th><th>Time</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER STUDENTS ============
+// STUDENTS
 function renderStudents(data) {
     const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong>${s.couponCode ? `<br><span style="font-size:10.5px;color:#10B981;font-weight:800;">COUPON: ${s.couponCode} (-${s.couponDiscount}%)</span>` : ''}</td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Course</th><th>City</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER FEES ============
+// FEES
 function renderFees(data) {
     const students = allData.students;
-
     if (students.length === 0) {
         document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p>No students registered yet.</p></div>`;
         return;
@@ -970,25 +973,15 @@ function renderFees(data) {
             if (fee.status === 'paid') totalPaid++;
             else if (fee.status === 'pending') totalPending++;
             else totalUnpaid++;
-        } else {
-            totalUnpaid++;
-        }
+        } else totalUnpaid++;
     });
 
-    const summaryHeader = `
-        <div class="fee-summary-bar">
-            <span class="fee-summary-item" style="color: #10B981;">
-                <span class="fee-summary-dot paid"></span>Paid: <strong>${totalPaid}</strong>
-            </span>
-            <span class="fee-summary-item" style="color: #F59E0B;">
-                <span class="fee-summary-dot pending"></span>Pending: <strong>${totalPending}</strong>
-            </span>
-            <span class="fee-summary-item" style="color: #DC2626;">
-                <span class="fee-summary-dot unpaid"></span>Unpaid: <strong>${totalUnpaid}</strong>
-            </span>
-            <span style="color: #0A2540; margin-left: auto;">Total: <strong>${students.length}</strong></span>
-        </div>
-    `;
+    const summaryHeader = `<div class="fee-summary-bar">
+        <span class="fee-summary-item" style="color: #10B981;"><span class="fee-summary-dot paid"></span>Paid: <strong>${totalPaid}</strong></span>
+        <span class="fee-summary-item" style="color: #F59E0B;"><span class="fee-summary-dot pending"></span>Pending: <strong>${totalPending}</strong></span>
+        <span class="fee-summary-item" style="color: #DC2626;"><span class="fee-summary-dot unpaid"></span>Unpaid: <strong>${totalUnpaid}</strong></span>
+        <span style="color: #0A2540; margin-left: auto;">Total: <strong>${students.length}</strong></span>
+    </div>`;
 
     const sortedStudents = [...students].sort((a, b) => {
         const feeA = allData.fees.find(f => f.studentUid === a.uid);
@@ -1002,48 +995,33 @@ function renderFees(data) {
         let statusBadge = '<span class="badge badge-unpaid">UNPAID</span>';
         if (fee.status === 'paid') statusBadge = '<span class="badge badge-paid">PAID</span>';
         else if (fee.status === 'pending') statusBadge = '<span class="badge badge-pending">PENDING</span>';
-
         let paidDate = '—';
         if (fee.paidDate) {
             try { paidDate = new Date(fee.paidDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
             catch(e) { paidDate = fee.paidDate; }
         }
-
-        return `
-            <tr>
-                <td><strong>${s.fullName || '—'}</strong><br><span style="font-size: 11px; color: #64748B;">${s.email || ''}</span></td>
-                <td>${s.whatsapp || '—'}</td>
-                <td><span class="truncate">${s.course || '—'}</span></td>
-                <td>${fee.month || '—'}</td>
-                <td>${fee.amount ? 'Rs. ' + fee.amount : '—'}</td>
-                <td>${statusBadge}</td>
-                <td>${paidDate}</td>
-                <td>
-                    <button class="btn-fee" onclick="openFeeModal('${s.id}', '${s.uid || ''}')">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                        Update
-                    </button>
-                    ${fee.status !== 'paid' ? `<button class="btn-remind" onclick="quickReminder('${s.id}', '${s.uid || ''}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Remind</button>` : ''}
-                </td>
-            </tr>
-        `;
+        return `<tr>
+            <td><strong>${s.fullName || '—'}</strong><br><span style="font-size: 11px; color: #64748B;">${s.email || ''}</span></td>
+            <td>${s.whatsapp || '—'}</td>
+            <td><span class="truncate">${s.course || '—'}</span></td>
+            <td>${fee.month || '—'}</td>
+            <td>${fee.amount ? 'Rs. ' + fee.amount : '—'}</td>
+            <td>${statusBadge}</td>
+            <td>${paidDate}</td>
+            <td>
+                <button class="btn-fee" onclick="openFeeModal('${s.id}', '${s.uid || ''}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Update</button>
+                ${fee.status !== 'paid' ? `<button class="btn-remind" onclick="quickReminder('${s.id}', '${s.uid || ''}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Remind</button>` : ''}
+            </td>
+        </tr>`;
     }).join('');
 
-    document.getElementById('panelBody').innerHTML = summaryHeader + `
-        <table class="data-table">
-            <thead><tr>
-                <th>Student</th><th>WhatsApp</th><th>Course</th><th>Month</th><th>Amount</th><th>Status</th><th>Paid Date</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = summaryHeader + `<table class="data-table"><thead><tr><th>Student</th><th>WhatsApp</th><th>Course</th><th>Month</th><th>Amount</th><th>Status</th><th>Paid Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 window.openFeeModal = function(studentId, uid) {
     const student = allData.students.find(s => s.id === studentId);
     if (!student) return;
-
     const existingFee = allData.fees.find(f => f.studentUid === uid) || {};
-
     document.getElementById('feeDocId').value = existingFee.id || '';
     document.getElementById('feeStudentId').value = studentId;
     document.getElementById('feeStudentName').textContent = student.fullName || 'Student';
@@ -1051,16 +1029,11 @@ window.openFeeModal = function(studentId, uid) {
     document.getElementById('feeEmail').textContent = student.email || '—';
     document.getElementById('feePhone').textContent = student.whatsapp || '—';
     document.getElementById('feeCourse').textContent = student.course || '—';
-
     const now = new Date();
     const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-
     document.getElementById('feeMonth').value = existingFee.month || defaultMonth;
-
     let defaultAmount = 3000;
-    if ((student.course || '').toLowerCase().includes('ai') || (student.course || '').toLowerCase().includes('artificial')) {
-        defaultAmount = 4000;
-    }
+    if ((student.course || '').toLowerCase().includes('ai') || (student.course || '').toLowerCase().includes('artificial')) defaultAmount = 4000;
     document.getElementById('feeAmount').value = existingFee.amount || defaultAmount;
     document.getElementById('feeStatus').value = existingFee.status || 'unpaid';
     document.getElementById('feeDueDate').value = existingFee.dueDate || '';
@@ -1068,7 +1041,6 @@ window.openFeeModal = function(studentId, uid) {
     document.getElementById('feeMethod').value = existingFee.paymentMethod || '';
     document.getElementById('feeTransaction').value = existingFee.transactionId || '';
     document.getElementById('feeNotes').value = existingFee.notes || '';
-
     document.getElementById('feeModal').classList.add('active');
 };
 
@@ -1080,7 +1052,6 @@ window.saveFee = async function() {
     const studentId = document.getElementById('feeStudentId').value;
     const student = allData.students.find(s => s.id === studentId);
     if (!student) { alert('Student not found.'); return; }
-
     const month = document.getElementById('feeMonth').value;
     const amount = parseInt(document.getElementById('feeAmount').value) || 0;
     const status = document.getElementById('feeStatus').value;
@@ -1089,45 +1060,27 @@ window.saveFee = async function() {
     const paymentMethod = document.getElementById('feeMethod').value;
     const transactionId = document.getElementById('feeTransaction').value.trim();
     const notes = document.getElementById('feeNotes').value.trim();
-
-    if (!month) { alert('Please select month.'); return; }
-    if (!amount || amount < 1) { alert('Please enter valid amount.'); return; }
-
+    if (!month || !amount) { alert('Please fill month and amount.'); return; }
     const feeData = {
-        studentUid: student.uid || '',
-        studentName: student.fullName || '',
-        studentEmail: student.email || '',
-        whatsapp: student.whatsapp || '',
-        course: student.course || '',
-        month, amount, status,
-        dueDate: dueDate || '',
-        paidDate: paidDate || '',
-        paymentMethod: paymentMethod || '',
-        transactionId: transactionId || '',
-        notes: notes || '',
-        updatedAt: serverTimestamp()
+        studentUid: student.uid || '', studentName: student.fullName || '',
+        studentEmail: student.email || '', whatsapp: student.whatsapp || '',
+        course: student.course || '', month, amount, status,
+        dueDate: dueDate || '', paidDate: paidDate || '',
+        paymentMethod: paymentMethod || '', transactionId: transactionId || '',
+        notes: notes || '', updatedAt: serverTimestamp()
     };
-
     try {
-        if (docId) {
-            await updateDoc(doc(db, 'fees', docId), feeData);
-        } else {
-            await addDoc(collection(db, 'fees'), { ...feeData, createdAt: serverTimestamp() });
-        }
-
+        if (docId) await updateDoc(doc(db, 'fees', docId), feeData);
+        else await addDoc(collection(db, 'fees'), { ...feeData, createdAt: serverTimestamp() });
         await updateDoc(doc(db, 'students', studentId), {
             feesStatus: status,
             feesPaid: status === 'paid' ? `Rs. ${amount}` : 'Rs. 0',
             feesRemaining: status === 'paid' ? 'Rs. 0' : `Rs. ${amount}`
         });
-
         closeFeeModal();
         await loadAllData();
-        alert('Fee record saved successfully!');
-    } catch (err) {
-        console.error('Fee save error:', err);
-        alert('Failed to save: ' + err.message);
-    }
+        alert('Fee record saved!');
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
 window.quickReminder = function(studentId, uid) {
@@ -1139,82 +1092,135 @@ window.sendFeeReminder = async function() {
     const studentId = document.getElementById('feeStudentId').value;
     const student = allData.students.find(s => s.id === studentId);
     if (!student) { alert('Student not found.'); return; }
-
     const month = document.getElementById('feeMonth').value || 'current month';
     const amount = document.getElementById('feeAmount').value || '0';
     const dueDate = document.getElementById('feeDueDate').value || 'soon';
-
-    const message = `Assalam-o-Alaikum ${student.fullName || 'Student'},
-
-This is a friendly reminder from Apex Learning Academy regarding your monthly fee.
-
-Month: ${month}
-Amount: Rs. ${amount}
-Due Date: ${dueDate}
-
-Kindly complete your fee payment via:
-- JazzCash
-- EasyPaisa
-- Bank Transfer
-
-Once payment is done, please share the screenshot on WhatsApp so we can update your record.
-
-For any questions or payment details, please contact us:
-WhatsApp: 0341 034 9929
-
-Thank you for being a part of Apex Learning Academy.
-
-Best regards,
-Mukesh Kewal
-Founder, Apex Learning Academy
-Learn. Rise. Achieve.`;
-
+    const message = `Assalam-o-Alaikum ${student.fullName || 'Student'},\n\nThis is a friendly reminder from Apex Learning Academy regarding your monthly fee.\n\nMonth: ${month}\nAmount: Rs. ${amount}\nDue Date: ${dueDate}\n\nKindly complete your fee payment via:\n- JazzCash\n- EasyPaisa\n- Bank Transfer\n\nOnce payment is done, please share the screenshot on WhatsApp.\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nMukesh Kewal\nFounder, Apex Learning Academy`;
     let phone = (student.whatsapp || '').replace(/\D/g, '');
     if (phone.startsWith('0')) phone = '92' + phone.substring(1);
     if (!phone.startsWith('92') && phone.length > 0) phone = '92' + phone;
-
-    if (phone && phone.length > 10) {
-        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-    }
-
+    if (phone && phone.length > 10) window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
     if (student.email) {
         try {
             await emailjs.send('service_bnv0t4n', 'template_r3prv9y', {
-                to_email: student.email,
-                to_name: student.fullName || 'Student',
+                to_email: student.email, to_name: student.fullName || 'Student',
                 subject: `Fee Reminder - ${month} | Apex Learning Academy`,
                 original_message: `Monthly Fee Reminder for ${month}`,
-                reply_message: message,
-                student_name: student.fullName || 'Student',
+                reply_message: message, student_name: student.fullName || 'Student',
                 student_email: student.email
             });
-        } catch (emailErr) {
-            console.warn('Email reminder failed:', emailErr);
-        }
+        } catch (emailErr) { console.warn('Email failed:', emailErr); }
     }
-
     const feeDocId = document.getElementById('feeDocId').value;
     if (feeDocId) {
-        try {
-            await updateDoc(doc(db, 'fees', feeDocId), {
-                status: 'pending',
-                reminderSentAt: serverTimestamp()
-            });
-        } catch (e) {}
+        try { await updateDoc(doc(db, 'fees', feeDocId), { status: 'pending', reminderSentAt: serverTimestamp() }); } catch (e) {}
     }
-
     closeFeeModal();
     await loadAllData();
-    alert('Reminder sent via WhatsApp and Email!');
+    alert('Reminder sent!');
 };
 
-// ============ RENDER INSTRUCTORS ============
+// PROGRESS
+function renderProgress(data) {
+    const students = allData.students;
+    if (students.length === 0) {
+        document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p>No students registered yet.</p></div>`;
+        return;
+    }
+    const rows = students.map(s => {
+        const prog = allData.progress.find(p => p.studentUid === s.uid) || {};
+        const codingProg = prog.codingProgress || s.codingProgress || 0;
+        const aiProg = prog.aiProgress || s.aiProgress || 0;
+        return `<tr>
+            <td><strong>${s.fullName || '—'}</strong><br><span style="font-size: 11px; color: #64748B;">${s.email || ''}</span></td>
+            <td><span class="truncate">${s.course || '—'}</span></td>
+            <td>
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 11px; color: #64748B; font-weight: 700; min-width: 45px;">Coding:</span>
+                        <div style="flex: 1; height: 6px; background: #F1F5F9; border-radius: 100px; overflow: hidden; max-width: 100px;">
+                            <div style="height: 100%; width: ${codingProg}%; background: linear-gradient(90deg, #F4B400, #FFC93C);"></div>
+                        </div>
+                        <span style="font-size: 12px; font-weight: 800; color: #0A2540;">${codingProg}%</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 11px; color: #64748B; font-weight: 700; min-width: 45px;">AI:</span>
+                        <div style="flex: 1; height: 6px; background: #F1F5F9; border-radius: 100px; overflow: hidden; max-width: 100px;">
+                            <div style="height: 100%; width: ${aiProg}%; background: linear-gradient(90deg, #00A896, #00d1bb);"></div>
+                        </div>
+                        <span style="font-size: 12px; font-weight: 800; color: #0A2540;">${aiProg}%</span>
+                    </div>
+                </div>
+            </td>
+            <td><span class="truncate" style="font-size: 12px;">${prog.currentModule || '—'}</span></td>
+            <td>
+                <button class="btn-progress" onclick="openProgressModal('${s.id}', '${s.uid || ''}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> Update Progress</button>
+            </td>
+        </tr>`;
+    }).join('');
+    document.getElementById('panelBody').innerHTML = `<div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600;">Total Students: <strong style="color: #0A2540;">${students.length}</strong></div><table class="data-table"><thead><tr><th>Student</th><th>Course</th><th>Progress</th><th>Current Module</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+window.openProgressModal = function(studentId, uid) {
+    const student = allData.students.find(s => s.id === studentId);
+    if (!student) return;
+    const prog = allData.progress.find(p => p.studentUid === uid) || {};
+    document.getElementById('progressDocId').value = prog.id || '';
+    document.getElementById('progressStudentId').value = studentId;
+    document.getElementById('progressStudentName').textContent = student.fullName || 'Student';
+    document.getElementById('progressAvatar').textContent = (student.fullName || 'S').charAt(0).toUpperCase();
+    document.getElementById('progressEmail').textContent = student.email || '—';
+    document.getElementById('progressCourse').textContent = student.course || '—';
+    document.getElementById('progCoding').value = prog.codingProgress || student.codingProgress || 0;
+    document.getElementById('progAI').value = prog.aiProgress || student.aiProgress || 0;
+    document.getElementById('progModules').value = prog.completedModules || '';
+    document.getElementById('progCurrent').value = prog.currentModule || '';
+    document.getElementById('progNext').value = prog.nextModule || '';
+    document.getElementById('progNotes').value = prog.instructorNotes || '';
+    document.getElementById('progressModal').classList.add('active');
+};
+
+window.closeProgressModal = function() { document.getElementById('progressModal').classList.remove('active'); };
+document.getElementById('progressModal').addEventListener('click', (e) => { if (e.target.id === 'progressModal') closeProgressModal(); });
+
+window.saveProgress = async function() {
+    const docId = document.getElementById('progressDocId').value;
+    const studentId = document.getElementById('progressStudentId').value;
+    const student = allData.students.find(s => s.id === studentId);
+    if (!student) { alert('Student not found.'); return; }
+    const codingProg = parseInt(document.getElementById('progCoding').value) || 0;
+    const aiProg = parseInt(document.getElementById('progAI').value) || 0;
+    if (codingProg < 0 || codingProg > 100 || aiProg < 0 || aiProg > 100) { alert('Progress 0-100 ke beech honi chahiye.'); return; }
+    const progressData = {
+        studentUid: student.uid || '', studentName: student.fullName || '',
+        studentEmail: student.email || '', course: student.course || '',
+        codingProgress: codingProg, aiProgress: aiProg,
+        completedModules: document.getElementById('progModules').value.trim(),
+        currentModule: document.getElementById('progCurrent').value.trim(),
+        nextModule: document.getElementById('progNext').value.trim(),
+        instructorNotes: document.getElementById('progNotes').value.trim(),
+        updatedAt: serverTimestamp()
+    };
+    try {
+        if (docId) await updateDoc(doc(db, 'courseProgress', docId), progressData);
+        else await addDoc(collection(db, 'courseProgress'), { ...progressData, createdAt: serverTimestamp() });
+        await updateDoc(doc(db, 'students', studentId), {
+            codingProgress: codingProg, aiProgress: aiProg,
+            progress: Math.round((codingProg + aiProg) / 2)
+        });
+        closeProgressModal();
+        await loadAllData();
+        alert('Progress updated!');
+    } catch (err) { alert('Failed: ' + err.message); }
+};
+
+// INSTRUCTORS
 function renderInstructors(data) {
     const rows = data.map(i => `<tr><td><strong>${i.fullName || '—'}</strong></td><td>${i.email || '—'}</td><td>${i.whatsapp || '—'}</td><td>${i.subject || '—'}</td><td>${i.experience || '—'}</td><td><span class="badge badge-pending">${i.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">View</button><button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Subject</th><th>Experience</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER MESSAGES ============
+// MESSAGES
 function renderMessages(data) {
     const rows = data.map(m => {
         let dateStr = '—';
@@ -1227,7 +1233,7 @@ function renderMessages(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER REVIEWS ============
+// REVIEWS
 function renderReviews(data) {
     const sorted = [...data].sort((a, b) => (b.submittedAt?.seconds || 0) - (a.submittedAt?.seconds || 0));
     const rows = sorted.map(r => {
@@ -1252,7 +1258,7 @@ window.updateReviewStatus = async function(reviewId, newStatus) {
         const idx = allData.reviews.findIndex(r => r.id === reviewId);
         if (idx >= 0) allData.reviews[idx].status = newStatus;
         renderTab('reviews');
-    } catch (err) { alert('Failed to update: ' + err.message); }
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
 window.viewReviewDetail = function(reviewId) {
@@ -1266,10 +1272,10 @@ window.viewReviewDetail = function(reviewId) {
         <div class="review-detail-student"><div class="review-detail-avatar">${initial}</div><div><div class="review-detail-name">${r.studentName || 'Student'}</div><div class="review-detail-email">${r.studentEmail || '—'}</div></div></div>
         <div class="review-detail-stars">${stars}</div>
         <div class="review-detail-text">"${r.reviewText || '—'}"</div>
-        <div class="review-detail-meta"><span><strong>Course:</strong> ${r.course || '—'}</span><span><strong>Date:</strong> ${dateStr}</span><span><strong>Status:</strong> ${(r.status || 'pending').toUpperCase()}</span></div>
+        <div class="review-detail-meta"><span><strong>Course:</strong> ${r.course || '—'}</span><span><strong>Date:</strong> ${dateStr}</span></div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            ${r.status !== 'approved' ? `<button onclick="updateReviewStatus('${r.id}', 'approved'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;">Approve Review</button>` : ''}
-            ${r.status !== 'rejected' ? `<button onclick="updateReviewStatus('${r.id}', 'rejected'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#EF4444,#DC2626);color:#FFFFFF;">Reject Review</button>` : ''}
+            ${r.status !== 'approved' ? `<button onclick="updateReviewStatus('${r.id}', 'approved'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;">Approve</button>` : ''}
+            ${r.status !== 'rejected' ? `<button onclick="updateReviewStatus('${r.id}', 'rejected'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#EF4444,#DC2626);color:#FFFFFF;">Reject</button>` : ''}
         </div>`;
     document.getElementById('reviewDetailModal').classList.add('active');
 };
@@ -1277,15 +1283,13 @@ window.viewReviewDetail = function(reviewId) {
 window.closeReviewDetail = function() { document.getElementById('reviewDetailModal').classList.remove('active'); };
 document.getElementById('reviewDetailModal').addEventListener('click', (e) => { if (e.target.id === 'reviewDetailModal') closeReviewDetail(); });
 
-// ============ RENDER COUPONS ============
+// COUPONS
 function renderCoupons(data) {
     const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong> coupon${data.length !== 1 ? 's' : ''}</div><button class="btn-publish" onclick="openCouponModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;">+ New Coupon</button></div>`;
-
     if (data.length === 0) {
-        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><path d="M2 7h20v5H2z"/><line x1="12" y1="22" x2="12" y2="7"/></svg><p>No coupons yet. Click "New Coupon" to create one.</p></div>`;
+        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><p>No coupons yet.</p></div>`;
         return;
     }
-
     const rows = data.map(c => {
         let expiryStr = 'No expiry';
         if (c.expiresAt) {
@@ -1299,7 +1303,6 @@ function renderCoupons(data) {
         const toggleBtn = c.active ? `<button class="btn-reject" onclick="toggleCoupon('${c.id}', false)">Deactivate</button>` : `<button class="btn-approve" onclick="toggleCoupon('${c.id}', true)">Activate</button>`;
         return `<tr><td><strong style="font-family:monospace;font-size:14px;color:#0A2540;letter-spacing:1px;">${c.code || '—'}</strong></td><td><span style="color:#10B981;font-weight:800;font-size:15px;">${c.discountPercent || 0}% OFF</span></td><td>${c.description || '—'}</td><td>${usageText}</td><td>${expiryStr}</td><td>${statusBadge}</td><td>${toggleBtn}<button class="btn-delete" onclick="deleteItem('coupons', '${c.id}')">Delete</button></td></tr>`;
     }).join('');
-
     document.getElementById('panelBody').innerHTML = header + `<table class="data-table"><thead><tr><th>Code</th><th>Discount</th><th>Description</th><th>Usage</th><th>Expires</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
@@ -1309,7 +1312,7 @@ window.toggleCoupon = async function(couponId, active) {
         const idx = allData.coupons.findIndex(c => c.id === couponId);
         if (idx >= 0) allData.coupons[idx].active = active;
         renderTab('coupons');
-    } catch (err) { alert('Failed to update: ' + err.message); }
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
 window.openCouponModal = function() {
@@ -1330,28 +1333,26 @@ window.saveCoupon = async function() {
     const description = document.getElementById('coupDescription').value.trim();
     const maxUses = parseInt(document.getElementById('coupMaxUses').value) || 0;
     const expiry = document.getElementById('coupExpiry').value;
-
-    if (!code || code.length < 3) { alert('Please enter a valid coupon code (at least 3 characters).'); return; }
-    if (!discountPercent || discountPercent < 1 || discountPercent > 100) { alert('Discount must be between 1% and 100%.'); return; }
-    if (allData.coupons.some(c => c.code === code)) { alert('This coupon code already exists.'); return; }
-
+    if (!code || code.length < 3) { alert('Coupon code min 3 characters.'); return; }
+    if (!discountPercent || discountPercent < 1 || discountPercent > 100) { alert('Discount 1-100% hona chahiye.'); return; }
+    if (allData.coupons.some(c => c.code === code)) { alert('Coupon already exists.'); return; }
     try {
         const couponData = { code, discountPercent, description, maxUses, usedCount: 0, active: true, createdAt: serverTimestamp() };
         if (expiry) couponData.expiresAt = new Date(expiry).toISOString();
         await addDoc(collection(db, 'coupons'), couponData);
         closeCouponModal();
         await loadAllData();
-        alert('Coupon created successfully!\n\nCode: ' + code + '\nDiscount: ' + discountPercent + '%');
-    } catch (err) { alert('Failed to create coupon: ' + err.message); }
+        alert('Coupon created: ' + code + ' (' + discountPercent + '% OFF)');
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
-// ============ RENDER CERTIFICATES ============
+// CERTIFICATES
 function renderCertificates(data) {
     const rows = data.map(c => `<tr><td><strong>${c.certificateId || '—'}</strong></td><td>${c.studentName || '—'}</td><td>${c.email || '—'}</td><td><span class="truncate">${c.course || '—'}</span></td><td>${c.issueDate || '—'}</td><td><span class="badge badge-valid">${c.status || 'valid'}</span></td><td><button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">View</button><button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Certificate ID</th><th>Student</th><th>Email</th><th>Course</th><th>Issue Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER TESTS ============
+// TESTS
 function renderTests(data) {
     const rows = data.map(t => {
         const statusBadge = t.status === 'published' ? '<span class="badge badge-valid">Published</span>' : '<span class="badge badge-pending">Pending</span>';
@@ -1361,14 +1362,14 @@ function renderTests(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Roll No</th><th>Student</th><th>Subject</th><th>Score</th><th>%</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER LIVE CLASSES ============
+// LIVE CLASSES
 function renderLiveClasses(data) {
     const rows = data.map((cls, idx) => `<tr><td><strong>${cls.subjectLabel || cls.subject || '—'}</strong></td><td>${cls.title || '—'}</td><td>${cls.day || '—'}</td><td>${cls.time || '—'}</td><td><span class="truncate" style="font-size:12px;">${cls.roomName || '—'}</span></td><td><button class="btn-host" onclick="startHostClass(${idx})">Start as Host</button>${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">Delete</button>` : ''}</td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Subject</th><th>Title</th><th>Day</th><th>Time</th><th>Room</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
     window._currentLiveClasses = data;
 }
 
-// ============ RENDER ATTENDANCE ============
+// ATTENDANCE
 function renderAttendance(data) {
     const sorted = [...data].reverse();
     const rows = sorted.map(a => {
@@ -1381,11 +1382,11 @@ function renderAttendance(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Class</th><th>Status</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ RENDER ANNOUNCEMENTS ============
+// ANNOUNCEMENTS
 function renderAnnouncements(data) {
-    const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}</div><button class="btn-publish" onclick="openAnnouncementModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#F4B400,#d99f00);color:#0A2540;">+ New Announcement</button></div>`;
+    const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong></div><button class="btn-publish" onclick="openAnnouncementModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#F4B400,#d99f00);color:#0A2540;">+ New Announcement</button></div>`;
     if (data.length === 0) {
-        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg><p>No announcements yet.</p></div>`;
+        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><p>No announcements yet.</p></div>`;
         return;
     }
     const rows = data.map(a => {
@@ -1397,7 +1398,7 @@ function renderAnnouncements(data) {
     document.getElementById('panelBody').innerHTML = header + `<table class="data-table"><thead><tr><th>Title</th><th>Message</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ VIEW DETAIL ============
+// VIEW DETAIL
 window.viewDetail = function(tab, id) {
     const item = allData[tab].find(x => x.id === id);
     if (!item) return;
@@ -1424,7 +1425,7 @@ window.viewDetail = function(tab, id) {
 window.closeDetail = function() { document.getElementById('detailModal').classList.remove('active'); };
 document.getElementById('detailModal').addEventListener('click', (e) => { if (e.target.id === 'detailModal') closeDetail(); });
 
-// ============ PUBLISH RESULT ============
+// PUBLISH RESULT
 window.openPublishModal = function(testId) {
     const test = allData.tests.find(t => t.id === testId);
     if (!test) return;
@@ -1461,11 +1462,11 @@ window.savePublishResult = async function() {
         if (idx >= 0) allData.tests[idx] = { ...allData.tests[idx], ...updates };
         closePublishModal();
         renderTab('tests');
-        alert('Result published successfully.');
-    } catch (err) { alert('Failed to publish: ' + err.message); }
+        alert('Result published!');
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
-// ============ ANNOUNCEMENTS ============
+// ANNOUNCEMENTS
 window.openAnnouncementModal = function() {
     document.getElementById('annTitle').value = '';
     document.getElementById('annMessage').value = '';
@@ -1486,11 +1487,11 @@ window.saveAnnouncement = async function() {
         await addDoc(collection(db, 'announcements'), { title, message, type, active, createdAt: serverTimestamp() });
         closeAnnouncementModal();
         await loadAllData();
-        alert('Announcement published successfully.');
-    } catch (err) { alert('Failed to publish: ' + err.message); }
+        alert('Announcement published!');
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 
-// ============ REPLY SYSTEM ============
+// REPLY SYSTEM
 window.openReplyModal = async function(msgId) {
     const msg = allData.messages.find(m => m.id === msgId);
     if (!msg) return;
@@ -1506,13 +1507,11 @@ window.openReplyModal = async function(msgId) {
     document.getElementById('replyText').value = msg.adminReply || '';
     document.getElementById('replyTemplate').value = '';
     document.getElementById('replyModal').classList.add('active');
-
     if (msg.status === 'unread') {
         updateDoc(doc(db, 'messages', msg.id), { status: 'read' }).catch(() => {});
         const idx = allData.messages.findIndex(m => m.id === msg.id);
         if (idx >= 0) allData.messages[idx].status = 'read';
     }
-
     try {
         const studentEmail = (msg.email || '').trim().toLowerCase();
         let matched = allData.students.find(s => (s.email || '').toLowerCase().trim() === studentEmail);
@@ -1530,15 +1529,9 @@ window.openReplyModal = async function(msgId) {
             document.getElementById('matchAvatar').textContent = (matched.fullName || 'S').charAt(0).toUpperCase();
             document.getElementById('replyWhatsApp').value = matched.whatsapp || 'Not provided';
             document.getElementById('studentMatchBox').style.display = 'block';
-            const waBtn = document.getElementById('whatsappReplyBtn');
-            waBtn.disabled = !matched.whatsapp;
-            waBtn.style.opacity = matched.whatsapp ? '1' : '0.5';
         } else {
             document.getElementById('notRegisteredBox').style.display = 'block';
             document.getElementById('replyWhatsApp').value = 'Not registered';
-            const waBtn = document.getElementById('whatsappReplyBtn');
-            waBtn.disabled = true;
-            waBtn.style.opacity = '0.5';
         }
     } catch (err) {
         document.getElementById('notRegisteredBox').style.display = 'block';
@@ -1563,7 +1556,7 @@ window.applyReplyTemplate = function() {
 window.saveReply = async function() {
     const docId = document.getElementById('replyDocId').value;
     const replyText = document.getElementById('replyText').value.trim();
-    if (!docId || !replyText) { alert('Please write a reply before saving.'); return; }
+    if (!docId || !replyText) { alert('Please write a reply.'); return; }
     const msg = currentReplyContext.message;
     if (!msg) return;
     const btn = event.target.closest('button');
@@ -1579,7 +1572,6 @@ window.saveReply = async function() {
         await updateDoc(doc(db, 'messages', docId), updates);
         const idx = allData.messages.findIndex(m => m.id === docId);
         if (idx >= 0) allData.messages[idx] = { ...allData.messages[idx], ...updates };
-
         const emailParams = {
             to_email: msg.email || '', to_name: msg.name || 'Student',
             subject: msg.subject || 'Your Inquiry', original_message: msg.message || '',
@@ -1591,14 +1583,14 @@ window.saveReply = async function() {
             await emailjs.send('service_bnv0t4n', 'template_r3prv9y', emailParams);
         } catch (emailErr) {
             emailStatus = 'failed';
-            emailError = emailErr.text || emailErr.message || 'Unknown error';
+            emailError = emailErr.text || emailErr.message || 'Error';
         }
         closeReplyModal();
         renderTab('messages');
-        if (emailStatus === 'sent') alert('Reply saved and email sent to ' + (msg.email || 'student') + '.');
-        else alert('Reply saved, but email failed.\n\nReason: ' + emailError);
+        if (emailStatus === 'sent') alert('Reply saved and email sent!');
+        else alert('Reply saved but email failed: ' + emailError);
     } catch (err) {
-        alert('Failed to save reply: ' + err.message);
+        alert('Failed: ' + err.message);
     } finally {
         btn.innerHTML = originalHTML;
         btn.disabled = false;
@@ -1609,8 +1601,8 @@ window.sendReplyViaWhatsApp = async function() {
     const replyText = document.getElementById('replyText').value.trim();
     const docId = document.getElementById('replyDocId').value;
     const student = currentReplyContext.matchedStudent;
-    if (!replyText) { alert('Please write or select a reply first.'); return; }
-    if (!student || !student.whatsapp) { alert('No WhatsApp number available.'); return; }
+    if (!replyText) { alert('Please write a reply.'); return; }
+    if (!student || !student.whatsapp) { alert('No WhatsApp number.'); return; }
     let phone = student.whatsapp.replace(/\D/g, '');
     if (phone.startsWith('0')) phone = '92' + phone.substring(1);
     if (!phone.startsWith('92')) phone = '92' + phone;
@@ -1633,11 +1625,11 @@ window.copyReplyToClipboard = async function() {
     if (!replyText) { alert('Nothing to copy.'); return; }
     try {
         await navigator.clipboard.writeText(replyText);
-        alert('Reply copied to clipboard.');
+        alert('Copied!');
     } catch (e) { alert('Failed to copy.'); }
 };
 
-// ============ HOST LIVE CLASS ============
+// HOST LIVE CLASS
 window.showHostClassList = function() {
     const list = document.getElementById('hostClassList');
     const classes = allData.liveClasses.length > 0 ? allData.liveClasses : DEFAULT_SCHEDULE;
@@ -1694,11 +1686,10 @@ async function launchHostJitsi(cls) {
     };
     try {
         jitsiApi = new JitsiMeetExternalAPI('meet.jit.si', options);
-        jitsiApi.addEventListener('participantJoined', (p) => console.log('Joined:', p.displayName));
         jitsiApi.addEventListener('videoConferenceLeft', () => endHostedClass());
         jitsiApi.addEventListener('readyToClose', () => endHostedClass());
     } catch(e) {
-        alert('Unable to start class: ' + e.message);
+        alert('Unable to start: ' + e.message);
         document.getElementById('jitsiModal').classList.remove('active');
         document.body.style.overflow = '';
     }
@@ -1721,12 +1712,12 @@ window.endHostedClass = async function() {
     currentHostClass = null;
 };
 
-// ============ DELETE ============
+// DELETE
 window.deleteItem = async function(tab, id) {
-    if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) return;
+    if (!confirm('Are you sure you want to delete?')) return;
     const collectionMap = {
         visitors: 'visitors', visits: 'visits', students: 'students',
-        fees: 'fees',
+        fees: 'fees', progress: 'courseProgress',
         instructors: 'instructorApplications', messages: 'messages',
         reviews: 'reviews', coupons: 'coupons', certificates: 'certificates',
         tests: 'testSubmissions', liveClasses: 'liveClasses',
@@ -1737,7 +1728,7 @@ window.deleteItem = async function(tab, id) {
         allData[tab] = allData[tab].filter(x => x.id !== id);
         const statMap = {
             visitors: 'statVisitors', visits: 'statVisits', students: 'statStudents',
-            fees: 'statFees',
+            fees: 'statFees', progress: 'statProgress',
             instructors: 'statInstructors', messages: 'statMessages',
             reviews: 'statReviews', coupons: 'statCoupons',
             certificates: 'statCertificates', tests: 'statTests',
@@ -1746,7 +1737,7 @@ window.deleteItem = async function(tab, id) {
         };
         document.getElementById(statMap[tab]).textContent = allData[tab].length;
         renderTab(tab);
-    } catch (err) { alert('Failed to delete: ' + err.message); }
+    } catch (err) { alert('Failed: ' + err.message); }
 };
 </script>
 
@@ -1754,7 +1745,7 @@ window.deleteItem = async function(tab, id) {
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script type="text/javascript">
     (function() {
-        emailjs.init({ publicKey: "0CuJdjkOPS6ovXLMT" });
+        emailjs.init({ publicKey: "0CuJdjkOPS6ovXLmt" });
     })();
 </script>
 
