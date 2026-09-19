@@ -51,6 +51,7 @@
         .admin-stat-card.indigo { border-left-color: #6366F1; }
         .admin-stat-card.amber { border-left-color: #F59E0B; }
         .admin-stat-card.emerald { border-left-color: #10B981; }
+        .admin-stat-card.money { border-left-color: #14B8A6; }
         .admin-stat-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.3px; color: #64748B; font-weight: 700; margin-bottom: 8px; }
         .admin-stat-value { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800; color: #0A2540; line-height: 1; }
 
@@ -77,6 +78,8 @@
         .badge-valid { background: #D1FAE5; color: #065F46; }
         .badge-pass { background: #D1FAE5; color: #065F46; }
         .badge-fail { background: #FEE2E2; color: #991B1B; }
+        .badge-unpaid { background: #FEE2E2; color: #991B1B; }
+        .badge-paid { background: #D1FAE5; color: #065F46; }
         .badge-live { background: #FEE2E2; color: #991B1B; }
         .badge-scheduled { background: #E0E7FF; color: #3730A3; }
         .badge-info { background: #E0E7FF; color: #3730A3; }
@@ -95,10 +98,10 @@
         .loading-spinner { text-align: center; padding: 40px; color: #64748B; font-size: 14px; font-weight: 600; }
         .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
 
-        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject {
+        .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject, .btn-fee, .btn-remind {
             padding: 6px 12px; border-radius: 6px; border: none; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-right: 4px; margin-bottom: 4px; display: inline-flex; align-items: center; gap: 5px;
         }
-        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg { width: 12px; height: 12px; }
+        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg, .btn-fee svg, .btn-remind svg { width: 12px; height: 12px; }
         .btn-view { background: #EFF6FF; color: #1E40AF; }
         .btn-view:hover { background: #DBEAFE; }
         .btn-delete { background: #FEF2F2; color: #991B1B; }
@@ -113,6 +116,10 @@
         .btn-approve:hover { background: #D1FAE5; }
         .btn-reject { background: #FEF2F2; color: #991B1B; }
         .btn-reject:hover { background: #FEE2E2; }
+        .btn-fee { background: #F0FDFA; color: #0F766E; }
+        .btn-fee:hover { background: #CCFBF1; }
+        .btn-remind { background: #FEF9E7; color: #78350F; }
+        .btn-remind:hover { background: #FEF3C7; }
 
         /* Modal */
         .modal-overlay { position: fixed; inset: 0; background: rgba(10, 37, 64, 0.7); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
@@ -174,6 +181,31 @@
         .btn-end-class:hover { background: #DC2626; }
         .btn-end-class svg { width: 14px; height: 14px; }
         #jitsiContainer { flex: 1; width: 100%; }
+
+        /* FEE SUMMARY BAR */
+        .fee-summary-bar {
+            padding: 16px 20px;
+            border-bottom: 1px solid #E2E8F0;
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+        }
+        .fee-summary-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .fee-summary-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+        .fee-summary-dot.paid { background: #10B981; }
+        .fee-summary-dot.pending { background: #F59E0B; }
+        .fee-summary-dot.unpaid { background: #DC2626; }
 
         @media (max-width: 768px) {
             .admin-header { padding: 14px 16px; }
@@ -256,6 +288,10 @@
             <div class="admin-stat-card active" data-tab="students" onclick="switchTab('students')">
                 <div class="admin-stat-label">Students</div>
                 <div class="admin-stat-value" id="statStudents">—</div>
+            </div>
+            <div class="admin-stat-card money" data-tab="fees" onclick="switchTab('fees')">
+                <div class="admin-stat-label">Fee Management</div>
+                <div class="admin-stat-value" id="statFees">—</div>
             </div>
             <div class="admin-stat-card teal" data-tab="instructors" onclick="switchTab('instructors')">
                 <div class="admin-stat-label">Instructors</div>
@@ -456,6 +492,111 @@
     </div>
 </div>
 
+<!-- FEE MODAL -->
+<div class="modal-overlay" id="feeModal">
+    <div class="publish-modal" style="max-width: 640px;">
+        <button class="modal-close" onclick="closeFeeModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Update Fee Record</h3>
+        <input type="hidden" id="feeDocId">
+        <input type="hidden" id="feeStudentId">
+
+        <div class="student-match-box" style="display: block; margin-bottom: 20px;">
+            <div class="student-match-header">
+                <div class="student-match-avatar" id="feeAvatar">S</div>
+                <div>
+                    <div class="student-match-label">Student</div>
+                    <div class="student-match-name" id="feeStudentName">—</div>
+                </div>
+            </div>
+            <div class="student-match-info">
+                <div class="student-match-info-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span id="feeEmail">—</span>
+                </div>
+                <div class="student-match-info-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    <span id="feePhone">—</span>
+                </div>
+                <div class="student-match-info-row">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    <span id="feeCourse">—</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <label>Month *</label>
+            <input type="month" id="feeMonth">
+        </div>
+
+        <div class="form-field">
+            <label>Fee Amount (PKR) *</label>
+            <input type="number" id="feeAmount" placeholder="e.g. 3000">
+        </div>
+
+        <div class="form-field">
+            <label>Fee Status *</label>
+            <select id="feeStatus">
+                <option value="unpaid">Unpaid</option>
+                <option value="pending">Pending</option>
+                <option value="paid">Paid</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Due Date</label>
+            <input type="date" id="feeDueDate">
+        </div>
+
+        <div class="form-field">
+            <label>Paid Date (agar paid hai)</label>
+            <input type="date" id="feePaidDate">
+        </div>
+
+        <div class="form-field">
+            <label>Payment Method (agar paid hai)</label>
+            <select id="feeMethod">
+                <option value="">Select method</option>
+                <option>JazzCash</option>
+                <option>EasyPaisa</option>
+                <option>Bank Transfer</option>
+                <option>Cash</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label>Transaction ID / Reference</label>
+            <input type="text" id="feeTransaction" placeholder="e.g. TXN123456">
+        </div>
+
+        <div class="form-field">
+            <label>Notes</label>
+            <textarea id="feeNotes" rows="3" placeholder="Any additional notes..."></textarea>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <button class="btn-save-publish" onclick="saveFee()" style="background: linear-gradient(135deg, #14B8A6, #0D9488); color: #FFFFFF;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                Save Fee
+            </button>
+            <button class="btn-save-publish" onclick="sendFeeReminder()" style="background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+                </svg>
+                Send Reminder
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- REPLY MODAL -->
 <div class="modal-overlay" id="replyModal">
     <div class="publish-modal" style="max-width: 680px;">
@@ -592,7 +733,7 @@ const ADMIN_NAME = 'Mukesh Kewal';
 
 // ============ STATE ============
 let allData = {
-    visitors: [], visits: [], students: [], instructors: [], messages: [],
+    visitors: [], visits: [], students: [], fees: [], instructors: [], messages: [],
     reviews: [], coupons: [], certificates: [], tests: [], liveClasses: [],
     attendance: [], announcements: []
 };
@@ -613,16 +754,16 @@ const DEFAULT_SCHEDULE = [
 
 // ============ REPLY TEMPLATES ============
 const REPLY_TEMPLATES = {
-    thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
-    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development)\n  - Rs. 3,000 per month\n  - Duration: 3 months\n\n• Artificial Intelligence\n  - Rs. 4,000 per month\n  - Duration: 4 months\n\nBoth courses include:\n  - Live interactive classes\n  - Small batch size (10-15 students)\n  - Real-world projects\n  - Certificate on completion\n\nFor enrollment:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    timing: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about class timings.\n\nWeekly Live Class Schedule:\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — AI: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — AI: 6:00 PM to 8:00 PM\n• Saturday — Doubt Session: 6:00 PM to 8:00 PM\n\nAll classes are online through Jitsi Meet.\n\nFor registration:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    enrollment: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in enrolling at Apex Learning Academy.\n\nEnrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the form\n3. Our team will contact you within 24 hours\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Enrollment activated within 24 hours\n\nFor assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class.\n\nWe offer a completely FREE demo class so you can experience our teaching style before enrolling.\n\nWhat to expect:\n  - Introduction to the course\n  - Live interaction with instructor\n  - Sample lesson\n  - Q&A session\n\nTo book your free demo:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    certificate: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about certificates.\n\nCertificate Details:\n- Issued upon course completion\n- Requires 75% attendance\n- Unique Certificate ID for verification\n- QR code included\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    technical: `Assalam-o-Alaikum {NAME},\n\nThank you for reporting the technical issue.\n\nWe apologize for the inconvenience. Our team will resolve it soon.\n\nPlease share:\n  - Screenshot of the issue\n  - Browser and device\n  - Steps to reproduce\n\nFor urgent help:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    payment: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about payment methods.\n\nAccepted Payment Options:\n1. JazzCash\n2. EasyPaisa\n3. Bank Transfer\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    batch: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest.\n\nSmall batches of 10-15 students for personal attention.\n\nCurrent Batches:\n• Coding — Mon & Wed, 6-8 PM\n• AI — Tue & Thu, 6-8 PM\n• Doubt Session — Saturday evening\n\nNew batches start every month.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    refund: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about refund policy.\n\nRefund Policy:\n- Fees non-refundable once course starts\n- Cancellation must be before first class\n- Duplicate payments refunded within 7 working days\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
+    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development) — Rs. 3,000/month (3 months)\n• Artificial Intelligence — Rs. 4,000/month (4 months)\n\nFor enrollment:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    timing: `Assalam-o-Alaikum {NAME},\n\nWeekly Live Class Schedule:\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — AI: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — AI: 6:00 PM to 8:00 PM\n• Saturday — Doubt Session: 6:00 PM to 8:00 PM\n\nFor registration:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    enrollment: `Assalam-o-Alaikum {NAME},\n\nEnrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the form\n3. Our team will contact you within 24 hours\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Enrollment activated within 24 hours\n\nFor assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class.\n\nTo book your free demo:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    certificate: `Assalam-o-Alaikum {NAME},\n\nCertificate Details:\n- Issued upon course completion\n- Requires 75% attendance\n- Unique Certificate ID for verification\n- QR code included\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    technical: `Assalam-o-Alaikum {NAME},\n\nWe apologize for the inconvenience. Please share:\n  - Screenshot of the issue\n  - Browser and device\n\nFor urgent help:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    payment: `Assalam-o-Alaikum {NAME},\n\nAccepted Payment Options:\n1. JazzCash\n2. EasyPaisa\n3. Bank Transfer\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    batch: `Assalam-o-Alaikum {NAME},\n\nSmall batches of 10-15 students for personal attention.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    refund: `Assalam-o-Alaikum {NAME},\n\nRefund Policy:\n- Fees non-refundable once course starts\n- Cancellation must be before first class\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
     custom: ''
 };
 
@@ -678,10 +819,11 @@ document.getElementById('adminLogoutBtn').addEventListener('click', async () => 
 async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
     try {
-        const [v, vst, s, i, m, rev, coup, c, t, l, a, ann] = await Promise.all([
+        const [v, vst, s, fees, i, m, rev, coup, c, t, l, a, ann] = await Promise.all([
             getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'visits')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'fees')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'reviews')).catch(() => ({ docs: [] })),
@@ -696,6 +838,7 @@ async function loadAllData() {
         allData.visitors = v.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.visits = vst.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.students = s.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.fees = fees.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.instructors = i.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.messages = m.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.reviews = rev.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -709,6 +852,7 @@ async function loadAllData() {
         document.getElementById('statVisitors').textContent = allData.visitors.length;
         document.getElementById('statVisits').textContent = allData.visits.length;
         document.getElementById('statStudents').textContent = allData.students.length;
+        document.getElementById('statFees').textContent = allData.fees.length;
         document.getElementById('statInstructors').textContent = allData.instructors.length;
         document.getElementById('statMessages').textContent = allData.messages.length;
         document.getElementById('statReviews').textContent = allData.reviews.length;
@@ -734,6 +878,7 @@ window.switchTab = function(tab) {
 
     const titles = {
         visitors: 'Unique Visitors', visits: 'Page Views', students: 'Students',
+        fees: 'Fee Management',
         instructors: 'Instructor Applications', messages: 'Contact Messages',
         reviews: 'Student Reviews', coupons: 'Coupon Codes',
         certificates: 'Certificates Issued', tests: 'Test Submissions',
@@ -761,6 +906,7 @@ function renderTab(tab) {
 
     if (tab === 'announcements') { renderAnnouncements(data); return; }
     if (tab === 'coupons') { renderCoupons(data); return; }
+    if (tab === 'fees') { renderFees(data); return; }
 
     if (data.length === 0) {
         body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No ${tab} found${currentSearch ? ' matching your search' : ''}.</p></div>`;
@@ -804,9 +950,263 @@ function renderVisits(data) {
 
 // ============ RENDER STUDENTS ============
 function renderStudents(data) {
-    const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong>${s.couponCode ? `<br><span style="font-size:10.5px;color:#10B981;font-weight:800;">🎟 ${s.couponCode} (-${s.couponDiscount}%)</span>` : ''}</td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
+    const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong>${s.couponCode ? `<br><span style="font-size:10.5px;color:#10B981;font-weight:800;">COUPON: ${s.couponCode} (-${s.couponDiscount}%)</span>` : ''}</td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Course</th><th>City</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
+
+// ============ RENDER FEES ============
+function renderFees(data) {
+    const students = allData.students;
+
+    if (students.length === 0) {
+        document.getElementById('panelBody').innerHTML = `<div class="empty-state"><p>No students registered yet.</p></div>`;
+        return;
+    }
+
+    let totalPaid = 0, totalPending = 0, totalUnpaid = 0;
+    students.forEach(s => {
+        const fee = allData.fees.find(f => f.studentUid === s.uid);
+        if (fee) {
+            if (fee.status === 'paid') totalPaid++;
+            else if (fee.status === 'pending') totalPending++;
+            else totalUnpaid++;
+        } else {
+            totalUnpaid++;
+        }
+    });
+
+    const summaryHeader = `
+        <div class="fee-summary-bar">
+            <span class="fee-summary-item" style="color: #10B981;">
+                <span class="fee-summary-dot paid"></span>Paid: <strong>${totalPaid}</strong>
+            </span>
+            <span class="fee-summary-item" style="color: #F59E0B;">
+                <span class="fee-summary-dot pending"></span>Pending: <strong>${totalPending}</strong>
+            </span>
+            <span class="fee-summary-item" style="color: #DC2626;">
+                <span class="fee-summary-dot unpaid"></span>Unpaid: <strong>${totalUnpaid}</strong>
+            </span>
+            <span style="color: #0A2540; margin-left: auto;">Total: <strong>${students.length}</strong></span>
+        </div>
+    `;
+
+    const sortedStudents = [...students].sort((a, b) => {
+        const feeA = allData.fees.find(f => f.studentUid === a.uid);
+        const feeB = allData.fees.find(f => f.studentUid === b.uid);
+        const order = { unpaid: 0, pending: 1, paid: 2 };
+        return (order[feeA?.status] ?? 0) - (order[feeB?.status] ?? 0);
+    });
+
+    const rows = sortedStudents.map(s => {
+        const fee = allData.fees.find(f => f.studentUid === s.uid) || {};
+        let statusBadge = '<span class="badge badge-unpaid">UNPAID</span>';
+        if (fee.status === 'paid') statusBadge = '<span class="badge badge-paid">PAID</span>';
+        else if (fee.status === 'pending') statusBadge = '<span class="badge badge-pending">PENDING</span>';
+
+        let paidDate = '—';
+        if (fee.paidDate) {
+            try { paidDate = new Date(fee.paidDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+            catch(e) { paidDate = fee.paidDate; }
+        }
+
+        return `
+            <tr>
+                <td><strong>${s.fullName || '—'}</strong><br><span style="font-size: 11px; color: #64748B;">${s.email || ''}</span></td>
+                <td>${s.whatsapp || '—'}</td>
+                <td><span class="truncate">${s.course || '—'}</span></td>
+                <td>${fee.month || '—'}</td>
+                <td>${fee.amount ? 'Rs. ' + fee.amount : '—'}</td>
+                <td>${statusBadge}</td>
+                <td>${paidDate}</td>
+                <td>
+                    <button class="btn-fee" onclick="openFeeModal('${s.id}', '${s.uid || ''}')">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                        Update
+                    </button>
+                    ${fee.status !== 'paid' ? `<button class="btn-remind" onclick="quickReminder('${s.id}', '${s.uid || ''}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Remind</button>` : ''}
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    document.getElementById('panelBody').innerHTML = summaryHeader + `
+        <table class="data-table">
+            <thead><tr>
+                <th>Student</th><th>WhatsApp</th><th>Course</th><th>Month</th><th>Amount</th><th>Status</th><th>Paid Date</th><th>Actions</th>
+            </tr></thead>
+            <tbody>${rows}</tbody>
+        </table>`;
+}
+
+window.openFeeModal = function(studentId, uid) {
+    const student = allData.students.find(s => s.id === studentId);
+    if (!student) return;
+
+    const existingFee = allData.fees.find(f => f.studentUid === uid) || {};
+
+    document.getElementById('feeDocId').value = existingFee.id || '';
+    document.getElementById('feeStudentId').value = studentId;
+    document.getElementById('feeStudentName').textContent = student.fullName || 'Student';
+    document.getElementById('feeAvatar').textContent = (student.fullName || 'S').charAt(0).toUpperCase();
+    document.getElementById('feeEmail').textContent = student.email || '—';
+    document.getElementById('feePhone').textContent = student.whatsapp || '—';
+    document.getElementById('feeCourse').textContent = student.course || '—';
+
+    const now = new Date();
+    const defaultMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+
+    document.getElementById('feeMonth').value = existingFee.month || defaultMonth;
+
+    let defaultAmount = 3000;
+    if ((student.course || '').toLowerCase().includes('ai') || (student.course || '').toLowerCase().includes('artificial')) {
+        defaultAmount = 4000;
+    }
+    document.getElementById('feeAmount').value = existingFee.amount || defaultAmount;
+    document.getElementById('feeStatus').value = existingFee.status || 'unpaid';
+    document.getElementById('feeDueDate').value = existingFee.dueDate || '';
+    document.getElementById('feePaidDate').value = existingFee.paidDate || '';
+    document.getElementById('feeMethod').value = existingFee.paymentMethod || '';
+    document.getElementById('feeTransaction').value = existingFee.transactionId || '';
+    document.getElementById('feeNotes').value = existingFee.notes || '';
+
+    document.getElementById('feeModal').classList.add('active');
+};
+
+window.closeFeeModal = function() { document.getElementById('feeModal').classList.remove('active'); };
+document.getElementById('feeModal').addEventListener('click', (e) => { if (e.target.id === 'feeModal') closeFeeModal(); });
+
+window.saveFee = async function() {
+    const docId = document.getElementById('feeDocId').value;
+    const studentId = document.getElementById('feeStudentId').value;
+    const student = allData.students.find(s => s.id === studentId);
+    if (!student) { alert('Student not found.'); return; }
+
+    const month = document.getElementById('feeMonth').value;
+    const amount = parseInt(document.getElementById('feeAmount').value) || 0;
+    const status = document.getElementById('feeStatus').value;
+    const dueDate = document.getElementById('feeDueDate').value;
+    const paidDate = document.getElementById('feePaidDate').value;
+    const paymentMethod = document.getElementById('feeMethod').value;
+    const transactionId = document.getElementById('feeTransaction').value.trim();
+    const notes = document.getElementById('feeNotes').value.trim();
+
+    if (!month) { alert('Please select month.'); return; }
+    if (!amount || amount < 1) { alert('Please enter valid amount.'); return; }
+
+    const feeData = {
+        studentUid: student.uid || '',
+        studentName: student.fullName || '',
+        studentEmail: student.email || '',
+        whatsapp: student.whatsapp || '',
+        course: student.course || '',
+        month, amount, status,
+        dueDate: dueDate || '',
+        paidDate: paidDate || '',
+        paymentMethod: paymentMethod || '',
+        transactionId: transactionId || '',
+        notes: notes || '',
+        updatedAt: serverTimestamp()
+    };
+
+    try {
+        if (docId) {
+            await updateDoc(doc(db, 'fees', docId), feeData);
+        } else {
+            await addDoc(collection(db, 'fees'), { ...feeData, createdAt: serverTimestamp() });
+        }
+
+        await updateDoc(doc(db, 'students', studentId), {
+            feesStatus: status,
+            feesPaid: status === 'paid' ? `Rs. ${amount}` : 'Rs. 0',
+            feesRemaining: status === 'paid' ? 'Rs. 0' : `Rs. ${amount}`
+        });
+
+        closeFeeModal();
+        await loadAllData();
+        alert('Fee record saved successfully!');
+    } catch (err) {
+        console.error('Fee save error:', err);
+        alert('Failed to save: ' + err.message);
+    }
+};
+
+window.quickReminder = function(studentId, uid) {
+    openFeeModal(studentId, uid);
+    setTimeout(() => { sendFeeReminder(); }, 300);
+};
+
+window.sendFeeReminder = async function() {
+    const studentId = document.getElementById('feeStudentId').value;
+    const student = allData.students.find(s => s.id === studentId);
+    if (!student) { alert('Student not found.'); return; }
+
+    const month = document.getElementById('feeMonth').value || 'current month';
+    const amount = document.getElementById('feeAmount').value || '0';
+    const dueDate = document.getElementById('feeDueDate').value || 'soon';
+
+    const message = `Assalam-o-Alaikum ${student.fullName || 'Student'},
+
+This is a friendly reminder from Apex Learning Academy regarding your monthly fee.
+
+Month: ${month}
+Amount: Rs. ${amount}
+Due Date: ${dueDate}
+
+Kindly complete your fee payment via:
+- JazzCash
+- EasyPaisa
+- Bank Transfer
+
+Once payment is done, please share the screenshot on WhatsApp so we can update your record.
+
+For any questions or payment details, please contact us:
+WhatsApp: 0341 034 9929
+
+Thank you for being a part of Apex Learning Academy.
+
+Best regards,
+Mukesh Kewal
+Founder, Apex Learning Academy
+Learn. Rise. Achieve.`;
+
+    let phone = (student.whatsapp || '').replace(/\D/g, '');
+    if (phone.startsWith('0')) phone = '92' + phone.substring(1);
+    if (!phone.startsWith('92') && phone.length > 0) phone = '92' + phone;
+
+    if (phone && phone.length > 10) {
+        window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
+    }
+
+    if (student.email) {
+        try {
+            await emailjs.send('service_bnv0t4n', 'template_r3prv9y', {
+                to_email: student.email,
+                to_name: student.fullName || 'Student',
+                subject: `Fee Reminder - ${month} | Apex Learning Academy`,
+                original_message: `Monthly Fee Reminder for ${month}`,
+                reply_message: message,
+                student_name: student.fullName || 'Student',
+                student_email: student.email
+            });
+        } catch (emailErr) {
+            console.warn('Email reminder failed:', emailErr);
+        }
+    }
+
+    const feeDocId = document.getElementById('feeDocId').value;
+    if (feeDocId) {
+        try {
+            await updateDoc(doc(db, 'fees', feeDocId), {
+                status: 'pending',
+                reminderSentAt: serverTimestamp()
+            });
+        } catch (e) {}
+    }
+
+    closeFeeModal();
+    await loadAllData();
+    alert('Reminder sent via WhatsApp and Email!');
+};
 
 // ============ RENDER INSTRUCTORS ============
 function renderInstructors(data) {
@@ -889,9 +1289,8 @@ function renderCoupons(data) {
     const rows = data.map(c => {
         let expiryStr = 'No expiry';
         if (c.expiresAt) {
-            try {
-                expiryStr = new Date(c.expiresAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-            } catch(e) { expiryStr = c.expiresAt; }
+            try { expiryStr = new Date(c.expiresAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+            catch(e) { expiryStr = c.expiresAt; }
         }
         const usedCount = c.usedCount || 0;
         const maxUses = c.maxUses || 0;
@@ -937,10 +1336,7 @@ window.saveCoupon = async function() {
     if (allData.coupons.some(c => c.code === code)) { alert('This coupon code already exists.'); return; }
 
     try {
-        const couponData = {
-            code, discountPercent, description, maxUses,
-            usedCount: 0, active: true, createdAt: serverTimestamp()
-        };
+        const couponData = { code, discountPercent, description, maxUses, usedCount: 0, active: true, createdAt: serverTimestamp() };
         if (expiry) couponData.expiresAt = new Date(expiry).toISOString();
         await addDoc(collection(db, 'coupons'), couponData);
         closeCouponModal();
@@ -1330,6 +1726,7 @@ window.deleteItem = async function(tab, id) {
     if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) return;
     const collectionMap = {
         visitors: 'visitors', visits: 'visits', students: 'students',
+        fees: 'fees',
         instructors: 'instructorApplications', messages: 'messages',
         reviews: 'reviews', coupons: 'coupons', certificates: 'certificates',
         tests: 'testSubmissions', liveClasses: 'liveClasses',
@@ -1340,6 +1737,7 @@ window.deleteItem = async function(tab, id) {
         allData[tab] = allData[tab].filter(x => x.id !== id);
         const statMap = {
             visitors: 'statVisitors', visits: 'statVisits', students: 'statStudents',
+            fees: 'statFees',
             instructors: 'statInstructors', messages: 'statMessages',
             reviews: 'statReviews', coupons: 'statCoupons',
             certificates: 'statCertificates', tests: 'statTests',
