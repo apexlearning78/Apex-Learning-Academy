@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- Google Search Console Verification -->
+    
+    <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="pOrgSpA1BERKZUVEaT7VF4bk12Ypgf_-kQAS_YRdllc" />
+    
     <title>Apex Learning Academy | Coding & Artificial Intelligence</title>
-    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence.">
+    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence. Project-based learning with personal attention.">
+    <meta name="keywords" content="Coding, Python, Artificial Intelligence, AI, Online Academy, Pakistan, Programming, Web Development">
+    
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="mobile.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         /* ============ HERO STUDENTS IMAGE ============ */
         .hero-students-img {
@@ -23,7 +28,7 @@
             display: block;
         }
 
-        /* ============ NAVBAR UPGRADE ============ */
+        /* ============ NAVBAR ============ */
         .main-nav { gap: 2px !important; }
         .main-nav a {
             padding: 9px 13px !important;
@@ -99,7 +104,7 @@
             flex-shrink: 0;
         }
 
-        /* Mobile */
+        /* Mobile Toggle */
         .mobile-toggle {
             display: none;
             color: #FFFFFF;
@@ -139,6 +144,7 @@
             .brand-text { display: none; }
         }
 
+        /* Mobile Menu */
         .mobile-menu {
             display: none;
             background: #0A2540;
@@ -214,7 +220,6 @@
             <a href="courses.html">Courses</a>
             <a href="live-classes.html">Live Classes</a>
             <a href="resources.html">Resources</a>
-            <a href="profile.html">Profile</a>
             
             <div class="nav-dropdown" id="moreDropdown">
                 <a href="javascript:void(0)" onclick="toggleDropdown()">
@@ -522,7 +527,7 @@
 </section>
 
 <!-- ============ TESTIMONIALS ============ -->
-<section class="section section-alt">
+<section class="section section-alt" id="testimonialsSection">
     <div class="container">
         <div class="section-head">
             <span class="section-eyebrow">Student Voices</span>
@@ -530,7 +535,8 @@
             <p class="section-desc">Real feedback from students who chose Apex Learning Academy.</p>
         </div>
 
-        <div class="testimonials-grid">
+        <div class="testimonials-grid" id="testimonialsGrid">
+            <!-- Default Testimonials (Real Reviews will replace these) -->
             <div class="testimonial-card">
                 <div class="testimonial-stars">
                     <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
@@ -764,6 +770,63 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 </script>
+
+<!-- ============ REAL REVIEWS LOADER ============ -->
+<script type="module">
+import { db } from './firebase-config.js';
+import { collection, query, where, getDocs, limit } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function loadRealReviews() {
+    try {
+        const q = query(
+            collection(db, 'reviews'),
+            where('status', '==', 'approved'),
+            limit(6)
+        );
+        const snap = await getDocs(q);
+
+        if (snap.empty) return;
+
+        const reviews = snap.docs.map(d => ({ id: d.id, ...d.data() }))
+            .sort((a, b) => (b.submittedAt?.seconds || 0) - (a.submittedAt?.seconds || 0));
+
+        const grid = document.getElementById('testimonialsGrid');
+        if (!grid) return;
+
+        const colors = ['#F4B400', '#00A896', '#7C3AED', '#DC2626', '#2563EB', '#F59E0B'];
+
+        grid.innerHTML = reviews.map((r, i) => {
+            const stars = Array(5).fill(0).map((_, idx) =>
+                `<svg viewBox="0 0 24 24" style="fill: ${idx < r.rating ? '#F4B400' : '#CBD5E1'}; width: 16px; height: 16px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+            ).join('');
+
+            const initial = (r.studentName || 'S').charAt(0).toUpperCase();
+            const color = colors[i % colors.length];
+
+            return `
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">${stars}</div>
+                    <p class="testimonial-text">"${r.reviewText}"</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background: linear-gradient(135deg, ${color}, ${color}dd);">${initial}</div>
+                        <div>
+                            <div class="testimonial-name">${r.studentName}</div>
+                            <div class="testimonial-role">${r.course || 'Student'}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    } catch (err) {
+        console.warn('Reviews load failed:', err.message);
+    }
+}
+
+loadRealReviews();
+</script>
+
+<!-- ============ VISITOR TRACKER ============ -->
 <script type="module" src="visitor-tracker.js"></script>
+
 </body>
 </html>
