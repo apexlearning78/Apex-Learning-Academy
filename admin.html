@@ -8,151 +8,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: #F1F5F9;
-            color: #0F172A;
-            min-height: 100vh;
-        }
+        body { font-family: 'Montserrat', sans-serif; background: #F1F5F9; color: #0F172A; min-height: 100vh; }
 
         /* LOGIN */
-        .login-screen {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: linear-gradient(160deg, #051429 0%, #0A2540 50%, #1a3a5c 100%);
-        }
-        .login-box {
-            background: #FFFFFF;
-            padding: 44px 40px;
-            border-radius: 20px;
-            max-width: 440px;
-            width: 100%;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-        }
-        .login-box h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 26px;
-            color: #0A2540;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .login-box p {
-            font-size: 14.5px;
-            color: #64748B;
-            text-align: center;
-            margin-bottom: 32px;
-            font-weight: 500;
-        }
-        .login-error {
-            display: none;
-            padding: 14px 18px;
-            background: #FEF2F2;
-            border-left: 4px solid #EF4444;
-            border-radius: 8px;
-            color: #991B1B;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+        .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: linear-gradient(160deg, #051429 0%, #0A2540 50%, #1a3a5c 100%); }
+        .login-box { background: #FFFFFF; padding: 44px 40px; border-radius: 20px; max-width: 440px; width: 100%; box-shadow: 0 30px 80px rgba(0,0,0,0.4); }
+        .login-box h1 { font-family: 'Poppins', sans-serif; font-size: 26px; color: #0A2540; font-weight: 800; text-align: center; margin-bottom: 8px; }
+        .login-box p { font-size: 14.5px; color: #64748B; text-align: center; margin-bottom: 32px; font-weight: 500; }
+        .login-error { display: none; padding: 14px 18px; background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px; color: #991B1B; font-size: 14px; font-weight: 600; margin-bottom: 20px; }
         .login-error.active { display: block; }
 
         /* HEADER */
-        .admin-header {
-            background: #0A2540;
-            color: #FFFFFF;
-            padding: 16px 28px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 4px 20px rgba(10, 37, 64, 0.15);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            flex-wrap: wrap;
-        }
+        .admin-header { background: #0A2540; color: #FFFFFF; padding: 16px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; box-shadow: 0 4px 20px rgba(10, 37, 64, 0.15); position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
         .admin-brand { display: flex; align-items: center; gap: 14px; }
-        .admin-brand-logo {
-            width: 44px; height: 44px;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            border-radius: 10px;
-            overflow: hidden;
-        }
+        .admin-brand-logo { width: 44px; height: 44px; background: linear-gradient(135deg, #F4B400, #d99f00); border-radius: 10px; overflow: hidden; }
         .admin-brand-logo img { width: 100%; height: 100%; object-fit: cover; }
-        .admin-brand-title {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            font-size: 15px;
-            letter-spacing: 1.5px;
-        }
-        .admin-brand-sub {
-            font-size: 10px;
-            color: #F4B400;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
+        .admin-brand-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 1.5px; }
+        .admin-brand-sub { font-size: 10px; color: #F4B400; letter-spacing: 2px; font-weight: 600; }
         .admin-user { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .admin-user-email { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; }
-        .btn-host-class {
-            padding: 10px 18px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            color: #0A2540;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 800;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            border: none;
-        }
+        .btn-host-class { padding: 10px 18px; border-radius: 8px; background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540; font-family: inherit; font-size: 13px; font-weight: 800; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; border: none; }
         .btn-host-class:hover { transform: translateY(-1px); }
         .btn-host-class svg { width: 14px; height: 14px; }
-        .btn-logout-admin {
-            padding: 9px 18px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: #FFFFFF;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-        }
+        .btn-logout-admin { padding: 9px 18px; border-radius: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #FFFFFF; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
         .btn-logout-admin:hover { background: rgba(255,255,255,0.18); }
 
         .admin-body { padding: 28px; max-width: 1400px; margin: 0 auto; }
 
         /* STATS */
-        .admin-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 14px;
-            margin-bottom: 28px;
-        }
-        .admin-stat-card {
-            background: #FFFFFF;
-            padding: 18px;
-            border-radius: 14px;
-            border: 1px solid #E2E8F0;
-            border-left: 4px solid #F4B400;
-            cursor: pointer;
-            transition: all 0.25s;
-        }
-        .admin-stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(10, 37, 64, 0.1);
-        }
-        .admin-stat-card.active {
-            border-left-width: 6px;
-            box-shadow: 0 12px 32px rgba(10, 37, 64, 0.15);
-        }
+        .admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+        .admin-stat-card { background: #FFFFFF; padding: 18px; border-radius: 14px; border: 1px solid #E2E8F0; border-left: 4px solid #F4B400; cursor: pointer; transition: all 0.25s; }
+        .admin-stat-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(10, 37, 64, 0.1); }
+        .admin-stat-card.active { border-left-width: 6px; box-shadow: 0 12px 32px rgba(10, 37, 64, 0.15); }
         .admin-stat-card.teal { border-left-color: #00A896; }
         .admin-stat-card.red { border-left-color: #DC2626; }
         .admin-stat-card.purple { border-left-color: #7C3AED; }
@@ -163,103 +50,28 @@
         .admin-stat-card.cyan { border-left-color: #06B6D4; }
         .admin-stat-card.indigo { border-left-color: #6366F1; }
         .admin-stat-card.amber { border-left-color: #F59E0B; }
-        .admin-stat-label {
-            font-size: 10.5px;
-            text-transform: uppercase;
-            letter-spacing: 1.3px;
-            color: #64748B;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .admin-stat-value {
-            font-family: 'Poppins', sans-serif;
-            font-size: 26px;
-            font-weight: 800;
-            color: #0A2540;
-            line-height: 1;
-        }
+        .admin-stat-card.emerald { border-left-color: #10B981; }
+        .admin-stat-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 1.3px; color: #64748B; font-weight: 700; margin-bottom: 8px; }
+        .admin-stat-value { font-family: 'Poppins', sans-serif; font-size: 26px; font-weight: 800; color: #0A2540; line-height: 1; }
 
         /* PANEL */
-        .admin-panel {
-            background: #FFFFFF;
-            border-radius: 16px;
-            border: 1px solid #E2E8F0;
-            overflow: hidden;
-        }
-        .panel-header {
-            padding: 20px 24px;
-            border-bottom: 1px solid #E2E8F0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .panel-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 17px;
-            font-weight: 800;
-            color: #0A2540;
-        }
-        .panel-search {
-            padding: 10px 16px;
-            border: 2px solid #E2E8F0;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-            width: 260px;
-            max-width: 100%;
-        }
+        .admin-panel { background: #FFFFFF; border-radius: 16px; border: 1px solid #E2E8F0; overflow: hidden; }
+        .panel-header { padding: 20px 24px; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .panel-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 800; color: #0A2540; }
+        .panel-search { padding: 10px 16px; border: 2px solid #E2E8F0; border-radius: 10px; font-family: inherit; font-size: 14px; width: 260px; max-width: 100%; }
         .panel-search:focus { outline: none; border-color: #F4B400; }
-        .btn-refresh {
-            padding: 10px 18px;
-            border-radius: 10px;
-            background: #0A2540;
-            color: #FFFFFF;
-            border: none;
-            font-family: inherit;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .btn-refresh { padding: 10px 18px; border-radius: 10px; background: #0A2540; color: #FFFFFF; border: none; font-family: inherit; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
         .btn-refresh:hover { background: #1a3a5c; }
         .btn-refresh svg { width: 14px; height: 14px; }
-
         .panel-body { max-height: 650px; overflow-y: auto; }
         .data-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
         .data-table thead { position: sticky; top: 0; background: #F8FAFC; z-index: 2; }
-        .data-table th {
-            padding: 13px 18px;
-            text-align: left;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #64748B;
-            font-weight: 800;
-            border-bottom: 1px solid #E2E8F0;
-        }
-        .data-table td {
-            padding: 14px 18px;
-            border-bottom: 1px solid #F1F5F9;
-            color: #334155;
-            font-weight: 500;
-            vertical-align: top;
-        }
+        .data-table th { padding: 13px 18px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: #64748B; font-weight: 800; border-bottom: 1px solid #E2E8F0; }
+        .data-table td { padding: 14px 18px; border-bottom: 1px solid #F1F5F9; color: #334155; font-weight: 500; vertical-align: top; }
         .data-table tr:hover { background: #F8FAFC; }
         .data-table tr:last-child td { border-bottom: none; }
 
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-size: 10.5px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 100px; font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
         .badge-pending { background: #FEF3C7; color: #92400E; }
         .badge-active { background: #D1FAE5; color: #065F46; }
         .badge-valid { background: #D1FAE5; color: #065F46; }
@@ -283,26 +95,10 @@
         .loading-spinner { text-align: center; padding: 40px; color: #64748B; font-size: 14px; font-weight: 600; }
         .truncate { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; display: inline-block; vertical-align: middle; }
 
-        /* Buttons */
         .btn-view, .btn-delete, .btn-publish, .btn-host, .btn-reply, .btn-approve, .btn-reject {
-            padding: 6px 12px;
-            border-radius: 6px;
-            border: none;
-            font-size: 11.5px;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.2s;
-            margin-right: 4px;
-            margin-bottom: 4px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+            padding: 6px 12px; border-radius: 6px; border: none; font-size: 11.5px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s; margin-right: 4px; margin-bottom: 4px; display: inline-flex; align-items: center; gap: 5px;
         }
-        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg {
-            width: 12px;
-            height: 12px;
-        }
+        .btn-view svg, .btn-delete svg, .btn-publish svg, .btn-approve svg, .btn-reject svg { width: 12px; height: 12px; }
         .btn-view { background: #EFF6FF; color: #1E40AF; }
         .btn-view:hover { background: #DBEAFE; }
         .btn-delete { background: #FEF2F2; color: #991B1B; }
@@ -319,348 +115,62 @@
         .btn-reject:hover { background: #FEE2E2; }
 
         /* Modal */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(10, 37, 64, 0.7);
-            backdrop-filter: blur(6px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 20px;
-        }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(10, 37, 64, 0.7); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        .detail-modal, .publish-modal {
-            background: #FFFFFF;
-            border-radius: 20px;
-            max-width: 620px;
-            width: 100%;
-            padding: 32px;
-            max-height: 88vh;
-            overflow-y: auto;
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 16px; right: 16px;
-            width: 36px; height: 36px;
-            border-radius: 50%;
-            background: #F1F5F9;
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: #64748B;
-        }
+        .detail-modal, .publish-modal { background: #FFFFFF; border-radius: 20px; max-width: 620px; width: 100%; padding: 32px; max-height: 88vh; overflow-y: auto; position: relative; }
+        .modal-close { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; background: #F1F5F9; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748B; }
         .modal-close:hover { background: #E2E8F0; }
-        .detail-modal h3, .publish-modal h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-            color: #0A2540;
-            font-weight: 800;
-            margin-bottom: 20px;
-            padding-right: 40px;
-        }
-        .detail-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 11px 0;
-            border-bottom: 1px solid #F1F5F9;
-            gap: 20px;
-        }
+        .detail-modal h3, .publish-modal h3 { font-family: 'Poppins', sans-serif; font-size: 20px; color: #0A2540; font-weight: 800; margin-bottom: 20px; padding-right: 40px; }
+        .detail-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 11px 0; border-bottom: 1px solid #F1F5F9; gap: 20px; }
         .detail-row:last-child { border-bottom: none; }
-        .detail-label {
-            font-size: 11px;
-            font-weight: 800;
-            color: #64748B;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            flex-shrink: 0;
-        }
-        .detail-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #0A2540;
-            text-align: right;
-            word-break: break-word;
-        }
+        .detail-label { font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 1px; flex-shrink: 0; }
+        .detail-value { font-size: 14px; font-weight: 600; color: #0A2540; text-align: right; word-break: break-word; }
 
-        /* Form Fields */
         .form-field { margin-bottom: 14px; }
-        .form-field label {
-            display: block;
-            font-size: 12px;
-            color: #0A2540;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-        }
-        .form-field input, .form-field select, .form-field textarea {
-            width: 100%;
-            padding: 11px 14px;
-            border: 2px solid #E2E8F0;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            color: #0A2540;
-            font-weight: 500;
-        }
-        .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
-            outline: none;
-            border-color: #F4B400;
-        }
+        .form-field label { display: block; font-size: 12px; color: #0A2540; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .form-field input, .form-field select, .form-field textarea { width: 100%; padding: 11px 14px; border: 2px solid #E2E8F0; border-radius: 8px; font-family: inherit; font-size: 14px; color: #0A2540; font-weight: 500; }
+        .form-field input:focus, .form-field select:focus, .form-field textarea:focus { outline: none; border-color: #F4B400; }
         .form-field textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
-        .btn-save-publish {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #10B981, #059669);
-            color: #FFFFFF;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 14px;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
+        .btn-save-publish { width: 100%; padding: 14px; border-radius: 10px; background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 14px; border: none; cursor: pointer; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-save-publish:hover { transform: translateY(-1px); }
         .btn-save-publish svg { width: 15px; height: 15px; }
         .btn-save-publish:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        /* Student Match Box */
-        .student-match-box {
-            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
-            border-left: 4px solid #10B981;
-            border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 20px;
-        }
-        .student-match-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-        }
-        .student-match-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #10B981;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFFFFF;
-            font-weight: 800;
-            font-size: 16px;
-            flex-shrink: 0;
-        }
-        .student-match-label {
-            font-size: 10.5px;
-            font-weight: 800;
-            color: #065F46;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 3px;
-        }
-        .student-match-name {
-            font-size: 15px;
-            font-weight: 800;
-            color: #065F46;
-        }
-        .student-match-info {
-            display: grid;
-            gap: 8px;
-            font-size: 13px;
-            color: #065F46;
-            font-weight: 600;
-        }
-        .student-match-info-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .student-match-info-row svg {
-            width: 14px;
-            height: 14px;
-            flex-shrink: 0;
-        }
-        .student-match-note {
-            font-size: 11.5px;
-            color: #065F46;
-            margin-top: 10px;
-            font-weight: 600;
-            opacity: 0.85;
-        }
+        .student-match-box { background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); border-left: 4px solid #10B981; border-radius: 12px; padding: 18px 20px; margin-bottom: 20px; }
+        .student-match-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .student-match-avatar { width: 40px; height: 40px; border-radius: 50%; background: #10B981; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 800; font-size: 16px; flex-shrink: 0; }
+        .student-match-label { font-size: 10.5px; font-weight: 800; color: #065F46; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 3px; }
+        .student-match-name { font-size: 15px; font-weight: 800; color: #065F46; }
+        .student-match-info { display: grid; gap: 8px; font-size: 13px; color: #065F46; font-weight: 600; }
+        .student-match-info-row { display: flex; align-items: center; gap: 8px; }
+        .student-match-info-row svg { width: 14px; height: 14px; flex-shrink: 0; }
+        .student-match-note { font-size: 11.5px; color: #065F46; margin-top: 10px; font-weight: 600; opacity: 0.85; }
 
-        .not-registered-box {
-            background: #FEF9E7;
-            border-left: 4px solid #F4B400;
-            border-radius: 12px;
-            padding: 16px 18px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-        .not-registered-box svg {
-            width: 20px;
-            height: 20px;
-            color: #78350F;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .not-registered-text {
-            font-size: 13px;
-            color: #78350F;
-            font-weight: 600;
-            line-height: 1.6;
-        }
+        .not-registered-box { background: #FEF9E7; border-left: 4px solid #F4B400; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; display: flex; gap: 12px; align-items: flex-start; }
+        .not-registered-box svg { width: 20px; height: 20px; color: #78350F; flex-shrink: 0; margin-top: 2px; }
+        .not-registered-text { font-size: 13px; color: #78350F; font-weight: 600; line-height: 1.6; }
 
-        /* Review Detail Modal */
-        .review-detail-modal {
-            background: #FFFFFF;
-            border-radius: 20px;
-            max-width: 560px;
-            width: 100%;
-            padding: 36px;
-            position: relative;
-        }
-        .review-detail-modal h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-            color: #0A2540;
-            font-weight: 800;
-            margin-bottom: 20px;
-            padding-right: 40px;
-        }
-        .review-detail-student {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid #F1F5F9;
-            margin-bottom: 18px;
-        }
-        .review-detail-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            color: #0A2540;
-            font-size: 22px;
-            flex-shrink: 0;
-        }
-        .review-detail-name {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 800;
-            color: #0A2540;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-        .review-detail-email {
-            font-size: 13px;
-            color: #64748B;
-            font-weight: 500;
-        }
-        .review-detail-stars {
-            font-size: 26px;
-            color: #F4B400;
-            margin-bottom: 16px;
-            letter-spacing: 4px;
-        }
-        .review-detail-text {
-            background: #F8FAFC;
-            border-radius: 12px;
-            padding: 20px 22px;
-            font-size: 14.5px;
-            color: #334155;
-            line-height: 1.75;
-            font-weight: 500;
-            margin-bottom: 20px;
-            border-left: 4px solid #F4B400;
-        }
-        .review-detail-meta {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            font-size: 12.5px;
-            color: #64748B;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        .review-detail-meta span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .review-detail-modal { background: #FFFFFF; border-radius: 20px; max-width: 560px; width: 100%; padding: 36px; position: relative; }
+        .review-detail-modal h3 { font-family: 'Poppins', sans-serif; font-size: 20px; color: #0A2540; font-weight: 800; margin-bottom: 20px; padding-right: 40px; }
+        .review-detail-student { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid #F1F5F9; margin-bottom: 18px; }
+        .review-detail-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #F4B400, #d99f00); display: flex; align-items: center; justify-content: center; font-family: 'Poppins', sans-serif; font-weight: 800; color: #0A2540; font-size: 22px; flex-shrink: 0; }
+        .review-detail-name { font-family: 'Poppins', sans-serif; font-weight: 800; color: #0A2540; font-size: 16px; margin-bottom: 4px; }
+        .review-detail-email { font-size: 13px; color: #64748B; font-weight: 500; }
+        .review-detail-stars { font-size: 26px; color: #F4B400; margin-bottom: 16px; letter-spacing: 4px; }
+        .review-detail-text { background: #F8FAFC; border-radius: 12px; padding: 20px 22px; font-size: 14.5px; color: #334155; line-height: 1.75; font-weight: 500; margin-bottom: 20px; border-left: 4px solid #F4B400; }
+        .review-detail-meta { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: #64748B; font-weight: 600; margin-bottom: 20px; }
+        .review-detail-meta span { display: flex; align-items: center; gap: 5px; }
 
-        /* JITSI Modal */
-        .jitsi-modal {
-            position: fixed;
-            inset: 0;
-            background: #051429;
-            display: none;
-            z-index: 10000;
-            flex-direction: column;
-        }
+        .jitsi-modal { position: fixed; inset: 0; background: #051429; display: none; z-index: 10000; flex-direction: column; }
         .jitsi-modal.active { display: flex; }
-        .jitsi-topbar {
-            background: #0A2540;
-            padding: 12px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
+        .jitsi-topbar { background: #0A2540; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,0.08); }
         .jitsi-info { display: flex; align-items: center; gap: 14px; color: #FFFFFF; }
-        .jitsi-logo {
-            width: 36px; height: 36px;
-            background: linear-gradient(135deg, #F4B400, #d99f00);
-            border-radius: 8px;
-            overflow: hidden;
-        }
+        .jitsi-logo { width: 36px; height: 36px; background: linear-gradient(135deg, #F4B400, #d99f00); border-radius: 8px; overflow: hidden; }
         .jitsi-logo img { width: 100%; height: 100%; object-fit: cover; }
         .jitsi-title { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 15px; }
         .jitsi-sub { font-size: 11px; color: rgba(255,255,255,0.6); font-weight: 500; }
-        .jitsi-badge-host {
-            display: inline-block;
-            background: #F4B400;
-            color: #0A2540;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 100px;
-            margin-left: 8px;
-        }
-        .btn-end-class {
-            background: #EF4444;
-            color: #FFFFFF;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 13px;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .jitsi-badge-host { display: inline-block; background: #F4B400; color: #0A2540; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 100px; margin-left: 8px; }
+        .btn-end-class { background: #EF4444; color: #FFFFFF; padding: 10px 20px; border-radius: 8px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
         .btn-end-class:hover { background: #DC2626; }
         .btn-end-class svg { width: 14px; height: 14px; }
         #jitsiContainer { flex: 1; width: 100%; }
@@ -758,6 +268,10 @@
             <div class="admin-stat-card amber" data-tab="reviews" onclick="switchTab('reviews')">
                 <div class="admin-stat-label">Reviews</div>
                 <div class="admin-stat-value" id="statReviews">—</div>
+            </div>
+            <div class="admin-stat-card emerald" data-tab="coupons" onclick="switchTab('coupons')">
+                <div class="admin-stat-label">Coupons</div>
+                <div class="admin-stat-value" id="statCoupons">—</div>
             </div>
             <div class="admin-stat-card purple" data-tab="certificates" onclick="switchTab('certificates')">
                 <div class="admin-stat-label">Certificates</div>
@@ -901,6 +415,47 @@
     </div>
 </div>
 
+<!-- COUPON MODAL -->
+<div class="modal-overlay" id="couponModal">
+    <div class="publish-modal">
+        <button class="modal-close" onclick="closeCouponModal()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Create New Coupon</h3>
+        <div class="form-field">
+            <label>Coupon Code *</label>
+            <input type="text" id="coupCode" placeholder="e.g. LAUNCH50" style="text-transform: uppercase; font-family: monospace; font-weight: 800; letter-spacing: 2px;">
+        </div>
+        <div class="form-field">
+            <label>Discount Percentage *</label>
+            <input type="number" id="coupDiscount" placeholder="e.g. 50" min="1" max="100">
+        </div>
+        <div class="form-field">
+            <label>Description</label>
+            <input type="text" id="coupDescription" placeholder="e.g. Launch offer for first 20 students">
+        </div>
+        <div class="form-field">
+            <label>Maximum Uses (0 = Unlimited)</label>
+            <input type="number" id="coupMaxUses" placeholder="e.g. 20" min="0" value="0">
+        </div>
+        <div class="form-field">
+            <label>Expiry Date (Optional)</label>
+            <input type="date" id="coupExpiry">
+        </div>
+        <button class="btn-save-publish" onclick="saveCoupon()" style="background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/>
+                <path d="M2 7h20v5H2z"/>
+                <line x1="12" y1="22" x2="12" y2="7"/>
+            </svg>
+            Create Coupon
+        </button>
+    </div>
+</div>
+
 <!-- REPLY MODAL -->
 <div class="modal-overlay" id="replyModal">
     <div class="publish-modal" style="max-width: 680px;">
@@ -923,47 +478,30 @@
             </div>
             <div class="student-match-info">
                 <div class="student-match-info-row">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                        <polyline points="22,6 12,13 2,6"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     <span id="matchEmail">—</span>
                 </div>
                 <div class="student-match-info-row">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                     <span id="matchPhone">—</span>
                 </div>
                 <div class="student-match-info-row">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-                        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     <span id="matchCourse">—</span>
                 </div>
             </div>
-            <div class="student-match-note">
-                This person is a registered student. Reply will be sent to the message email, but you can also contact via WhatsApp.
-            </div>
+            <div class="student-match-note">This person is a registered student. Reply will be sent to the message email, but you can also contact via WhatsApp.</div>
         </div>
 
         <div class="not-registered-box" id="notRegisteredBox" style="display: none;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
-            </svg>
-            <div class="not-registered-text">
-                This email is not registered in our students database. Reply will be sent to the email provided in the message.
-            </div>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div class="not-registered-text">This email is not registered in our students database. Reply will be sent to the email provided in the message.</div>
         </div>
 
         <div class="form-field"><label>Reply To (Email)</label><input type="text" id="replyTo" readonly style="background:#F8FAFC;"></div>
         <div class="form-field"><label>WhatsApp Number</label><input type="text" id="replyWhatsApp" readonly style="background:#F8FAFC;" placeholder="Not available"></div>
         <div class="form-field"><label>Subject</label><input type="text" id="replySubject" readonly style="background:#F8FAFC;"></div>
         <div class="form-field"><label>Original Message</label><textarea id="replyOriginal" rows="3" readonly style="background:#F8FAFC;"></textarea></div>
-
         <div class="form-field">
             <label>Quick Templates</label>
             <select id="replyTemplate" onchange="applyReplyTemplate()">
@@ -981,34 +519,22 @@
                 <option value="custom">Custom Reply</option>
             </select>
         </div>
-
         <div class="form-field">
             <label>Your Reply</label>
             <textarea id="replyText" rows="10" placeholder="Type your response here..." style="font-size: 13.5px; line-height: 1.7;"></textarea>
         </div>
-
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <button class="btn-save-publish" onclick="saveReply()" style="background: linear-gradient(135deg, #2563EB, #1E40AF); color: #FFFFFF;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-                    <polyline points="17 21 17 13 7 13 7 21"/>
-                    <polyline points="7 3 7 8 15 8"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
                 Save Reply
             </button>
             <button class="btn-save-publish" id="whatsappReplyBtn" onclick="sendReplyViaWhatsApp()" style="background: linear-gradient(135deg, #25D366, #128C7E); color: #FFFFFF;">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg>
                 Send via WhatsApp
             </button>
         </div>
-
         <button class="btn-save-publish" onclick="copyReplyToClipboard()" style="background: #F1F5F9; color: #0A2540; margin-top: 10px;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Copy Reply Text
         </button>
     </div>
@@ -1066,17 +592,9 @@ const ADMIN_NAME = 'Mukesh Kewal';
 
 // ============ STATE ============
 let allData = {
-    visitors: [],
-    visits: [],
-    students: [],
-    instructors: [],
-    messages: [],
-    reviews: [],
-    certificates: [],
-    tests: [],
-    liveClasses: [],
-    attendance: [],
-    announcements: []
+    visitors: [], visits: [], students: [], instructors: [], messages: [],
+    reviews: [], coupons: [], certificates: [], tests: [], liveClasses: [],
+    attendance: [], announcements: []
 };
 let currentTab = 'students';
 let currentSearch = '';
@@ -1095,16 +613,16 @@ const DEFAULT_SCHEDULE = [
 
 // ============ REPLY TEMPLATES ============
 const REPLY_TEMPLATES = {
-    thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.\n\nWe appreciate your interest in our academy and look forward to helping you achieve your learning goals.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
-    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development)\n  - Rs. 3,000 per month\n  - Duration: 3 months\n\n• Artificial Intelligence\n  - Rs. 4,000 per month\n  - Duration: 4 months\n\nBoth courses include:\n  - Live interactive classes (evening 6:00 PM - 8:00 PM)\n  - Small batch size (10-15 students)\n  - Real-world projects and portfolio building\n  - Certificate on successful completion\n  - Lifetime access to class recordings\n\nFor enrollment, please contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    timing: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about class timings at Apex Learning Academy.\n\nWeekly Live Class Schedule (Pakistan Standard Time):\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — Artificial Intelligence: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — Artificial Intelligence: 6:00 PM to 8:00 PM\n• Saturday — Open Doubt Session: 6:00 PM to 8:00 PM\n\nAll classes are conducted online through Jitsi Meet.\n\nFor registration, contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    enrollment: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in enrolling at Apex Learning Academy.\n\nSimple Enrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the registration form\n3. Our team will contact you within 24 hours on WhatsApp\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Your enrollment will be activated within 24 hours\n\nFor assistance, please contact us:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class at Apex Learning Academy.\n\nWe offer a completely FREE demo class so you can experience our teaching style, course structure, and instructor quality before making any commitment.\n\nWhat to expect in your demo:\n  - Introduction to the course topic\n  - Live interaction with the instructor\n  - Sample lesson from the curriculum\n  - Q&A session\n\nTo book your free demo:\nWhatsApp us at: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    certificate: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about certificates at Apex Learning Academy.\n\nCertificate Details:\n\n- Issued upon successful course completion\n- Requires 75% attendance and final project submission\n- Includes a unique Certificate ID for verification\n- Can be verified online at our verification portal\n- QR code included for instant verification\n\nFor any certificate-related questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    technical: `Assalam-o-Alaikum {NAME},\n\nThank you for reporting the technical issue at Apex Learning Academy.\n\nWe sincerely apologize for any inconvenience caused. Our technical team will investigate and resolve the matter as quickly as possible.\n\nTo help us resolve faster, please share:\n  - Screenshot of the issue (if possible)\n  - Browser and device you are using\n  - Exact steps that led to the problem\n\nFor urgent assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.`,
-    payment: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about payment methods.\n\nAccepted Payment Options:\n1. JazzCash (Mobile Wallet)\n2. EasyPaisa (Mobile Wallet)\n3. Bank Transfer\n\nPayment Process:\n1. Choose your course\n2. Our team will share payment details on WhatsApp\n3. Make the payment\n4. Send us the screenshot\n5. Enrollment activated within 24 hours\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    batch: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in joining Apex Learning Academy.\n\nBatch Information:\n\nSmall batches of 10-15 students for personal attention.\n\nCurrent Batches:\n• Coding — Monday & Wednesday, 6-8 PM\n• AI — Tuesday & Thursday, 6-8 PM\n• Doubt Session — Saturday evening\n\nNew batches start every month.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
-    refund: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about our refund policy.\n\nRefund Policy:\n- Fees are non-refundable once a course has started\n- Cancellation must be requested BEFORE the first class\n- Duplicate payments refunded within 7 working days\n- Course fees can be adjusted toward a different course (once)\n\nFor refund-related questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    thanks: `Assalam-o-Alaikum {NAME},\n\nThank you for reaching out to Apex Learning Academy.\n\nWe have received your inquiry and our official team is here to assist you. Please feel free to share any additional details if needed.\n\nBest regards,\nApex Learning Academy Team\nLearn. Rise. Achieve.\nContact: 0341 034 9929`,
+    fees: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in Apex Learning Academy.\n\nCourse Fee Details:\n\n• Coding (Python + Web Development)\n  - Rs. 3,000 per month\n  - Duration: 3 months\n\n• Artificial Intelligence\n  - Rs. 4,000 per month\n  - Duration: 4 months\n\nBoth courses include:\n  - Live interactive classes\n  - Small batch size (10-15 students)\n  - Real-world projects\n  - Certificate on completion\n\nFor enrollment:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    timing: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about class timings.\n\nWeekly Live Class Schedule:\n\n• Monday — Coding: 6:00 PM to 8:00 PM\n• Tuesday — AI: 6:00 PM to 8:00 PM\n• Wednesday — Coding: 6:00 PM to 8:00 PM\n• Thursday — AI: 6:00 PM to 8:00 PM\n• Saturday — Doubt Session: 6:00 PM to 8:00 PM\n\nAll classes are online through Jitsi Meet.\n\nFor registration:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    enrollment: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in enrolling at Apex Learning Academy.\n\nEnrollment Process:\n\n1. Visit our website\n2. Click "Register Now" and fill the form\n3. Our team will contact you within 24 hours\n4. Book your FREE demo class\n5. Make payment via JazzCash / EasyPaisa / Bank Transfer\n6. Enrollment activated within 24 hours\n\nFor assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    demo: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest in our FREE demo class.\n\nWe offer a completely FREE demo class so you can experience our teaching style before enrolling.\n\nWhat to expect:\n  - Introduction to the course\n  - Live interaction with instructor\n  - Sample lesson\n  - Q&A session\n\nTo book your free demo:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    certificate: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about certificates.\n\nCertificate Details:\n- Issued upon course completion\n- Requires 75% attendance\n- Unique Certificate ID for verification\n- QR code included\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    technical: `Assalam-o-Alaikum {NAME},\n\nThank you for reporting the technical issue.\n\nWe apologize for the inconvenience. Our team will resolve it soon.\n\nPlease share:\n  - Screenshot of the issue\n  - Browser and device\n  - Steps to reproduce\n\nFor urgent help:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    payment: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about payment methods.\n\nAccepted Payment Options:\n1. JazzCash\n2. EasyPaisa\n3. Bank Transfer\n\nFees:\n• Coding: Rs. 3,000/month\n• AI: Rs. 4,000/month\n\nFor payment assistance:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    batch: `Assalam-o-Alaikum {NAME},\n\nThank you for your interest.\n\nSmall batches of 10-15 students for personal attention.\n\nCurrent Batches:\n• Coding — Mon & Wed, 6-8 PM\n• AI — Tue & Thu, 6-8 PM\n• Doubt Session — Saturday evening\n\nNew batches start every month.\n\nTo reserve your seat:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
+    refund: `Assalam-o-Alaikum {NAME},\n\nThank you for your inquiry about refund policy.\n\nRefund Policy:\n- Fees non-refundable once course starts\n- Cancellation must be before first class\n- Duplicate payments refunded within 7 working days\n\nFor questions:\nWhatsApp: 0341 034 9929\n\nBest regards,\nApex Learning Academy Team`,
     custom: ''
 };
 
@@ -1113,14 +631,11 @@ document.getElementById('adminLoginForm').addEventListener('submit', async (e) =
     e.preventDefault();
     const errorBox = document.getElementById('loginError');
     errorBox.classList.remove('active');
-
     const email = document.getElementById('adminEmail').value.trim();
     const password = document.getElementById('adminPassword').value;
     const btn = document.getElementById('adminLoginBtn');
-
     btn.textContent = 'Logging in...';
     btn.disabled = true;
-
     try {
         await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
@@ -1162,15 +677,15 @@ document.getElementById('adminLogoutBtn').addEventListener('click', async () => 
 // ============ LOAD DATA ============
 async function loadAllData() {
     document.getElementById('panelBody').innerHTML = '<div class="loading-spinner">Loading...</div>';
-
     try {
-        const [v, vst, s, i, m, rev, c, t, l, a, ann] = await Promise.all([
+        const [v, vst, s, i, m, rev, coup, c, t, l, a, ann] = await Promise.all([
             getDocs(collection(db, 'visitors')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'visits')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'students')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'instructorApplications')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'messages')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'reviews')).catch(() => ({ docs: [] })),
+            getDocs(collection(db, 'coupons')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'certificates')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'testSubmissions')).catch(() => ({ docs: [] })),
             getDocs(collection(db, 'liveClasses')).catch(() => ({ docs: [] })),
@@ -1184,6 +699,7 @@ async function loadAllData() {
         allData.instructors = i.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.messages = m.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.reviews = rev.docs.map(d => ({ id: d.id, ...d.data() }));
+        allData.coupons = coup.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.certificates = c.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.tests = t.docs.map(d => ({ id: d.id, ...d.data() }));
         allData.liveClasses = l.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -1196,6 +712,7 @@ async function loadAllData() {
         document.getElementById('statInstructors').textContent = allData.instructors.length;
         document.getElementById('statMessages').textContent = allData.messages.length;
         document.getElementById('statReviews').textContent = allData.reviews.length;
+        document.getElementById('statCoupons').textContent = allData.coupons.length;
         document.getElementById('statCertificates').textContent = allData.certificates.length;
         document.getElementById('statTests').textContent = allData.tests.length;
         document.getElementById('statLiveClasses').textContent = (allData.liveClasses.length || DEFAULT_SCHEDULE.length);
@@ -1218,9 +735,10 @@ window.switchTab = function(tab) {
     const titles = {
         visitors: 'Unique Visitors', visits: 'Page Views', students: 'Students',
         instructors: 'Instructor Applications', messages: 'Contact Messages',
-        reviews: 'Student Reviews', certificates: 'Certificates Issued',
-        tests: 'Test Submissions', liveClasses: 'Live Classes',
-        attendance: 'Attendance Records', announcements: 'Announcements'
+        reviews: 'Student Reviews', coupons: 'Coupon Codes',
+        certificates: 'Certificates Issued', tests: 'Test Submissions',
+        liveClasses: 'Live Classes', attendance: 'Attendance Records',
+        announcements: 'Announcements'
     };
     document.getElementById('panelTitle').textContent = titles[tab];
     document.getElementById('searchInput').value = '';
@@ -1242,6 +760,7 @@ function renderTab(tab) {
     if (currentSearch) data = data.filter(item => JSON.stringify(item).toLowerCase().includes(currentSearch));
 
     if (tab === 'announcements') { renderAnnouncements(data); return; }
+    if (tab === 'coupons') { renderCoupons(data); return; }
 
     if (data.length === 0) {
         body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><p>No ${tab} found${currentSearch ? ' matching your search' : ''}.</p></div>`;
@@ -1260,7 +779,7 @@ function renderTab(tab) {
     else if (tab === 'attendance') renderAttendance(data);
 }
 
-// ============ VISITORS ============
+// ============ RENDER VISITORS ============
 function renderVisitors(data) {
     const sorted = [...data].sort((a, b) => (b.lastVisit?.seconds || 0) - (a.lastVisit?.seconds || 0));
     const rows = sorted.map(v => {
@@ -1272,7 +791,7 @@ function renderVisitors(data) {
     document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Total Unique Visitors: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Visitor ID</th><th>Location</th><th>Device</th><th>Browser/OS</th><th>Visits</th><th>First Visit</th><th>Last Visit</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ VISITS ============
+// ============ RENDER VISITS ============
 function renderVisits(data) {
     const sorted = [...data].sort((a, b) => (b.timestamp?.seconds || 0) - (a.timestamp?.seconds || 0));
     const rows = sorted.slice(0, 200).map(v => {
@@ -1283,19 +802,19 @@ function renderVisits(data) {
     document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;">Showing latest 200 visits — Total: <strong style="color:#0A2540;">${data.length}</strong></div><table class="data-table"><thead><tr><th>Location</th><th>Page</th><th>Device</th><th>Browser</th><th>Referrer</th><th>Time</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ STUDENTS ============
+// ============ RENDER STUDENTS ============
 function renderStudents(data) {
-    const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong></td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
+    const rows = data.map(s => `<tr><td><strong>${s.fullName || '—'}</strong>${s.couponCode ? `<br><span style="font-size:10.5px;color:#10B981;font-weight:800;">🎟 ${s.couponCode} (-${s.couponDiscount}%)</span>` : ''}</td><td>${s.email || '—'}</td><td>${s.whatsapp || '—'}</td><td><span class="truncate">${s.course || '—'}</span></td><td>${s.city || '—'}</td><td><span class="badge badge-${s.status === 'active' ? 'active' : 'pending'}">${s.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('students', '${s.id}')">View</button><button class="btn-delete" onclick="deleteItem('students', '${s.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Course</th><th>City</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ INSTRUCTORS ============
+// ============ RENDER INSTRUCTORS ============
 function renderInstructors(data) {
     const rows = data.map(i => `<tr><td><strong>${i.fullName || '—'}</strong></td><td>${i.email || '—'}</td><td>${i.whatsapp || '—'}</td><td>${i.subject || '—'}</td><td>${i.experience || '—'}</td><td><span class="badge badge-pending">${i.status || 'pending'}</span></td><td><button class="btn-view" onclick="viewDetail('instructors', '${i.id}')">View</button><button class="btn-delete" onclick="deleteItem('instructors', '${i.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>WhatsApp</th><th>Subject</th><th>Experience</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ MESSAGES ============
+// ============ RENDER MESSAGES ============
 function renderMessages(data) {
     const rows = data.map(m => {
         let dateStr = '—';
@@ -1308,62 +827,23 @@ function renderMessages(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Message</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ REVIEWS ============
+// ============ RENDER REVIEWS ============
 function renderReviews(data) {
     const sorted = [...data].sort((a, b) => (b.submittedAt?.seconds || 0) - (a.submittedAt?.seconds || 0));
-
     const rows = sorted.map(r => {
         let dateStr = '—';
         if (r.submittedAt?.seconds) dateStr = new Date(r.submittedAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
-
         const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
-
         let statusBadge = '<span class="badge badge-pending">PENDING</span>';
         if (r.status === 'approved') statusBadge = '<span class="badge badge-active">APPROVED</span>';
         else if (r.status === 'rejected') statusBadge = '<span class="badge badge-rejected">REJECTED</span>';
-
-        const approveBtn = r.status !== 'approved'
-            ? `<button class="btn-approve" onclick="updateReviewStatus('${r.id}', 'approved')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                Approve
-            </button>` : '';
-        const rejectBtn = r.status !== 'rejected'
-            ? `<button class="btn-reject" onclick="updateReviewStatus('${r.id}', 'rejected')">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                Reject
-            </button>` : '';
-
-        return `<tr>
-            <td><strong>${r.studentName || '—'}</strong></td>
-            <td><span style="color: #F4B400; font-size: 15px; letter-spacing: 1px;">${stars}</span></td>
-            <td><span class="truncate" style="max-width: 300px;">${r.reviewText || '—'}</span></td>
-            <td><span class="truncate">${r.course || '—'}</span></td>
-            <td>${statusBadge}</td>
-            <td>${dateStr}</td>
-            <td>
-                <button class="btn-view" onclick="viewReviewDetail('${r.id}')">View</button>
-                ${approveBtn}
-                ${rejectBtn}
-                <button class="btn-delete" onclick="deleteItem('reviews', '${r.id}')">Delete</button>
-            </td>
-        </tr>`;
+        const approveBtn = r.status !== 'approved' ? `<button class="btn-approve" onclick="updateReviewStatus('${r.id}', 'approved')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Approve</button>` : '';
+        const rejectBtn = r.status !== 'rejected' ? `<button class="btn-reject" onclick="updateReviewStatus('${r.id}', 'rejected')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Reject</button>` : '';
+        return `<tr><td><strong>${r.studentName || '—'}</strong></td><td><span style="color: #F4B400; font-size: 15px; letter-spacing: 1px;">${stars}</span></td><td><span class="truncate" style="max-width: 300px;">${r.reviewText || '—'}</span></td><td><span class="truncate">${r.course || '—'}</span></td><td>${statusBadge}</td><td>${dateStr}</td><td><button class="btn-view" onclick="viewReviewDetail('${r.id}')">View</button>${approveBtn}${rejectBtn}<button class="btn-delete" onclick="deleteItem('reviews', '${r.id}')">Delete</button></td></tr>`;
     }).join('');
-
     const approvedCount = data.filter(r => r.status === 'approved').length;
     const pendingCount = data.filter(r => r.status === 'pending').length;
-
-    document.getElementById('panelBody').innerHTML = `
-        <div style="padding: 12px 20px; border-bottom: 1px solid #E2E8F0; font-size: 13px; color: #64748B; font-weight: 600; display: flex; gap: 20px; flex-wrap: wrap;">
-            <span>Total: <strong style="color: #0A2540;">${data.length}</strong></span>
-            <span>Approved: <strong style="color: #10B981;">${approvedCount}</strong></span>
-            <span>Pending: <strong style="color: #F59E0B;">${pendingCount}</strong></span>
-        </div>
-        <table class="data-table">
-            <thead><tr>
-                <th>Student</th><th>Rating</th><th>Review</th><th>Course</th><th>Status</th><th>Date</th><th>Actions</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-        </table>`;
+    document.getElementById('panelBody').innerHTML = `<div style="padding:12px 20px;border-bottom:1px solid #E2E8F0;font-size:13px;color:#64748B;font-weight:600;display:flex;gap:20px;flex-wrap:wrap;"><span>Total: <strong style="color:#0A2540;">${data.length}</strong></span><span>Approved: <strong style="color:#10B981;">${approvedCount}</strong></span><span>Pending: <strong style="color:#F59E0B;">${pendingCount}</strong></span></div><table class="data-table"><thead><tr><th>Student</th><th>Rating</th><th>Review</th><th>Course</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 window.updateReviewStatus = async function(reviewId, newStatus) {
@@ -1372,60 +852,110 @@ window.updateReviewStatus = async function(reviewId, newStatus) {
         const idx = allData.reviews.findIndex(r => r.id === reviewId);
         if (idx >= 0) allData.reviews[idx].status = newStatus;
         renderTab('reviews');
-    } catch (err) {
-        alert('Failed to update: ' + err.message);
-    }
+    } catch (err) { alert('Failed to update: ' + err.message); }
 };
 
 window.viewReviewDetail = function(reviewId) {
     const r = allData.reviews.find(x => x.id === reviewId);
     if (!r) return;
-
     let dateStr = '—';
     if (r.submittedAt?.seconds) dateStr = new Date(r.submittedAt.seconds * 1000).toLocaleString('en-GB');
-
     const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
     const initial = (r.studentName || 'S').charAt(0).toUpperCase();
-
     document.getElementById('reviewDetailBody').innerHTML = `
-        <div class="review-detail-student">
-            <div class="review-detail-avatar">${initial}</div>
-            <div>
-                <div class="review-detail-name">${r.studentName || 'Student'}</div>
-                <div class="review-detail-email">${r.studentEmail || '—'}</div>
-            </div>
-        </div>
+        <div class="review-detail-student"><div class="review-detail-avatar">${initial}</div><div><div class="review-detail-name">${r.studentName || 'Student'}</div><div class="review-detail-email">${r.studentEmail || '—'}</div></div></div>
         <div class="review-detail-stars">${stars}</div>
         <div class="review-detail-text">"${r.reviewText || '—'}"</div>
-        <div class="review-detail-meta">
-            <span><strong>Course:</strong> ${r.course || '—'}</span>
-            <span><strong>Date:</strong> ${dateStr}</span>
-            <span><strong>Status:</strong> ${(r.status || 'pending').toUpperCase()}</span>
-        </div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            ${r.status !== 'approved' ? `<button onclick="updateReviewStatus('${r.id}', 'approved'); closeReviewDetail();" style="padding: 13px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13.5px; border: none; cursor: pointer; background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF;">Approve Review</button>` : ''}
-            ${r.status !== 'rejected' ? `<button onclick="updateReviewStatus('${r.id}', 'rejected'); closeReviewDetail();" style="padding: 13px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13.5px; border: none; cursor: pointer; background: linear-gradient(135deg, #EF4444, #DC2626); color: #FFFFFF;">Reject Review</button>` : ''}
-        </div>
-    `;
-
+        <div class="review-detail-meta"><span><strong>Course:</strong> ${r.course || '—'}</span><span><strong>Date:</strong> ${dateStr}</span><span><strong>Status:</strong> ${(r.status || 'pending').toUpperCase()}</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            ${r.status !== 'approved' ? `<button onclick="updateReviewStatus('${r.id}', 'approved'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;">Approve Review</button>` : ''}
+            ${r.status !== 'rejected' ? `<button onclick="updateReviewStatus('${r.id}', 'rejected'); closeReviewDetail();" style="padding:13px;border-radius:10px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:13.5px;border:none;cursor:pointer;background:linear-gradient(135deg,#EF4444,#DC2626);color:#FFFFFF;">Reject Review</button>` : ''}
+        </div>`;
     document.getElementById('reviewDetailModal').classList.add('active');
 };
 
-window.closeReviewDetail = function() {
-    document.getElementById('reviewDetailModal').classList.remove('active');
+window.closeReviewDetail = function() { document.getElementById('reviewDetailModal').classList.remove('active'); };
+document.getElementById('reviewDetailModal').addEventListener('click', (e) => { if (e.target.id === 'reviewDetailModal') closeReviewDetail(); });
+
+// ============ RENDER COUPONS ============
+function renderCoupons(data) {
+    const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong> coupon${data.length !== 1 ? 's' : ''}</div><button class="btn-publish" onclick="openCouponModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#10B981,#059669);color:#FFFFFF;">+ New Coupon</button></div>`;
+
+    if (data.length === 0) {
+        document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6"/><path d="M2 7h20v5H2z"/><line x1="12" y1="22" x2="12" y2="7"/></svg><p>No coupons yet. Click "New Coupon" to create one.</p></div>`;
+        return;
+    }
+
+    const rows = data.map(c => {
+        let expiryStr = 'No expiry';
+        if (c.expiresAt) {
+            try {
+                expiryStr = new Date(c.expiresAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+            } catch(e) { expiryStr = c.expiresAt; }
+        }
+        const usedCount = c.usedCount || 0;
+        const maxUses = c.maxUses || 0;
+        const usageText = maxUses > 0 ? `${usedCount} / ${maxUses}` : `${usedCount} / ∞`;
+        const statusBadge = c.active ? '<span class="badge badge-active">ACTIVE</span>' : '<span class="badge badge-pending">INACTIVE</span>';
+        const toggleBtn = c.active ? `<button class="btn-reject" onclick="toggleCoupon('${c.id}', false)">Deactivate</button>` : `<button class="btn-approve" onclick="toggleCoupon('${c.id}', true)">Activate</button>`;
+        return `<tr><td><strong style="font-family:monospace;font-size:14px;color:#0A2540;letter-spacing:1px;">${c.code || '—'}</strong></td><td><span style="color:#10B981;font-weight:800;font-size:15px;">${c.discountPercent || 0}% OFF</span></td><td>${c.description || '—'}</td><td>${usageText}</td><td>${expiryStr}</td><td>${statusBadge}</td><td>${toggleBtn}<button class="btn-delete" onclick="deleteItem('coupons', '${c.id}')">Delete</button></td></tr>`;
+    }).join('');
+
+    document.getElementById('panelBody').innerHTML = header + `<table class="data-table"><thead><tr><th>Code</th><th>Discount</th><th>Description</th><th>Usage</th><th>Expires</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+window.toggleCoupon = async function(couponId, active) {
+    try {
+        await updateDoc(doc(db, 'coupons', couponId), { active });
+        const idx = allData.coupons.findIndex(c => c.id === couponId);
+        if (idx >= 0) allData.coupons[idx].active = active;
+        renderTab('coupons');
+    } catch (err) { alert('Failed to update: ' + err.message); }
 };
 
-document.getElementById('reviewDetailModal').addEventListener('click', (e) => {
-    if (e.target.id === 'reviewDetailModal') closeReviewDetail();
-});
+window.openCouponModal = function() {
+    document.getElementById('coupCode').value = '';
+    document.getElementById('coupDiscount').value = '';
+    document.getElementById('coupDescription').value = '';
+    document.getElementById('coupMaxUses').value = '0';
+    document.getElementById('coupExpiry').value = '';
+    document.getElementById('couponModal').classList.add('active');
+};
 
-// ============ CERTIFICATES ============
+window.closeCouponModal = function() { document.getElementById('couponModal').classList.remove('active'); };
+document.getElementById('couponModal').addEventListener('click', (e) => { if (e.target.id === 'couponModal') closeCouponModal(); });
+
+window.saveCoupon = async function() {
+    const code = document.getElementById('coupCode').value.trim().toUpperCase().replace(/\s/g, '');
+    const discountPercent = parseInt(document.getElementById('coupDiscount').value);
+    const description = document.getElementById('coupDescription').value.trim();
+    const maxUses = parseInt(document.getElementById('coupMaxUses').value) || 0;
+    const expiry = document.getElementById('coupExpiry').value;
+
+    if (!code || code.length < 3) { alert('Please enter a valid coupon code (at least 3 characters).'); return; }
+    if (!discountPercent || discountPercent < 1 || discountPercent > 100) { alert('Discount must be between 1% and 100%.'); return; }
+    if (allData.coupons.some(c => c.code === code)) { alert('This coupon code already exists.'); return; }
+
+    try {
+        const couponData = {
+            code, discountPercent, description, maxUses,
+            usedCount: 0, active: true, createdAt: serverTimestamp()
+        };
+        if (expiry) couponData.expiresAt = new Date(expiry).toISOString();
+        await addDoc(collection(db, 'coupons'), couponData);
+        closeCouponModal();
+        await loadAllData();
+        alert('Coupon created successfully!\n\nCode: ' + code + '\nDiscount: ' + discountPercent + '%');
+    } catch (err) { alert('Failed to create coupon: ' + err.message); }
+};
+
+// ============ RENDER CERTIFICATES ============
 function renderCertificates(data) {
     const rows = data.map(c => `<tr><td><strong>${c.certificateId || '—'}</strong></td><td>${c.studentName || '—'}</td><td>${c.email || '—'}</td><td><span class="truncate">${c.course || '—'}</span></td><td>${c.issueDate || '—'}</td><td><span class="badge badge-valid">${c.status || 'valid'}</span></td><td><button class="btn-view" onclick="viewDetail('certificates', '${c.id}')">View</button><button class="btn-delete" onclick="deleteItem('certificates', '${c.id}')">Delete</button></td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Certificate ID</th><th>Student</th><th>Email</th><th>Course</th><th>Issue Date</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ TESTS ============
+// ============ RENDER TESTS ============
 function renderTests(data) {
     const rows = data.map(t => {
         const statusBadge = t.status === 'published' ? '<span class="badge badge-valid">Published</span>' : '<span class="badge badge-pending">Pending</span>';
@@ -1435,14 +965,14 @@ function renderTests(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Roll No</th><th>Student</th><th>Subject</th><th>Score</th><th>%</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ LIVE CLASSES ============
+// ============ RENDER LIVE CLASSES ============
 function renderLiveClasses(data) {
     const rows = data.map((cls, idx) => `<tr><td><strong>${cls.subjectLabel || cls.subject || '—'}</strong></td><td>${cls.title || '—'}</td><td>${cls.day || '—'}</td><td>${cls.time || '—'}</td><td><span class="truncate" style="font-size:12px;">${cls.roomName || '—'}</span></td><td><button class="btn-host" onclick="startHostClass(${idx})">Start as Host</button>${cls.id && !cls.id.startsWith('default-') ? `<button class="btn-delete" onclick="deleteItem('liveClasses', '${cls.id}')">Delete</button>` : ''}</td></tr>`).join('');
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Subject</th><th>Title</th><th>Day</th><th>Time</th><th>Room</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
     window._currentLiveClasses = data;
 }
 
-// ============ ATTENDANCE ============
+// ============ RENDER ATTENDANCE ============
 function renderAttendance(data) {
     const sorted = [...data].reverse();
     const rows = sorted.map(a => {
@@ -1455,22 +985,19 @@ function renderAttendance(data) {
     document.getElementById('panelBody').innerHTML = `<table class="data-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Class</th><th>Status</th><th>Time</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
-// ============ ANNOUNCEMENTS ============
+// ============ RENDER ANNOUNCEMENTS ============
 function renderAnnouncements(data) {
     const header = `<div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;"><div style="font-size:13px;color:#64748B;font-weight:600;">Total: <strong style="color:#0A2540;">${data.length}</strong> announcement${data.length !== 1 ? 's' : ''}</div><button class="btn-publish" onclick="openAnnouncementModal()" style="padding:11px 20px;font-size:13px;background:linear-gradient(135deg,#F4B400,#d99f00);color:#0A2540;">+ New Announcement</button></div>`;
-
     if (data.length === 0) {
         document.getElementById('panelBody').innerHTML = header + `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg><p>No announcements yet.</p></div>`;
         return;
     }
-
     const rows = data.map(a => {
         let dateStr = '—';
         if (a.createdAt && a.createdAt.seconds) dateStr = new Date(a.createdAt.seconds * 1000).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
         const typeBadge = a.type === 'success' ? '<span class="badge badge-success">SUCCESS</span>' : a.type === 'warning' ? '<span class="badge badge-warning">WARNING</span>' : '<span class="badge badge-info">INFO</span>';
         return `<tr><td><strong>${a.title || '—'}</strong></td><td><span class="truncate">${a.message || '—'}</span></td><td>${typeBadge}</td><td>${a.active ? '<span class="badge badge-active">Active</span>' : '<span class="badge badge-pending">Hidden</span>'}</td><td>${dateStr}</td><td><button class="btn-view" onclick="viewDetail('announcements', '${a.id}')">View</button><button class="btn-delete" onclick="deleteItem('announcements', '${a.id}')">Delete</button></td></tr>`;
     }).join('');
-
     document.getElementById('panelBody').innerHTML = header + `<table class="data-table"><thead><tr><th>Title</th><th>Message</th><th>Type</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
@@ -1478,7 +1005,6 @@ function renderAnnouncements(data) {
 window.viewDetail = function(tab, id) {
     const item = allData[tab].find(x => x.id === id);
     if (!item) return;
-
     const titles = {
         students: 'Student Details', instructors: 'Instructor Application',
         messages: 'Message Details', certificates: 'Certificate Details',
@@ -1486,7 +1012,6 @@ window.viewDetail = function(tab, id) {
         attendance: 'Attendance Details', announcements: 'Announcement Details'
     };
     document.getElementById('detailTitle').textContent = titles[tab] || 'Details';
-
     let html = '';
     Object.keys(item).forEach(key => {
         if (key === 'id' || key === 'answers') return;
@@ -1496,7 +1021,6 @@ window.viewDetail = function(tab, id) {
         const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
         html += `<div class="detail-row"><div class="detail-label">${label}</div><div class="detail-value" style="white-space: pre-line;">${value || '—'}</div></div>`;
     });
-
     document.getElementById('detailBody').innerHTML = html;
     document.getElementById('detailModal').classList.add('active');
 };
@@ -1807,8 +1331,9 @@ window.deleteItem = async function(tab, id) {
     const collectionMap = {
         visitors: 'visitors', visits: 'visits', students: 'students',
         instructors: 'instructorApplications', messages: 'messages',
-        reviews: 'reviews', certificates: 'certificates', tests: 'testSubmissions',
-        liveClasses: 'liveClasses', attendance: 'attendance', announcements: 'announcements'
+        reviews: 'reviews', coupons: 'coupons', certificates: 'certificates',
+        tests: 'testSubmissions', liveClasses: 'liveClasses',
+        attendance: 'attendance', announcements: 'announcements'
     };
     try {
         await deleteDoc(doc(db, collectionMap[tab], id));
@@ -1816,8 +1341,10 @@ window.deleteItem = async function(tab, id) {
         const statMap = {
             visitors: 'statVisitors', visits: 'statVisits', students: 'statStudents',
             instructors: 'statInstructors', messages: 'statMessages',
-            reviews: 'statReviews', certificates: 'statCertificates', tests: 'statTests',
-            liveClasses: 'statLiveClasses', attendance: 'statAttendance', announcements: 'statAnnouncements'
+            reviews: 'statReviews', coupons: 'statCoupons',
+            certificates: 'statCertificates', tests: 'statTests',
+            liveClasses: 'statLiveClasses', attendance: 'statAttendance',
+            announcements: 'statAnnouncements'
         };
         document.getElementById(statMap[tab]).textContent = allData[tab].length;
         renderTab(tab);
