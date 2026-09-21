@@ -1,275 +1,1263 @@
 import { auth, db } from '../../config/firebase-config.js';
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { collection, query, where, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+import {
+    onAuthStateChanged,
+    signOut
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import {
+    collection,
+    query,
+    where,
+    getDocs,
+    addDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+/* =========================================================
+   SAFE DOM HELPERS
+   ========================================================= */
+
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+function setText(id, value) {
+    const element = getElement(id);
+
+    if (element) {
+        element.textContent = value ?? '';
+    }
+}
+
+function setHTML(id, value) {
+    const element = getElement(id);
+
+    if (element) {
+        element.innerHTML = value ?? '';
+    }
+}
+
+function setDisplay(id, display) {
+    const element = getElement(id);
+
+    if (element) {
+        element.style.display = display;
+    }
+}
+
+function addClass(id, className) {
+    const element = getElement(id);
+
+    if (element) {
+        element.classList.add(className);
+    }
+}
+
+function removeClass(id, className) {
+    const element = getElement(id);
+
+    if (element) {
+        element.classList.remove(className);
+    }
+}
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
 
 function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('open');
+    const mobileMenu = getElement('mobileMenu');
+
+    if (!mobileMenu) {
+        return;
+    }
+
+    mobileMenu.classList.toggle('open');
+
+    document.body.classList.toggle(
+        'menu-open',
+        mobileMenu.classList.contains('open')
+    );
 }
+
+window.toggleMobileMenu = toggleMobileMenu;
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
 async function doLogout() {
-    await signOut(auth);
-    window.location.href = 'index.html';
+    try {
+        await signOut(auth);
+
+        /*
+         * Dashboard is inside /pages/.
+         * Therefore login.html is also inside /pages/.
+         */
+        window.location.href = 'login.html';
+
+    } catch (error) {
+        console.error('Logout failed:', error);
+
+        alert('Unable to logout. Please try again.');
+    }
 }
 
-document.getElementById('navLogoutBtn').addEventListener('click', doLogout);
-document.getElementById('mobileLogoutLink').addEventListener('click', (e) => {
-    e.preventDefault();
-    doLogout();
-});
+
+/* Desktop logout button */
+const navLogoutBtn = getElement('navLogoutBtn');
+
+if (navLogoutBtn) {
+    navLogoutBtn.addEventListener('click', async (event) => {
+        event.preventDefault();
+        await doLogout();
+    });
+}
+
+
+/* Mobile logout button */
+const mobileLogoutLink = getElement('mobileLogoutLink');
+
+if (mobileLogoutLink) {
+    mobileLogoutLink.addEventListener('click', async (event) => {
+        event.preventDefault();
+
+        await doLogout();
+    });
+}
+
+
+/* =========================================================
+   REVIEW / RATING
+   ========================================================= */
 
 let currentRating = 0;
 
-window.setRating = function(rating) {
-    currentRating = rating;
-    document.getElementById('reviewRating').value = rating;
-    document.querySelectorAll('#starRating span').forEach(star => {
-        const r = parseInt(star.dataset.rating);
-        if (r <= rating) {
+
+window.setRating = function (rating) {
+
+    currentRating = Number(rating) || 0;
+
+    const ratingInput = getElement('reviewRating');
+
+    if (ratingInput) {
+        ratingInput.value = currentRating;
+    }
+
+    const stars = document.querySelectorAll('#starRating span');
+
+    stars.forEach((star) => {
+
+        const starRating = parseInt(
+            star.dataset.rating,
+            10
+        );
+
+        if (starRating <= currentRating) {
             star.classList.add('active');
         } else {
             star.classList.remove('active');
         }
+
     });
 };
 
-window.closeReviewSuccessModal = function() {
-    document.getElementById('reviewSuccessModal').classList.remove('active');
-};
 
-async function loadAnnouncements() {
-    try {
-        const snapshot = await getDocs(collection(db, 'announcements'));
-        const announcements = snapshot.docs
-            .map(d => ({ id: d.id, ...d.data() }))
-            .filter(a => a.active === true)
-            .sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+/* Close review success modal */
+window.closeReviewSuccessModal = function () {
 
-        if (announcements.length === 0) return;
+    const modal = getElement('reviewSuccessModal');
 
-        const ticker = document.getElementById('announcementTicker');
-        const content = document.getElementById('tickerContent');
-
-        const itemsHTML = announcements.map(a => `
-            <div class="ticker-item ${a.type || 'info'}">
-                <span class="ticker-item-icon"></span>
-                <strong>${a.title}:</strong>
-                <span>${a.message}</span>
-            </div>
-            <span class="ticker-item-separator">◆</span>
-        `).join('');
-
-        content.innerHTML = itemsHTML + itemsHTML;
-
-        const duration = Math.max(20, announcements.length * 8);
-        content.style.animationDuration = duration + 's';
-
-        ticker.classList.add('active');
-    } catch (err) {
-        console.warn('Announcements load failed:', err.message);
-    }
-}
-
-onAuthStateChanged(auth, async (user) => {
-    if (!user) {
-        window.location.href = 'login.html';
+    if (!modal) {
         return;
     }
 
-    try {
-        const q = query(collection(db, 'students'), where('uid', '==', user.uid));
-        const snapshot = await getDocs(q);
+    modal.classList.remove('active');
+};
 
-        if (snapshot.empty) {
-            console.warn('No student record found');
-            document.getElementById('loadingScreen').innerHTML = `
-                <p style="color:#991B1B; font-weight:700;">Profile not found. Please contact support.</p>
-            `;
+
+/* =========================================================
+   ANNOUNCEMENTS
+   ========================================================= */
+
+async function loadAnnouncements() {
+
+    try {
+
+        const snapshot = await getDocs(
+            collection(db, 'announcements')
+        );
+
+        const announcements = snapshot.docs
+            .map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }))
+            .filter((announcement) => announcement.active === true)
+            .sort((a, b) => {
+                return (
+                    (b.createdAt?.seconds || 0) -
+                    (a.createdAt?.seconds || 0)
+                );
+            });
+
+
+        if (announcements.length === 0) {
             return;
         }
 
-        const student = snapshot.docs[0].data();
 
-        const firstName = (student.fullName || 'Student').split(' ')[0];
-        document.getElementById('profileName').textContent = student.fullName || 'Student';
-        document.getElementById('profileAvatar').textContent = firstName.charAt(0).toUpperCase();
-        document.getElementById('profileEmail').textContent = student.email || user.email;
-        document.getElementById('profilePhone').textContent = student.whatsapp || '—';
-        document.getElementById('profileCity').textContent = student.city || '—';
+        const ticker = getElement('announcementTicker');
+        const content = getElement('tickerContent');
 
-        document.getElementById('statCourses').textContent = student.enrolledCourses || 1;
-        document.getElementById('statProgress').textContent = (student.progress || 0) + '%';
-        document.getElementById('statAssignments').textContent = student.pendingAssignments || 0;
-        document.getElementById('statAttendance').textContent = (student.attendance || 0) + '%';
 
-        document.getElementById('infoFullName').textContent = student.fullName || '—';
-        document.getElementById('infoFatherName').textContent = student.fatherName || '—';
-        document.getElementById('infoEmail').textContent = student.email || user.email;
-        document.getElementById('infoWhatsapp').textContent = student.whatsapp || '—';
-        document.getElementById('infoCity').textContent = student.city || '—';
-        document.getElementById('infoEducation').textContent = student.education || '—';
-        document.getElementById('infoCourse').textContent = student.course || '—';
-        document.getElementById('infoTiming').textContent = student.timing || '—';
-        document.getElementById('infoStatus').textContent = (student.status || 'pending').toUpperCase();
+        /*
+         * If announcement UI isn't present on this page,
+         * don't crash the dashboard.
+         */
+        if (!ticker || !content) {
+            return;
+        }
+
+
+        const itemsHTML = announcements
+            .map((announcement) => {
+
+                const type = announcement.type || 'info';
+
+                const title = String(
+                    announcement.title || ''
+                );
+
+                const message = String(
+                    announcement.message || ''
+                );
+
+                return `
+                    <div class="ticker-item ${type}">
+                        <span class="ticker-item-icon"></span>
+                        <strong>${title}:</strong>
+                        <span>${message}</span>
+                    </div>
+
+                    <span class="ticker-item-separator">
+                        ◆
+                    </span>
+                `;
+            })
+            .join('');
+
+
+        content.innerHTML =
+            itemsHTML + itemsHTML;
+
+
+        const duration = Math.max(
+            20,
+            announcements.length * 8
+        );
+
+
+        content.style.animationDuration =
+            `${duration}s`;
+
+
+        ticker.classList.add('active');
+
+
+    } catch (error) {
+
+        console.warn(
+            'Announcements load failed:',
+            error?.message || error
+        );
+
+    }
+}
+
+
+/* =========================================================
+   AUTH + DASHBOARD LOAD
+   ========================================================= */
+
+onAuthStateChanged(auth, async (user) => {
+
+    /*
+     * User is not logged in.
+     */
+    if (!user) {
+
+        window.location.href = 'login.html';
+
+        return;
+    }
+
+
+    try {
+
+        /* ---------------------------------------------
+           GET STUDENT
+           --------------------------------------------- */
+
+        const studentQuery = query(
+            collection(db, 'students'),
+            where('uid', '==', user.uid)
+        );
+
+
+        const studentSnapshot =
+            await getDocs(studentQuery);
+
+
+        /*
+         * Student record doesn't exist.
+         */
+        if (studentSnapshot.empty) {
+
+            console.warn(
+                'No student record found'
+            );
+
+
+            const loadingScreen =
+                getElement('loadingScreen');
+
+
+            if (loadingScreen) {
+
+                loadingScreen.innerHTML = `
+                    <div class="dashboard-error">
+                        <p>
+                            Profile not found.
+                            Please contact support.
+                        </p>
+                    </div>
+                `;
+            }
+
+
+            return;
+        }
+
+
+        /* ---------------------------------------------
+           STUDENT DATA
+           --------------------------------------------- */
+
+        const student =
+            studentSnapshot.docs[0].data();
+
+
+        const fullName =
+            student.fullName || 'Student';
+
+
+        const firstName =
+            fullName.trim().split(/\s+/)[0] ||
+            'Student';
+
+
+        /* ---------------------------------------------
+           PROFILE
+           --------------------------------------------- */
+
+        setText(
+            'profileName',
+            fullName
+        );
+
+
+        setText(
+            'profileAvatar',
+            firstName
+                .charAt(0)
+                .toUpperCase()
+        );
+
+
+        setText(
+            'profileEmail',
+            student.email || user.email || '—'
+        );
+
+
+        setText(
+            'profilePhone',
+            student.whatsapp || '—'
+        );
+
+
+        setText(
+            'profileCity',
+            student.city || '—'
+        );
+
+
+        /* ---------------------------------------------
+           STATS
+           --------------------------------------------- */
+
+        setText(
+            'statCourses',
+            student.enrolledCourses || 1
+        );
+
+
+        setText(
+            'statProgress',
+            `${student.progress || 0}%`
+        );
+
+
+        setText(
+            'statAssignments',
+            student.pendingAssignments || 0
+        );
+
+
+        setText(
+            'statAttendance',
+            `${student.attendance || 0}%`
+        );
+
+
+        /* ---------------------------------------------
+           PERSONAL INFORMATION
+           --------------------------------------------- */
+
+        setText(
+            'infoFullName',
+            student.fullName || '—'
+        );
+
+
+        setText(
+            'infoFatherName',
+            student.fatherName || '—'
+        );
+
+
+        setText(
+            'infoEmail',
+            student.email || user.email || '—'
+        );
+
+
+        setText(
+            'infoWhatsapp',
+            student.whatsapp || '—'
+        );
+
+
+        setText(
+            'infoCity',
+            student.city || '—'
+        );
+
+
+        setText(
+            'infoEducation',
+            student.education || '—'
+        );
+
+
+        setText(
+            'infoCourse',
+            student.course || '—'
+        );
+
+
+        setText(
+            'infoTiming',
+            student.timing || '—'
+        );
+
+
+        setText(
+            'infoStatus',
+            String(
+                student.status || 'pending'
+            ).toUpperCase()
+        );
+
+
+        /* ---------------------------------------------
+           ENROLLED DATE
+           --------------------------------------------- */
 
         let enrolledStr = '—';
-        if (student.enrolledAt && student.enrolledAt.seconds) {
-            const d = new Date(student.enrolledAt.seconds * 1000);
-            enrolledStr = d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+
+
+        if (
+            student.enrolledAt &&
+            student.enrolledAt.seconds
+        ) {
+
+            const enrolledDate =
+                new Date(
+                    student.enrolledAt.seconds * 1000
+                );
+
+
+            enrolledStr =
+                enrolledDate.toLocaleDateString(
+                    'en-GB',
+                    {
+                        day: '2-digit',
+                        month: 'short',
+                        year: 'numeric'
+                    }
+                );
         }
-        document.getElementById('infoEnrolledAt').textContent = enrolledStr;
 
-        const codingProg = student.codingProgress || 0;
-        const aiProg = student.aiProgress || 0;
-        document.getElementById('codingProgress').textContent = codingProg + '%';
-        document.getElementById('codingBar').style.width = codingProg + '%';
-        document.getElementById('aiProgress').textContent = aiProg + '%';
-        document.getElementById('aiBar').style.width = aiProg + '%';
 
-        await loadCertificateStatus(user, student);
+        setText(
+            'infoEnrolledAt',
+            enrolledStr
+        );
+
+
+        /* ---------------------------------------------
+           COURSE PROGRESS
+           --------------------------------------------- */
+
+        const codingProgress =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    Number(
+                        student.codingProgress || 0
+                    )
+                )
+            );
+
+
+        const aiProgress =
+            Math.min(
+                100,
+                Math.max(
+                    0,
+                    Number(
+                        student.aiProgress || 0
+                    )
+                )
+            );
+
+
+        setText(
+            'codingProgress',
+            `${codingProgress}%`
+        );
+
+
+        setText(
+            'aiProgress',
+            `${aiProgress}%`
+        );
+
+
+        const codingBar =
+            getElement('codingBar');
+
+
+        if (codingBar) {
+
+            codingBar.style.width =
+                `${codingProgress}%`;
+        }
+
+
+        const aiBar =
+            getElement('aiBar');
+
+
+        if (aiBar) {
+
+            aiBar.style.width =
+                `${aiProgress}%`;
+        }
+
+
+        /* ---------------------------------------------
+           CERTIFICATE
+           --------------------------------------------- */
+
+        await loadCertificateStatus(
+            user,
+            student
+        );
+
+
+        /* ---------------------------------------------
+           ANNOUNCEMENTS
+           --------------------------------------------- */
 
         await loadAnnouncements();
 
-        await loadExistingReview(user);
 
-        document.getElementById('loadingScreen').style.display = 'none';
-        document.getElementById('dashboardContent').style.display = 'block';
+        /* ---------------------------------------------
+           EXISTING REVIEW
+           --------------------------------------------- */
 
-    } catch (err) {
-        console.error('Dashboard error:', err);
-        document.getElementById('loadingScreen').innerHTML = `
-            <p style="color:#991B1B; font-weight:700;">Unable to load dashboard. Please try again.</p>
-        `;
-    }
-});
-
-async function loadCertificateStatus(user, student) {
-    const certTitle = document.getElementById('certTitle');
-    const certDesc = document.getElementById('certDesc');
-    const certActions = document.getElementById('certActions');
-
-    try {
-        let certSnap = await getDocs(
-            query(collection(db, 'certificates'), where('email', '==', user.email))
+        await loadExistingReview(
+            user
         );
 
-        if (certSnap.empty) {
-            certSnap = await getDocs(
-                query(collection(db, 'certificates'), where('uid', '==', user.uid))
-            );
-        }
 
-        if (!certSnap.empty) {
-            const cert = certSnap.docs[0].data();
-            certTitle.textContent = 'Your Certificate is Ready';
-            certDesc.innerHTML = `
-                <strong>${cert.course || 'Course'}</strong><br>
-                Certificate ID: <strong>${cert.certificateId || '—'}</strong><br>
-                Issued on ${cert.issueDate || '—'}
-            `;
-            certActions.innerHTML = `
-                <a href="certificate.html" class="btn-cert-view">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                        <polyline points="22 4 12 14.01 9 11.01"/>
-                    </svg>
-                    View Certificate
-                </a>
-            `;
-        } else {
-            certTitle.textContent = 'Certificate Not Issued Yet';
-            certDesc.textContent = 'Your certificate will be issued after you complete your course requirements including attendance and final project.';
-            certActions.innerHTML = `
-                <div class="cert-pending">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polyline points="12 6 12 12 16 14"/>
-                    </svg>
-                    Pending
+        /* ---------------------------------------------
+           SHOW DASHBOARD
+           --------------------------------------------- */
+
+        setDisplay(
+            'loadingScreen',
+            'none'
+        );
+
+
+        setDisplay(
+            'dashboardContent',
+            'block'
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            'Dashboard error:',
+            error
+        );
+
+
+        const loadingScreen =
+            getElement('loadingScreen');
+
+
+        if (loadingScreen) {
+
+            loadingScreen.innerHTML = `
+                <div class="dashboard-error">
+                    <p>
+                        Unable to load dashboard.
+                        Please refresh and try again.
+                    </p>
                 </div>
             `;
         }
-    } catch (err) {
-        console.warn('Certificate check failed:', err.message);
-        certTitle.textContent = 'Certificate Status Unavailable';
-        certDesc.textContent = 'Please try again later.';
-        certActions.innerHTML = '';
+
+    }
+
+});
+
+
+/* =========================================================
+   CERTIFICATE STATUS
+   ========================================================= */
+
+async function loadCertificateStatus(
+    user,
+    student
+) {
+
+    const certTitle =
+        getElement('certTitle');
+
+
+    const certDesc =
+        getElement('certDesc');
+
+
+    const certActions =
+        getElement('certActions');
+
+
+    /*
+     * If certificate section isn't on the page,
+     * don't run unnecessary UI operations.
+     */
+    if (
+        !certTitle &&
+        !certDesc &&
+        !certActions
+    ) {
+        return;
+    }
+
+
+    try {
+
+        /* ---------------------------------------------
+           SEARCH BY EMAIL
+           --------------------------------------------- */
+
+        let certificateSnapshot =
+            await getDocs(
+                query(
+                    collection(
+                        db,
+                        'certificates'
+                    ),
+                    where(
+                        'email',
+                        '==',
+                        user.email
+                    )
+                )
+            );
+
+
+        /* ---------------------------------------------
+           FALLBACK SEARCH BY UID
+           --------------------------------------------- */
+
+        if (certificateSnapshot.empty) {
+
+            certificateSnapshot =
+                await getDocs(
+                    query(
+                        collection(
+                            db,
+                            'certificates'
+                        ),
+                        where(
+                            'uid',
+                            '==',
+                            user.uid
+                        )
+                    )
+                );
+        }
+
+
+        /* ---------------------------------------------
+           CERTIFICATE FOUND
+           --------------------------------------------- */
+
+        if (!certificateSnapshot.empty) {
+
+            const certificate =
+                certificateSnapshot
+                    .docs[0]
+                    .data();
+
+
+            setText(
+                'certTitle',
+                'Your Certificate is Ready'
+            );
+
+
+            setHTML(
+                'certDesc',
+                `
+                    <strong>
+                        ${escapeHTML(
+                            certificate.course ||
+                            'Course'
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Certificate ID:
+                    <strong>
+                        ${escapeHTML(
+                            certificate.certificateId ||
+                            '—'
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Issued on
+                    ${escapeHTML(
+                        certificate.issueDate ||
+                        '—'
+                    )}
+                `
+            );
+
+
+            setHTML(
+                'certActions',
+                `
+                    <a
+                        href="certificate.html"
+                        class="btn-cert-view"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M22 11.08V12a10 10 0 1 1-5.93-9.14"
+                            />
+
+                            <polyline
+                                points="22 4 12 14.01 9 11.01"
+                            />
+                        </svg>
+
+                        View Certificate
+                    </a>
+                `
+            );
+
+
+        } else {
+
+            /* -----------------------------------------
+               CERTIFICATE NOT READY
+               ----------------------------------------- */
+
+            setText(
+                'certTitle',
+                'Certificate Not Issued Yet'
+            );
+
+
+            setText(
+                'certDesc',
+                'Your certificate will be issued after you complete your course requirements including attendance and final project.'
+            );
+
+
+            setHTML(
+                'certActions',
+                `
+                    <div class="cert-pending">
+
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                            />
+
+                            <polyline
+                                points="12 6 12 12 16 14"
+                            />
+                        </svg>
+
+                        Pending
+
+                    </div>
+                `
+            );
+        }
+
+
+    } catch (error) {
+
+        console.warn(
+            'Certificate check failed:',
+            error?.message || error
+        );
+
+
+        setText(
+            'certTitle',
+            'Certificate Status Unavailable'
+        );
+
+
+        setText(
+            'certDesc',
+            'Please try again later.'
+        );
+
+
+        setHTML(
+            'certActions',
+            ''
+        );
     }
 }
+
+
+/* =========================================================
+   EXISTING REVIEW
+   ========================================================= */
 
 async function loadExistingReview(user) {
+
     try {
-        const q = query(collection(db, 'reviews'), where('studentUid', '==', user.uid));
-        const snap = await getDocs(q);
 
-        if (!snap.empty) {
-            const review = snap.docs[0].data();
-            document.getElementById('reviewForm').style.display = 'none';
-            document.getElementById('alreadyReviewed').style.display = 'block';
+        const reviewQuery =
+            query(
+                collection(
+                    db,
+                    'reviews'
+                ),
+                where(
+                    'studentUid',
+                    '==',
+                    user.uid
+                )
+            );
 
-            const stars = '★'.repeat(review.rating || 0);
-            document.getElementById('existingReviewText').textContent =
-                `You rated ${review.rating} star${review.rating > 1 ? 's' : ''} (${stars}): "${review.reviewText}"`;
+
+        const snapshot =
+            await getDocs(reviewQuery);
+
+
+        if (snapshot.empty) {
+            return;
         }
-    } catch (err) {
-        console.warn('Review load failed:', err.message);
+
+
+        const review =
+            snapshot.docs[0].data();
+
+
+        setDisplay(
+            'reviewForm',
+            'none'
+        );
+
+
+        setDisplay(
+            'alreadyReviewed',
+            'block'
+        );
+
+
+        const rating =
+            Number(review.rating || 0);
+
+
+        const stars =
+            '★'.repeat(
+                Math.max(
+                    0,
+                    Math.min(
+                        5,
+                        rating
+                    )
+                )
+            );
+
+
+        setText(
+            'existingReviewText',
+            `You rated ${rating} star${rating > 1 ? 's' : ''} (${stars}): "${review.reviewText || ''}"`
+        );
+
+
+    } catch (error) {
+
+        console.warn(
+            'Review load failed:',
+            error?.message || error
+        );
     }
 }
 
-const reviewForm = document.getElementById('reviewForm');
+
+/* =========================================================
+   REVIEW FORM
+   ========================================================= */
+
+const reviewForm =
+    getElement('reviewForm');
+
+
 if (reviewForm) {
-    reviewForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
 
-        const rating = parseInt(document.getElementById('reviewRating').value);
-        const reviewText = document.getElementById('reviewText').value.trim();
+    reviewForm.addEventListener(
+        'submit',
+        async (event) => {
 
-        if (!rating || rating < 1 || rating > 5) {
-            alert('Please select a rating (1-5 stars).');
-            return;
+            event.preventDefault();
+
+
+            /* -----------------------------------------
+               GET RATING
+               ----------------------------------------- */
+
+            const ratingInput =
+                getElement('reviewRating');
+
+
+            const reviewTextInput =
+                getElement('reviewText');
+
+
+            const rating =
+                parseInt(
+                    ratingInput?.value || '0',
+                    10
+                );
+
+
+            const reviewText =
+                reviewTextInput?.value
+                    ?.trim() || '';
+
+
+            /* -----------------------------------------
+               VALIDATE RATING
+               ----------------------------------------- */
+
+            if (
+                !rating ||
+                rating < 1 ||
+                rating > 5
+            ) {
+
+                alert(
+                    'Please select a rating (1-5 stars).'
+                );
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               VALIDATE REVIEW
+               ----------------------------------------- */
+
+            if (
+                !reviewText ||
+                reviewText.length < 10
+            ) {
+
+                alert(
+                    'Please write at least 10 characters in your review.'
+                );
+
+                return;
+            }
+
+
+            /* -----------------------------------------
+               SUBMIT BUTTON
+               ----------------------------------------- */
+
+            const submitButton =
+                getElement(
+                    'reviewSubmitBtn'
+                );
+
+
+            const originalHTML =
+                submitButton
+                    ? submitButton.innerHTML
+                    : 'Submit';
+
+
+            if (submitButton) {
+
+                submitButton.innerHTML =
+                    'Submitting...';
+
+                submitButton.disabled =
+                    true;
+            }
+
+
+            try {
+
+                /* -------------------------------------
+                   CURRENT USER
+                   ------------------------------------- */
+
+                const user =
+                    auth.currentUser;
+
+
+                if (!user) {
+
+                    alert(
+                        'Your session has expired. Please login again.'
+                    );
+
+                    window.location.href =
+                        'login.html';
+
+                    return;
+                }
+
+
+                /* -------------------------------------
+                   GET STUDENT PROFILE
+                   ------------------------------------- */
+
+                const studentQuery =
+                    query(
+                        collection(
+                            db,
+                            'students'
+                        ),
+                        where(
+                            'uid',
+                            '==',
+                            user.uid
+                        )
+                    );
+
+
+                const studentSnapshot =
+                    await getDocs(
+                        studentQuery
+                    );
+
+
+                const student =
+                    studentSnapshot.empty
+                        ? {}
+                        : studentSnapshot
+                            .docs[0]
+                            .data();
+
+
+                /* -------------------------------------
+                   SUBMIT REVIEW
+                   ------------------------------------- */
+
+                await addDoc(
+                    collection(
+                        db,
+                        'reviews'
+                    ),
+                    {
+                        studentUid:
+                            user.uid,
+
+                        studentName:
+                            student.fullName ||
+                            'Student',
+
+                        studentEmail:
+                            user.email || '',
+
+                        course:
+                            student.course ||
+                            'Course',
+
+                        rating:
+                            rating,
+
+                        reviewText:
+                            reviewText,
+
+                        status:
+                            'pending',
+
+                        submittedAt:
+                            serverTimestamp()
+                    }
+                );
+
+
+                /* -------------------------------------
+                   HIDE FORM
+                   ------------------------------------- */
+
+                setDisplay(
+                    'reviewForm',
+                    'none'
+                );
+
+
+                setDisplay(
+                    'alreadyReviewed',
+                    'block'
+                );
+
+
+                const stars =
+                    '★'.repeat(
+                        rating
+                    );
+
+
+                setText(
+                    'existingReviewText',
+                    `You rated ${rating} star${rating > 1 ? 's' : ''} (${stars}): "${reviewText}"`
+                );
+
+
+                /* -------------------------------------
+                   SUCCESS MODAL
+                   ------------------------------------- */
+
+                addClass(
+                    'reviewSuccessModal',
+                    'active'
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    'Review submit error:',
+                    error
+                );
+
+
+                alert(
+                    'Failed to submit review. Please try again.'
+                );
+
+
+            } finally {
+
+                if (submitButton) {
+
+                    submitButton.innerHTML =
+                        originalHTML;
+
+                    submitButton.disabled =
+                        false;
+                }
+            }
         }
+    );
+}
 
-        if (!reviewText || reviewText.length < 10) {
-            alert('Please write at least 10 characters in your review.');
-            return;
-        }
 
-        const btn = document.getElementById('reviewSubmitBtn');
-        const originalHTML = btn.innerHTML;
-        btn.innerHTML = 'Submitting...';
-        btn.disabled = true;
+/* =========================================================
+   HTML ESCAPE
+   Prevents Firebase/user data from becoming raw HTML.
+   ========================================================= */
 
-        try {
-            const user = auth.currentUser;
-            const studentQuery = query(collection(db, 'students'), where('uid', '==', user.uid));
-            const studentSnap = await getDocs(studentQuery);
-            const student = studentSnap.empty ? {} : studentSnap.docs[0].data();
+function escapeHTML(value) {
 
-            await addDoc(collection(db, 'reviews'), {
-                studentUid: user.uid,
-                studentName: student.fullName || 'Student',
-                studentEmail: user.email,
-                course: student.course || 'Course',
-                rating: rating,
-                reviewText: reviewText,
-                status: 'pending',
-                submittedAt: serverTimestamp()
-            });
-
-            reviewForm.style.display = 'none';
-            document.getElementById('alreadyReviewed').style.display = 'block';
-
-            const stars = '★'.repeat(rating);
-            document.getElementById('existingReviewText').textContent =
-                `You rated ${rating} star${rating > 1 ? 's' : ''} (${stars}): "${reviewText}"`;
-
-            document.getElementById('reviewSuccessModal').classList.add('active');
-
-        } catch (err) {
-            console.error('Review submit error:', err);
-            alert('Failed to submit review. Please try again.');
-        } finally {
-            btn.innerHTML = originalHTML;
-            btn.disabled = false;
-        }
-    });
+    return String(value ?? '')
+        .replace(
+            /&/g,
+            '&amp;'
+        )
+        .replace(
+            /</g,
+            '&lt;'
+        )
+        .replace(
+            />/g,
+            '&gt;'
+        )
+        .replace(
+            /"/g,
+            '&quot;'
+        )
+        .replace(
+            /'/g,
+            '&#039;'
+        );
 }
