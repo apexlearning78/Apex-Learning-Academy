@@ -2278,36 +2278,17 @@ on(
                     key !== 'id'
             );
 
-
-        const csv = [
-
-            keys.join(','),
-
-            ...rows.map(
-                item =>
-                    keys
-                        .map(
-                            key => {
-
-                                const value =
-                                    fmt(
-                                        item[key]
-                                    );
-
-                                return `"${String(
-                                    value
-                                ).replace(
-                                    /"/g,
-                                    '""'
-                                )}"`;
-
-                            }
-                        )
-                        .join(',')
-            )
-
-        ].join('\n');
-
+const csv = [
+    keys.join(','),
+    ...rows.map(x =>
+        keys.map(k => {
+            const value = String(fmt(x[k]) ?? '');
+            const escaped = value.split('"').join('""');
+            return `"${escaped}"`;
+        }).join(',')
+    )
+].join('\n');
+      
 
         const url =
             URL.createObjectURL(
