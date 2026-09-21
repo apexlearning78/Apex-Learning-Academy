@@ -1,0 +1,619 @@
+/* =========================================================
+   APEX FINAL UI FIXES
+   Shared desktop + mobile polish, dark glass cards, drawers,
+   popups and responsive layout. Loaded LAST on every page.
+   ========================================================= */
+:root{
+  --apex-bg:#050810;
+  --apex-panel:rgba(255,255,255,.045);
+  --apex-panel-2:rgba(255,255,255,.065);
+  --apex-border:rgba(255,255,255,.10);
+  --apex-text:#F7F9FC;
+  --apex-muted:#9AA5B8;
+  --apex-gold:#FFC800;
+  --apex-gold-2:#F4B400;
+  --apex-cyan:#00D7FF;
+  --apex-shadow:0 18px 55px rgba(0,0,0,.32);
+}
+html{background:var(--apex-bg)!important;overflow-x:hidden}
+body{background:var(--apex-bg)!important;color:var(--apex-text)!important;overflow-x:hidden}
+body::selection{background:var(--apex-gold);color:#050810}
+
+/* ---------- Shared public-page surfaces ---------- */
+.site-page-main{color:var(--apex-text)!important;isolation:isolate}
+.site-page-main > section,
+.site-page-main .section,
+.site-page-main .dashboard-page,
+.site-page-main .instructors-section,
+.site-page-main .resources-section,
+.site-page-main .content-section,
+.site-page-main .page-section,
+.site-page-main .form-page,
+.site-page-main .test-page,
+.site-page-main .contact-page{background:transparent!important;color:var(--apex-text)!important}
+
+/* Kill legacy white content surfaces while keeping the actual certificate paper intact. */
+.site-page-main .card,
+.site-page-main .panel,
+.site-page-main .form-card,
+.site-page-main .result-card,
+.site-page-main .resource-card,
+.site-page-main .stat-card,
+.site-page-main .course-card,
+.site-page-main .course-card-dash,
+.site-page-main .dash-section,
+.site-page-main .profile-header,
+.site-page-main .instructor-card,
+.site-page-main .content-box,
+.site-page-main .enroll-card,
+.site-page-main .form-section,
+.site-page-main .live-card,
+.site-page-main .empty-live,
+.site-page-main .join-modal-box,
+.site-page-main .thanks-modal,
+.site-page-main .success-modal,
+.site-page-main .review-success-box,
+.site-page-main .payment-modal,
+.site-page-main .modal-box,
+.site-page-main .detail-modal,
+.site-page-main .publish-modal,
+.site-page-main .modal-content,
+.site-page-main .info-card,
+.site-page-main .faq-item,
+.site-page-main .faq-question,
+.site-page-main .resource-item,
+.site-page-main .notice-card,
+.site-page-main .verify-card,
+.site-page-main .certificate-card{
+  background:var(--apex-panel)!important;
+  color:var(--apex-text)!important;
+  border-color:var(--apex-border)!important;
+  box-shadow:var(--apex-shadow)!important;
+}
+
+/* Legacy page-specific light backgrounds */
+.site-page-main .instructors-section,
+.site-page-main .dashboard-page,
+.site-page-main .resources-section{background:transparent!important}
+.site-page-main .module-header,
+.site-page-main .course-card-dash,
+.site-page-main .course-body,
+.site-page-main .course-info,
+.site-page-main .payment-method,
+.site-page-main .auto-reply-box,
+.site-page-main .detail,
+.site-page-main .att-stat,
+.site-page-main .already-reviewed,
+.site-page-main .thanks-info,
+.site-page-main .total-row,
+.site-page-main .verify-tabs,
+.site-page-main .info-item{
+  background:rgba(255,255,255,.035)!important;
+  color:var(--apex-text)!important;
+  border-color:var(--apex-border)!important;
+}
+.site-page-main .course-card-dash:hover{background:rgba(255,255,255,.07)!important}
+.site-page-main .module-header:hover{background:rgba(255,255,255,.06)!important}
+
+/* Text inside dark surfaces */
+.site-page-main .stat-label,
+.site-page-main .stat-sub,
+.site-page-main .info-label,
+.site-page-main .course-desc,
+.site-page-main .course-meta,
+.site-page-main .course-meta-item,
+.site-page-main .review-field label,
+.site-page-main .form-label,
+.site-page-main .field-label{color:var(--apex-muted)!important}
+.site-page-main .stat-value,
+.site-page-main .info-value,
+.site-page-main .course-title-dash,
+.site-page-main .dash-section-title,
+.site-page-main .profile-name,
+.site-page-main .review-success-title,
+.site-page-main .modal-title,
+.site-page-main .detail-modal h3,
+.site-page-main .publish-modal h3,
+.site-page-main .success-title,
+.site-page-main .thanks-title{color:#fff!important}
+
+/* Inputs/selects/textareas */
+.site-page-main input:not([type=checkbox]):not([type=radio]),
+.site-page-main select,
+.site-page-main textarea,
+.admin-shell input:not([type=checkbox]):not([type=radio]),
+.admin-shell select,
+.admin-shell textarea{
+  background:rgba(3,8,18,.62)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.13)!important;
+  -webkit-text-fill-color:#fff;
+}
+.site-page-main select option,
+.admin-shell select option{background:#0D1525!important;color:#fff!important}
+.site-page-main input::placeholder,
+.site-page-main textarea::placeholder{color:#718096!important}
+.site-page-main input:focus,
+.site-page-main select:focus,
+.site-page-main textarea:focus{border-color:rgba(255,200,0,.7)!important;box-shadow:0 0 0 3px rgba(255,200,0,.12)!important}
+
+/* ---------- Professional popups / modals ---------- */
+.modal-overlay,
+.review-success-modal,
+.success-modal,
+.payment-modal-overlay,
+.modal-bg,
+.join-modal,
+.thanks-modal-overlay,
+#avatarModal{
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+}
+.modal-overlay,
+.review-success-modal,
+.modal-bg,
+#avatarModal{background:rgba(2,6,15,.78)!important}
+.modal-overlay > *:not(.certificate-wrapper),
+.review-success-box,
+.modal-bg .modal,
+.modal-overlay .modal-box,
+.modal-overlay .detail-modal,
+.modal-overlay .publish-modal,
+.modal-overlay .payment-modal,
+.modal-overlay .join-modal-box,
+.modal-overlay .thanks-modal,
+#avatarModal > *{
+  background:linear-gradient(180deg,rgba(18,27,45,.98),rgba(9,14,26,.98))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 35px 100px rgba(0,0,0,.58)!important;
+}
+.modal-overlay h1,.modal-overlay h2,.modal-overlay h3,.modal-overlay h4,
+.review-success-box h1,.review-success-box h2,.review-success-box h3,
+.modal-bg h1,.modal-bg h2,.modal-bg h3,
+#avatarModal h1,#avatarModal h2,#avatarModal h3{color:#fff!important}
+.modal-overlay p,.modal-overlay label,.modal-overlay span,
+.review-success-box p,.modal-bg p,.modal-bg label{color:#AEB8C8}
+.modal-close,.btn-modal-close,.btn-review-close,.btn-modal-secondary,
+.modal-overlay .close,.modal-bg .close{
+  transition:transform .18s ease,background .18s ease,border-color .18s ease!important;
+}
+.modal-close,.modal-overlay .close,.modal-bg .close{
+  background:rgba(255,255,255,.08)!important;color:#fff!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+}
+.modal-close:hover,.modal-overlay .close:hover,.modal-bg .close:hover{background:rgba(255,255,255,.14)!important;transform:scale(1.04)}
+.btn-modal-secondary{background:rgba(255,255,255,.06)!important;color:#fff!important;border-color:rgba(255,255,255,.13)!important}
+
+/* ---------- Navigation: no desktop side drawer ---------- */
+.mobile-menu,.mobile-menu-backdrop{display:none}
+@media (min-width:901px){
+  .mobile-toggle{display:none!important}
+  .mobile-menu,.mobile-menu-backdrop{display:none!important;visibility:hidden!important;pointer-events:none!important}
+  .main-nav{display:flex!important}
+}
+@media (max-width:900px){
+  .main-nav{display:none!important}
+  .header-actions .btn-ghost{display:none!important}
+  .mobile-toggle{display:flex!important}
+  .mobile-menu{display:flex;visibility:hidden;pointer-events:none;position:fixed;top:0;right:0;bottom:0;left:auto;width:min(92vw,390px);height:100dvh;z-index:10020;transform:translateX(105%);transition:transform .25s ease;overflow-y:auto;overscroll-behavior:contain;background:linear-gradient(180deg,#0B1425 0%,#070D18 100%)!important;border-left:1px solid rgba(255,255,255,.12);box-shadow:-24px 0 70px rgba(0,0,0,.45)}
+  .mobile-menu.open{visibility:visible;pointer-events:auto;transform:translateX(0)}
+  .mobile-menu-backdrop{display:block;visibility:hidden;pointer-events:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,.58);opacity:0;transition:opacity .2s ease;backdrop-filter:blur(3px)}
+  .mobile-menu-backdrop.open{visibility:visible;pointer-events:auto;opacity:1}
+  body.menu-open{overflow:hidden!important}
+}
+@media (min-width:901px) and (max-width:1180px){
+  .header-inner{padding-left:18px!important;padding-right:18px!important;gap:8px!important}
+  .main-nav a,.nav-dropdown-trigger{font-size:12px!important;padding:8px 8px!important}
+  .header-actions .btn{font-size:12px!important;padding:8px 11px!important}
+  .logo-text{display:none!important}
+}
+
+/* Close mobile drawer automatically if viewport becomes desktop */
+@media (min-width:901px){#mobileMenu.open,#mobileBackdrop.open{display:none!important}}
+
+/* ---------- Mobile layout ---------- */
+@media (max-width:900px){
+  .site-page-main{padding-top:92px!important;padding-bottom:42px!important}
+  .site-page-main .container{width:100%!important;max-width:100%!important;padding-left:16px!important;padding-right:16px!important}
+  .section{padding-top:54px!important;padding-bottom:54px!important}
+  .section-head{margin-bottom:30px!important;text-align:center!important}
+  .section-title{font-size:clamp(1.45rem,6vw,2rem)!important;line-height:1.2!important}
+  .section-desc{font-size:14px!important;line-height:1.7!important}
+  .site-page-main .card,
+  .site-page-main .panel,
+  .site-page-main .course-card,
+  .site-page-main .form-section,
+  .site-page-main .dash-section,
+  .site-page-main .stat-card{border-radius:16px!important}
+  .site-page-main .form-section{margin-left:0!important;margin-right:0!important;padding:22px 18px!important}
+  .site-page-main .form-row{grid-template-columns:1fr!important}
+  .site-page-main .data-table{width:100%!important;display:block!important;overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+  .site-page-main table{min-width:620px}
+  .site-page-main .grid,
+  .site-page-main .cards-grid,
+  .site-page-main .courses-grid,
+  .site-page-main .features-grid,
+  .site-page-main .resource-grid,
+  .site-page-main .instructors-grid{grid-template-columns:1fr!important}
+  .site-page-main .two-col,.site-page-main .content-grid,.site-page-main .form-grid{grid-template-columns:1fr!important}
+  .site-page-main img{max-width:100%;height:auto}
+  .site-page-main .btn,.site-page-main button{max-width:100%}
+  .site-page-main .cta-buttons,.site-page-main .course-footer{flex-direction:column!important;align-items:stretch!important}
+  .site-page-main .cta-buttons .btn,.site-page-main .course-footer .btn{width:100%!important;justify-content:center!important}
+}
+@media (max-width:520px){
+  .header-inner{padding-left:14px!important;padding-right:14px!important}
+  .logo-text{display:none!important}
+  .mobile-menu{width:100vw!important}
+  .site-page-main{padding-top:84px!important}
+  .site-page-main .container{padding-left:14px!important;padding-right:14px!important}
+  .site-page-main .section{padding-top:46px!important;padding-bottom:46px!important}
+  .site-page-main .modal-overlay,.site-page-main .modal-bg{padding:12px!important}
+  .modal-overlay > *:not(.certificate-wrapper),.modal-bg .modal{width:100%!important;max-width:100%!important;max-height:88dvh!important;overflow:auto!important;border-radius:16px!important}
+}
+
+/* ---------- Admin: responsive sidebar becomes an intentional drawer only on mobile ---------- */
+.admin-shell{min-height:100dvh!important;background:#050810!important;color:#E8ECF4!important}
+.admin-shell .sidebar{background:rgba(8,14,26,.97)!important;color:#E8ECF4!important}
+.admin-shell .main-content,.admin-shell .content{background:transparent!important}
+.admin-shell .card,.admin-shell .stat,.admin-shell .side-card,.admin-shell .kpi,.admin-shell .course-card,.admin-shell .toolbar,.admin-shell .detail{background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.10)!important}
+@media(max-width:900px){
+  .admin-shell .sidebar{position:fixed!important;left:0;top:0;bottom:0;z-index:10030;width:min(88vw,300px)!important;transform:translateX(-105%);transition:transform .25s ease;box-shadow:20px 0 70px rgba(0,0,0,.45)}
+  .admin-shell .sidebar.open{transform:translateX(0)}
+  .admin-shell .main-content{margin-left:0!important;width:100%!important}
+  .admin-shell .topbar{padding:12px 14px!important}
+  .admin-shell .page-head{flex-direction:column!important;align-items:stretch!important;gap:12px!important}
+  .admin-shell .stats,.admin-shell .admin-stats{grid-template-columns:1fr 1fr!important}
+}
+@media(max-width:480px){.admin-shell .stats,.admin-shell .admin-stats{grid-template-columns:1fr!important}}
+
+/* ---------- Toast / banners stay on-brand ---------- */
+.toast-global{background:linear-gradient(180deg,#132039,#0B1425)!important;border:1px solid rgba(255,255,255,.12)!important;color:#fff!important;box-shadow:0 20px 60px rgba(0,0,0,.42)!important}
+.cookie-banner{background:linear-gradient(180deg,#111B2E,#0B1322)!important;color:#E8ECF4!important;border-color:rgba(255,255,255,.12)!important;box-shadow:0 20px 60px rgba(0,0,0,.45)!important}
+.cookie-banner span{color:#AEB8C8!important}
+.install-app{background:linear-gradient(135deg,#FFC800,#F4B400)!important;color:#07111F!important}
+
+/* Prevent accidental horizontal overflow from long IDs/emails/code */
+.site-page-main,.admin-shell{overflow-x:hidden}
+.site-page-main pre,.site-page-main code,.site-page-main .long-text,.admin-shell pre{overflow-wrap:anywhere;word-break:break-word}
+
+/* Keep certificate itself printable and white, not a UI card. */
+.certificate-wrapper,.certificate-wrapper .certificate-inner{background:#fff!important;color:#0A2540!important}
+@media print{.certificate-wrapper,.certificate-wrapper .certificate-inner{background:#fff!important;color:#0A2540!important}}
+
+/* Inline legacy white cards: normalize them without touching certificate paper. */
+.site-page-main [style*="background: var(--white)"]:not(.certificate-wrapper):not(.certificate-inner),
+.site-page-main [style*="background:var(--white)"]:not(.certificate-wrapper):not(.certificate-inner),
+.site-page-main [style*="background:#FFFFFF"]:not(.certificate-wrapper):not(.certificate-inner),
+.site-page-main [style*="background:#ffffff"]:not(.certificate-wrapper):not(.certificate-inner),
+.site-page-main [style*="background: #FFFFFF"]:not(.certificate-wrapper):not(.certificate-inner),
+.site-page-main [style*="background: #ffffff"]:not(.certificate-wrapper):not(.certificate-inner){
+  background:var(--apex-panel)!important;
+  color:var(--apex-text)!important;
+  border-color:var(--apex-border)!important;
+  box-shadow:var(--apex-shadow)!important;
+}
+.site-page-main [style*="background: var(--white)"] h1,
+.site-page-main [style*="background: var(--white)"] h2,
+.site-page-main [style*="background: var(--white)"] h3,
+.site-page-main [style*="background: var(--white)"] h4,
+.site-page-main [style*="background:#FFFFFF"] h1,
+.site-page-main [style*="background:#FFFFFF"] h2,
+.site-page-main [style*="background:#FFFFFF"] h3,
+.site-page-main [style*="background:#FFFFFF"] h4{color:#fff!important}
+.site-page-main [style*="background: var(--white)"] p,
+.site-page-main [style*="background: var(--white)"] span,
+.site-page-main [style*="background:#FFFFFF"] p,
+.site-page-main [style*="background:#FFFFFF"] span{color:var(--apex-muted)!important}
+
+/* Legacy profile-specific surfaces */
+.site-page-main .profile-page,
+.site-page-main .profile-card,
+.site-page-main .avatar-modal{background:var(--apex-panel)!important;color:#fff!important;border-color:var(--apex-border)!important}
+.site-page-main .btn-secondary-profile,.site-page-main .btn-modal-close{background:rgba(255,255,255,.06)!important;color:#fff!important;border-color:var(--apex-border)!important}
+
+/* Avoid fixed/absolute legacy menus becoming visible on desktop. */
+@media(min-width:901px){
+  .site-header .mobile-menu,.header .mobile-menu,.mobile-menu-backdrop{display:none!important;}
+}
+
+/* =========================================================
+   FINAL COMPONENT NORMALIZATION
+   Overrides legacy page CSS/inline light theme so every page
+   follows the same Apex dark/glass visual system.
+   ========================================================= */
+
+/* Legacy inline white surfaces across all public pages */
+.site-page-main [style*="background: var(--white)"],
+.site-page-main [style*="background:var(--white)"],
+.site-page-main [style*="background:#FFFFFF"],
+.site-page-main [style*="background: #FFFFFF"],
+.site-page-main [style*="background:#fff"],
+.site-page-main [style*="background: #fff"]{
+  background:linear-gradient(180deg,rgba(18,27,45,.92),rgba(8,13,24,.92))!important;
+  color:var(--apex-text)!important;
+  border-color:var(--apex-border)!important;
+  box-shadow:var(--apex-shadow)!important;
+}
+
+/* Legacy navy inline text becomes readable on dark backgrounds */
+.site-page-main [style*="color: var(--navy-800)"],
+.site-page-main [style*="color:var(--navy-800)"],
+.site-page-main [style*="color: #0A2540"],
+.site-page-main [style*="color:#0A2540"]{
+  color:#F7F9FC!important;
+}
+.site-page-main [style*="color: var(--text-secondary)"],
+.site-page-main [style*="color:var(--text-secondary)"],
+.site-page-main [style*="color: var(--text-muted)"],
+.site-page-main [style*="color:var(--text-muted)"]{
+  color:var(--apex-muted)!important;
+}
+
+/* About / Story / Mission / Roadmap */
+.site-page-main .section p,
+.site-page-main .section li{color:#B8C2D2!important}
+.site-page-main .section strong{color:#fff!important}
+.site-page-main .section .section-title,
+.site-page-main .section h2,
+.site-page-main .section h3,
+.site-page-main .section h4{color:#fff!important}
+
+/* Registration: the entire form is dark, not just its inputs */
+.site-page-main .register-form,
+.site-page-main form.register-form{
+  background:linear-gradient(180deg,rgba(18,27,45,.96),rgba(8,13,24,.96))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.38)!important;
+}
+.site-page-main .register-form .form-section-title{color:#fff!important;border-color:rgba(244,180,0,.75)!important}
+.site-page-main .register-form .form-group label,
+.site-page-main .register-form .checkbox-group label{color:#DCE3ED!important}
+.site-page-main .register-form .form-note{color:#98A5B8!important}
+.site-page-main .register-form .form-note a{color:#00D7FF!important}
+.site-page-main .register-form input,
+.site-page-main .register-form select,
+.site-page-main .register-form textarea{background:rgba(2,7,16,.72)!important;color:#fff!important;border-color:rgba(255,255,255,.14)!important}
+.site-page-main .register-form input::placeholder,
+.site-page-main .register-form textarea::placeholder{color:#6F7D92!important}
+
+/* Login / auth surfaces */
+.site-page-main .login-card,
+.site-page-main .auth-card,
+.site-page-main .login-container > div,
+.site-page-main .forgot-card{
+  background:linear-gradient(180deg,rgba(18,27,45,.96),rgba(8,13,24,.96))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.38)!important;
+}
+.site-page-main .login-card h1,
+.site-page-main .auth-card h1,
+.site-page-main .login-card h2,
+.site-page-main .auth-card h2{color:#fff!important}
+.site-page-main .login-card label,
+.site-page-main .auth-card label{color:#DCE3ED!important}
+
+/* Entrance Test setup + question cards */
+.site-page-main .setup-box,
+.site-page-main #setupScreen .setup-box,
+.site-page-main #questionsContainer .question-card,
+.site-page-main .question-card,
+.site-page-main .test-question,
+.site-page-main .test-card{
+  background:linear-gradient(180deg,rgba(18,27,45,.96),rgba(8,13,24,.96))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 24px 65px rgba(0,0,0,.34)!important;
+}
+.site-page-main .setup-box h2,
+.site-page-main .setup-box p,
+.site-page-main .form-label,
+.site-page-main .test-info,
+.site-page-main .question-text{color:#fff!important}
+.site-page-main .setup-box .form-input,
+.site-page-main .setup-box .form-select,
+.site-page-main .test-page input,
+.site-page-main .test-page select{background:rgba(2,7,16,.72)!important;color:#fff!important;border-color:rgba(255,255,255,.14)!important}
+.site-page-main .option{background:rgba(255,255,255,.035)!important;color:#E8EDF5!important;border-color:rgba(255,255,255,.12)!important}
+.site-page-main .option:hover,
+.site-page-main .option.selected{background:rgba(244,180,0,.10)!important;border-color:rgba(244,180,0,.7)!important}
+.site-page-main .option span{color:#E8EDF5!important}
+.site-page-main .test-topbar{background:rgba(255,255,255,.04)!important;border-color:rgba(255,255,255,.1)!important;color:#fff!important}
+.site-page-main .timer{background:rgba(244,180,0,.12)!important;color:#FFD85A!important;border-color:rgba(244,180,0,.35)!important}
+
+/* Roll number: strong readable APEX-2026-XXX format */
+.site-page-main .roll-box{background:linear-gradient(135deg,rgba(244,180,0,.13),rgba(0,215,255,.06))!important;border:1px solid rgba(244,180,0,.48)!important}
+.site-page-main .roll-number,
+.site-page-main #rollNumberDisplay{color:#FFD84D!important;background:rgba(0,0,0,.18)!important;border:1px solid rgba(255,216,77,.25)!important;border-radius:12px!important;padding:12px 10px!important;font-family:'Poppins',sans-serif!important;font-size:clamp(24px,6vw,34px)!important;font-weight:900!important;letter-spacing:2px!important;text-align:center!important;white-space:nowrap!important}
+.site-page-main .roll-label{color:#F6D56B!important}
+.site-page-main .roll-note{color:#C8D0DC!important}
+
+/* Contact page */
+.site-page-main .contact-form-card{
+  background:linear-gradient(180deg,rgba(18,27,45,.96),rgba(8,13,24,.96))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.11)!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.38)!important;
+}
+.site-page-main .contact-form-card h3{color:#fff!important}
+.site-page-main .contact-form-card p{color:#98A5B8!important}
+.site-page-main .contact-form-card label{color:#DCE3ED!important}
+.site-page-main .contact-form-card input,
+.site-page-main .contact-form-card textarea{background:rgba(2,7,16,.72)!important;color:#fff!important;border-color:rgba(255,255,255,.14)!important}
+.site-page-main .contact-grid-wrap > div:first-child a{color:#FFD84D!important}
+.site-page-main .contact-grid-wrap > div:first-child > p{color:#AAB6C7!important}
+.site-page-main .contact-grid-wrap > div:first-child > div > div:last-child > div{color:#8F9CAF!important}
+
+/* Check result / verify */
+.site-page-main #checkResultForm,
+.site-page-main #verifyForm,
+.site-page-main .result-search-card,
+.site-page-main .verify-search-card{
+  background:linear-gradient(180deg,rgba(18,27,45,.96),rgba(8,13,24,.96))!important;
+  color:#fff!important;
+  border-color:rgba(255,255,255,.11)!important;
+}
+.site-page-main #inputLabel,
+.site-page-main .format-note,
+.site-page-main .format-note strong{color:#DCE3ED!important}
+
+/* Course detail: enrollment card and content */
+.site-page-main .enroll-card{
+  background:linear-gradient(180deg,rgba(18,27,45,.97),rgba(8,13,24,.97))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+}
+.site-page-main .enroll-price{color:#fff!important}
+.site-page-main .enroll-period,
+.site-page-main .enroll-note{color:#AAB6C7!important}
+.site-page-main .enroll-features li{color:#DCE3ED!important;border-color:rgba(255,255,255,.08)!important}
+.site-page-main .btn-secondary-course{background:rgba(255,255,255,.05)!important;color:#fff!important;border-color:rgba(255,255,255,.18)!important}
+.site-page-main .content-box{background:linear-gradient(180deg,rgba(18,27,45,.92),rgba(8,13,24,.92))!important}
+.site-page-main .content-box h3{color:#fff!important}
+.site-page-main .content-box p,.site-page-main .content-box li{color:#B8C2D2!important}
+.site-page-main .tabs{border-color:rgba(255,255,255,.12)!important}
+.site-page-main .tab-btn{color:#9BA8BB!important}
+.site-page-main .tab-btn.active{color:#FFD84D!important;border-color:#F4B400!important}
+
+/* Course payment modal */
+.site-page-main .payment-modal{
+  background:linear-gradient(180deg,rgba(18,27,45,.99),rgba(7,12,22,.99))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+}
+.site-page-main .payment-modal .modal-title{color:#fff!important}
+.site-page-main .payment-modal .modal-subtitle{color:#AAB6C7!important}
+.site-page-main .payment-modal .payment-method{background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.12)!important}
+.site-page-main .payment-modal .payment-method-icon{color:#fff!important}
+.site-page-main .payment-modal .payment-method-label{color:#9BA8BB!important}
+.site-page-main .payment-modal .modal-note{background:rgba(244,180,0,.10)!important;color:#DCE3ED!important;border-color:#F4B400!important}
+.site-page-main .payment-modal .modal-note strong{color:#FFD84D!important}
+.site-page-main .payment-modal .btn-modal-secondary{background:rgba(255,255,255,.05)!important;color:#fff!important;border-color:rgba(255,255,255,.15)!important}
+
+/* Navigation dropdown must match Apex dark theme */
+.nav-dropdown-menu{
+  background:linear-gradient(180deg,#111C30,#09111F)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 25px 65px rgba(0,0,0,.5)!important;
+}
+.nav-dropdown-menu::before{background:#111C30!important;border-color:rgba(255,255,255,.12)!important}
+.nav-dropdown-menu a{color:#DCE3ED!important}
+.nav-dropdown-menu a:hover{background:rgba(255,255,255,.07)!important;color:#FFD84D!important}
+
+/* Success modals: override legacy white modal CSS */
+.site-page-main .success-modal,
+.site-page-main .modal-overlay .success-modal{
+  background:linear-gradient(180deg,rgba(18,27,45,.99),rgba(7,12,22,.99))!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+}
+.site-page-main .success-modal .success-title{color:#fff!important}
+.site-page-main .success-modal .success-subtitle{color:#AAB6C7!important}
+.site-page-main .success-modal .success-details{background:rgba(255,255,255,.045)!important;border-color:rgba(255,255,255,.1)!important}
+.site-page-main .success-modal .success-details-label{color:#9BA8BB!important}
+.site-page-main .success-modal .success-details-value{color:#fff!important}
+.site-page-main .success-modal .success-note{background:rgba(244,180,0,.10)!important;color:#DCE3ED!important}
+.site-page-main .success-modal .success-note strong{color:#FFD84D!important}
+
+/* Responsive forms/cards */
+@media(max-width:900px){
+  .site-page-main .register-form{padding:24px 18px!important;border-radius:18px!important}
+  .site-page-main .contact-form-card{padding:24px 18px!important;border-radius:18px!important}
+  .site-page-main .setup-box{padding:24px 18px!important;border-radius:18px!important}
+  .site-page-main .payment-modal,.site-page-main .success-modal{width:min(100%,520px)!important;max-height:90dvh!important;padding:30px 20px 24px!important}
+  .site-page-main .roll-number,#rollNumberDisplay{font-size:23px!important;letter-spacing:1.5px!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  .site-page-main .contact-grid-wrap{grid-template-columns:1fr!important;gap:30px!important}
+}
+
+/* Never let an accidental legacy mobile menu remain open on desktop */
+@media(min-width:901px){
+  .mobile-menu,.mobile-menu.open,.mobile-menu-backdrop,.mobile-menu-backdrop.open{display:none!important;visibility:hidden!important;opacity:0!important;pointer-events:none!important;transform:none!important}
+  body.menu-open{overflow:auto!important}
+}
+
+/* =========================================================
+   FORM VISIBILITY — CHROME / EDGE AUTOFILL + USER INPUT
+   Keep registration/login fields dark even after autofill.
+   ========================================================= */
+.site-page-main input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.site-page-main textarea,
+.site-page-main select,
+.admin-shell input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.admin-shell textarea,
+.admin-shell select,
+.site-page-main .register-form input,
+.site-page-main .register-form textarea,
+.site-page-main .register-form select,
+.site-page-main .auth-card input,
+.site-page-main .auth-card textarea,
+.site-page-main .auth-card select {
+  background-color: #070D18 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #FFFFFF !important;
+}
+
+.site-page-main input:-webkit-autofill,
+.site-page-main input:-webkit-autofill:hover,
+.site-page-main input:-webkit-autofill:focus,
+.site-page-main input:-webkit-autofill:active,
+.site-page-main textarea:-webkit-autofill,
+.site-page-main textarea:-webkit-autofill:hover,
+.site-page-main textarea:-webkit-autofill:focus,
+.site-page-main select:-webkit-autofill,
+.site-page-main select:-webkit-autofill:hover,
+.site-page-main select:-webkit-autofill:focus,
+.admin-shell input:-webkit-autofill,
+.admin-shell input:-webkit-autofill:hover,
+.admin-shell input:-webkit-autofill:focus,
+.admin-shell input:-webkit-autofill:active,
+.admin-shell textarea:-webkit-autofill,
+.admin-shell select:-webkit-autofill {
+  -webkit-text-fill-color: #FFFFFF !important;
+  caret-color: #FFFFFF !important;
+  background-color: #070D18 !important;
+  background-image: none !important;
+  -webkit-box-shadow: 0 0 0 1000px #070D18 inset !important;
+  box-shadow: 0 0 0 1000px #070D18 inset !important;
+  border-color: rgba(255,255,255,.16) !important;
+  transition: background-color 99999s ease-out 0s !important;
+}
+
+.site-page-main .register-form input:not([type="checkbox"]):not([type="radio"]),
+.site-page-main .register-form textarea,
+.site-page-main .register-form select,
+.site-page-main .auth-card input:not([type="checkbox"]):not([type="radio"]),
+.site-page-main .auth-card textarea,
+.site-page-main .auth-card select {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  background-color: #070D18 !important;
+}
+
+.site-page-main input::-webkit-contacts-auto-fill-button,
+.site-page-main input::-webkit-credentials-auto-fill-button {
+  background-color: transparent !important;
+}
+
+.site-page-main input::placeholder,
+.site-page-main textarea::placeholder {
+  color: #718096 !important;
+  opacity: 1 !important;
+}
+
+.site-page-main .register-form input:focus,
+.site-page-main .register-form textarea:focus,
+.site-page-main .register-form select:focus,
+.site-page-main .auth-card input:focus,
+.site-page-main .auth-card textarea:focus,
+.site-page-main .auth-card select:focus {
+  background-color: #070D18 !important;
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  border-color: rgba(244,180,0,.75) !important;
+  box-shadow: 0 0 0 3px rgba(244,180,0,.14) !important;
+}

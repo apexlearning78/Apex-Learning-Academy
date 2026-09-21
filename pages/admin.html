@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#071A33">
+<meta name="robots" content="noindex,nofollow">
+<title>Apex Learning Academy — Command Center</title>
+<link rel="icon" href="../assets/images/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://meet.jit.si/external_api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<link rel="stylesheet" href="../css/enhancements.css">
+<link rel="stylesheet" href="../css/pages/admin.css">
+
+<meta name="description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://apexlearning78.github.io/Apex-Learning-Academy/pages/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Apex Learning Academy">
+<meta property="og:title" content="Apex Learning Academy — Command Center">
+<meta property="og:description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta property="og:url" content="https://apexlearning78.github.io/Apex-Learning-Academy/pages/admin.html">
+<meta property="og:image" content="../assets/images/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apex Learning Academy — Command Center">
+<meta name="twitter:description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta name="twitter:image" content="../assets/images/logo.png">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/images/logo.png">
+<meta name="theme-color" content="#F4B400">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://meet.jit.si; connect-src 'self' https://www.gstatic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com; frame-src 'self' https://meet.jit.si https://*.firebaseapp.com; worker-src 'self'">
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-PFXMKDWB3G",{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false});window.addEventListener("apex:consent",()=>gtag("event","page_view"));</script>
+
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../css/site-pages.css">
+<link rel="stylesheet" href="../css/final-fixes.css">
+</head>
+<body>
+<div class="admin-shell">
+
+<section id="login">
+  <div class="login-card">
+    <div class="brand-logo"><img src="../assets/images/logo.png" alt="Apex Learning Academy" loading="lazy"></div>
+    <h1>Academy Command Center</h1>
+    <p>Secure administration for Apex Learning Academy</p>
+    <div id="loginError" class="hidden" style="background:#FEF2F2;color:#991B1B;padding:11px;border-radius:10px;margin-bottom:15px;font-size:12px;font-weight:700"></div>
+    <form id="loginForm">
+      <div class="field"><label>Admin Email</label><input id="email" type="email" required autocomplete="username" placeholder="admin@email.com"></div>
+      <div class="field"><label>Password</label><input id="password" type="password" required autocomplete="current-password" placeholder="••••••••"></div>
+      <button class="btn btn-gold" style="width:100%;padding:13px">Enter Command Center</button>
+    </form>
+  </div>
+</section>
+
+<div id="app">
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="nav-group">Command</div>
+  <button class="nav-item active" data-tab="dashboard">⌂ Dashboard</button>
+  <button class="nav-item" data-tab="students">♙ Students <span class="nav-count" id="c-students">0</span></button>
+  <button class="nav-item" data-tab="instructors">♟ Instructors <span class="nav-count" id="c-instructors">0</span></button>
+  <button class="nav-item" data-tab="messages">✉ Messages <span class="nav-count" id="c-messages">0</span></button>
+  <div class="nav-group">Academy Operations</div>
+  <button class="nav-item" data-tab="fees">৳ Fees & Payments</button>
+  <button class="nav-item" data-tab="progress">◔ Course Progress</button>
+  <button class="nav-item" data-tab="attendance">✓ Attendance</button>
+  <button class="nav-item" data-tab="tests">▣ Tests & Results</button>
+  <button class="nav-item" data-tab="certificates">◇ Certificates</button>
+  <button class="nav-item" data-tab="liveClasses">▶ Live Classes</button>
+  <div class="nav-group">Growth & Communication</div>
+  <button class="nav-item" data-tab="emailCenter">✉ Communication Center <span class="nav-pill">NEW</span></button>
+  <button class="nav-item" data-tab="announcements">➤ Announcements</button>
+  <button class="nav-item" data-tab="reviews">★ Reviews</button>
+  <button class="nav-item" data-tab="coupons">％ Coupons</button>
+  <button class="nav-item" data-tab="emailLogs">✉ Email Logs</button>
+  <div class="nav-group">Courses & Batches</div>
+  <button class="nav-item" data-tab="courses">▦ Courses</button>
+  <button class="nav-item" data-tab="batches">◫ Batches</button>
+  <div class="nav-group">Analytics</div>
+  <button class="nav-item" data-tab="visitors">◉ Visitors</button>
+  <button class="nav-item" data-tab="visits">◌ Page Views</button>
+  <div class="nav-group">Control</div>
+  <button class="nav-item" data-tab="settings">⚙ Academy Settings</button>
+  <button class="nav-item" data-tab="audit">◈ Admin Audit</button>
+</aside>
+
+<main class="main">
+  <div class="command-banner">
+    <div><div class="eyebrow" style="color:#F4B400">APEX LEARNING ACADEMY</div><h3 id="welcomeTitle">Good morning, Admin</h3><p id="liveStatus">Firebase connected dashboard • Real-time-ready workspace</p></div>
+    <div class="head-actions"><button class="btn btn-gold" id="quickStudent">＋ Add Student</button><button class="btn" style="background:#ffffff12;color:#fff;border:1px solid #ffffff1a" id="quickAnnouncement">＋ Announcement</button></div>
+  </div>
+
+  <div class="page-head"><div><div class="eyebrow">Administration</div><h2 id="pageTitle">Overview</h2></div><div class="head-actions" id="headActions"></div></div>
+
+  <section id="dashboardView">
+    <div class="stats">
+      <div class="stat" data-go="students"><div class="stat-label">Students</div><div class="stat-value" id="s-students">—</div><div class="stat-note">Registered learners</div></div>
+      <div class="stat" data-go="instructors"><div class="stat-label">Instructors</div><div class="stat-value" id="s-instructors">—</div><div class="stat-note">Applications & team</div></div>
+      <div class="stat" data-go="fees"><div class="stat-label">Fee Records</div><div class="stat-value" id="s-fees">—</div><div class="stat-note">Payment management</div></div>
+      <div class="stat" data-go="messages"><div class="stat-label">Messages</div><div class="stat-value" id="s-messages">—</div><div class="stat-note">Enquiries & contact</div></div>
+      <div class="stat" data-go="tests"><div class="stat-label">Test Results</div><div class="stat-value" id="s-tests">—</div><div class="stat-note">Submissions</div></div>
+      <div class="stat" data-go="attendance"><div class="stat-label">Attendance</div><div class="stat-value" id="s-attendance">—</div><div class="stat-note">Class activity</div></div>
+    </div>
+    <div class="workspace">
+      <div class="card"><div class="card-head"><h3>Operational Snapshot</h3><button class="btn btn-light" id="dashboardRefresh">Refresh data</button></div><div id="snapshot" class="table-wrap"></div></div>
+      <div><div class="side-card"><h3>Quick Actions</h3><div class="quick-grid">
+        <button class="btn btn-light" data-action="student">Student</button><button class="btn btn-light" data-action="fee">Fee Record</button>
+        <button class="btn btn-light" data-action="announcement">Announcement</button><button class="btn btn-light" data-action="class">Live Class</button>
+        <button class="btn btn-light" data-action="coupon">Coupon</button><button class="btn btn-light" data-action="certificate">Certificate</button>
+      </div></div>
+      <div class="side-card"><h3>Recent Admin Activity</h3><div id="activity" class="activity"></div></div></div>
+    </div>
+  </section>
+
+  
+<section id="customView" class="hidden">
+  <div id="customViewContent"></div>
+</section>
+
+<section id="moduleView" class="hidden">
+    <div class="card"><select id="studentCourseFilter" class="btn btn-light" style="display:none"><option value="all">All Courses</option><option>Web Development</option><option>Artificial Intelligence</option></select><div class="toolbar"><input id="moduleSearch" placeholder="Search this module..."><select id="statusFilter"><option value="">All statuses</option><option>active</option><option>pending</option><option>approved</option><option>paid</option><option>unpaid</option><option>rejected</option><option>completed</option></select><button class="btn btn-light" id="exportBtn">⇩ Export CSV</button><button class="btn btn-primary" id="addBtn">＋ Add</button><button class="btn btn-light" id="reloadBtn">↻ Reload</button></div><div id="moduleTable" class="table-wrap"><div class="loader">Loading module...</div></div></div>
+  </section>
+</main>
+</div>
+</div>
+
+<div class="modal-bg" id="modalBg"><div class="modal"><div class="modal-head"><h3 id="modalTitle">Details</h3><button class="close" id="modalClose">×</button></div><div class="modal-body" id="modalBody"></div><div class="modal-foot" id="modalFoot"></div></div></div>
+<div class="modal-bg" id="liveBg"><div class="modal" style="width:min(650px,100%)"><div class="modal-head"><h3>Host a Live Class</h3><button class="close" id="liveClose">×</button></div><div class="modal-body"><div id="classList"></div></div></div></div>
+<div class="live-overlay" id="liveOverlay"><div class="live-top"><strong id="liveTitle">Apex Live Class</strong><button class="btn btn-danger" id="endLive">End Class</button></div><div class="live-frame" id="jitsiContainer"></div></div>
+<div class="toast" id="toast"></div>
+
+
+<script type="module" src="../js/pages/admin.js"></script>
+
+<script>if(localStorage.getItem("apex_cookie_consent")){gtag("event","page_view")}</script>
+
+</div>
+</body>
+</html>

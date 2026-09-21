@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Apex Learning Academy</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="../css/enhancements.css">
+<link rel="stylesheet" href="../css/pages/login.css">
+
+<meta name="description" content="Secure student login for Apex Learning Academy.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://apexlearning78.github.io/Apex-Learning-Academy/pages/login.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Apex Learning Academy">
+<meta property="og:title" content="Login | Apex Learning Academy">
+<meta property="og:description" content="Secure student login for Apex Learning Academy.">
+<meta property="og:url" content="https://apexlearning78.github.io/Apex-Learning-Academy/pages/login.html">
+<meta property="og:image" content="../assets/images/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Login | Apex Learning Academy">
+<meta name="twitter:description" content="Secure student login for Apex Learning Academy.">
+<meta name="twitter:image" content="../assets/images/logo.png">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/images/logo.png">
+<meta name="theme-color" content="#F4B400">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://meet.jit.si; connect-src 'self' https://www.gstatic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com; frame-src 'self' https://meet.jit.si https://*.firebaseapp.com; worker-src 'self'">
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-PFXMKDWB3G",{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false});window.addEventListener("apex:consent",()=>gtag("event","page_view"));</script>
+
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../css/site-pages.css">
+<link rel="stylesheet" href="../css/final-fixes.css">
+</head>
+<body>
+<!-- ============ BACKGROUND LAYER ============ -->
+<div class="bg-layer" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="bg-noise"></div>
+</div>
+
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="siteHeader">
+    <div class="header-inner">
+        <a href="../index.html" class="logo-box">
+            <div class="logo-square">
+                <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main">
+            <a href="../index.html" class="active">Home</a>
+            <a href="../pages/courses.html">Courses</a>
+            <a href="../pages/live-classes.html">Live Classes</a>
+            <a href="../pages/resources.html">Resources</a>
+            
+            <div class="nav-dropdown" id="moreDropdown">
+                <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown-menu" role="menu">
+                    <a href="../pages/instructors.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span>Instructors</span>
+                    </a>
+                    <a href="../pages/about.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <span>About Us</span>
+                    </a>
+                    <a href="../pages/blog.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Blog</span>
+                    </a>
+                    <a href="../pages/test.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span>Entrance Test</span>
+                    </a>
+                    <a href="../pages/check-result.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Check Result</span>
+                    </a>
+                    <a href="../pages/verify.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Verify Certificate</span>
+                    </a>
+                    <a href="../pages/contact.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-actions" id="authActions">
+            <a href="../pages/login.html" class="btn btn-ghost">Login</a>
+            <a href="../pages/register.html" class="btn btn-gold">Register Now</a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-header">
+        <div class="logo-box">
+            <div class="logo-square">
+                <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </div>
+        <button class="mobile-menu-close" id="mobileClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="../index.html" class="active">Home</a>
+        <a href="../pages/courses.html">Courses</a>
+        <a href="../pages/live-classes.html">Live Classes</a>
+        <a href="../pages/resources.html">Resources</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        
+        <a href="../pages/instructors.html">Instructors</a>
+        <a href="../pages/about.html">About Us</a>
+        <a href="../pages/blog.html">Blog</a>
+        <a href="../pages/test.html">Entrance Test</a>
+        <a href="../pages/check-result.html">Check Result</a>
+        <a href="../pages/verify.html">Verify Certificate</a>
+        <a href="../pages/contact.html">Contact</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <a href="../pages/login.html" id="mobileLoginLink" class="mobile-menu-cta">Login</a>
+        <a href="../pages/register.html" id="mobileRegisterLink" class="mobile-menu-cta primary">Register Now</a>
+        <a href="../pages/dashboard.html" id="mobileDashboardLink" class="mobile-menu-cta primary" style="display:none;">Dashboard</a>
+        <button id="mobileLogoutLink" class="mobile-menu-cta" style="display:none;">Logout</button>
+    </nav>
+</aside>
+
+
+<main class="site-page-main">
+
+
+<div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px;">
+    <div style="width: 100%; max-width: 440px;">
+
+        <div style="text-align: center; margin-bottom: 32px;">
+            <a href="../index.html" style="display: inline-flex; align-items: center; gap: 12px; justify-content: center; text-decoration: none;">
+                <div style="width: 48px; height: 48px; background: linear-gradient(135deg, #F4B400, #d99f00); border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                    <img src="../assets/images/logo.png" alt="Apex" style="width: 100%; height: 100%; object-fit: cover;" loading="lazy">
+                </div>
+                <div style="text-align: left; line-height: 1;">
+                    <div style="font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 18px; color: #FFFFFF; letter-spacing: 2px;">APEX</div>
+                    <div style="font-size: 9px; color: #F4B400; letter-spacing: 2.5px; font-weight: 600; margin-top: 4px;">LEARNING ACADEMY</div>
+                </div>
+            </a>
+        </div>
+
+        <div class="login-panel" style="padding: 44px 40px; border-radius: 20px;">
+
+            <h1 id="pageTitle" style="font-family: 'Poppins', sans-serif; font-size: 26px; color: #0A2540; margin-bottom: 8px; text-align: center; font-weight: 800;">Welcome Back</h1>
+            <p id="pageSubtitle" style="font-size: 14.5px; color: #64748B; text-align: center; margin-bottom: 32px; font-weight: 500;">Login to access your courses and dashboard.</p>
+
+            <div class="login-error" id="loginError"></div>
+            <div class="login-success" id="loginSuccess"></div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 14px; font-weight: 700; color: #0A2540; margin-bottom: 8px;">Email Address</label>
+                    <input type="email" name="email" id="emailInput" required placeholder="your@email.com" autocomplete="email" style="width: 100%; padding: 13px 16px; border: 2px solid #E2E8F0; border-radius: 10px; font-family: inherit; font-size: 15px; color: #0A2540; font-weight: 500;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 14px; font-weight: 700; color: #0A2540; margin-bottom: 8px;">Password</label>
+                    <input type="password" name="password" id="passwordInput" required placeholder="Enter your password" autocomplete="current-password" style="width: 100%; padding: 13px 16px; border: 2px solid #E2E8F0; border-radius: 10px; font-family: inherit; font-size: 15px; color: #0A2540; font-weight: 500;">
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 14px;">
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #64748B; font-weight: 500;">
+                        <input type="checkbox" style="width: 16px; height: 16px; accent-color: #F4B400;">
+                        Remember me
+                    </label>
+                    <button type="button" class="forgot-link" onclick="showForgotForm()">Forgot password?</button>
+                </div>
+
+                <button type="submit" id="loginBtn" style="width: 100%; padding: 15px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.3px; cursor: pointer; border: none; background: linear-gradient(135deg, #F4B400, #d99f00); color: #0A2540; box-shadow: 0 8px 24px rgba(244,180,0,0.32); transition: all 0.25s;">
+                    Login
+                </button>
+            </form>
+
+            <!-- FORGOT PASSWORD FORM -->
+            <form id="forgotForm" style="display: none;">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 14px; font-weight: 700; color: #0A2540; margin-bottom: 8px;">Email Address</label>
+                    <input type="email" id="forgotEmail" required placeholder="your@email.com" autocomplete="email" style="width: 100%; padding: 13px 16px; border: 2px solid #E2E8F0; border-radius: 10px; font-family: inherit; font-size: 15px; color: #0A2540; font-weight: 500;">
+                    <p style="font-size: 13px; color: #64748B; margin-top: 8px; line-height: 1.6;">
+                        We'll send a password reset link to your email. Check your inbox (and spam folder).
+                    </p>
+                </div>
+
+                <button type="submit" id="forgotBtn" style="width: 100%; padding: 15px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; letter-spacing: 0.3px; cursor: pointer; border: none; background: linear-gradient(135deg, #10B981, #059669); color: #FFFFFF; box-shadow: 0 8px 24px rgba(16,185,129,0.32); transition: all 0.25s; margin-bottom: 10px;">
+                    Send Reset Link
+                </button>
+
+                <button class="login-back-btn" type="button" onclick="showLoginForm()" style="width: 100%; padding: 13px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; background: rgba(255,255,255,.05); color: #D7DDE8; border: 1px solid rgba(255,255,255,.12);">
+                    Back to Login
+                </button>
+            </form>
+
+            <div id="registerPrompt" style="text-align: center; margin-top: 28px; padding-top: 24px; border-top: 1px solid #E2E8F0;">
+                <p style="font-size: 14.5px; color: #64748B; font-weight: 500;">Don't have an account?</p>
+                <a href="../pages/register.html" style="font-weight: 800; color: #d99f00; font-size: 15px; margin-top: 6px; display: inline-block; text-decoration: none;">Create Student Account</a>
+            </div>
+
+        </div>
+
+        <p style="text-align: center; color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 24px; font-weight: 500;">
+            &copy; 2026 Apex Learning Academy. All rights reserved.
+        </p>
+
+    </div>
+</div>
+
+
+
+<script type="module" src="../js/pages/login.js"></script>
+
+
+<script>if(localStorage.getItem("apex_cookie_consent")){gtag("event","page_view")}</script>
+
+</main>
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand-block">
+                <a href="../index.html" class="logo-box">
+                    <div class="logo-square">
+                        <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">APEX</span>
+                        <span class="logo-sub">LEARNING ACADEMY</span>
+                    </div>
+                </a>
+                <p>Pakistan's most affordable online academy for Coding and Artificial Intelligence. Practical learning, personal attention, and real results.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C4.9 19 12 19 12 19s7.1 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+                    <a href="https://wa.me/923410349929" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academy</h4>
+                <a href="../pages/about.html">About Us</a>
+                <a href="../pages/instructors.html">Instructors</a>
+                <a href="../pages/live-classes.html">Live Classes</a>
+                <a href="../pages/blog.html">Blog</a>
+                <a href="../pages/contact.html">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Learning</h4>
+                <a href="../pages/courses.html">All Courses</a>
+                <a href="../pages/resources.html">Resources</a>
+                <a href="../pages/test.html">Entrance Test</a>
+                <a href="../pages/check-result.html">Check Result</a>
+                <a href="../pages/verify.html">Verify Certificate</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/923410349929">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="footer-contact-icon"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2z"/></svg>
+                    WhatsApp: 0341 034 9929
+                </a>
+                <a href="mailto:mukeshkewal19@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    mukeshkewal19@gmail.com
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbDZS7a3bbV6vpN9Ra0P">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    WhatsApp Channel
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    Online Classes Only
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"><span><a href="../pages/privacy.html">Privacy</a> · <a href="../pages/terms.html">Terms</a></span>
+            <span>&copy; 2026 Apex Learning Academy. All rights reserved.</span>
+            <span class="footer-tagline">Learn. Rise. <span class="gradient-text">Achieve.</span></span>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script src="../js/main.js"></script>
+<script type="module" src="../js/auth-nav.js"></script>
+<script type="module" src="../js/enhancements.js"></script>
+</body>
+</html>

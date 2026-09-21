@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="google-site-verification" content="pOrgSpA1BERKZUVEaT7VF4bk12Ypgf_-kQAS_YRdllc" />
+    
+    <title>Apex Learning Academy | Coding & Artificial Intelligence</title>
+    <meta name="description" content="Pakistan's most affordable online academy for Coding and Artificial Intelligence. Project-based learning with personal attention.">
+    <meta name="keywords" content="Coding, Python, Artificial Intelligence, AI, Online Academy, Pakistan, Programming, Web Development">
+    
+    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+     <link rel="stylesheet" href="css/index.css">
+<link rel="stylesheet" href="css/enhancements.css">
+
+<meta name="description" content="Pakistan online academy for Web Development, Coding and Artificial Intelligence. Learn through practical projects and live classes.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://apexlearning78.github.io/Apex-Learning-Academy/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Apex Learning Academy">
+<meta property="og:title" content="Apex Learning Academy | Coding & Artificial Intelligence">
+<meta property="og:description" content="Pakistan online academy for Web Development, Coding and Artificial Intelligence. Learn through practical projects and live classes.">
+<meta property="og:url" content="https://apexlearning78.github.io/Apex-Learning-Academy/">
+<meta property="og:image" content="assets/images/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apex Learning Academy | Coding & Artificial Intelligence">
+<meta name="twitter:description" content="Pakistan online academy for Web Development, Coding and Artificial Intelligence. Learn through practical projects and live classes.">
+<meta name="twitter:image" content="assets/images/logo.png">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/images/logo.png">
+<meta name="theme-color" content="#F4B400">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://meet.jit.si; connect-src 'self' https://www.gstatic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com; frame-src 'self' https://meet.jit.si https://*.firebaseapp.com; worker-src 'self'">
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-PFXMKDWB3G",{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false});window.addEventListener("apex:consent",()=>gtag("event","page_view"));</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"EducationalOrganization","name":"Apex Learning Academy","url":"https://apexlearning78.github.io/Apex-Learning-Academy/","logo":"https://apexlearning78.github.io/Apex-Learning-Academy/assets/images/logo.png","description":"Online academy for Web Development and Artificial Intelligence."},{"@type":"Course","name":"Web Development","provider":{"@type":"Organization","name":"Apex Learning Academy"}},{"@type":"Course","name":"Artificial Intelligence","provider":{"@type":"Organization","name":"Apex Learning Academy"}},{"@type":"Person","name":"Mukesh Kewal","jobTitle":"Founder & Lead Instructor","worksFor":{"@type":"EducationalOrganization","name":"Apex Learning Academy"}}]}</script>
+<link rel="stylesheet" href="css/final-fixes.css">
+</head>
+<body>
+
+<!-- ============ SCROLL PROGRESS ============ -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ============ BACKGROUND LAYER ============ -->
+<div class="bg-layer" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="bg-noise"></div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="siteHeader">
+    <div class="header-inner">
+        <a href="index.html" class="logo-box">
+            <div class="logo-square">
+                <img src="assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main">
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/courses.html">Courses</a>
+            <a href="pages/live-classes.html">Live Classes</a>
+            <a href="pages/resources.html">Resources</a>
+            
+            <div class="nav-dropdown" id="moreDropdown">
+                <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown-menu" role="menu">
+                    <a href="pages/instructors.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span>Instructors</span>
+                    </a>
+                    <a href="pages/about.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <span>About Us</span>
+                    </a>
+                    <a href="pages/blog.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Blog</span>
+                    </a>
+                    <a href="pages/test.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span>Entrance Test</span>
+                    </a>
+                    <a href="pages/check-result.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Check Result</span>
+                    </a>
+                    <a href="pages/verify.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Verify Certificate</span>
+                    </a>
+                    <a href="pages/contact.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-actions" id="authActions">
+            <a href="pages/login.html" class="btn btn-ghost">Login</a>
+            <a href="pages/register.html" class="btn btn-gold">Register Now</a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-header">
+        <div class="logo-box">
+            <div class="logo-square">
+                <img src="assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </div>
+        <button class="mobile-menu-close" id="mobileClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="pages/courses.html">Courses</a>
+        <a href="pages/live-classes.html">Live Classes</a>
+        <a href="pages/resources.html">Resources</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        
+        <a href="pages/instructors.html">Instructors</a>
+        <a href="pages/about.html">About Us</a>
+        <a href="pages/blog.html">Blog</a>
+        <a href="pages/test.html">Entrance Test</a>
+        <a href="pages/check-result.html">Check Result</a>
+        <a href="pages/verify.html">Verify Certificate</a>
+        <a href="pages/contact.html">Contact</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <a href="pages/login.html" id="mobileLoginLink" class="mobile-menu-cta">Login</a>
+        <a href="pages/register.html" id="mobileRegisterLink" class="mobile-menu-cta primary">Register Now</a>
+        <a href="pages/dashboard.html" id="mobileDashboardLink" class="mobile-menu-cta primary" style="display:none;">Dashboard</a>
+        <button id="mobileLogoutLink" class="mobile-menu-cta" style="display:none;">Logout</button>
+    </nav>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-grid">
+            
+            <!-- LEFT -->
+            <div class="hero-left">
+                <div class="badge hero-anim-1">
+                    <span class="badge-dot"></span>
+                    <span>Admissions Open 2026</span>
+                    <svg class="badge-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <line x1="5" y1="12" x2="19" y2="12"/>
+                        <polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                </div>
+                
+                <h1 class="hero-title hero-anim-2">
+                    <span class="line">Master Coding.</span>
+                    <span class="line">Build the</span>
+                    <span class="line gradient-text">Future with AI.</span>
+                </h1>
+                
+                <p class="hero-sub hero-anim-3">
+                    Pakistan's most affordable online academy for <strong>Coding</strong> and <strong>Artificial Intelligence</strong>. 
+                    Learn by building real projects — small batches, expert mentors, real results.
+                </p>
+                
+                <div class="hero-ctas hero-anim-4">
+                    <a href="pages/courses.html" class="cta-primary">
+                        <span>Explore Courses</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="pages/register.html" class="cta-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                        <span>Book Free Demo</span>
+                    </a>
+                </div>
+                
+                <div class="trust-row hero-anim-5">
+                    <div class="avatars">
+                        <div class="avatar av-1">A</div>
+                        <div class="avatar av-2">F</div>
+                        <div class="avatar av-3">M</div>
+                        <div class="avatar av-4">S</div>
+                        <div class="avatar av-more">+96</div>
+                    </div>
+                    <div class="trust-text">
+                        <div class="trust-stars">
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        </div>
+                        <div>Trusted by <strong>100+ students</strong></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT -->
+            <div class="hero-right hero-anim-6">
+                <div class="visual-stack">
+                    <div class="corner-accent corner-tl"></div>
+                    <div class="corner-accent corner-br"></div>
+                    
+                    <div class="card-main">
+                        <div class="card-main-inner">
+                            <div class="card-top">
+                                <div class="card-dots">
+                                    <span class="card-dot card-dot-red"></span>
+                                    <span class="card-dot card-dot-yellow"></span>
+                                    <span class="card-dot card-dot-green"></span>
+                                </div>
+                                <span class="card-filename">apex_ai.py</span>
+                            </div>
+                            
+                            <div class="code-block">
+<span class="code-line"><span class="code-ln">01</span><span class="cmt"># Apex Learning Academy</span></span>
+<span class="code-line"><span class="code-ln">02</span><span class="kw">class</span> <span class="fn">Student</span>:</span>
+<span class="code-line"><span class="code-ln">03</span>    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, name):</span>
+<span class="code-line"><span class="code-ln">04</span>        <span class="var">self</span>.name <span class="op">=</span> name</span>
+<span class="code-line"><span class="code-ln">05</span>        <span class="var">self</span>.skills <span class="op">=</span> []</span>
+<span class="code-line"><span class="code-ln">06</span></span>
+<span class="code-line"><span class="code-ln">07</span>    <span class="kw">def</span> <span class="fn">learn</span>(<span class="var">self</span>, topic):</span>
+<span class="code-line"><span class="code-ln">08</span>        <span class="var">self</span>.skills.append(topic)</span>
+<span class="code-line"><span class="code-ln">09</span>        <span class="kw">return</span> <span class="str">"Level Up!"</span></span>
+<span class="code-line"><span class="code-ln">10</span></span>
+<span class="code-line"><span class="code-ln">11</span><span class="var">you</span> <span class="op">=</span> <span class="fn">Student</span>(<span class="str">"Future Dev"</span>)</span>
+<span class="code-line"><span class="code-ln">12</span><span class="fn">print</span>(you.<span class="fn">learn</span>(<span class="str">"AI"</span>))</span>
+                            </div>
+                            
+                            <div class="progress-section">
+                                <div class="progress-label">
+                                    <span>Course Progress</span>
+                                    <span class="pct">84%</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="float-card float-card-1">
+                        <div class="float-icon float-icon-green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polyline points="20 6 9 17 4 12"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="float-title">100% Online</div>
+                            <div class="float-sub">Anywhere in Pakistan</div>
+                        </div>
+                    </div>
+                    
+                    <div class="float-card float-card-2">
+                        <div class="float-icon float-icon-gold">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="float-title">Small Batches</div>
+                            <div class="float-sub">10-15 Students</div>
+                        </div>
+                    </div>
+                    
+                    <div class="float-card float-card-3">
+                        <div class="float-icon float-icon-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="float-title">4.9 Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- MARQUEE -->
+        <div class="hero-marquee">
+            <div class="marquee-track">
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <span>Python Programming</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                    <span>Artificial Intelligence</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>Web Development</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    <span>Machine Learning</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Project-Based Learning</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span>Small Batches</span>
+                </div>
+                <!-- duplicate for seamless loop -->
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                    <span>Python Programming</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/></svg>
+                    <span>Artificial Intelligence</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    <span>Web Development</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    <span>Machine Learning</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    <span>Project-Based Learning</span>
+                </div>
+                <div class="marquee-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    <span>Small Batches</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="section" id="features">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Why Choose Us
+            </span>
+            <h2 class="section-title">Four Pillars of Our <span class="gradient-text">Teaching</span></h2>
+            <p class="section-desc">Every aspect of Apex Learning Academy is designed to deliver real results, not just information.</p>
+        </div>
+
+        <div class="features-bento">
+            <div class="feature-card feature-large reveal">
+                <div class="feature-number">01</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Project-Based Learning</h3>
+                <p>Theory minimum, practice maximum. Every concept ends with a real project you build and deploy yourself. Learn by doing, not by memorizing.</p>
+                <div class="feature-tags">
+                    <span>Hands-on</span>
+                    <span>Real Projects</span>
+                    <span>Portfolio</span>
+                </div>
+            </div>
+            
+            <div class="feature-card reveal">
+                <div class="feature-number">02</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                </div>
+                <h3>Personal Attention</h3>
+                <p>Small batches of 10-15 students. Every student receives individual guidance and mentorship.</p>
+            </div>
+            
+            <div class="feature-card reveal">
+                <div class="feature-number">03</div>
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="2" y1="12" x2="22" y2="12"/>
+                        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                    </svg>
+                </div>
+                <h3>Real-World Examples</h3>
+                <p>Coding and AI concepts explained through real projects and industry scenarios.</p>
+            </div>
+            
+            <div class="feature-card feature-wide reveal">
+                <div class="feature-number">04</div>
+                <div class="feature-content">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3>Urdu + English Instruction</h3>
+                        <p>Concepts explained in Urdu, code written in English. Designed so every student understands clearly — no confusion, no barriers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ COURSES ============ -->
+<section class="section section-dark" id="courses">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Our Courses
+            </span>
+            <h2 class="section-title">Industry-Focused <span class="gradient-text">Programs</span></h2>
+            <p class="section-desc">Designed for beginners and professionals alike — practical skills you can use immediately.</p>
+        </div>
+
+        <div class="courses-showcase">
+            <article class="course-card reveal">
+                <div class="course-top">
+                    <div class="course-tag">
+                        <span class="course-tag-dot"></span>
+                        Popular
+                    </div>
+                    <div class="course-number">01</div>
+                </div>
+                
+                <div class="course-icon-big">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polyline points="16 18 22 12 16 6"/>
+                        <polyline points="8 6 2 12 8 18"/>
+                    </svg>
+                </div>
+                
+                <div class="course-category">Programming</div>
+                <h3 class="course-title">Coding: Python + Web Development</h3>
+                <p class="course-desc">Master Python programming and modern web development. Build real projects from scratch — from simple scripts to full web apps.</p>
+                
+                <ul class="course-features">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Python Fundamentals</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> HTML, CSS, JavaScript</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> 5+ Real Projects</li>
+                </ul>
+                
+                <div class="course-info">
+                    <div class="course-info-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>3 Months</span>
+                    </div>
+                    <div class="course-info-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Beginner to Advanced</span>
+                    </div>
+                </div>
+                
+                <div class="course-footer">
+                    <div class="course-price">
+                        <span class="course-price-currency">Rs.</span>
+                        <span class="course-price-amount">3,000</span>
+                        <span class="course-price-period">/month</span>
+                    </div>
+                    <a href="pages/course-detail.html?course=coding" class="cta-primary">
+                        <span>View Course</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <article class="course-card course-card-featured reveal">
+                <div class="course-glow"></div>
+                <div class="course-top">
+                    <div class="course-tag course-tag-new">
+                        <span class="course-tag-dot"></span>
+                        New
+                    </div>
+                    <div class="course-number">02</div>
+                </div>
+                
+                <div class="course-icon-big">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="4" y="4" width="16" height="16" rx="2"/>
+                        <rect x="9" y="9" width="6" height="6"/>
+                        <line x1="9" y1="1" x2="9" y2="4"/>
+                        <line x1="15" y1="1" x2="15" y2="4"/>
+                        <line x1="9" y1="20" x2="9" y2="23"/>
+                        <line x1="15" y1="20" x2="15" y2="23"/>
+                        <line x1="20" y1="9" x2="23" y2="9"/>
+                        <line x1="20" y1="14" x2="23" y2="14"/>
+                        <line x1="1" y1="9" x2="4" y2="9"/>
+                        <line x1="1" y1="14" x2="4" y2="14"/>
+                    </svg>
+                </div>
+                
+                <div class="course-category">Artificial Intelligence</div>
+                <h3 class="course-title">AI: Foundations & Machine Learning</h3>
+                <p class="course-desc">Learn AI fundamentals, prompt engineering, and build real AI applications with Python — including chatbots and ML models.</p>
+                
+                <ul class="course-features">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> AI Fundamentals</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Prompt Engineering</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg> Build AI Chatbot</li>
+                </ul>
+                
+                <div class="course-info">
+                    <div class="course-info-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span>4 Months</span>
+                    </div>
+                    <div class="course-info-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Beginner to Advanced</span>
+                    </div>
+                </div>
+                
+                <div class="course-footer">
+                    <div class="course-price">
+                        <span class="course-price-currency">Rs.</span>
+                        <span class="course-price-amount">4,000</span>
+                        <span class="course-price-period">/month</span>
+                    </div>
+                    <a href="pages/course-detail.html?course=ai" class="cta-primary">
+                        <span>View Course</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOUNDER ============ -->
+<section class="section founder-section" id="founder">
+    <div class="container">
+        <div class="founder-layout">
+            <div class="founder-visual reveal">
+                <div class="founder-image-wrap">
+                    <div class="founder-image-bg"></div>
+                    <img src="assets/images/founder.png" alt="Mukesh Kewal - Founder" class="founder-image" loading="lazy">
+                    <div class="founder-badge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                        <span>Verified Expert</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="founder-content reveal">
+                <span class="section-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Meet The Founder
+                </span>
+                <h2 class="founder-heading">Learn From An <span class="gradient-text">Expert</span></h2>
+                <p class="founder-bio">Passionate programmer and educator with a mission to make quality tech education affordable for every student in Pakistan. With years of hands-on industry experience, he teaches Coding and AI in a way that actually sticks.</p>
+                
+                <div class="founder-name-card">
+                    <div class="founder-name-avatar">MK</div>
+                    <div>
+                        <div class="founder-name">Mukesh Kewal</div>
+                        <div class="founder-role">Founder & Lead Instructor</div>
+                    </div>
+                </div>
+                
+                <div class="founder-stats">
+                    <div class="founder-stat">
+                        <div class="founder-stat-value">2+</div>
+                        <div class="founder-stat-label">Expert Courses</div>
+                    </div>
+                    <div class="founder-stat">
+                        <div class="founder-stat-value">100%</div>
+                        <div class="founder-stat-label">Dedication</div>
+                    </div>
+                    <div class="founder-stat">
+                        <div class="founder-stat-value">24/7</div>
+                        <div class="founder-stat-label">Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section section-alt" id="testimonialsSection">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Student Voices
+            </span>
+            <h2 class="section-title">What Our Students <span class="gradient-text">Say</span></h2>
+            <p class="section-desc">Real feedback from students who chose Apex Learning Academy.</p>
+        </div>
+
+        <div class="testimonials-grid" id="testimonialsGrid">
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z"/>
+                    </svg>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">Sir taught very well. I learned Python in 2 months and built my first project. Teaching style is very practical.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar" style="--c:#FFC800;">A</div>
+                    <div>
+                        <div class="testimonial-name">Ahmad Khan</div>
+                        <div class="testimonial-role">Coding Student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z"/>
+                    </svg>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">The AI course changed my thinking. I can now build my own chatbot. Fees are affordable and quality is top class.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar" style="--c:#00E5FF;">F</div>
+                    <div>
+                        <div class="testimonial-name">Fatima Ali</div>
+                        <div class="testimonial-role">AI Student</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-quote">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 17h3l2-4V7H5v6h3l-2 4zm8 0h3l2-4V7h-6v6h3l-2 4z"/>
+                    </svg>
+                </div>
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p class="testimonial-text">Best affordable academy in Pakistan. Small batch size means every student gets attention. Highly recommended.</p>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar" style="--c:#A78BFA;">A</div>
+                    <div>
+                        <div class="testimonial-name">Ali Raza</div>
+                        <div class="testimonial-role">Coding Student</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+    <div class="container">
+        <div class="section-head">
+            <span class="section-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Questions
+            </span>
+            <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
+            <p class="section-desc">Everything you need to know before joining Apex Learning Academy.</p>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">01</span>
+                    <span class="faq-text">What is the fee structure?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Coding course fee is Rs. 3,000 per month, and Artificial Intelligence course fee is Rs. 4,000 per month. Fees are payable in advance at the beginning of each month.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">02</span>
+                    <span class="faq-text">What are the class timings?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Classes are held in the evening from 6:00 PM to 8:00 PM, Monday through Saturday. A weekend special batch is also available for working professionals.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">03</span>
+                    <span class="faq-text">Are classes online or on-campus?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        All classes are conducted 100% online through Google Meet or Jitsi Meet. Students can attend from anywhere in Pakistan.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">04</span>
+                    <span class="faq-text">Will I receive a certificate?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes. Upon successful completion of the course and final project submission, students receive a professional certificate from Apex Learning Academy with a unique verification ID.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">05</span>
+                    <span class="faq-text">Can complete beginners join?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Absolutely. Our courses start from zero. No prior coding or technical knowledge is required. We build your skills from the ground up.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    <span class="faq-num">06</span>
+                    <span class="faq-text">Is the demo class really free?</span>
+                    <span class="faq-icon-wrap">
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">
+                        Yes. Your first demo class is completely free. You can experience our teaching style and course structure before making any payment.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section">
+    <div class="container">
+        <div class="cta-banner">
+            <div class="cta-orbs" aria-hidden="true">
+                <div class="cta-orb cta-orb-1"></div>
+                <div class="cta-orb cta-orb-2"></div>
+            </div>
+            <div class="cta-pattern"></div>
+            <div class="cta-content">
+                <span class="cta-eyebrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                    Admissions Open 2026
+                </span>
+                <h2 class="cta-title">Ready to Start Your <span class="gradient-text">Tech Journey?</span></h2>
+                <p class="cta-text">Join Apex Learning Academy today and take the first step towards a rewarding career in Coding and Artificial Intelligence.</p>
+                <div class="cta-buttons">
+                    <a href="pages/register.html" class="cta-primary">
+                        <span>Register Now</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                    <a href="pages/contact.html" class="cta-secondary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        <span>Contact Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand-block">
+                <a href="index.html" class="logo-box">
+                    <div class="logo-square">
+                        <img src="assets/images/logo.png" alt="Apex" loading="lazy">
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">APEX</span>
+                        <span class="logo-sub">LEARNING ACADEMY</span>
+                    </div>
+                </a>
+                <p>Pakistan's most affordable online academy for Coding and Artificial Intelligence. Practical learning, personal attention, and real results.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C4.9 19 12 19 12 19s7.1 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+                    <a href="https://wa.me/923410349929" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academy</h4>
+                <a href="pages/about.html">About Us</a>
+                <a href="pages/instructors.html">Instructors</a>
+                <a href="pages/live-classes.html">Live Classes</a>
+                <a href="pages/blog.html">Blog</a>
+                <a href="pages/contact.html">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Learning</h4>
+                <a href="pages/courses.html">All Courses</a>
+                <a href="pages/resources.html">Resources</a>
+                <a href="pages/test.html">Entrance Test</a>
+                <a href="pages/check-result.html">Check Result</a>
+                <a href="pages/verify.html">Verify Certificate</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/923410349929">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="footer-contact-icon"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2z"/></svg>
+                    WhatsApp: 0341 034 9929
+                </a>
+                <a href="mailto:mukeshkewal19@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    mukeshkewal19@gmail.com
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbDZS7a3bbV6vpN9Ra0P">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    WhatsApp Channel
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    Online Classes Only
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"><span><a href="pages/privacy.html">Privacy</a> · <a href="pages/terms.html">Terms</a></span>
+            <span>&copy; 2026 Apex Learning Academy. All rights reserved.</span>
+            <span class="footer-tagline">Learn. Rise. <span class="gradient-text">Achieve.</span></span>
+        </div>
+    </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="js/main.js"></script>
+
+
+<script type="module" src="js/visitor-tracker.js"></script>
+
+<script type="module" src="js/auth-nav.js"></script>
+<script type="module" src="js/enhancements.js"></script>
+<script>if(localStorage.getItem("apex_cookie_consent")){gtag("event","page_view")}</script>
+</body>
+</html>

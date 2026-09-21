@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Apex Learning Academy</title>
+    <link rel="icon" type="image/png" href="../assets/images/logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    
+<link rel="stylesheet" href="../css/enhancements.css">
+<link rel="stylesheet" href="../css/pages/profile.css">
+
+<meta name="description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://apexlearning78.github.io/Apex-Learning-Academy/pages/profile.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Apex Learning Academy">
+<meta property="og:title" content="My Profile | Apex Learning Academy">
+<meta property="og:description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta property="og:url" content="https://apexlearning78.github.io/Apex-Learning-Academy/pages/profile.html">
+<meta property="og:image" content="../assets/images/logo.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="My Profile | Apex Learning Academy">
+<meta name="twitter:description" content="Apex Learning Academy — online learning, courses, live classes, resources and student services.">
+<meta name="twitter:image" content="../assets/images/logo.png">
+<link rel="manifest" href="../manifest.json">
+<link rel="apple-touch-icon" href="../assets/images/logo.png">
+<meta name="theme-color" content="#F4B400">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data: blob: https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; script-src 'self' 'unsafe-inline' https://www.gstatic.com https://www.googletagmanager.com https://www.google-analytics.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://meet.jit.si; connect-src 'self' https://www.gstatic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebaseapp.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.google-analytics.com; frame-src 'self' https://meet.jit.si https://*.firebaseapp.com; worker-src 'self'">
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","G-PFXMKDWB3G",{anonymize_ip:true,allow_google_signals:false,allow_ad_personalization_signals:false,send_page_view:false});window.addEventListener("apex:consent",()=>gtag("event","page_view"));</script>
+
+<link rel="stylesheet" href="../css/index.css">
+<link rel="stylesheet" href="../css/site-pages.css">
+<link rel="stylesheet" href="../css/final-fixes.css">
+</head>
+<body>
+<!-- ============ BACKGROUND LAYER ============ -->
+<div class="bg-layer" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="bg-noise"></div>
+</div>
+
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="siteHeader">
+    <div class="header-inner">
+        <a href="../index.html" class="logo-box">
+            <div class="logo-square">
+                <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </a>
+
+        <nav class="main-nav" aria-label="Main">
+            <a href="../index.html" class="active">Home</a>
+            <a href="../pages/courses.html">Courses</a>
+            <a href="../pages/live-classes.html">Live Classes</a>
+            <a href="../pages/resources.html">Resources</a>
+            
+            <div class="nav-dropdown" id="moreDropdown">
+                <button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                    More
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                        <polyline points="6 9 12 15 18 9"/>
+                    </svg>
+                </button>
+                <div class="nav-dropdown-menu" role="menu">
+                    <a href="../pages/instructors.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        <span>Instructors</span>
+                    </a>
+                    <a href="../pages/about.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                        <span>About Us</span>
+                    </a>
+                    <a href="../pages/blog.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                        <span>Blog</span>
+                    </a>
+                    <a href="../pages/test.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                        <span>Entrance Test</span>
+                    </a>
+                    <a href="../pages/check-result.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        <span>Check Result</span>
+                    </a>
+                    <a href="../pages/verify.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <span>Verify Certificate</span>
+                    </a>
+                    <a href="../pages/contact.html" role="menuitem">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="header-actions" id="authActions">
+            <a href="../pages/login.html" class="btn btn-ghost">Login</a>
+            <a href="../pages/register.html" class="btn btn-gold">Register Now</a>
+        </div>
+
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu-backdrop" id="mobileBackdrop"></div>
+<aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-header">
+        <div class="logo-box">
+            <div class="logo-square">
+                <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+            </div>
+            <div class="logo-text">
+                <span class="logo-name">APEX</span>
+                <span class="logo-sub">LEARNING ACADEMY</span>
+            </div>
+        </div>
+        <button class="mobile-menu-close" id="mobileClose" aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+    </div>
+    <nav class="mobile-menu-nav">
+        <a href="../index.html" class="active">Home</a>
+        <a href="../pages/courses.html">Courses</a>
+        <a href="../pages/live-classes.html">Live Classes</a>
+        <a href="../pages/resources.html">Resources</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <div class="mobile-menu-label">More</div>
+        
+        <a href="../pages/instructors.html">Instructors</a>
+        <a href="../pages/about.html">About Us</a>
+        <a href="../pages/blog.html">Blog</a>
+        <a href="../pages/test.html">Entrance Test</a>
+        <a href="../pages/check-result.html">Check Result</a>
+        <a href="../pages/verify.html">Verify Certificate</a>
+        <a href="../pages/contact.html">Contact</a>
+        
+        <div class="mobile-menu-divider"></div>
+        <a href="../pages/login.html" id="mobileLoginLink" class="mobile-menu-cta">Login</a>
+        <a href="../pages/register.html" id="mobileRegisterLink" class="mobile-menu-cta primary">Register Now</a>
+        <a href="../pages/dashboard.html" id="mobileDashboardLink" class="mobile-menu-cta primary" style="display:none;">Dashboard</a>
+        <button id="mobileLogoutLink" class="mobile-menu-cta" style="display:none;">Logout</button>
+    </nav>
+</aside>
+
+
+<main class="site-page-main">
+
+
+<!-- HEADER -->
+<!-- LOADING -->
+<div class="loading-screen" id="loadingScreen">
+    <div class="spinner"></div>
+    <p>Loading your profile...</p>
+</div>
+
+<!-- PROFILE PAGE -->
+<div class="profile-page" id="profileContent" style="display: none;">
+    <div class="container">
+
+        <!-- PROFILE BANNER -->
+        <div class="profile-banner">
+            <div class="profile-banner-content">
+                <div class="profile-avatar-wrap">
+                    <div class="profile-avatar-large" id="profileAvatar">S</div>
+                    <div class="avatar-edit-btn" onclick="openAvatarModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                            <circle cx="12" cy="13" r="4"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="profile-banner-info">
+                    <div class="profile-banner-tag">Student Profile</div>
+                    <h1 class="profile-banner-name" id="profileBannerName">Student</h1>
+                    <div class="profile-banner-meta">
+                        <div class="profile-banner-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span id="profileBannerEmail">—</span>
+                        </div>
+                        <div class="profile-banner-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <span id="profileBannerPhone">—</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-banner-stats">
+                    <div class="profile-banner-stat">
+                        <div class="profile-banner-stat-value" id="profileStatCourses">0</div>
+                        <div class="profile-banner-stat-label">Courses</div>
+                    </div>
+                    <div class="profile-banner-stat">
+                        <div class="profile-banner-stat-value" id="profileStatProgress">0%</div>
+                        <div class="profile-banner-stat-label">Progress</div>
+                    </div>
+                    <div class="profile-banner-stat">
+                        <div class="profile-banner-stat-value" id="profileStatAttendance">0%</div>
+                        <div class="profile-banner-stat-label">Attendance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="profile-tabs">
+            <button class="profile-tab active" onclick="switchTab(event, 'personal')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Personal Info
+            </button>
+            <button class="profile-tab" onclick="switchTab(event, 'contact')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                Contact
+            </button>
+            <button class="profile-tab" onclick="switchTab(event, 'academic')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                </svg>
+                Academic
+            </button>
+        </div>
+
+        <!-- TAB 1: PERSONAL -->
+        <div class="tab-content active" id="personal">
+            <div class="profile-card">
+                <div class="profile-card-header">
+                    <h3 class="profile-card-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        Personal Information
+                    </h3>
+                </div>
+
+                <form id="personalForm">
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>Full Name *</label>
+                            <input type="text" name="fullName" required placeholder="Your full name">
+                        </div>
+                        <div class="profile-form-group">
+                            <label>Father's Name *</label>
+                            <input type="text" name="fatherName" required placeholder="Father's name">
+                        </div>
+                    </div>
+
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" name="dob">
+                        </div>
+                        <div class="profile-form-group">
+                            <label>Gender</label>
+                            <select name="gender">
+                                <option value="">Select</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>City *</label>
+                            <input type="text" name="city" required placeholder="Your city">
+                        </div>
+                        <div class="profile-form-group">
+                            <label>CNIC / B-Form</label>
+                            <input type="text" name="cnic" placeholder="XXXXX-XXXXXXX-X">
+                        </div>
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label>Bio / About You</label>
+                        <textarea name="bio" rows="3" placeholder="Tell us a bit about yourself..."></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button type="submit" class="btn-save-profile" id="savePersonalBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <polyline points="17 21 17 13 7 13 7 21"/>
+                                <polyline points="7 3 7 8 15 8"/>
+                            </svg>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 2: CONTACT -->
+        <div class="tab-content" id="contact">
+            <div class="profile-card">
+                <div class="profile-card-header">
+                    <h3 class="profile-card-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                        Contact Information
+                    </h3>
+                </div>
+
+                <form id="contactForm">
+                    <div class="profile-form-row">
+                        <div class="profile-form-group">
+                            <label>WhatsApp Number *</label>
+                            <input type="tel" name="whatsapp" required placeholder="03XX-XXXXXXX">
+                        </div>
+                        <div class="profile-form-group">
+                            <label>Alternate Number</label>
+                            <input type="tel" name="altPhone" placeholder="Optional">
+                        </div>
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label>Email Address (Cannot be changed)</label>
+                        <input type="email" name="email" disabled>
+                    </div>
+
+                    <div class="profile-form-group">
+                        <label>Complete Address</label>
+                        <textarea name="address" rows="3" placeholder="House/Street/Area"></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                        <button type="submit" class="btn-save-profile" id="saveContactBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                                <polyline points="17 21 17 13 7 13 7 21"/>
+                                <polyline points="7 3 7 8 15 8"/>
+                            </svg>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- TAB 3: ACADEMIC -->
+        <div class="tab-content" id="academic">
+            <div class="profile-card">
+                <div class="profile-card-header">
+                    <h3 class="profile-card-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                        Academic Information
+                    </h3>
+                </div>
+
+                <div class="info-display-grid">
+                    <div class="info-display-item">
+                        <div class="info-display-label">Course Enrolled</div>
+                        <div class="info-display-value" id="acadCourse">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Education Level</div>
+                        <div class="info-display-value" id="acadEducation">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Preferred Timing</div>
+                        <div class="info-display-value" id="acadTiming">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Enrollment Date</div>
+                        <div class="info-display-value" id="acadEnrolledAt">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Status</div>
+                        <div class="info-display-value" id="acadStatus">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Student ID</div>
+                        <div class="info-display-value" id="acadStudentId">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Coupon Applied</div>
+                        <div class="info-display-value" id="acadCoupon">—</div>
+                    </div>
+                    <div class="info-display-item">
+                        <div class="info-display-label">Attendance</div>
+                        <div class="info-display-value" id="acadAttendance">—</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- AVATAR MODAL -->
+<div class="modal-overlay" id="avatarModal">
+    <div class="avatar-modal">
+        <button class="modal-close" onclick="closeAvatarModal()" style="position: absolute; top: 12px; right: 12px; width: 34px; height: 34px; border-radius: 50%; background: #F1F5F9; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748B;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+        </button>
+        <h3>Change Profile Picture</h3>
+        <p>Upload a photo (max 2 MB, JPG/PNG)</p>
+
+        <label for="avatarFile" class="avatar-upload-area" style="display: block;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+            </svg>
+            <p>Click to upload photo</p>
+            <input type="file" id="avatarFile" accept="image/jpeg,image/png,image/jpg" onchange="handleAvatarUpload(event)">
+        </label>
+
+        <button class="btn-modal-close" onclick="closeAvatarModal()">Cancel</button>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <span id="toastMessage">Saved successfully</span>
+</div>
+
+<!-- FOOTER -->
+
+
+<script type="module" src="../js/pages/profile.js"></script>
+<script>if(localStorage.getItem("apex_cookie_consent")){gtag("event","page_view")}</script>
+
+</main>
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-brand-block">
+                <a href="../index.html" class="logo-box">
+                    <div class="logo-square">
+                        <img src="../assets/images/logo.png" alt="Apex" loading="lazy">
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-name">APEX</span>
+                        <span class="logo-sub">LEARNING ACADEMY</span>
+                    </div>
+                </a>
+                <p>Pakistan's most affordable online academy for Coding and Artificial Intelligence. Practical learning, personal attention, and real results.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.5a3 3 0 0 0-2.1-2.1C19.1 5 12 5 12 5s-7.1 0-8.9.4A3 3 0 0 0 1 7.5 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2.1 2.1C4.9 19 12 19 12 19s7.1 0 8.9-.4a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.5 31 31 0 0 0-.5-4.5zM9.8 15.3V8.7l5.7 3.3z"/></svg></a>
+                    <a href="https://wa.me/923410349929" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2zm5.5 14.2c-.2.7-1.3 1.3-1.8 1.4-.5.1-1.1.2-3.4-.7-2.9-1.2-4.7-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8s.7-2 .9-2.2c.2-.3.5-.3.6-.3h.5c.2 0 .4 0 .6.5.2.5.7 1.8.8 1.9.1.2.1.3 0 .5-.1.2-.2.3-.3.5-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.6-.1.2-.2.7-.8.9-1.1.2-.3.4-.2.6-.1.2.1 1.4.7 1.6.8.2.1.4.2.4.3 0 .2 0 .7-.2 1.4z"/></svg></a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Academy</h4>
+                <a href="../pages/about.html">About Us</a>
+                <a href="../pages/instructors.html">Instructors</a>
+                <a href="../pages/live-classes.html">Live Classes</a>
+                <a href="../pages/blog.html">Blog</a>
+                <a href="../pages/contact.html">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Learning</h4>
+                <a href="../pages/courses.html">All Courses</a>
+                <a href="../pages/resources.html">Resources</a>
+                <a href="../pages/test.html">Entrance Test</a>
+                <a href="../pages/check-result.html">Check Result</a>
+                <a href="../pages/verify.html">Verify Certificate</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contact</h4>
+                <a href="https://wa.me/923410349929">
+                    <svg viewBox="0 0 24 24" fill="currentColor" class="footer-contact-icon"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.4A10 10 0 1 0 12 2z"/></svg>
+                    WhatsApp: 0341 034 9929
+                </a>
+                <a href="mailto:mukeshkewal19@gmail.com">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    mukeshkewal19@gmail.com
+                </a>
+                <a href="https://whatsapp.com/channel/0029VbDZS7a3bbV6vpN9Ra0P">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    WhatsApp Channel
+                </a>
+                <a href="#">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="footer-contact-icon"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    Online Classes Only
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-bottom"><span><a href="../pages/privacy.html">Privacy</a> · <a href="../pages/terms.html">Terms</a></span>
+            <span>&copy; 2026 Apex Learning Academy. All rights reserved.</span>
+            <span class="footer-tagline">Learn. Rise. <span class="gradient-text">Achieve.</span></span>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script src="../js/main.js"></script>
+<script type="module" src="../js/auth-nav.js"></script>
+<script type="module" src="../js/enhancements.js"></script>
+</body>
+</html>
