@@ -1439,21 +1439,34 @@ function isDateField(
     field
 ) {
 
-    return /(
-        date|
-        time|
-        At$|
-        expiresAt|
-        issuedAt|
-        paidAt|
-        createdAt|
-        updatedAt|
-        submittedAt|
-        publishedAt|
-        joinedAt|
-        leftAt|
-        sentAt
-    )$/ix.test(field);
+  /* =========================================================
+   SAFE DATE FIELD DETECTION
+   ========================================================= */
+
+function isDateField(field) {
+
+    const name = String(field ?? '').trim().toLowerCase();
+
+    const dateFields = [
+        'date',
+        'time',
+        'expiresat',
+        'issuedat',
+        'paidat',
+        'createdat',
+        'updatedat',
+        'submittedat',
+        'publishedat',
+        'joinedat',
+        'leftat',
+        'sentat'
+    ];
+
+    return dateFields.some(
+        suffix => name.endsWith(suffix)
+    );
+
+}
 
 }
 
