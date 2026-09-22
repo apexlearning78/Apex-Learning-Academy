@@ -33,9 +33,6 @@ import {
     getDownloadURL
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-import emailjs from "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/+esm";
-
-
 /* =========================================================
    APEX LEARNING ACADEMY
    ADMIN PANEL
