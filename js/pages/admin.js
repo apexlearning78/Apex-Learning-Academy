@@ -1,7 +1,10 @@
-import {
-    auth,
-    db
-} from '../../config/firebase-config.js';
+/* =========================================================
+   APEX LEARNING ACADEMY
+   ADMIN COMMAND CENTER
+   Production-safe admin controller
+   ========================================================= */
+
+import { auth, db } from "../../config/firebase-config.js";
 
 import {
     onAuthStateChanged,
@@ -12,56 +15,394 @@ import {
 import {
     collection,
     getDocs,
+    getDoc,
     doc,
-    deleteDoc,
-    updateDoc,
     addDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-import {
+    updateDoc,
+    deleteDoc,
+    setDoc,
     query,
     orderBy,
     limit,
-    where
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-import {
-    getStorage,
-    ref,
-    uploadBytes,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
 /* =========================================================
-   APEX LEARNING ACADEMY
-   ADMIN PANEL
+   CONFIG
    ========================================================= */
 
-const APEX_EMAILJS_SERVICE = "YOUR_EMAILJS_SERVICE_ID";
-const APEX_EMAILJS_TEMPLATE = "YOUR_EMAILJS_TEMPLATE_ID";
+const ADMIN_UID = "VHbqYaHK6yXP2f8IF9WKc33kkD73";
 
-const ADMIN_UID = "YOUR_ADMIN_UID";
-const ADMIN_NAME = "Apex Learning Academy";
+const ADMIN_NAME = "Mukesh Kewal";
 
-let currentUser = null;
-let currentTab = "dashboard";
-let data = {};
-let selectedStudentIds = new Set();
+const EMAILJS_PUBLIC_KEY = "0CuJdjkOPS6ovXLmt";
+
+/*
+   If you already use EmailJS service/template IDs,
+   put them here.
+*/
+const EMAILJS_SERVICE_ID = "";
+const EMAILJS_TEMPLATE_ID = "";
 
 
 /* =========================================================
-   HELPERS
+   STATE
    ========================================================= */
 
-const $ = (selector, parent = document) =>
-    parent.querySelector(selector);
+const state = {
+    currentUser: null,
+    activeTab: "dashboard",
+    rows: [],
+    filteredRows: [],
+    currentCollection: "",
+    currentModule: "",
+    liveApi: null,
+    liveRoom: "",
+    busy: false,
+    listenersBound: false,
+    lastModalTrigger: null
+};
 
-const $$ = (selector, parent = document) =>
-    [...parent.querySelectorAll(selector)];
+
+/* =========================================================
+   MODULE DEFINITIONS
+   ========================================================= */
+
+const MODULES = {
+
+    students: {
+        title: "Students",
+        collection: "students",
+        search: [
+            "name",
+            "fullName",
+            "email",
+            "phone",
+            "course",
+            "courseName",
+            "status"
+        ]
+    },
+
+    instructors: {
+        title: "Instructors",
+        collection: "instructors",
+        search: [
+            "name",
+            "fullName",
+            "email",
+            "phone",
+            "status"
+        ]
+    },
+
+    messages: {
+        title: "Messages",
+        collection: "messages",
+        search: [
+            "name",
+            "email",
+            "phone",
+            "subject",
+            "message",
+            "status"
+        ]
+    },
+
+    fees: {
+        title: "Fees & Payments",
+        collection: "fees",
+        search: [
+            "name",
+            "studentName",
+            "email",
+            "studentUid",
+            "amount",
+            "status",
+            "course"
+        ]
+    },
+
+    progress: {
+        title: "Course Progress",
+        collection: "progress",
+        search: [
+            "name",
+            "studentName",
+            "email",
+            "course",
+            "courseName",
+            "status"
+        ]
+    },
+
+    attendance: {
+        title: "Attendance",
+        collection: "attendance",
+        search: [
+            "name",
+            "studentName",
+            "email",
+            "course",
+            "status",
+            "date"
+        ]
+    },
+
+    tests: {
+        title: "Tests & Results",
+        collection: "testResults",
+        search: [
+            "name",
+            "studentName",
+            "email",
+            "rollNumber",
+            "course",
+            "score",
+            "status"
+        ]
+    },
+
+    certificates: {
+        title: "Certificates",
+        collection: "certificates",
+        search: [
+            "name",
+            "studentName",
+            "email",
+            "certificateId",
+            "course",
+            "status"
+        ]
+    },
+
+    announcements: {
+        title: "Announcements",
+        collection: "announcements",
+        search: [
+            "title",
+            "message",
+            "status",
+            "course"
+        ]
+    },
+
+    reviews: {
+        title: "Reviews",
+        collection: "reviews",
+        search: [
+            "name",
+            "email",
+            "review",
+            "message",
+            "status",
+            "rating"
+        ]
+    },
+
+    coupons: {
+        title: "Coupons",
+        collection: "coupons",
+        search: [
+            "code",
+            "title",
+            "discount",
+            "status"
+        ]
+    },
+
+    emailLogs: {
+        title: "Email Logs",
+        collection: "emailLogs",
+        search: [
+            "to",
+            "email",
+            "subject",
+            "status",
+            "type"
+        ]
+    },
+
+    courses: {
+        title: "Courses",
+        collection: "courses",
+        search: [
+            "title",
+            "name",
+            "description",
+            "status"
+        ]
+    },
+
+    batches: {
+        title: "Batches",
+        collection: "batches",
+        search: [
+            "name",
+            "course",
+            "status",
+            "instructor"
+        ]
+    },
+
+    visitors: {
+        title: "Visitors",
+        collection: "visitors",
+        search: [
+            "page",
+            "path",
+            "device",
+            "browser",
+            "country"
+        ]
+    },
+
+    visits: {
+        title: "Page Views",
+        collection: "visits",
+        search: [
+            "page",
+            "path",
+            "device",
+            "browser"
+        ]
+    },
+
+    settings: {
+        title: "Academy Settings",
+        collection: "academySettings",
+        search: [
+            "name",
+            "value",
+            "key"
+        ]
+    },
+
+    audit: {
+        title: "Admin Audit",
+        collection: "adminAudit",
+        search: [
+            "action",
+            "module",
+            "admin",
+            "email"
+        ]
+    }
+
+};
 
 
-function esc(value = "") {
+/* =========================================================
+   DOM HELPERS
+   ========================================================= */
+
+function $(id) {
+    return document.getElementById(id);
+}
+
+
+function exists(id) {
+    return !!$(id);
+}
+
+
+function on(id, event, handler, options) {
+
+    const element = $(id);
+
+    if (!element) {
+        return false;
+    }
+
+    element.addEventListener(
+        event,
+        handler,
+        options || false
+    );
+
+    return true;
+}
+
+
+function setText(id, value) {
+
+    const element = $(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.textContent =
+        value === null ||
+        value === undefined
+            ? ""
+            : String(value);
+}
+
+
+function setHTML(id, html) {
+
+    const element = $(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.innerHTML = html || "";
+}
+
+
+function show(id) {
+
+    const element = $(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.hidden = false;
+    element.classList.remove("hidden");
+}
+
+
+function hide(id) {
+
+    const element = $(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.hidden = true;
+    element.classList.add("hidden");
+}
+
+
+function toggle(id, visible) {
+
+    if (visible) {
+        show(id);
+    } else {
+        hide(id);
+    }
+
+}
+
+
+/* =========================================================
+   SECURITY / HTML ESCAPE
+   ========================================================= */
+
+function esc(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
     return String(value)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
@@ -71,2565 +412,124 @@ function esc(value = "") {
 }
 
 
-function fmt(value) {
-    if (!value) return "—";
-
-    try {
-        if (value?.toDate) {
-            return value.toDate().toLocaleString();
-        }
-
-        if (value instanceof Date) {
-            return value.toLocaleString();
-        }
-
-        return new Date(value).toLocaleString();
-    } catch {
-        return String(value);
-    }
-}
-
-
-function toast(message, type = "success") {
-    let container = $("#toastContainer");
-
-    if (!container) {
-        container = document.createElement("div");
-        container.id = "toastContainer";
-        container.className = "toast-container";
-        document.body.appendChild(container);
-    }
-
-    const item = document.createElement("div");
-
-    item.className = `toast toast-${type}`;
-
-    item.innerHTML = `
-        <div class="toast-content">
-            <span>${esc(message)}</span>
-            <button type="button" class="toast-close">×</button>
-        </div>
-    `;
-
-    container.appendChild(item);
-
-    item.querySelector(".toast-close")?.addEventListener(
-        "click",
-        () => item.remove()
-    );
-
-    setTimeout(() => {
-        item.remove();
-    }, 4000);
-}
-
-
-function badge(status = "") {
-
-    const value = String(status || "pending")
-        .toLowerCase()
-        .replace(/\s+/g, "-");
-
-    return `
-        <span class="status-badge status-${esc(value)}">
-            ${esc(status || "Pending")}
-        </span>
-    `;
-}
-
-
 /* =========================================================
-   COURSE / SUBJECT HELPERS
+   DATE HELPERS
    ========================================================= */
 
-function normalizeCourse(value) {
+/*
+   IMPORTANT:
+   Do NOT use /.../ix here.
+   JavaScript does not support the x regex flag.
+*/
+
+function isDateField(field) {
+
+    const name = String(
+        field ?? ""
+    )
+        .trim()
+        .toLowerCase();
+
+    const dateFields = [
+        "date",
+        "time",
+        "expiresat",
+        "issuedat",
+        "paidat",
+        "createdat",
+        "updatedat",
+        "submittedat",
+        "publishedat",
+        "joinedat",
+        "leftat",
+        "sentat"
+    ];
+
+    return dateFields.some(
+        suffix => name === suffix ||
+        name.endsWith(suffix)
+    );
+}
+
+
+function formatDate(value) {
 
     if (!value) {
-        return "Unassigned";
+        return "—";
     }
-
-    const text = String(value).trim().toLowerCase();
-
-    if (
-        text.includes("artificial") ||
-        text === "ai" ||
-        text.includes("artificial intelligence")
-    ) {
-        return "Artificial Intelligence";
-    }
-
-    if (
-        text.includes("web") ||
-        text.includes("development") ||
-        text.includes("web development")
-    ) {
-        return "Web Development";
-    }
-
-    return String(value).trim();
-}
-
-
-function studentCourseOf(student = {}) {
-
-    return normalizeCourse(
-        student.course ||
-        student.subject ||
-        student.courseName ||
-        student.program ||
-        student.programName ||
-        student.subjectName ||
-        ""
-    );
-}
-
-
-function studentNameOf(student = {}) {
-
-    return (
-        student.name ||
-        student.fullName ||
-        student.studentName ||
-        student.displayName ||
-        "Student"
-    );
-}
-
-
-function studentEmailOf(student = {}) {
-
-    return (
-        student.email ||
-        student.emailAddress ||
-        student.studentEmail ||
-        ""
-    );
-}
-
-
-function studentPhoneOf(student = {}) {
-
-    return (
-        student.phone ||
-        student.phoneNumber ||
-        student.mobile ||
-        student.whatsapp ||
-        ""
-    );
-}
-
-
-function studentStatusOf(student = {}) {
-
-    return (
-        student.status ||
-        student.studentStatus ||
-        "active"
-    );
-}
-
-
-/* =========================================================
-   FIREBASE DATA
-   ========================================================= */
-
-const COLLECTIONS = [
-    "students",
-    "fees",
-    "messages",
-    "emailLogs",
-    "announcements",
-    "classes",
-    "coupons",
-    "certificates"
-];
-
-
-async function loadAllData() {
-
-    for (const collectionName of COLLECTIONS) {
-
-        try {
-
-            const snapshot = await getDocs(
-                collection(db, collectionName)
-            );
-
-            data[collectionName] = snapshot.docs.map(
-                item => ({
-                    id: item.id,
-                    ...item.data()
-                })
-            );
-
-        } catch (error) {
-
-            console.error(
-                `Error loading ${collectionName}:`,
-                error
-            );
-
-            data[collectionName] = [];
-        }
-    }
-
-    renderDashboard();
-    renderCurrentModule();
-}
-
-
-async function refreshData(collectionName = null) {
-
-    if (collectionName) {
-
-        try {
-
-            const snapshot = await getDocs(
-                collection(db, collectionName)
-            );
-
-            data[collectionName] = snapshot.docs.map(
-                item => ({
-                    id: item.id,
-                    ...item.data()
-                })
-            );
-
-        } catch (error) {
-
-            console.error(error);
-
-            data[collectionName] = [];
-        }
-
-    } else {
-
-        await loadAllData();
-    }
-}
-
-
-/* =========================================================
-   STUDENT GROUPING
-   ========================================================= */
-
-function getStudentGroups() {
-
-    const students = data.students || [];
-
-    const groups = {
-        "Web Development": [],
-        "Artificial Intelligence": [],
-        "Unassigned": []
-    };
-
-    students.forEach(student => {
-
-        const course = studentCourseOf(student);
-
-        if (course === "Web Development") {
-            groups["Web Development"].push(student);
-
-        } else if (course === "Artificial Intelligence") {
-            groups["Artificial Intelligence"].push(student);
-
-        } else {
-            groups["Unassigned"].push(student);
-        }
-    });
-
-    return groups;
-}
-
-
-function renderStudentSegmentation(targetId) {
-
-    const target = document.getElementById(targetId);
-
-    if (!target) return;
-
-    const groups = getStudentGroups();
-
-    const total = data.students?.length || 0;
-
-    target.innerHTML = `
-        <div class="student-segmentation-header">
-            <div>
-                <h3>Students by Course</h3>
-                <p>
-                    Manage students separately according to
-                    their enrolled course.
-                </p>
-            </div>
-
-            <div class="student-total-box">
-                <strong>${total}</strong>
-                <span>Total Students</span>
-            </div>
-        </div>
-
-        <div class="student-course-grid">
-
-            <button
-                type="button"
-                class="student-course-card"
-                data-course-filter="Web Development"
-            >
-                <div class="course-card-icon">💻</div>
-
-                <div class="course-card-info">
-                    <strong>Web Development</strong>
-                    <span>
-                        ${groups["Web Development"].length}
-                        Students
-                    </span>
-                </div>
-
-                <div class="course-card-arrow">→</div>
-            </button>
-
-
-            <button
-                type="button"
-                class="student-course-card"
-                data-course-filter="Artificial Intelligence"
-            >
-                <div class="course-card-icon">🤖</div>
-
-                <div class="course-card-info">
-                    <strong>Artificial Intelligence</strong>
-                    <span>
-                        ${groups["Artificial Intelligence"].length}
-                        Students
-                    </span>
-                </div>
-
-                <div class="course-card-arrow">→</div>
-            </button>
-
-
-            <button
-                type="button"
-                class="student-course-card"
-                data-course-filter="Unassigned"
-            >
-                <div class="course-card-icon">👤</div>
-
-                <div class="course-card-info">
-                    <strong>Unassigned</strong>
-                    <span>
-                        ${groups["Unassigned"].length}
-                        Students
-                    </span>
-                </div>
-
-                <div class="course-card-arrow">→</div>
-            </button>
-
-        </div>
-    `;
-
-
-    $$(".student-course-card", target)
-        .forEach(button => {
-
-            button.addEventListener("click", () => {
-
-                const course =
-                    button.dataset.courseFilter;
-
-                switchTab("students");
-
-                setTimeout(() => {
-
-                    const filter =
-                        $("#studentCourseFilter");
-
-                    if (filter) {
-
-                        filter.value = course;
-
-                        filter.dispatchEvent(
-                            new Event("change")
-                        );
-                    }
-
-                }, 100);
-            });
-        });
-}
-
-
-/* =========================================================
-   DASHBOARD
-   ========================================================= */
-
-function renderDashboard() {
-
-    const students =
-        data.students || [];
-
-    const fees =
-        data.fees || [];
-
-    const messages =
-        data.messages || [];
-
-    const emailLogs =
-        data.emailLogs || [];
-
-
-    const totalStudents =
-        students.length;
-
-    const totalFees =
-        fees.length;
-
-    const unreadMessages =
-        messages.filter(
-            item =>
-                item.read === false ||
-                item.status === "unread"
-        ).length;
-
-    const totalEmails =
-        emailLogs.length;
-
-
-    const studentCount =
-        $("#dashboardStudentCount");
-
-    const feeCount =
-        $("#dashboardFeeCount");
-
-    const messageCount =
-        $("#dashboardMessageCount");
-
-    const emailCount =
-        $("#dashboardEmailCount");
-
-
-    if (studentCount) {
-        studentCount.textContent =
-            totalStudents;
-    }
-
-    if (feeCount) {
-        feeCount.textContent =
-            totalFees;
-    }
-
-    if (messageCount) {
-        messageCount.textContent =
-            unreadMessages;
-    }
-
-    if (emailCount) {
-        emailCount.textContent =
-            totalEmails;
-    }
-
-
-    renderStudentSegmentation(
-        "studentSegmentation"
-    );
-}
-
-
-/* =========================================================
-   STUDENTS
-   ========================================================= */
-
-function renderStudents() {
-
-    const students =
-        data.students || [];
-
-    const table =
-        $("#studentsTableBody");
-
-    if (!table) return;
-
-
-    const courseFilter =
-        $("#studentCourseFilter")?.value ||
-        "all";
-
-    const search =
-        ($("#studentSearch")?.value || "")
-            .trim()
-            .toLowerCase();
-
-
-    const filtered =
-        students.filter(student => {
-
-            const course =
-                studentCourseOf(student);
-
-            const name =
-                studentNameOf(student)
-                    .toLowerCase();
-
-            const email =
-                studentEmailOf(student)
-                    .toLowerCase();
-
-            const phone =
-                studentPhoneOf(student)
-                    .toLowerCase();
-
-
-            const matchesCourse =
-                courseFilter === "all" ||
-                course === courseFilter;
-
-
-            const matchesSearch =
-                !search ||
-                name.includes(search) ||
-                email.includes(search) ||
-                phone.includes(search) ||
-                course.toLowerCase()
-                    .includes(search);
-
-
-            return (
-                matchesCourse &&
-                matchesSearch
-            );
-        });
-
-
-    if (!filtered.length) {
-
-        table.innerHTML = `
-            <tr>
-                <td colspan="8">
-                    <div class="empty-state">
-                        <div class="empty-state-icon">
-                            👨‍🎓
-                        </div>
-
-                        <h3>No students found</h3>
-
-                        <p>
-                            No students match the
-                            selected filters.
-                        </p>
-                    </div>
-                </td>
-            </tr>
-        `;
-
-        return;
-    }
-
-
-    table.innerHTML =
-        filtered.map(student => {
-
-            const name =
-                studentNameOf(student);
-
-            const email =
-                studentEmailOf(student);
-
-            const phone =
-                studentPhoneOf(student);
-
-            const course =
-                studentCourseOf(student);
-
-            const status =
-                studentStatusOf(student);
-
-
-            return `
-                <tr
-                    data-student-id="${esc(student.id)}"
-                >
-
-                    <td>
-                        <input
-                            type="checkbox"
-                            class="student-select"
-                            value="${esc(student.id)}"
-                            ${selectedStudentIds.has(student.id)
-                                ? "checked"
-                                : ""}
-                        >
-                    </td>
-
-                    <td>
-                        <div class="student-name-cell">
-
-                            <div class="student-avatar">
-                                ${esc(
-                                    name
-                                        .charAt(0)
-                                        .toUpperCase()
-                                )}
-                            </div>
-
-                            <div>
-                                <strong>
-                                    ${esc(name)}
-                                </strong>
-
-                                <small>
-                                    ${esc(
-                                        student.id
-                                    )}
-                                </small>
-                            </div>
-
-                        </div>
-                    </td>
-
-
-                    <td>
-                        ${
-                            email
-                                ? `
-                                    <a
-                                        href="mailto:${esc(email)}"
-                                        class="student-email"
-                                    >
-                                        ${esc(email)}
-                                    </a>
-                                `
-                                : "—"
-                        }
-                    </td>
-
-
-                    <td>
-                        <span class="course-badge">
-                            ${esc(course)}
-                        </span>
-                    </td>
-
-
-                    <td>
-                        ${esc(phone || "—")}
-                    </td>
-
-
-                    <td>
-                        ${badge(status)}
-                    </td>
-
-
-                    <td>
-                        ${fmt(
-                            student.createdAt ||
-                            student.created_at ||
-                            student.joinedAt
-                        )}
-                    </td>
-
-
-                    <td>
-
-                        <div class="row-actions">
-
-                            <button
-                                type="button"
-                                class="action-btn"
-                                title="View"
-                                data-student-view="${esc(student.id)}"
-                            >
-                                👁
-                            </button>
-
-
-                            ${
-                                email
-                                    ? `
-                                        <button
-                                            type="button"
-                                            class="action-btn action-primary"
-                                            title="Reply"
-                                            data-student-reply="${esc(student.id)}"
-                                        >
-                                            ✉
-                                        </button>
-                                    `
-                                    : ""
-                            }
-
-
-                            <button
-                                type="button"
-                                class="action-btn"
-                                title="Edit"
-                                data-student-edit="${esc(student.id)}"
-                            >
-                                ✏
-                            </button>
-
-
-                            <button
-                                type="button"
-                                class="action-btn action-danger"
-                                title="Delete"
-                                data-student-delete="${esc(student.id)}"
-                            >
-                                🗑
-                            </button>
-
-                        </div>
-
-                    </td>
-
-                </tr>
-            `;
-
-        }).join("");
-
-
-    $$(".student-select", table)
-        .forEach(input => {
-
-            input.addEventListener(
-                "change",
-                event => {
-
-                    const id =
-                        event.target.value;
-
-                    if (event.target.checked) {
-                        selectedStudentIds.add(id);
-                    } else {
-                        selectedStudentIds.delete(id);
-                    }
-
-                    updateSelectedStudentCount();
-                }
-            );
-        });
-
-
-    $$("[data-student-view]", table)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () =>
-                    viewStudent(
-                        button.dataset.studentView
-                    )
-            );
-        });
-
-
-    $$("[data-student-reply]", table)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () =>
-                    openStudentReply(
-                        button.dataset.studentReply
-                    )
-            );
-        });
-
-
-    $$("[data-student-edit]", table)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () =>
-                    editRecord(
-                        "students",
-                        button.dataset.studentEdit
-                    )
-            );
-        });
-
-
-    $$("[data-student-delete]", table)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                () =>
-                    deleteRecord(
-                        "students",
-                        button.dataset.studentDelete
-                    )
-            );
-        });
-
-
-    updateSelectedStudentCount();
-}
-
-
-function updateSelectedStudentCount() {
-
-    const element =
-        $("#selectedStudentCount");
-
-    if (element) {
-        element.textContent =
-            selectedStudentIds.size;
-    }
-}
-
-
-/* =========================================================
-   VIEW STUDENT
-   ========================================================= */
-
-function viewStudent(id) {
-
-    const student =
-        (data.students || [])
-            .find(item => item.id === id);
-
-    if (!student) return;
-
-
-    const name =
-        studentNameOf(student);
-
-    const email =
-        studentEmailOf(student);
-
-    const course =
-        studentCourseOf(student);
-
-    const phone =
-        studentPhoneOf(student);
-
-    const status =
-        studentStatusOf(student);
-
-
-    showModal(`
-        <div class="student-detail-modal">
-
-            <div class="student-detail-header">
-
-                <div class="student-detail-avatar">
-                    ${esc(
-                        name
-                            .charAt(0)
-                            .toUpperCase()
-                    )}
-                </div>
-
-                <div>
-
-                    <h2>
-                        ${esc(name)}
-                    </h2>
-
-                    <span>
-                        ${esc(course)}
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="student-detail-grid">
-
-                <div>
-                    <label>Email</label>
-                    <strong>
-                        ${esc(email || "—")}
-                    </strong>
-                </div>
-
-                <div>
-                    <label>Phone</label>
-                    <strong>
-                        ${esc(phone || "—")}
-                    </strong>
-                </div>
-
-                <div>
-                    <label>Course</label>
-                    <strong>
-                        ${esc(course)}
-                    </strong>
-                </div>
-
-                <div>
-                    <label>Status</label>
-                    <strong>
-                        ${badge(status)}
-                    </strong>
-                </div>
-
-                <div>
-                    <label>Joined</label>
-                    <strong>
-                        ${fmt(
-                            student.createdAt ||
-                            student.created_at
-                        )}
-                    </strong>
-                </div>
-
-                <div>
-                    <label>Student ID</label>
-                    <strong>
-                        ${esc(student.id)}
-                    </strong>
-                </div>
-
-            </div>
-
-
-            <div class="modal-actions">
-
-                ${
-                    email
-                        ? `
-                            <button
-                                type="button"
-                                class="btn btn-primary"
-                                id="studentReplyFromModal"
-                            >
-                                ✉ Reply to Student
-                            </button>
-                        `
-                        : ""
-                }
-
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-close-modal
-                >
-                    Close
-                </button>
-
-            </div>
-
-        </div>
-    `);
-
-
-    $("#studentReplyFromModal")
-        ?.addEventListener(
-            "click",
-            () => {
-
-                closeModal();
-
-                openStudentReply(id);
-            }
-        );
-}
-
-
-/* =========================================================
-   STUDENT REPLY
-   ========================================================= */
-
-function openStudentReply(id) {
-
-    const student =
-        (data.students || [])
-            .find(item => item.id === id);
-
-    if (!student) return;
-
-
-    switchTab("communication");
-
-
-    setTimeout(() => {
-
-        const email =
-            studentEmailOf(student);
-
-        const name =
-            studentNameOf(student);
-
-        const course =
-            studentCourseOf(student);
-
-
-        const recipient =
-            $("#primaryRecipient");
-
-        const subject =
-            $("#emailSubject");
-
-        const message =
-            $("#emailMessage");
-
-
-        if (recipient) {
-            recipient.value = email;
-        }
-
-
-        if (subject) {
-
-            subject.value =
-                `Reply from Apex Learning Academy – ${course}`;
-        }
-
-
-        if (message) {
-
-            message.value =
-`Dear ${name},
-
-Thank you for contacting Apex Learning Academy.
-
-We have received your message regarding your ${course} course.
-
-Our team will review your request and assist you as soon as possible.
-
-If you have any additional questions, please feel free to reply to this email.
-
-Best regards,
-
-${ADMIN_NAME}
-Apex Learning Academy`;
-        }
-
-
-        updateCommunicationRecipients();
-
-        toast(
-            `Reply prepared for ${name}`,
-            "success"
-        );
-
-    }, 150);
-}
-
-
-/* =========================================================
-   COMMUNICATION CENTER
-   ========================================================= */
-
-const EMAIL_TEMPLATES = {
-
-    welcome: {
-        subject:
-            "Welcome to Apex Learning Academy",
-        message:
-`Dear {name},
-
-Welcome to Apex Learning Academy!
-
-We are delighted to have you join our {course} program.
-
-Our team is here to support you throughout your learning journey.
-
-If you have any questions, please feel free to contact us.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    enrollment: {
-        subject:
-            "Course Enrollment Confirmation – {course}",
-        message:
-`Dear {name},
-
-Your enrollment in the {course} program has been successfully confirmed.
-
-We are excited to have you as part of Apex Learning Academy.
-
-Please keep an eye on your email for important course updates.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    payment: {
-        subject:
-            "Payment Confirmation – Apex Learning Academy",
-        message:
-`Dear {name},
-
-This is to confirm that your payment has been successfully received.
-
-Course: {course}
-
-Thank you for choosing Apex Learning Academy.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    fee: {
-        subject:
-            "Fee Reminder – Apex Learning Academy",
-        message:
-`Dear {name},
-
-This is a friendly reminder regarding your outstanding course fee for {course}.
-
-Please contact the academy if you need any assistance regarding your payment.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    class: {
-        subject:
-            "Class Reminder – Apex Learning Academy",
-        message:
-`Dear {name},
-
-This is a reminder about your upcoming {course} class.
-
-Please make sure you are available and ready before the scheduled class time.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    progress: {
-        subject:
-            "Course Progress Update – {course}",
-        message:
-`Dear {name},
-
-We would like to share an update regarding your progress in the {course} program.
-
-Please continue your regular practice and stay consistent with your learning.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    attendance: {
-        subject:
-            "Attendance Notice – Apex Learning Academy",
-        message:
-`Dear {name},
-
-We are contacting you regarding your attendance in the {course} program.
-
-Regular attendance is important for maintaining steady progress.
-
-If there is any issue affecting your attendance, please let our team know.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    result: {
-        subject:
-            "Test Result – Apex Learning Academy",
-        message:
-`Dear {name},
-
-Your recent test/result for the {course} program is now available.
-
-Please contact the academy if you require any clarification.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    assignment: {
-        subject:
-            "Assignment Reminder – {course}",
-        message:
-`Dear {name},
-
-This is a reminder regarding your upcoming assignment for the {course} program.
-
-Please make sure your assignment is completed and submitted on time.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    certificate: {
-        subject:
-            "Certificate Ready – Apex Learning Academy",
-        message:
-`Dear {name},
-
-Congratulations!
-
-Your certificate related to the {course} program is now ready.
-
-Please contact Apex Learning Academy for collection or delivery details.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    announcement: {
-        subject:
-            "Important Announcement – Apex Learning Academy",
-        message:
-`Dear {name},
-
-We would like to share an important announcement regarding your {course} program.
-
-Please review the latest information carefully.
-
-If you have any questions, our team is available to assist you.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    support: {
-        subject:
-            "Response from Apex Learning Academy",
-        message:
-`Dear {name},
-
-Thank you for contacting Apex Learning Academy.
-
-We have received your request and our team is reviewing it.
-
-We will assist you with the next steps as soon as possible.
-
-Best regards,
-
-Apex Learning Academy`
-    },
-
-
-    custom: {
-        subject: "",
-        message: ""
-    }
-};
-
-
-function renderCommunicationCenter() {
-
-    const students =
-        data.students || [];
-
-
-    const total =
-        students.length;
-
-    const web =
-        students.filter(
-            item =>
-                studentCourseOf(item) ===
-                "Web Development"
-        ).length;
-
-    const ai =
-        students.filter(
-            item =>
-                studentCourseOf(item) ===
-                "Artificial Intelligence"
-        ).length;
-
-    const emailReady =
-        students.filter(
-            item =>
-                !!studentEmailOf(item)
-        ).length;
-
-
-    const totalElement =
-        $("#communicationTotalStudents");
-
-    const webElement =
-        $("#communicationWebStudents");
-
-    const aiElement =
-        $("#communicationAIStudents");
-
-    const emailElement =
-        $("#communicationEmailReady");
-
-
-    if (totalElement)
-        totalElement.textContent = total;
-
-    if (webElement)
-        webElement.textContent = web;
-
-    if (aiElement)
-        aiElement.textContent = ai;
-
-    if (emailElement)
-        emailElement.textContent =
-            emailReady;
-
-
-    populateCommunicationStudents();
-}
-
-
-function populateCommunicationStudents() {
-
-    const container =
-        $("#communicationRecipients");
-
-    if (!container) return;
-
-
-    const students =
-        data.students || [];
-
-
-    const audience =
-        $("#recipientAudience")?.value ||
-        "all";
-
-
-    const search =
-        ($("#recipientSearch")?.value || "")
-            .toLowerCase()
-            .trim();
-
-
-    let filtered =
-        students.filter(student => {
-
-            const course =
-                studentCourseOf(student);
-
-            const name =
-                studentNameOf(student)
-                    .toLowerCase();
-
-            const email =
-                studentEmailOf(student)
-                    .toLowerCase();
-
-
-            let matchesAudience = true;
-
-
-            if (
-                audience === "web"
-            ) {
-
-                matchesAudience =
-                    course ===
-                    "Web Development";
-
-            } else if (
-                audience === "ai"
-            ) {
-
-                matchesAudience =
-                    course ===
-                    "Artificial Intelligence";
-
-            }
-
-
-            const matchesSearch =
-                !search ||
-                name.includes(search) ||
-                email.includes(search) ||
-                course.toLowerCase()
-                    .includes(search);
-
-
-            return (
-                matchesAudience &&
-                matchesSearch
-            );
-        });
-
-
-    if (!filtered.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-state-icon">
-                    ✉️
-                </div>
-
-                <h3>No recipients found</h3>
-
-                <p>
-                    No students match this
-                    audience or search.
-                </p>
-            </div>
-        `;
-
-        return;
-    }
-
-
-    container.innerHTML =
-        filtered.map(student => {
-
-            const id =
-                student.id;
-
-            const name =
-                studentNameOf(student);
-
-            const email =
-                studentEmailOf(student);
-
-            const course =
-                studentCourseOf(student);
-
-
-            return `
-                <label class="recipient-item">
-
-                    <input
-                        type="checkbox"
-                        class="recipient-checkbox"
-                        value="${esc(id)}"
-                        ${selectedStudentIds.has(id)
-                            ? "checked"
-                            : ""}
-                        ${!email
-                            ? "disabled"
-                            : ""}
-                    >
-
-                    <span class="recipient-avatar">
-                        ${esc(
-                            name
-                                .charAt(0)
-                                .toUpperCase()
-                        )}
-                    </span>
-
-                    <span class="recipient-info">
-
-                        <strong>
-                            ${esc(name)}
-                        </strong>
-
-                        <small>
-                            ${esc(email || "No email")}
-                        </small>
-
-                        <small>
-                            ${esc(course)}
-                        </small>
-
-                    </span>
-
-                </label>
-            `;
-
-        }).join("");
-
-
-    $$(".recipient-checkbox", container)
-        .forEach(checkbox => {
-
-            checkbox.addEventListener(
-                "change",
-                event => {
-
-                    const id =
-                        event.target.value;
-
-                    if (
-                        event.target.checked
-                    ) {
-
-                        selectedStudentIds
-                            .add(id);
-
-                    } else {
-
-                        selectedStudentIds
-                            .delete(id);
-                    }
-
-                    updateCommunicationSelectedCount();
-                }
-            );
-        });
-
-
-    updateCommunicationSelectedCount();
-}
-
-
-function updateCommunicationSelectedCount() {
-
-    const count =
-        $("#communicationSelectedCount");
-
-    if (count) {
-        count.textContent =
-            selectedStudentIds.size;
-    }
-
-    updatePrimaryRecipientsField();
-}
-
-
-function updatePrimaryRecipientsField() {
-
-    const input =
-        $("#primaryRecipient");
-
-    if (!input) return;
-
-
-    if (selectedStudentIds.size === 0) {
-        return;
-    }
-
-
-    const selected =
-        (data.students || [])
-            .filter(
-                student =>
-                    selectedStudentIds.has(
-                        student.id
-                    )
-            );
-
-
-    const emails =
-        selected
-            .map(student =>
-                studentEmailOf(student)
-            )
-            .filter(Boolean);
-
-
-    if (emails.length) {
-        input.value =
-            emails.join(", ");
-    }
-}
-
-
-/* =========================================================
-   TEMPLATE HANDLING
-   ========================================================= */
-
-function applyEmailTemplate(templateKey) {
-
-    const template =
-        EMAIL_TEMPLATES[templateKey];
-
-    if (!template) return;
-
-
-    const subject =
-        $("#emailSubject");
-
-    const message =
-        $("#emailMessage");
-
-
-    if (subject) {
-        subject.value =
-            template.subject;
-    }
-
-
-    if (message) {
-        message.value =
-            template.message;
-    }
-
-
-    personalizeEmailFields();
-}
-
-
-function personalizeEmailFields() {
-
-    const subject =
-        $("#emailSubject");
-
-    const message =
-        $("#emailMessage");
-
-
-    if (!subject && !message) {
-        return;
-    }
-
-
-    let name = "Student";
-    let course = "your course";
-
-
-    if (
-        selectedStudentIds.size === 1
-    ) {
-
-        const id =
-            [...selectedStudentIds][0];
-
-        const student =
-            (data.students || [])
-                .find(
-                    item =>
-                        item.id === id
-                );
-
-
-        if (student) {
-
-            name =
-                studentNameOf(student);
-
-            course =
-                studentCourseOf(student);
-        }
-    }
-
-
-    if (subject) {
-
-        subject.value =
-            subject.value
-                .replaceAll(
-                    "{name}",
-                    name
-                )
-                .replaceAll(
-                    "{course}",
-                    course
-                );
-    }
-
-
-    if (message) {
-
-        message.value =
-            message.value
-                .replaceAll(
-                    "{name}",
-                    name
-                )
-                .replaceAll(
-                    "{course}",
-                    course
-                );
-    }
-}
-
-
-/* =========================================================
-   SEND EMAIL
-   ========================================================= */
-
-async function sendEmailToStudent(
-    student,
-    subject,
-    message
-) {
-
-    const email =
-        studentEmailOf(student);
-
-    if (!email) {
-        throw new Error(
-            `No email for ${studentNameOf(student)}`
-        );
-    }
-
-
-    const name =
-        studentNameOf(student);
-
-    const course =
-        studentCourseOf(student);
-
-
-    const personalizedSubject =
-        subject
-            .replaceAll(
-                "{name}",
-                name
-            )
-            .replaceAll(
-                "{course}",
-                course
-            );
-
-
-    const personalizedMessage =
-        message
-            .replaceAll(
-                "{name}",
-                name
-            )
-            .replaceAll(
-                "{course}",
-                course
-            );
-
-
-    await emailjs.send(
-        APEX_EMAILJS_SERVICE,
-        APEX_EMAILJS_TEMPLATE,
-        {
-            to_email: email,
-            recipient: email,
-            subject: personalizedSubject,
-            message: personalizedMessage,
-            admin_name: ADMIN_NAME,
-            reply_to:
-                currentUser?.email || ""
-        }
-    );
-
 
     try {
 
-        await addDoc(
-            collection(
-                db,
-                "emailLogs"
-            ),
-            {
-                recipient: email,
-                recipientName: name,
-                course: course,
-                subject:
-                    personalizedSubject,
-                message:
-                    personalizedMessage,
-                type: "student-email",
-                sentBy:
-                    ADMIN_UID,
-                sentByEmail:
-                    currentUser?.email || "",
-                createdAt:
-                    serverTimestamp()
-            }
-        );
+        let date;
 
-    } catch (logError) {
-
-        console.error(
-            "Email log failed:",
-            logError
-        );
-    }
-}
-
-
-async function sendCommunicationEmail() {
-
-    const subject =
-        $("#emailSubject")?.value
-            ?.trim();
-
-    const message =
-        $("#emailMessage")?.value
-            ?.trim();
-
-
-    if (!subject) {
-
-        toast(
-            "Please enter an email subject.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (!message) {
-
-        toast(
-            "Please enter an email message.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    let recipients =
-        (data.students || [])
-            .filter(
-                student =>
-                    selectedStudentIds.has(
-                        student.id
-                    )
-            );
-
-
-    if (!recipients.length) {
-
-        const raw =
-            $("#primaryRecipient")
-                ?.value
-                ?.trim();
-
-
-        if (raw) {
-
-            const emails =
-                raw
-                    .split(",")
-                    .map(
-                        email =>
-                            email.trim()
-                    )
-                    .filter(Boolean);
-
-
-            recipients =
-                emails.map(email => ({
-                    name: "Student",
-                    email,
-                    course: "your course"
-                }));
-        }
-    }
-
-
-    if (!recipients.length) {
-
-        toast(
-            "Please select at least one student.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const button =
-        $("#sendEmailBtn");
-
-
-    if (button) {
-        button.disabled = true;
-        button.dataset.originalText =
-            button.innerHTML;
-        button.innerHTML =
-            "Sending...";
-    }
-
-
-    let success = 0;
-    let failed = 0;
-
-
-    try {
-
-        for (
-            const student
-            of recipients
+        if (
+            value &&
+            typeof value.toDate === "function"
         ) {
-
-            try {
-
-                await sendEmailToStudent(
-                    student,
-                    subject,
-                    message
-                );
-
-                success++;
-
-            } catch (error) {
-
-                failed++;
-
-                console.error(
-                    "Email failed:",
-                    error
-                );
-            }
+            date = value.toDate();
+        } else if (
+            value &&
+            typeof value.seconds === "number"
+        ) {
+            date = new Date(
+                value.seconds * 1000
+            );
+        } else {
+            date = new Date(value);
         }
 
-
-        if (success) {
-
-            toast(
-                `${success} email(s) sent successfully.`,
-                "success"
-            );
+        if (Number.isNaN(date.getTime())) {
+            return String(value);
         }
 
-
-        if (failed) {
-
-            toast(
-                `${failed} email(s) failed.`,
-                "error"
-            );
-        }
-
-
-        await refreshData(
-            "emailLogs"
-        );
-
-
-        renderDashboard();
-
-
-    } finally {
-
-        if (button) {
-
-            button.disabled = false;
-
-            button.innerHTML =
-                button.dataset.originalText ||
-                "Send Email";
-        }
-    }
-}
-
-
-/* =========================================================
-   WHATSAPP
-   ========================================================= */
-
-function sendWhatsApp() {
-
-    const message =
-        $("#emailMessage")?.value?.trim();
-
-
-    if (!message) {
-
-        toast(
-            "Please enter a message first.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const students =
-        (data.students || [])
-            .filter(
-                student =>
-                    selectedStudentIds.has(
-                        student.id
-                    )
-            );
-
-
-    if (!students.length) {
-
-        toast(
-            "Please select at least one student.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const student =
-        students[0];
-
-    const phone =
-        studentPhoneOf(student)
-            .replace(/\D/g, "");
-
-
-    if (!phone) {
-
-        toast(
-            "Selected student has no phone number.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    const finalMessage =
-        message
-            .replaceAll(
-                "{name}",
-                studentNameOf(student)
-            )
-            .replaceAll(
-                "{course}",
-                studentCourseOf(student)
-            );
-
-
-    const url =
-        `https://wa.me/${phone}?text=${encodeURIComponent(
-            finalMessage
-        )}`;
-
-
-    window.open(
-        url,
-        "_blank",
-        "noopener,noreferrer"
-    );
-}
-
-
-/* =========================================================
-   ADD RECORD
-   ========================================================= */
-
-async function addRecord(
-    collectionName,
-    formData
-) {
-
-    try {
-
-        await addDoc(
-            collection(
-                db,
-                collectionName
-            ),
+        return new Intl.DateTimeFormat(
+            "en-US",
             {
-                ...formData,
-                createdAt:
-                    serverTimestamp()
+                year: "numeric",
+                month: "short",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit"
             }
-        );
+        ).format(date);
 
+    } catch (_) {
 
-        await refreshData(
-            collectionName
-        );
+        return String(value);
 
-
-        renderCurrentModule();
-
-        renderDashboard();
-
-
-        toast(
-            "Record added successfully.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        toast(
-            error.message ||
-            "Failed to add record.",
-            "error"
-        );
     }
 }
 
 
 /* =========================================================
-   EDIT RECORD
+   TOAST
    ========================================================= */
 
-async function editRecord(
-    collectionName,
-    id
-) {
-
-    const records =
-        data[collectionName] || [];
-
-    const record =
-        records.find(
-            item => item.id === id
-        );
+let toastTimer = null;
 
 
-    if (!record) return;
+function toast(message, type = "info") {
 
+    const element = $("toast");
 
-    if (
-        collectionName ===
-        "students"
-    ) {
-
-        showStudentEditModal(record);
-
+    if (!element) {
         return;
     }
 
-
-    const fields =
-        Object.keys(record)
-            .filter(
-                key =>
-                    key !== "id" &&
-                    key !== "createdAt"
-            );
-
-
-    showModal(`
-        <div class="generic-edit-modal">
-
-            <h2>Edit Record</h2>
-
-            <form id="genericEditForm">
-
-                ${fields.map(field => `
-
-                    <div class="form-group">
-
-                        <label>
-                            ${esc(
-                                field
-                            )}
-                        </label>
-
-                        <input
-                            name="${esc(field)}"
-                            value="${esc(
-                                record[field] ?? ""
-                            )}"
-                        >
-
-                    </div>
-
-                `).join("")}
-
-
-                <div class="modal-actions">
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Save Changes
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-close-modal
-                    >
-                        Cancel
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-    `);
-
-
-    $("#genericEditForm")
-        ?.addEventListener(
-            "submit",
-            async event => {
-
-                event.preventDefault();
-
-
-                const form =
-                    new FormData(
-                        event.target
-                    );
-
-
-                const updates = {};
-
-
-                fields.forEach(field => {
-
-                    updates[field] =
-                        form.get(field);
-
-                });
-
-
-                try {
-
-                    await updateDoc(
-                        doc(
-                            db,
-                            collectionName,
-                            id
-                        ),
-                        updates
-                    );
-
-
-                    await refreshData(
-                        collectionName
-                    );
-
-
-                    closeModal();
-
-                    renderCurrentModule();
-
-                    renderDashboard();
-
-
-                    toast(
-                        "Record updated successfully.",
-                        "success"
-                    );
-
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    toast(
-                        error.message ||
-                        "Update failed.",
-                        "error"
-                    );
-                }
-            }
-        );
-}
-
-
-/* =========================================================
-   STUDENT EDIT MODAL
-   ========================================================= */
-
-function showStudentEditModal(student) {
-
-    showModal(`
-        <div class="student-edit-modal">
-
-            <h2>Edit Student</h2>
-
-            <form id="studentEditForm">
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-
-                        <label>Full Name</label>
-
-                        <input
-                            name="name"
-                            value="${esc(
-                                studentNameOf(student)
-                            )}"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Email</label>
-
-                        <input
-                            type="email"
-                            name="email"
-                            value="${esc(
-                                studentEmailOf(student)
-                            )}"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Phone</label>
-
-                        <input
-                            name="phone"
-                            value="${esc(
-                                studentPhoneOf(student)
-                            )}"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Course</label>
-
-                        <select name="course">
-
-                            <option
-                                value="Web Development"
-                                ${
-                                    studentCourseOf(student) ===
-                                    "Web Development"
-                                        ? "selected"
-                                        : ""
-                                }
-                            >
-                                Web Development
-                            </option>
-
-                            <option
-                                value="Artificial Intelligence"
-                                ${
-                                    studentCourseOf(student) ===
-                                    "Artificial Intelligence"
-                                        ? "selected"
-                                        : ""
-                                }
-                            >
-                                Artificial Intelligence
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Status</label>
-
-                        <select name="status">
-
-                            ${
-                                [
-                                    "active",
-                                    "pending",
-                                    "completed",
-                                    "inactive"
-                                ]
-                                .map(status => `
-                                    <option
-                                        value="${status}"
-                                        ${
-                                            studentStatusOf(student) ===
-                                            status
-                                                ? "selected"
-                                                : ""
-                                        }
-                                    >
-                                        ${status}
-                                    </option>
-                                `)
-                                .join("")
-                            }
-
-                        </select>
-
-                    </div>
-
-                </div>
-
-
-                <div class="modal-actions">
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                    >
-                        Save Changes
-                    </button>
-
-                    <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-close-modal
-                    >
-                        Cancel
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-    `);
-
-
-    $("#studentEditForm")
-        ?.addEventListener(
-            "submit",
-            async event => {
-
-                event.preventDefault();
-
-
-                const form =
-                    new FormData(
-                        event.target
-                    );
-
-
-                const updates = {
-
-                    name:
-                        form.get("name"),
-
-                    email:
-                        form.get("email"),
-
-                    phone:
-                        form.get("phone"),
-
-                    course:
-                        form.get("course"),
-
-                    subject:
-                        form.get("course"),
-
-                    status:
-                        form.get("status")
-                };
-
-
-                try {
-
-                    await updateDoc(
-                        doc(
-                            db,
-                            "students",
-                            student.id
-                        ),
-                        updates
-                    );
-
-
-                    await refreshData(
-                        "students"
-                    );
-
-
-                    closeModal();
-
-                    renderStudents();
-
-                    renderDashboard();
-
-                    renderCommunicationCenter();
-
-
-                    toast(
-                        "Student updated successfully.",
-                        "success"
-                    );
-
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    toast(
-                        error.message ||
-                        "Failed to update student.",
-                        "error"
-                    );
-                }
-            }
-        );
-}
-
-
-/* =========================================================
-   DELETE RECORD
-   ========================================================= */
-
-async function deleteRecord(
-    collectionName,
-    id
-) {
-
-    const records =
-        data[collectionName] || [];
-
-    const record =
-        records.find(
-            item => item.id === id
-        );
-
-
-    const name =
-        collectionName === "students"
-            ? studentNameOf(record || {})
-            : "this record";
-
-
-    const confirmed =
-        window.confirm(
-            `Are you sure you want to delete ${name}?`
-        );
-
-
-    if (!confirmed) return;
-
-
-    try {
-
-        await deleteDoc(
-            doc(
-                db,
-                collectionName,
-                id
-            )
-        );
-
-
-        await refreshData(
-            collectionName
-        );
-
-
-        renderCurrentModule();
-
-        renderDashboard();
-
-
-        toast(
-            "Deleted successfully.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(error);
-
-        toast(
-            error.message ||
-            "Delete failed.",
-            "error"
-        );
-    }
+    element.textContent = message || "";
+    element.className =
+        "toast toast-" + type;
+
+    element.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(
+        () => {
+            element.classList.remove("show");
+        },
+        3200
+    );
 }
 
 
@@ -2637,198 +537,137 @@ async function deleteRecord(
    MODAL
    ========================================================= */
 
-function showModal(content) {
+function openModal(
+    title,
+    body,
+    footer = ""
+) {
 
-    let modal =
-        $("#globalModal");
+    const bg = $("modalBg");
 
-
-    if (!modal) {
-
-        modal =
-            document.createElement("div");
-
-        modal.id =
-            "globalModal";
-
-        modal.className =
-            "modal-overlay";
-
-        document.body.appendChild(
-            modal
-        );
+    if (!bg) {
+        return;
     }
 
+    setText(
+        "modalTitle",
+        title
+    );
 
-    modal.innerHTML = `
-        <div class="modal-container">
+    setHTML(
+        "modalBody",
+        body
+    );
 
-            <button
-                type="button"
-                class="modal-close"
-                data-close-modal
-            >
-                ×
-            </button>
+    setHTML(
+        "modalFoot",
+        footer
+    );
 
-            <div class="modal-body">
-                ${content}
-            </div>
+    bg.classList.add("open");
+    bg.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-        </div>
-    `;
-
-
-    modal.classList.add("active");
-
-
-    $$("[data-close-modal]", modal)
-        .forEach(button => {
-
-            button.addEventListener(
-                "click",
-                closeModal
-            );
-        });
-
-
-    modal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target === modal
-            ) {
-                closeModal();
-            }
-        },
-        {
-            once: true
-        }
+    document.body.classList.add(
+        "modal-open"
     );
 }
 
 
 function closeModal() {
 
-    const modal =
-        $("#globalModal");
+    const bg = $("modalBg");
 
-    if (!modal) return;
+    if (!bg) {
+        return;
+    }
 
-    modal.classList.remove(
-        "active"
+    bg.classList.remove("open");
+    bg.setAttribute(
+        "aria-hidden",
+        "true"
     );
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+    if (
+        state.lastModalTrigger &&
+        typeof state.lastModalTrigger.focus ===
+        "function"
+    ) {
+        try {
+            state.lastModalTrigger.focus();
+        } catch (_) {}
+    }
+
+    state.lastModalTrigger = null;
 }
 
 
 /* =========================================================
-   MODULES
+   LIVE MODAL
    ========================================================= */
 
-const MODULES = {
+function openLiveModal() {
 
-    students: {
-        title: "Students",
-        collection: "students",
-        render: renderStudents
-    },
+    const bg = $("liveBg");
 
-    communication: {
-        title: "Communication Center",
-        collection: "students",
-        render: renderCommunicationCenter
+    if (!bg) {
+        return;
     }
 
-};
+    const input = $("liveRoomName");
 
+    if (input && !input.value.trim()) {
 
-function renderCurrentModule() {
+        input.value =
+            "Apex-Live-" +
+            Date.now().toString().slice(-6);
 
-    if (
-        currentTab ===
-        "students"
-    ) {
+    }
 
-        renderStudents();
+    bg.classList.add("open");
 
-    } else if (
-        currentTab ===
-        "communication"
-    ) {
+    bg.setAttribute(
+        "aria-hidden",
+        "false"
+    );
 
-        renderCommunicationCenter();
+    document.body.classList.add(
+        "modal-open"
+    );
 
-    } else {
-
-        const module =
-            MODULES[currentTab];
-
-        if (
-            module &&
-            typeof module.render ===
-            "function"
-        ) {
-            module.render();
-        }
+    if (input) {
+        setTimeout(
+            () => input.focus(),
+            50
+        );
     }
 }
 
 
-/* =========================================================
-   TAB SWITCHING
-   ========================================================= */
+function closeLiveModal() {
 
-function switchTab(tab) {
+    const bg = $("liveBg");
 
-    currentTab = tab;
-
-
-    $$(".nav-item")
-        .forEach(item => {
-
-            item.classList.toggle(
-                "active",
-                item.dataset.tab === tab
-            );
-        });
-
-
-    $$(".page-section")
-        .forEach(section => {
-
-            section.classList.toggle(
-                "active",
-                section.id ===
-                    `${tab}Section`
-            );
-        });
-
-
-    const title =
-        $("#pageTitle");
-
-    if (title) {
-
-        title.textContent =
-            MODULES[tab]?.title ||
-            (
-                tab === "dashboard"
-                    ? "Dashboard"
-                    : tab
-            );
+    if (!bg) {
+        return;
     }
 
+    bg.classList.remove("open");
 
-    renderCurrentModule();
+    bg.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
-
-    if (
-        tab ===
-        "dashboard"
-    ) {
-        renderDashboard();
-    }
+    document.body.classList.remove(
+        "modal-open"
+    );
 }
 
 
@@ -2836,614 +675,3041 @@ function switchTab(tab) {
    AUTH
    ========================================================= */
 
-onAuthStateChanged(
-    auth,
-    async user => {
+async function loginAdmin(event) {
 
-        currentUser = user;
+    event.preventDefault();
 
-
-        if (!user) {
-
-            const login =
-                $("#loginScreen");
-
-            const admin =
-                $("#adminApp");
-
-
-            if (login)
-                login.style.display =
-                    "flex";
-
-            if (admin)
-                admin.style.display =
-                    "none";
-
-
-            return;
-        }
-
-
-        if (
-            ADMIN_UID &&
-            ADMIN_UID !==
-                "YOUR_ADMIN_UID" &&
-            user.uid !== ADMIN_UID
-        ) {
-
-            toast(
-                "You are not authorized to access the admin panel.",
-                "error"
-            );
-
-            await signOut(auth);
-
-            return;
-        }
-
-
-        const login =
-            $("#loginScreen");
-
-        const admin =
-            $("#adminApp");
-
-
-        if (login)
-            login.style.display =
-                "none";
-
-        if (admin)
-            admin.style.display =
-                "block";
-
-
-        await loadAllData();
-
-
-        switchTab(
-            "dashboard"
-        );
+    if (state.busy) {
+        return;
     }
-);
 
+    const emailElement = $("email");
+    const passwordElement = $("password");
+    const submit = $("loginSubmit");
+    const error = $("loginError");
 
-/* =========================================================
-   LOGIN
-   ========================================================= */
+    const email =
+        emailElement
+            ? emailElement.value.trim()
+            : "";
 
-document.addEventListener(
-    "submit",
-    async event => {
+    const password =
+        passwordElement
+            ? passwordElement.value
+            : "";
 
-        if (
-            event.target.id !==
-            "loginForm"
-        ) {
-            return;
+    if (!email || !password) {
+
+        if (error) {
+            error.textContent =
+                "Please enter your admin email and password.";
+
+            error.classList.remove("hidden");
         }
 
+        return;
+    }
 
-        event.preventDefault();
+    state.busy = true;
 
+    if (submit) {
+        submit.disabled = true;
+        submit.textContent =
+            "Signing in...";
+    }
 
-        const email =
-            $("#loginEmail")
-                ?.value
-                ?.trim();
+    if (error) {
+        error.textContent = "";
+        error.classList.add("hidden");
+    }
 
-        const password =
-            $("#loginPassword")
-                ?.value;
+    try {
 
-
-        if (!email || !password) {
-
-            toast(
-                "Please enter email and password.",
-                "error"
-            );
-
-            return;
-        }
-
-
-        try {
-
-            const button =
-                $("#loginBtn");
-
-            if (button) {
-                button.disabled = true;
-                button.textContent =
-                    "Signing in...";
-            }
-
-
+        const result =
             await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
             );
 
+        if (
+            !result ||
+            !result.user
+        ) {
+            throw new Error(
+                "Authentication failed."
+            );
+        }
 
-        } catch (error) {
+        if (
+            result.user.uid !==
+            ADMIN_UID
+        ) {
 
-            console.error(error);
+            await signOut(auth);
 
-            toast(
-                error.message ||
-                "Login failed.",
-                "error"
+            throw new Error(
+                "This account is not authorized for the administration panel."
+            );
+        }
+
+        toast(
+            "Admin authentication successful.",
+            "success"
+        );
+
+    } catch (errorObject) {
+
+        const message =
+            friendlyAuthError(
+                errorObject
             );
 
-
-        } finally {
-
-            const button =
-                $("#loginBtn");
-
-            if (button) {
-
-                button.disabled =
-                    false;
-
-                button.textContent =
-                    "Sign In";
-            }
+        if (error) {
+            error.textContent = message;
+            error.classList.remove("hidden");
         }
+
+        toast(
+            message,
+            "error"
+        );
+
+    } finally {
+
+        state.busy = false;
+
+        if (submit) {
+            submit.disabled = false;
+            submit.textContent =
+                "Enter Command Center";
+        }
+
     }
-);
+}
+
+
+function friendlyAuthError(errorObject) {
+
+    const code =
+        errorObject &&
+        errorObject.code
+            ? errorObject.code
+            : "";
+
+    const map = {
+
+        "auth/invalid-credential":
+            "Invalid admin email or password.",
+
+        "auth/invalid-email":
+            "Please enter a valid email address.",
+
+        "auth/user-disabled":
+            "This admin account has been disabled.",
+
+        "auth/too-many-requests":
+            "Too many attempts. Please wait and try again.",
+
+        "auth/network-request-failed":
+            "Network error. Check your internet connection.",
+
+        "auth/user-not-found":
+            "Invalid admin email or password.",
+
+        "auth/wrong-password":
+            "Invalid admin email or password."
+
+    };
+
+    return (
+        map[code] ||
+        "Unable to sign in. Please try again."
+    );
+}
+
+
+async function logoutAdmin() {
+
+    try {
+
+        await signOut(auth);
+
+        closeModal();
+        closeLiveModal();
+
+        toast(
+            "Signed out successfully.",
+            "success"
+        );
+
+    } catch (_) {
+
+        toast(
+            "Unable to sign out. Please try again.",
+            "error"
+        );
+
+    }
+}
 
 
 /* =========================================================
-   GLOBAL EVENTS
+   AUTH UI
    ========================================================= */
 
-document.addEventListener(
-    "click",
-    event => {
+function showApplication() {
 
-        const nav =
-            event.target.closest(
-                "[data-tab]"
+    hide("login");
+    show("app");
+
+    document.body.classList.add(
+        "admin-authenticated"
+    );
+
+    setText(
+        "welcomeTitle",
+        "Good morning, " +
+        ADMIN_NAME
+    );
+
+    setText(
+        "liveStatus",
+        "Firebase connected dashboard"
+    );
+
+    loadDashboard()
+        .catch(() => {
+            toast(
+                "Dashboard loaded with limited data.",
+                "warning"
+            );
+        });
+
+    activateTab("dashboard");
+}
+
+
+function showLogin() {
+
+    show("login");
+    hide("app");
+
+    document.body.classList.remove(
+        "admin-authenticated"
+    );
+
+    const email = $("email");
+
+    if (email) {
+        setTimeout(
+            () => email.focus(),
+            100
+        );
+    }
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function activateTab(tab) {
+
+    state.activeTab =
+        String(tab || "dashboard");
+
+    document
+        .querySelectorAll(
+            ".nav-item[data-tab]"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+                "active",
+                button.dataset.tab ===
+                state.activeTab
             );
 
+        });
 
-        if (nav) {
+    if (
+        state.activeTab ===
+        "dashboard"
+    ) {
 
-            event.preventDefault();
+        show("dashboardView");
+        hide("moduleView");
+        hide("customView");
 
-            switchTab(
-                nav.dataset.tab
+        setText(
+            "pageTitle",
+            "Overview"
+        );
+
+        closeMobileSidebar();
+
+        return;
+    }
+
+    hide("dashboardView");
+
+    if (
+        state.activeTab ===
+        "liveClasses"
+    ) {
+
+        hide("moduleView");
+        show("customView");
+
+        setText(
+            "pageTitle",
+            "Live Classes"
+        );
+
+        renderLiveClassesPage();
+
+        closeMobileSidebar();
+
+        return;
+    }
+
+    const module =
+        MODULES[state.activeTab];
+
+    if (!module) {
+
+        show("customView");
+        hide("moduleView");
+
+        setText(
+            "pageTitle",
+            state.activeTab
+        );
+
+        setHTML(
+            "customViewContent",
+            emptyState(
+                "Module unavailable",
+                "This administration section is not configured."
+            )
+        );
+
+        closeMobileSidebar();
+
+        return;
+    }
+
+    hide("customView");
+    show("moduleView");
+
+    setText(
+        "pageTitle",
+        module.title
+    );
+
+    state.currentModule =
+        state.activeTab;
+
+    state.currentCollection =
+        module.collection;
+
+    clearModuleControls();
+
+    loadModule(
+        state.activeTab
+    )
+        .catch(() => {
+
+            setHTML(
+                "moduleTable",
+                emptyState(
+                    "Unable to load",
+                    "The module could not be loaded right now."
+                )
             );
+
+        });
+
+    closeMobileSidebar();
+}
+
+
+function clearModuleControls() {
+
+    const search = $("moduleSearch");
+
+    if (search) {
+        search.value = "";
+    }
+
+    const status = $("statusFilter");
+
+    if (status) {
+        status.value = "";
+    }
+
+    const course =
+        $("studentCourseFilter");
+
+    if (course) {
+
+        course.hidden =
+            state.activeTab !==
+            "students";
+
+        course.value = "";
+
+    }
+}
+
+
+/* =========================================================
+   MOBILE NAV
+   ========================================================= */
+
+function toggleMobileSidebar() {
+
+    const sidebar = $("sidebar");
+    const button = $("menuBtn");
+
+    if (!sidebar) {
+        return;
+    }
+
+    const open =
+        sidebar.classList.toggle(
+            "mobile-open"
+        );
+
+    document.body.classList.toggle(
+        "sidebar-open",
+        open
+    );
+
+    if (button) {
+        button.setAttribute(
+            "aria-expanded",
+            String(open)
+        );
+    }
+}
+
+
+function closeMobileSidebar() {
+
+    const sidebar = $("sidebar");
+    const button = $("menuBtn");
+
+    if (sidebar) {
+        sidebar.classList.remove(
+            "mobile-open"
+        );
+    }
+
+    document.body.classList.remove(
+        "sidebar-open"
+    );
+
+    if (button) {
+        button.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+}
+
+
+/* =========================================================
+   THEME
+   ========================================================= */
+
+function toggleTheme() {
+
+    const root =
+        document.documentElement;
+
+    const dark =
+        root.classList.toggle(
+            "admin-light"
+        );
+
+    try {
+        localStorage.setItem(
+            "apex_admin_theme",
+            dark
+                ? "light"
+                : "dark"
+        );
+    } catch (_) {}
+
+}
+
+
+function restoreTheme() {
+
+    try {
+
+        const theme =
+            localStorage.getItem(
+                "apex_admin_theme"
+            );
+
+        if (theme === "light") {
+
+            document.documentElement
+                .classList.add(
+                    "admin-light"
+                );
+
+        }
+
+    } catch (_) {}
+
+}
+
+
+/* =========================================================
+   FIRESTORE HELPERS
+   ========================================================= */
+
+async function getCollectionRows(
+    collectionName,
+    maxRows = 500
+) {
+
+    if (!collectionName) {
+        return [];
+    }
+
+    try {
+
+        let snapshot;
+
+        try {
+
+            snapshot =
+                await getDocs(
+                    query(
+                        collection(
+                            db,
+                            collectionName
+                        ),
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        ),
+                        limit(maxRows)
+                    )
+                );
+
+        } catch (_) {
+
+            snapshot =
+                await getDocs(
+                    query(
+                        collection(
+                            db,
+                            collectionName
+                        ),
+                        limit(maxRows)
+                    )
+                );
+
+        }
+
+        return snapshot.docs.map(
+            item => ({
+                id: item.id,
+                ...item.data()
+            })
+        );
+
+    } catch (errorObject) {
+
+        throw errorObject;
+
+    }
+}
+
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+async function countCollection(
+    collectionName
+) {
+
+    try {
+
+        const snapshot =
+            await getDocs(
+                query(
+                    collection(
+                        db,
+                        collectionName
+                    ),
+                    limit(500)
+                )
+            );
+
+        return snapshot.size;
+
+    } catch (_) {
+
+        return 0;
+
+    }
+}
+
+
+async function loadDashboard() {
+
+    const collections = [
+        "students",
+        "instructors",
+        "fees",
+        "messages",
+        "testResults",
+        "attendance"
+    ];
+
+    const values =
+        await Promise.all(
+            collections.map(
+                countCollection
+            )
+        );
+
+    setText(
+        "s-students",
+        values[0]
+    );
+
+    setText(
+        "s-instructors",
+        values[1]
+    );
+
+    setText(
+        "s-fees",
+        values[2]
+    );
+
+    setText(
+        "s-messages",
+        values[3]
+    );
+
+    setText(
+        "s-tests",
+        values[4]
+    );
+
+    setText(
+        "s-attendance",
+        values[5]
+    );
+
+    setText(
+        "c-students",
+        values[0]
+    );
+
+    setText(
+        "c-instructors",
+        values[1]
+    );
+
+    setText(
+        "c-messages",
+        values[3]
+    );
+
+    renderSnapshot(
+        values
+    );
+
+    renderActivity();
+
+    renderStudentSegmentation();
+
+}
+
+
+function renderSnapshot(values) {
+
+    const names = [
+        "Students",
+        "Instructors",
+        "Fee Records",
+        "Messages",
+        "Test Results",
+        "Attendance"
+    ];
+
+    const html = names.map(
+        (name, index) => {
+
+            return `
+                <div class="snapshot-row">
+                    <span>${esc(name)}</span>
+                    <strong>${esc(values[index])}</strong>
+                </div>
+            `;
+
+        }
+    ).join("");
+
+    setHTML(
+        "snapshot",
+        html
+    );
+}
+
+
+/* =========================================================
+   STUDENT SEGMENTATION
+   ========================================================= */
+
+async function renderStudentSegmentation() {
+
+    const target =
+        $("studentSegmentation");
+
+    if (!target) {
+        return;
+    }
+
+    try {
+
+        const rows =
+            await getCollectionRows(
+                "students",
+                500
+            );
+
+        const counts = {};
+
+        rows.forEach(
+            row => {
+
+                const course =
+                    String(
+                        row.course ||
+                        row.courseName ||
+                        row.program ||
+                        "Unassigned / Other"
+                    ).trim();
+
+                counts[course] =
+                    (counts[course] || 0) + 1;
+
+            }
+        );
+
+        const entries =
+            Object.entries(counts);
+
+        if (!entries.length) {
+
+            target.innerHTML = "";
 
             return;
         }
 
+        target.innerHTML = `
+            <div class="segmentation-grid">
+                ${entries.map(
+                    ([course, count]) => `
+                        <button
+                            class="seg-card"
+                            type="button"
+                            data-course="${esc(course)}"
+                        >
+                            <span>${esc(course)}</span>
+                            <strong>${esc(count)}</strong>
+                            <small>Students</small>
+                        </button>
+                    `
+                ).join("")}
+            </div>
+        `;
 
-        const action =
-            event.target.closest(
-                "[data-action]"
-            );
+        target
+            .querySelectorAll(
+                "[data-course]"
+            )
+            .forEach(button => {
 
+                button.addEventListener(
+                    "click",
+                    () => {
 
-        if (action) {
+                        activateTab(
+                            "students"
+                        );
 
-            const value =
-                action.dataset.action;
+                        const filter =
+                            $("studentCourseFilter");
 
+                        if (filter) {
 
-            const actionMap = {
+                            filter.hidden =
+                                false;
 
-                student:
-                    "students",
+                            filter.value =
+                                button.dataset.course;
 
-                students:
-                    "students",
+                            applyFilters();
 
-                fee:
-                    "fees",
+                        }
 
-                fees:
-                    "fees",
+                    }
+                );
 
-                announcement:
-                    "announcements",
+            });
 
-                announcements:
-                    "announcements",
+    } catch (_) {
 
-                class:
-                    "classes",
+        target.innerHTML = "";
 
-                classes:
-                    "classes",
-
-                coupon:
-                    "coupons",
-
-                coupons:
-                    "coupons",
-
-                certificate:
-                    "certificates",
-
-                certificates:
-                    "certificates",
-
-                email:
-                    "communication",
-
-                communication:
-                    "communication"
-            };
-
-
-            const tab =
-                actionMap[value];
-
-
-            if (tab) {
-
-                event.preventDefault();
-
-                switchTab(tab);
-            }
-        }
     }
-);
+}
 
 
 /* =========================================================
-   STUDENT FILTER EVENTS
+   MODULE LOADING
    ========================================================= */
 
-document.addEventListener(
-    "input",
-    event => {
+async function loadModule(tab) {
 
-        if (
-            event.target.id ===
-            "studentSearch"
-        ) {
+    const module =
+        MODULES[tab];
 
-            renderStudents();
-        }
-
-
-        if (
-            event.target.id ===
-            "recipientSearch"
-        ) {
-
-            populateCommunicationStudents();
-        }
+    if (!module) {
+        return;
     }
-);
+
+    const target =
+        $("moduleTable");
+
+    if (!target) {
+        return;
+    }
+
+    target.innerHTML = `
+        <div class="loader">
+            Loading ${esc(module.title)}...
+        </div>
+    `;
+
+    try {
+
+        const rows =
+            await getCollectionRows(
+                module.collection,
+                500
+            );
+
+        state.rows = rows;
+        state.filteredRows = rows.slice();
+
+        renderModule();
+
+    } catch (errorObject) {
+
+        state.rows = [];
+        state.filteredRows = [];
+
+        target.innerHTML =
+            emptyState(
+                "Unable to load data",
+                "Firebase could not return this module."
+            );
+
+    }
+
+}
 
 
-document.addEventListener(
-    "change",
-    event => {
+function applyFilters() {
 
-        if (
-            event.target.id ===
-            "studentCourseFilter"
-        ) {
+    const searchElement =
+        $("moduleSearch");
 
-            renderStudents();
+    const statusElement =
+        $("statusFilter");
+
+    const courseElement =
+        $("studentCourseFilter");
+
+    const search =
+        searchElement
+            ? searchElement.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+    const status =
+        statusElement
+            ? statusElement.value
+                .trim()
+                .toLowerCase()
+            : "";
+
+    const course =
+        courseElement &&
+        !courseElement.hidden
+            ? courseElement.value
+            : "";
+
+    state.filteredRows =
+        state.rows.filter(
+            row => {
+
+                if (search) {
+
+                    const module =
+                        MODULES[
+                            state.activeTab
+                        ];
+
+                    const keys =
+                        module &&
+                        module.search
+                            ? module.search
+                            : Object.keys(row);
+
+                    const found =
+                        keys.some(
+                            key => {
+
+                                return String(
+                                    row[key] ?? ""
+                                )
+                                    .toLowerCase()
+                                    .includes(search);
+
+                            }
+                        );
+
+                    if (!found) {
+                        return false;
+                    }
+
+                }
+
+                if (status) {
+
+                    const value =
+                        String(
+                            row.status ||
+                            row.state ||
+                            row.paymentStatus ||
+                            ""
+                        )
+                            .toLowerCase();
+
+                    if (
+                        value !== status
+                    ) {
+                        return false;
+                    }
+
+                }
+
+                if (
+                    course &&
+                    state.activeTab ===
+                    "students"
+                ) {
+
+                    const rowCourse =
+                        String(
+                            row.course ||
+                            row.courseName ||
+                            row.program ||
+                            ""
+                        );
+
+                    if (
+                        course ===
+                        "__unassigned__"
+                    ) {
+
+                        if (
+                            rowCourse.trim()
+                        ) {
+                            return false;
+                        }
+
+                    } else if (
+                        rowCourse !==
+                        course
+                    ) {
+
+                        return false;
+
+                    }
+
+                }
+
+                return true;
+
+            }
+        );
+
+    renderModule();
+}
+
+
+function renderModule() {
+
+    const target =
+        $("moduleTable");
+
+    if (!target) {
+        return;
+    }
+
+    const rows =
+        state.filteredRows;
+
+    if (!rows.length) {
+
+        target.innerHTML =
+            emptyState(
+                "No records found",
+                "No records match the current filters."
+            );
+
+        return;
+    }
+
+    const columns =
+        getColumns(rows);
+
+    target.innerHTML = `
+        <div class="table-scroll">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        ${columns.map(
+                            column =>
+                                `<th>${esc(
+                                    prettyLabel(column)
+                                )}</th>`
+                        ).join("")}
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    ${rows.map(
+                        row =>
+                            renderTableRow(
+                                row,
+                                columns
+                            )
+                    ).join("")}
+                </tbody>
+            </table>
+        </div>
+    `;
+
+    target
+        .querySelectorAll(
+            "[data-view-id]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const row =
+                            state.rows.find(
+                                item =>
+                                    item.id ===
+                                    button.dataset.viewId
+                            );
+
+                        if (row) {
+                            showRecord(
+                                row
+                            );
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    target
+        .querySelectorAll(
+            "[data-delete-id]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const row =
+                            state.rows.find(
+                                item =>
+                                    item.id ===
+                                    button.dataset.deleteId
+                            );
+
+                        if (row) {
+                            confirmDelete(
+                                row
+                            );
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    target
+        .querySelectorAll(
+            "[data-edit-id]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const row =
+                            state.rows.find(
+                                item =>
+                                    item.id ===
+                                    button.dataset.editId
+                            );
+
+                        if (row) {
+                            editRecord(
+                                row
+                            );
+                        }
+
+                    }
+                );
+
+            }
+        );
+}
+
+
+function getColumns(rows) {
+
+    const ignored = new Set([
+        "id",
+        "password",
+        "token",
+        "refreshToken",
+        "accessToken",
+        "apiKey"
+    ]);
+
+    const columns = [];
+
+    rows.forEach(
+        row => {
+
+            Object.keys(row)
+                .forEach(
+                    key => {
+
+                        if (
+                            ignored.has(key)
+                        ) {
+                            return;
+                        }
+
+                        if (
+                            columns.length >= 7
+                        ) {
+                            return;
+                        }
+
+                        if (
+                            !columns.includes(key)
+                        ) {
+                            columns.push(key);
+                        }
+
+                    }
+                );
+
         }
+    );
 
+    return columns.slice(0, 7);
+}
+
+
+function renderTableRow(
+    row,
+    columns
+) {
+
+    return `
+        <tr>
+
+            ${columns.map(
+                key => {
+
+                    const value =
+                        row[key];
+
+                    return `
+                        <td>
+                            ${esc(
+                                displayValue(
+                                    key,
+                                    value
+                                )
+                            )}
+                        </td>
+                    `;
+
+                }
+            ).join("")}
+
+            <td>
+
+                <div class="row-actions">
+
+                    <button
+                        class="table-action"
+                        type="button"
+                        data-view-id="${esc(row.id)}"
+                    >
+                        View
+                    </button>
+
+                    <button
+                        class="table-action"
+                        type="button"
+                        data-edit-id="${esc(row.id)}"
+                    >
+                        Edit
+                    </button>
+
+                    <button
+                        class="table-action danger"
+                        type="button"
+                        data-delete-id="${esc(row.id)}"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+    `;
+}
+
+
+function displayValue(
+    key,
+    value
+) {
+
+    if (
+        value === null ||
+        value === undefined ||
+        value === ""
+    ) {
+        return "—";
+    }
+
+    if (
+        isDateField(key)
+    ) {
+        return formatDate(value);
+    }
+
+    if (
+        typeof value === "object"
+    ) {
 
         if (
-            event.target.id ===
-            "recipientAudience"
+            typeof value.toDate ===
+            "function"
         ) {
-
-            populateCommunicationStudents();
-        }
-
-
-        if (
-            event.target.id ===
-            "emailTemplate"
-        ) {
-
-            applyEmailTemplate(
-                event.target.value
+            return formatDate(
+                value
             );
         }
 
+        try {
+            return JSON.stringify(
+                value
+            );
+        } catch (_) {
+            return "[Object]";
+        }
 
-        if (
-            event.target.id ===
-            "selectAllRecipients"
-        ) {
+    }
 
-            const checked =
-                event.target.checked;
+    return String(value);
+}
 
 
-            const visible =
-                $$(".recipient-checkbox");
+function prettyLabel(value) {
+
+    return String(value)
+        .replace(/([a-z])([A-Z])/g, "$1 $2")
+        .replace(/[_-]+/g, " ")
+        .replace(/\b\w/g, char =>
+            char.toUpperCase()
+        );
+}
 
 
-            visible.forEach(
-                checkbox => {
+/* =========================================================
+   RECORD VIEW
+   ========================================================= */
+
+function showRecord(row) {
+
+    state.lastModalTrigger =
+        document.activeElement;
+
+    const entries =
+        Object.entries(row);
+
+    const html = `
+        <div class="record-list">
+            ${entries.map(
+                ([key, value]) => `
+                    <div class="record-item">
+
+                        <span>
+                            ${esc(
+                                prettyLabel(
+                                    key
+                                )
+                            )}
+                        </span>
+
+                        <strong>
+                            ${esc(
+                                displayValue(
+                                    key,
+                                    value
+                                )
+                            )}
+                        </strong>
+
+                    </div>
+                `
+            ).join("")}
+        </div>
+    `;
+
+    openModal(
+        "Record Details",
+        html
+    );
+}
+
+
+/* =========================================================
+   EDIT RECORD
+   ========================================================= */
+
+function editRecord(row) {
+
+    state.lastModalTrigger =
+        document.activeElement;
+
+    const editableKeys =
+        Object.keys(row)
+            .filter(
+                key =>
+                    key !== "id" &&
+                    key !== "createdAt" &&
+                    key !== "updatedAt"
+            )
+            .slice(0, 20);
+
+    const html = `
+        <form id="editRecordForm">
+
+            ${editableKeys.map(
+                key => {
+
+                    const value =
+                        row[key];
+
+                    const stringValue =
+                        typeof value === "object"
+                            ? ""
+                            : String(
+                                value ?? ""
+                            );
+
+                    return `
+                        <div class="admin-field">
+
+                            <label
+                                for="edit_${esc(key)}"
+                            >
+                                ${esc(
+                                    prettyLabel(
+                                        key
+                                    )
+                                )}
+                            </label>
+
+                            <input
+                                id="edit_${esc(key)}"
+                                name="${esc(key)}"
+                                value="${esc(stringValue)}"
+                                maxlength="2000"
+                            >
+
+                        </div>
+                    `;
+
+                }
+            ).join("")}
+
+        </form>
+    `;
+
+    const footer = `
+        <button
+            class="btn btn-light"
+            type="button"
+            data-close-modal
+        >
+            Cancel
+        </button>
+
+        <button
+            class="btn btn-primary"
+            type="button"
+            id="saveEditRecord"
+        >
+            Save Changes
+        </button>
+    `;
+
+    openModal(
+        "Edit Record",
+        html,
+        footer
+    );
+
+    on(
+        "saveEditRecord",
+        "click",
+        () => saveEditedRecord(
+            row,
+            editableKeys
+        )
+    );
+
+    document
+        .querySelectorAll(
+            "[data-close-modal]"
+        )
+        .forEach(
+            button =>
+                button.addEventListener(
+                    "click",
+                    closeModal
+                )
+        );
+}
+
+
+async function saveEditedRecord(
+    row,
+    keys
+) {
+
+    if (state.busy) {
+        return;
+    }
+
+    state.busy = true;
+
+    try {
+
+        const updates = {};
+
+        keys.forEach(
+            key => {
+
+                const input =
+                    document.getElementById(
+                        "edit_" + key
+                    );
+
+                if (input) {
+                    updates[key] =
+                        input.value.trim();
+                }
+
+            }
+        );
+
+        updates.updatedAt =
+            serverTimestamp();
+
+        await updateDoc(
+            doc(
+                db,
+                state.currentCollection,
+                row.id
+            ),
+            updates
+        );
+
+        await writeAudit(
+            "update",
+            state.currentModule,
+            row.id
+        );
+
+        closeModal();
+
+        toast(
+            "Record updated successfully.",
+            "success"
+        );
+
+        await loadModule(
+            state.currentModule
+        );
+
+    } catch (_) {
+
+        toast(
+            "Unable to update this record.",
+            "error"
+        );
+
+    } finally {
+
+        state.busy = false;
+
+    }
+}
+
+
+/* =========================================================
+   DELETE
+   ========================================================= */
+
+function confirmDelete(row) {
+
+    state.lastModalTrigger =
+        document.activeElement;
+
+    const title =
+        row.name ||
+        row.fullName ||
+        row.email ||
+        row.id;
+
+    const body = `
+        <div class="danger-box">
+
+            <strong>
+                Delete this record?
+            </strong>
+
+            <p>
+                This action cannot be undone.
+            </p>
+
+            <div class="danger-record">
+                ${esc(title)}
+            </div>
+
+        </div>
+    `;
+
+    const footer = `
+        <button
+            class="btn btn-light"
+            type="button"
+            data-close-modal
+        >
+            Cancel
+        </button>
+
+        <button
+            class="btn btn-danger"
+            type="button"
+            id="confirmDelete"
+        >
+            Delete Permanently
+        </button>
+    `;
+
+    openModal(
+        "Confirm Delete",
+        body,
+        footer
+    );
+
+    on(
+        "confirmDelete",
+        "click",
+        () => deleteRecord(
+            row
+        )
+    );
+
+    document
+        .querySelectorAll(
+            "[data-close-modal]"
+        )
+        .forEach(
+            button =>
+                button.addEventListener(
+                    "click",
+                    closeModal
+                )
+        );
+}
+
+
+async function deleteRecord(row) {
+
+    if (state.busy) {
+        return;
+    }
+
+    state.busy = true;
+
+    try {
+
+        await deleteDoc(
+            doc(
+                db,
+                state.currentCollection,
+                row.id
+            )
+        );
+
+        await writeAudit(
+            "delete",
+            state.currentModule,
+            row.id
+        );
+
+        closeModal();
+
+        toast(
+            "Record deleted successfully.",
+            "success"
+        );
+
+        await loadModule(
+            state.currentModule
+        );
+
+    } catch (_) {
+
+        toast(
+            "Unable to delete this record.",
+            "error"
+        );
+
+    } finally {
+
+        state.busy = false;
+
+    }
+}
+
+
+/* =========================================================
+   ADD RECORD
+   ========================================================= */
+
+function openAddModal() {
+
+    const module =
+        MODULES[state.activeTab];
+
+    if (!module) {
+        return;
+    }
+
+    const fields =
+        module.search || [
+            "name",
+            "email",
+            "status"
+        ];
+
+    const html = `
+        <form id="addRecordForm">
+
+            ${fields
+                .slice(0, 10)
+                .map(
+                    key => `
+                        <div class="admin-field">
+
+                            <label
+                                for="add_${esc(key)}"
+                            >
+                                ${esc(
+                                    prettyLabel(
+                                        key
+                                    )
+                                )}
+                            </label>
+
+                            <input
+                                id="add_${esc(key)}"
+                                name="${esc(key)}"
+                                maxlength="2000"
+                            >
+
+                        </div>
+                    `
+                )
+                .join("")}
+
+        </form>
+    `;
+
+    const footer = `
+        <button
+            class="btn btn-light"
+            type="button"
+            data-close-modal
+        >
+            Cancel
+        </button>
+
+        <button
+            class="btn btn-primary"
+            type="button"
+            id="saveAddRecord"
+        >
+            Create Record
+        </button>
+    `;
+
+    openModal(
+        "Add " + module.title,
+        html,
+        footer
+    );
+
+    on(
+        "saveAddRecord",
+        "click",
+        saveAddRecord
+    );
+
+    document
+        .querySelectorAll(
+            "[data-close-modal]"
+        )
+        .forEach(
+            button =>
+                button.addEventListener(
+                    "click",
+                    closeModal
+                )
+        );
+}
+
+
+async function saveAddRecord() {
+
+    if (state.busy) {
+        return;
+    }
+
+    state.busy = true;
+
+    try {
+
+        const module =
+            MODULES[state.activeTab];
+
+        if (!module) {
+            return;
+        }
+
+        const data = {};
+
+        (
+            module.search || []
+        ).slice(0, 10)
+            .forEach(
+                key => {
+
+                    const input =
+                        document.getElementById(
+                            "add_" + key
+                        );
 
                     if (
-                        checkbox.disabled
+                        input &&
+                        input.value.trim()
                     ) {
-                        return;
+                        data[key] =
+                            input.value.trim();
                     }
 
+                }
+            );
 
-                    checkbox.checked =
-                        checked;
+        data.createdAt =
+            serverTimestamp();
+
+        data.updatedAt =
+            serverTimestamp();
+
+        data.createdBy =
+            ADMIN_UID;
+
+        const result =
+            await addDoc(
+                collection(
+                    db,
+                    module.collection
+                ),
+                data
+            );
+
+        await writeAudit(
+            "create",
+            state.activeTab,
+            result.id
+        );
+
+        closeModal();
+
+        toast(
+            "Record created successfully.",
+            "success"
+        );
+
+        await loadModule(
+            state.activeTab
+        );
+
+    } catch (_) {
+
+        toast(
+            "Unable to create this record.",
+            "error"
+        );
+
+    } finally {
+
+        state.busy = false;
+
+    }
+}
 
 
-                    const id =
-                        checkbox.value;
+/* =========================================================
+   AUDIT
+   ========================================================= */
+
+async function writeAudit(
+    action,
+    module,
+    recordId
+) {
+
+    try {
+
+        await addDoc(
+            collection(
+                db,
+                "adminAudit"
+            ),
+            {
+                action,
+                module,
+                recordId:
+                    recordId || "",
+                adminUid:
+                    ADMIN_UID,
+                adminName:
+                    ADMIN_NAME,
+                createdAt:
+                    serverTimestamp()
+            }
+        );
+
+    } catch (_) {
+        /* audit failure must not break main action */
+    }
+}
 
 
-                    if (checked) {
+function renderActivity() {
 
-                        selectedStudentIds
-                            .add(id);
+    const target =
+        $("activity");
 
-                    } else {
+    if (!target) {
+        return;
+    }
 
-                        selectedStudentIds
-                            .delete(id);
+    try {
+
+        const raw =
+            localStorage.getItem(
+                "apex_admin_activity"
+            );
+
+        const items =
+            raw
+                ? JSON.parse(raw)
+                : [];
+
+        if (
+            !Array.isArray(items) ||
+            !items.length
+        ) {
+
+            target.innerHTML = `
+                <div class="empty">
+                    No activity yet.
+                </div>
+            `;
+
+            return;
+        }
+
+        target.innerHTML =
+            items
+                .slice(0, 10)
+                .map(
+                    item => `
+                        <div class="activity-item">
+                            <strong>
+                                ${esc(
+                                    item.action
+                                )}
+                            </strong>
+                            <small>
+                                ${esc(
+                                    item.time
+                                )}
+                            </small>
+                        </div>
+                    `
+                )
+                .join("");
+
+    } catch (_) {
+
+        target.innerHTML = `
+            <div class="empty">
+                No activity yet.
+            </div>
+        `;
+
+    }
+}
+
+
+/* =========================================================
+   LIVE CLASSES
+   ========================================================= */
+
+function renderLiveClassesPage() {
+
+    setHTML(
+        "customViewContent",
+        `
+            <div class="live-dashboard">
+
+                <div class="card live-card-main">
+
+                    <div class="card-head">
+
+                        <div>
+                            <div class="eyebrow">
+                                ACADEMY LIVE
+                            </div>
+
+                            <h3>
+                                Live Class Control
+                            </h3>
+                        </div>
+
+                        <button
+                            class="btn btn-primary"
+                            id="pageStartLive"
+                            type="button"
+                        >
+                            Start Live Class
+                        </button>
+
+                    </div>
+
+                    <div class="live-info-grid">
+
+                        <div>
+                            <span>Status</span>
+                            <strong>
+                                Ready
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Platform</span>
+                            <strong>
+                                Jitsi Meet
+                            </strong>
+                        </div>
+
+                        <div>
+                            <span>Security</span>
+                            <strong>
+                                Admin controlled
+                            </strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        `
+    );
+
+    on(
+        "pageStartLive",
+        "click",
+        openLiveModal
+    );
+}
+
+
+async function startLiveClass() {
+
+    const input =
+        $("liveRoomName");
+
+    const room =
+        input
+            ? input.value.trim()
+            : "";
+
+    if (!room) {
+
+        toast(
+            "Please enter a meeting room name.",
+            "warning"
+        );
+
+        if (input) {
+            input.focus();
+        }
+
+        return;
+    }
+
+    if (
+        !/^[A-Za-z0-9_-]{3,100}$/.test(
+            room
+        )
+    ) {
+
+        toast(
+            "Use only letters, numbers, hyphens and underscores.",
+            "warning"
+        );
+
+        return;
+    }
+
+    closeLiveModal();
+
+    const overlay =
+        $("liveClassOverlay");
+
+    const container =
+        $("jitsiContainer");
+
+    const fallback =
+        $("jitsiFallback");
+
+    const title =
+        $("liveTitle");
+
+    if (!overlay || !container) {
+        return;
+    }
+
+    if (title) {
+        title.textContent =
+            "Apex Live Class — " +
+            room;
+    }
+
+    overlay.classList.add("open");
+
+    overlay.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    container.innerHTML = "";
+
+    if (fallback) {
+        fallback.hidden = true;
+        fallback.innerHTML = "";
+    }
+
+    if (
+        typeof window.JitsiMeetExternalAPI !==
+        "function"
+    ) {
+
+        if (fallback) {
+
+            fallback.hidden = false;
+
+            fallback.innerHTML = `
+                <div class="jitsi-error">
+                    <strong>
+                        Live classroom unavailable
+                    </strong>
+
+                    <p>
+                        Jitsi could not be loaded.
+                        Please check your connection and try again.
+                    </p>
+
+                    <a
+                        href="https://meet.jit.si/${encodeURIComponent(room)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open meeting manually
+                    </a>
+                </div>
+            `;
+
+        }
+
+        toast(
+            "Jitsi is not ready. Please try again.",
+            "error"
+        );
+
+        return;
+    }
+
+    try {
+
+        state.liveRoom = room;
+
+        state.liveApi =
+            new window.JitsiMeetExternalAPI(
+                "meet.jit.si",
+                {
+                    roomName: room,
+                    parentNode: container,
+                    width: "100%",
+                    height: "100%",
+                    userInfo: {
+                        displayName:
+                            ADMIN_NAME
+                    },
+                    configOverwrite: {
+                        prejoinPageEnabled: false,
+                        disableDeepLinking: true
+                    },
+                    interfaceConfigOverwrite: {
+                        SHOW_JITSI_WATERMARK: false
                     }
                 }
             );
 
-
-            updateCommunicationSelectedCount();
-        }
-
-
         if (
-            event.target.id ===
-            "selectAllStudents"
+            state.liveApi &&
+            typeof state.liveApi.addEventListener ===
+            "function"
         ) {
 
-            const checked =
-                event.target.checked;
+            state.liveApi.addEventListener(
+                "readyToClose",
+                endLiveClass
+            );
+
+        }
+
+        toast(
+            "Live class started.",
+            "success"
+        );
+
+    } catch (_) {
+
+        if (fallback) {
+
+            fallback.hidden = false;
+
+            fallback.innerHTML = `
+                <div class="jitsi-error">
+                    <strong>
+                        Could not start classroom
+                    </strong>
+
+                    <p>
+                        Please try again.
+                    </p>
+                </div>
+            `;
+
+        }
+
+        toast(
+            "Unable to start live class.",
+            "error"
+        );
+
+    }
+}
 
 
-            $$(".student-select")
-                .forEach(
-                    checkbox => {
+function endLiveClass() {
 
-                        checkbox.checked =
-                            checked;
+    try {
+
+        if (
+            state.liveApi &&
+            typeof state.liveApi.dispose ===
+            "function"
+        ) {
+            state.liveApi.dispose();
+        }
+
+    } catch (_) {}
+
+    state.liveApi = null;
+    state.liveRoom = "";
+
+    const overlay =
+        $("liveClassOverlay");
+
+    const container =
+        $("jitsiContainer");
+
+    const fallback =
+        $("jitsiFallback");
+
+    if (container) {
+        container.innerHTML = "";
+    }
+
+    if (fallback) {
+        fallback.hidden = true;
+        fallback.innerHTML = "";
+    }
+
+    if (overlay) {
+
+        overlay.classList.remove(
+            "open"
+        );
+
+        overlay.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+    toast(
+        "Live class ended.",
+        "success"
+    );
+}
 
 
-                        const id =
-                            checkbox.value;
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+function handleQuickAction(action) {
+
+    switch (action) {
+
+        case "student":
+            activateTab("students");
+            setTimeout(
+                openAddModal,
+                100
+            );
+            break;
+
+        case "fee":
+            activateTab("fees");
+            setTimeout(
+                openAddModal,
+                100
+            );
+            break;
+
+        case "announcement":
+            activateTab("announcements");
+            setTimeout(
+                openAddModal,
+                100
+            );
+            break;
+
+        case "coupon":
+            activateTab("coupons");
+            setTimeout(
+                openAddModal,
+                100
+            );
+            break;
+
+        case "certificate":
+            activateTab("certificates");
+            setTimeout(
+                openAddModal,
+                100
+            );
+            break;
+
+        case "class":
+            activateTab("liveClasses");
+            setTimeout(
+                openLiveModal,
+                100
+            );
+            break;
+
+        default:
+            break;
+
+    }
+}
 
 
-                        if (checked) {
+/* =========================================================
+   CSV EXPORT
+   ========================================================= */
 
-                            selectedStudentIds
-                                .add(id);
+function exportCSV() {
 
-                        } else {
+    const rows =
+        state.filteredRows;
 
-                            selectedStudentIds
-                                .delete(id);
+    if (!rows.length) {
+
+        toast(
+            "There is no data to export.",
+            "warning"
+        );
+
+        return;
+    }
+
+    const columns =
+        getColumns(rows);
+
+    const csvRows = [];
+
+    csvRows.push(
+        columns.map(csvEscape).join(",")
+    );
+
+    rows.forEach(
+        row => {
+
+            csvRows.push(
+                columns
+                    .map(
+                        key =>
+                            csvEscape(
+                                displayValue(
+                                    key,
+                                    row[key]
+                                )
+                            )
+                    )
+                    .join(",")
+            );
+
+        }
+    );
+
+    const blob =
+        new Blob(
+            [
+                "\uFEFF" +
+                csvRows.join("\n")
+            ],
+            {
+                type:
+                    "text/csv;charset=utf-8;"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const anchor =
+        document.createElement("a");
+
+    anchor.href = url;
+
+    anchor.download =
+        (
+            state.currentModule ||
+            "admin"
+        ) +
+        "-" +
+        new Date()
+            .toISOString()
+            .slice(0, 10) +
+        ".csv";
+
+    document.body.appendChild(
+        anchor
+    );
+
+    anchor.click();
+
+    anchor.remove();
+
+    setTimeout(
+        () =>
+            URL.revokeObjectURL(url),
+        1000
+    );
+
+    toast(
+        "CSV export created.",
+        "success"
+    );
+}
+
+
+function csvEscape(value) {
+
+    const text =
+        String(
+            value ?? ""
+        );
+
+    return (
+        '"' +
+        text.replace(
+            /"/g,
+            '""'
+        ) +
+        '"'
+    );
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+function emptyState(
+    title,
+    message
+) {
+
+    return `
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ⌁
+            </div>
+
+            <h3>
+                ${esc(title)}
+            </h3>
+
+            <p>
+                ${esc(message)}
+            </p>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   EVENT BINDINGS
+   ========================================================= */
+
+function bindEvents() {
+
+    if (state.listenersBound) {
+        return;
+    }
+
+    state.listenersBound = true;
+
+
+    /* Login */
+
+    on(
+        "loginForm",
+        "submit",
+        loginAdmin
+    );
+
+
+    /* Logout */
+
+    on(
+        "logoutBtn",
+        "click",
+        logoutAdmin
+    );
+
+
+    /* Mobile */
+
+    on(
+        "menuBtn",
+        "click",
+        toggleMobileSidebar
+    );
+
+
+    /* Theme */
+
+    on(
+        "themeBtn",
+        "click",
+        toggleTheme
+    );
+
+
+    /* Main modal */
+
+    on(
+        "modalClose",
+        "click",
+        closeModal
+    );
+
+
+    on(
+        "modalBg",
+        "click",
+        event => {
+
+            const bg =
+                $("modalBg");
+
+            if (
+                bg &&
+                event.target === bg
+            ) {
+                closeModal();
+            }
+
+        }
+    );
+
+
+    /* Live modal */
+
+    on(
+        "liveClose",
+        "click",
+        closeLiveModal
+    );
+
+
+    on(
+        "liveBg",
+        "click",
+        event => {
+
+            const bg =
+                $("liveBg");
+
+            if (
+                bg &&
+                event.target === bg
+            ) {
+                closeLiveModal();
+            }
+
+        }
+    );
+
+
+    on(
+        "startLiveClass",
+        "click",
+        startLiveClass
+    );
+
+
+    on(
+        "endLive",
+        "click",
+        endLiveClass
+    );
+
+
+    /* Navigation */
+
+    document
+        .querySelectorAll(
+            ".nav-item[data-tab]"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        const tab =
+                            button.dataset.tab;
+
+                        if (tab) {
+                            activateTab(tab);
                         }
+
                     }
                 );
 
-
-            updateSelectedStudentCount();
-        }
-    }
-);
+            }
+        );
 
 
-/* =========================================================
-   COMMUNICATION BUTTONS
-   ========================================================= */
+    /* Dashboard stat navigation */
 
-document.addEventListener(
-    "click",
-    event => {
+    document
+        .querySelectorAll(
+            ".stat[data-go]"
+        )
+        .forEach(
+            card => {
 
-        if (
-            event.target.closest(
-                "#sendEmailBtn"
-            )
-        ) {
+                card.addEventListener(
+                    "click",
+                    () => {
 
-            sendCommunicationEmail();
-        }
+                        const target =
+                            card.dataset.go;
 
+                        if (target) {
+                            activateTab(
+                                target
+                            );
+                        }
 
-        if (
-            event.target.closest(
-                "#sendWhatsAppBtn"
-            )
-        ) {
-
-            sendWhatsApp();
-        }
-
-
-        if (
-            event.target.closest(
-                "#clearEmailBtn"
-            )
-        ) {
-
-            $("#primaryRecipient").value =
-                "";
-
-            $("#emailSubject").value =
-                "";
-
-            $("#emailMessage").value =
-                "";
-
-            selectedStudentIds.clear();
-
-            populateCommunicationStudents();
-
-            updateCommunicationSelectedCount();
-        }
-
-
-        if (
-            event.target.closest(
-                "#refreshCommunicationBtn"
-            )
-        ) {
-
-            refreshData(
-                "students"
-            ).then(() => {
-
-                renderCommunicationCenter();
-
-                toast(
-                    "Students refreshed.",
-                    "success"
+                    }
                 );
-            });
+
+            }
+        );
+
+
+    /* Quick actions */
+
+    document
+        .querySelectorAll(
+            "[data-action]"
+        )
+        .forEach(
+            element => {
+
+                element.addEventListener(
+                    "click",
+                    () => {
+
+                        handleQuickAction(
+                            element.dataset.action
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    /* Search */
+
+    on(
+        "moduleSearch",
+        "input",
+        applyFilters
+    );
+
+
+    /* Status */
+
+    on(
+        "statusFilter",
+        "change",
+        applyFilters
+    );
+
+
+    /* Course */
+
+    on(
+        "studentCourseFilter",
+        "change",
+        applyFilters
+    );
+
+
+    /* Reload */
+
+    on(
+        "reloadBtn",
+        "click",
+        () => {
+
+            if (
+                state.currentModule
+            ) {
+
+                loadModule(
+                    state.currentModule
+                );
+
+            }
+
         }
-    }
-);
+    );
 
 
-/* =========================================================
-   LOGOUT
-   ========================================================= */
+    /* Dashboard refresh */
 
-document.addEventListener(
-    "click",
-    async event => {
+    on(
+        "dashboardRefresh",
+        "click",
+        async () => {
 
-        if (
-            event.target.closest(
-                "#logoutBtn"
-            )
-        ) {
+            const button =
+                $("dashboardRefresh");
+
+            if (button) {
+                button.disabled = true;
+            }
 
             try {
 
-                await signOut(auth);
+                await loadDashboard();
 
                 toast(
-                    "Logged out successfully.",
+                    "Dashboard refreshed.",
                     "success"
                 );
 
-            } catch (error) {
-
-                console.error(error);
+            } catch (_) {
 
                 toast(
-                    error.message ||
-                    "Logout failed.",
+                    "Refresh failed.",
                     "error"
                 );
+
+            } finally {
+
+                if (button) {
+                    button.disabled = false;
+                }
+
             }
+
         }
-    }
-);
+    );
+
+
+    /* Add */
+
+    on(
+        "addBtn",
+        "click",
+        openAddModal
+    );
+
+
+    /* Export */
+
+    on(
+        "exportBtn",
+        "click",
+        exportCSV
+    );
+
+
+    /* Keyboard */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeModal();
+                closeLiveModal();
+
+            }
+
+            if (
+                event.ctrlKey &&
+                event.key.toLowerCase() ===
+                "k"
+            ) {
+
+                event.preventDefault();
+
+                const search =
+                    $("moduleSearch");
+
+                if (
+                    search &&
+                    !search.hidden
+                ) {
+                    search.focus();
+                }
+
+            }
+
+        }
+    );
+
+
+    /* Online / offline */
+
+    window.addEventListener(
+        "online",
+        () => {
+
+            setText(
+                "liveStatus",
+                "Connection restored"
+            );
+
+        }
+    );
+
+
+    window.addEventListener(
+        "offline",
+        () => {
+
+            setText(
+                "liveStatus",
+                "You are offline"
+            );
+
+            toast(
+                "Internet connection lost.",
+                "warning"
+            );
+
+        }
+    );
+
+}
 
 
 /* =========================================================
-   INITIAL SETUP
+   AUTH STATE
    ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function initAuth() {
 
-        const template =
-            $("#emailTemplate");
+    onAuthStateChanged(
+        auth,
+        user => {
 
+            if (!user) {
 
-        if (template) {
+                state.currentUser =
+                    null;
 
-            template.innerHTML = `
+                showLogin();
 
-                <option value="welcome">
-                    Welcome Email
-                </option>
+                return;
+            }
 
-                <option value="enrollment">
-                    Course Enrollment
-                </option>
+            if (
+                user.uid !==
+                ADMIN_UID
+            ) {
 
-                <option value="payment">
-                    Payment Confirmation
-                </option>
+                state.currentUser =
+                    null;
 
-                <option value="fee">
-                    Fee Due Reminder
-                </option>
+                signOut(auth)
+                    .catch(() => {});
 
-                <option value="class">
-                    Class Reminder
-                </option>
+                showLogin();
 
-                <option value="progress">
-                    Course Progress Update
-                </option>
+                const error =
+                    $("loginError");
 
-                <option value="attendance">
-                    Attendance Notice
-                </option>
+                if (error) {
 
-                <option value="result">
-                    Test Result
-                </option>
+                    error.textContent =
+                        "This account is not authorized for the admin panel.";
 
-                <option value="assignment">
-                    Assignment Reminder
-                </option>
+                    error.classList.remove(
+                        "hidden"
+                    );
 
-                <option value="certificate">
-                    Certificate Ready
-                </option>
+                }
 
-                <option value="announcement">
-                    Announcement
-                </option>
+                return;
+            }
 
-                <option value="support">
-                    Student Support Reply
-                </option>
+            state.currentUser =
+                user;
 
-                <option value="custom">
-                    Custom Message
-                </option>
-            `;
-        }
+            showApplication();
 
+        },
+        () => {
 
-        if (
-            $("#studentSegmentation")
-        ) {
-            renderStudentSegmentation(
-                "studentSegmentation"
+            showLogin();
+
+            toast(
+                "Unable to verify admin session.",
+                "error"
             );
+
         }
+    );
+
+}
 
 
-        if (
-            $("#studentModuleSegmentation")
-        ) {
-            renderStudentSegmentation(
-                "studentModuleSegmentation"
-            );
+/* =========================================================
+   GLOBAL SAFETY
+   ========================================================= */
+
+function installSafetyHandlers() {
+
+    window.addEventListener(
+        "error",
+        event => {
+
+            /*
+               Do not expose internal errors
+               to visitors/admin UI.
+            */
+
+            if (
+                event &&
+                event.error
+            ) {
+                try {
+                    console.error(
+                        "Apex Admin:",
+                        event.error
+                    );
+                } catch (_) {}
+            }
+
         }
-    }
-);
+    );
+
+
+    window.addEventListener(
+        "unhandledrejection",
+        event => {
+
+            try {
+
+                if (
+                    event &&
+                    event.reason
+                ) {
+                    console.error(
+                        "Apex Admin Promise:",
+                        event.reason
+                    );
+                }
+
+            } catch (_) {}
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+function init() {
+
+    restoreTheme();
+
+    bindEvents();
+
+    installSafetyHandlers();
+
+    initAuth();
+
+    window.__APEX_ADMIN_READY__ =
+        true;
+
+    window.__APEX_ADMIN_VERSION__ =
+        "2026.09-production";
+}
+
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        init,
+        {
+            once: true
+        }
+    );
+
+} else {
+
+    init();
+
+}
