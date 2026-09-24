@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,52 +21,43 @@
 
     <title>Admin Command Center | Apex Learning Academy</title>
 
+    <!-- Favicon -->
     <link
         rel="icon"
         type="image/png"
         href="../assets/images/logo.png"
     >
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        rel="preconnect"
-        href="https://www.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        rel="preconnect"
-        href="https://meet.jit.si"
-    >
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap"
         rel="stylesheet"
     >
 
- <link rel="stylesheet" href="../css/index.css">
-<link rel="stylesheet" href="../css/style.css">
-<link rel="stylesheet" href="../css/mobile.css">
-<link rel="stylesheet" href="../css/site-pages.css">
-<link rel="stylesheet" href="../css/enhancements.css">
-<link rel="stylesheet" href="../css/final-fixes.css">
-<link rel="stylesheet" href="../css/admin.css">
+    <!-- =====================================================
+         APEX LEARNING ACADEMY CSS
+         IMPORTANT:
+         admin.html must be inside /admin/
+         CSS files must be inside /css/
+         ===================================================== -->
 
-    <!--
-        Admin CSP.
-        frame-ancestors is intentionally NOT here because browsers
-        ignore frame-ancestors when supplied through a meta tag.
-    -->
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/mobile.css">
+    <link rel="stylesheet" href="../css/site-pages.css">
+    <link rel="stylesheet" href="../css/enhancements.css">
+    <link rel="stylesheet" href="../css/final-fixes.css">
+
+    <!-- ADMIN CSS — MUST EXIST AT /css/admin.css -->
+    <link
+        rel="stylesheet"
+        href="../css/admin.css"
+    >
+
+    <!-- Admin CSP -->
     <meta
         http-equiv="Content-Security-Policy"
         content="
@@ -92,7 +84,6 @@
             https://www.gstatic.com
             https://*.googleapis.com
             https://*.firebaseio.com
-            https://*.firebaseapp.com
             https://*.firebaseapp.com
             https://identitytoolkit.googleapis.com
             https://securetoken.googleapis.com
@@ -129,6 +120,7 @@
         "
     >
 </head>
+
 
 <body>
 
