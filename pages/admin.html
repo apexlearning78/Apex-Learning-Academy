@@ -9,1130 +9,1287 @@
     >
 
     <meta
+        name="robots"
+        content="noindex,nofollow"
+    >
+
+    <meta
         name="theme-color"
         content="#071A33"
     >
 
-    <meta
-        name="robots"
-        content="noindex,nofollow,noarchive"
-    >
-
-    <title>Apex Learning Academy — Command Center</title>
-
-    <meta
-        name="description"
-        content="Secure administration command center for Apex Learning Academy."
-    >
+    <title>Admin Command Center | Apex Learning Academy</title>
 
     <link
         rel="icon"
+        type="image/png"
         href="../assets/images/logo.png"
     >
 
     <link
-        rel="apple-touch-icon"
-        href="../assets/images/logo.png"
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
     >
 
-    <!-- Performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
         crossorigin
     >
 
-    <link rel="dns-prefetch" href="https://www.gstatic.com">
-    <link rel="dns-prefetch" href="https://firestore.googleapis.com">
-    <link rel="dns-prefetch" href="https://meet.jit.si">
-    <link rel="dns-prefetch" href="https://api.emailjs.com">
+    <link
+        rel="preconnect"
+        href="https://www.gstatic.com"
+        crossorigin
+    >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
+        rel="preconnect"
+        href="https://meet.jit.si"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@500;600;700;800;900&display=swap"
         rel="stylesheet"
     >
 
     <link
-        rel="manifest"
-        href="../manifest.json"
+        rel="stylesheet"
+        href="../css/admin.css"
     >
 
-    <!-- Security -->
+    <link
+        rel="stylesheet"
+        href="../css/final-fixes.css"
+    >
+
+    <!--
+        Admin CSP.
+        frame-ancestors is intentionally NOT here because browsers
+        ignore frame-ancestors when supplied through a meta tag.
+    -->
     <meta
         http-equiv="Content-Security-Policy"
         content="
-            default-src 'self';
-            base-uri 'self';
-            object-src 'none';
-            form-action 'self';
-            upgrade-insecure-requests;
+        default-src 'self';
+        base-uri 'self';
+        object-src 'none';
+        form-action 'self';
+        upgrade-insecure-requests;
 
-            img-src
-                'self'
-                data:
-                blob:
-                https:;
+        img-src 'self' data: blob: https:;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com data:;
 
-            style-src
-                'self'
-                'unsafe-inline'
-                https://fonts.googleapis.com;
+        script-src
+            'self'
+            'unsafe-inline'
+            https://www.gstatic.com
+            https://cdn.jsdelivr.net
+            https://cdnjs.cloudflare.com
+            https://meet.jit.si;
 
-            font-src
-                'self'
-                https://fonts.gstatic.com
-                data:;
+        connect-src
+            'self'
+            https://www.gstatic.com
+            https://*.googleapis.com
+            https://*.firebaseio.com
+            https://*.firebaseapp.com
+            https://*.firebaseapp.com
+            https://identitytoolkit.googleapis.com
+            https://securetoken.googleapis.com
+            https://firestore.googleapis.com
+            https://api.emailjs.com
+            https://www.google-analytics.com
+            https://meet.jit.si
+            wss://meet.jit.si
+            https://*.jitsi.net
+            wss://*.jitsi.net;
 
-            script-src
-                'self'
-                'unsafe-inline'
-                https://www.gstatic.com
-                https://www.googletagmanager.com
-                https://www.google-analytics.com
-                https://cdn.jsdelivr.net
-                https://cdnjs.cloudflare.com
-                https://meet.jit.si;
+        frame-src
+            'self'
+            https://meet.jit.si
+            https://*.jitsi.net
+            https://*.firebaseapp.com;
 
-            connect-src
-                'self'
-                https://www.gstatic.com
-                https://*.googleapis.com
-                https://firestore.googleapis.com
-                https://*.firebaseio.com
-                https://*.firebaseapp.com
-                https://identitytoolkit.googleapis.com
-                https://securetoken.googleapis.com
-                https://firebasestorage.googleapis.com
-                https://www.google-analytics.com
-                https://*.google-analytics.com
-                https://www.googletagmanager.com
-                https://*.googletagmanager.com
-                https://api.emailjs.com
-                https://meet.jit.si
-                https://*.jitsi.net
-                wss://meet.jit.si
-                wss://*.jitsi.net;
+        worker-src
+            'self'
+            blob:;
 
-            frame-src
-                'self'
-                https://meet.jit.si
-                https://*.jitsi.net
-                https://*.firebaseapp.com;
+        child-src
+            'self'
+            blob:
+            https://meet.jit.si
+            https://*.jitsi.net;
 
-            worker-src
-                'self'
-                blob:;
+        media-src
+            'self'
+            blob:
+            https://meet.jit.si;
 
-            manifest-src
-                'self';
-
-            media-src
-                'self'
-                blob:
-                https:;
-
-            child-src
-                'self'
-                blob:
-                https://meet.jit.si
-                https://*.jitsi.net;
+        manifest-src 'self';
         "
     >
-
-    <!-- Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"
-    ></script>
-
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            window.dataLayer.push(arguments);
-        }
-
-        gtag("js", new Date());
-
-        gtag("config", "G-PFXMKDWB3G", {
-            anonymize_ip: true,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false,
-            send_page_view: false
-        });
-    </script>
-
-    <!-- Jitsi -->
-    <script
-        src="https://meet.jit.si/external_api.js"
-        defer
-    ></script>
-
-    <!-- EmailJS -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
-        defer
-    ></script>
-
-    <!-- Main site CSS -->
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/site-pages.css">
-    <link rel="stylesheet" href="../css/enhancements.css">
-    <link rel="stylesheet" href="../css/final-fixes.css">
-
-    <!-- Admin CSS -->
-    <link rel="stylesheet" href="../css/pages/admin.css">
 </head>
 
 <body>
 
-<div class="admin-shell">
+<!-- =========================================================
+     LOGIN
+     ========================================================= -->
 
-    <!-- =========================================================
-         LOGIN
-    ========================================================== -->
+<section
+    id="loginScreen"
+    class="login-screen"
+>
 
-    <section
-        id="login"
-        class="admin-login"
-        aria-label="Administrator Login"
-    >
+    <div class="login-card">
 
-        <div class="login-card">
-
-            <div class="brand-logo">
-                <img
-                    src="../assets/images/logo.png"
-                    alt="Apex Learning Academy"
-                    width="96"
-                    height="96"
-                    loading="eager"
-                >
-            </div>
-
-            <h1>Academy Command Center</h1>
-
-            <p>
-                Secure administration for Apex Learning Academy
-            </p>
-
-            <div
-                id="loginError"
-                class="login-error hidden"
-                role="alert"
-                aria-live="polite"
-            ></div>
-
-            <form
-                id="loginForm"
-                novalidate
+        <div class="login-logo">
+            <img
+                src="../assets/images/logo.png"
+                alt="Apex Learning Academy"
             >
-
-                <div class="field">
-
-                    <label for="email">
-                        Admin Email
-                    </label>
-
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        required
-                        autocomplete="username"
-                        placeholder="admin@email.com"
-                        maxlength="160"
-                    >
-
-                </div>
-
-                <div class="field">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        required
-                        autocomplete="current-password"
-                        placeholder="••••••••"
-                        maxlength="128"
-                    >
-
-                </div>
-
-                <button
-                    id="loginSubmit"
-                    class="btn btn-gold"
-                    type="submit"
-                >
-                    Enter Command Center
-                </button>
-
-            </form>
-
         </div>
 
-    </section>
-
-
-    <!-- =========================================================
-         APPLICATION
-    ========================================================== -->
-
-    <div id="app" class="admin-app hidden">
-
-        <div class="layout">
-
-            <!-- SIDEBAR -->
-
-            <aside
-                class="sidebar"
-                id="sidebar"
-                aria-label="Admin Navigation"
-            >
-
-                <div class="sidebar-brand">
-
-                    <img
-                        src="../assets/images/logo.png"
-                        alt="Apex Learning Academy"
-                        width="44"
-                        height="44"
-                    >
-
-                    <div>
-                        <strong>Apex</strong>
-                        <small>Command Center</small>
-                    </div>
-
-                </div>
-
-
-                <div class="nav-group">
-                    Command
-                </div>
-
-                <button
-                    class="nav-item active"
-                    data-tab="dashboard"
-                    type="button"
-                >
-                    <span>⌂</span>
-                    Dashboard
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="students"
-                    type="button"
-                >
-                    <span>♙</span>
-                    Students
-                    <span class="nav-count" id="c-students">0</span>
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="instructors"
-                    type="button"
-                >
-                    <span>♟</span>
-                    Instructors
-                    <span class="nav-count" id="c-instructors">0</span>
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="messages"
-                    type="button"
-                >
-                    <span>✉</span>
-                    Messages
-                    <span class="nav-count" id="c-messages">0</span>
-                </button>
-
-
-                <div class="nav-group">
-                    Academy Operations
-                </div>
-
-                <button
-                    class="nav-item"
-                    data-tab="fees"
-                    type="button"
-                >
-                    <span>৳</span>
-                    Fees &amp; Payments
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="progress"
-                    type="button"
-                >
-                    <span>◔</span>
-                    Course Progress
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="attendance"
-                    type="button"
-                >
-                    <span>✓</span>
-                    Attendance
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="tests"
-                    type="button"
-                >
-                    <span>▣</span>
-                    Tests &amp; Results
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="certificates"
-                    type="button"
-                >
-                    <span>◇</span>
-                    Certificates
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="liveClasses"
-                    type="button"
-                >
-                    <span>▶</span>
-                    Live Classes
-                </button>
-
-
-                <div class="nav-group">
-                    Growth &amp; Communication
-                </div>
-
-                <button
-                    class="nav-item"
-                    data-tab="emailCenter"
-                    type="button"
-                >
-                    <span>✉</span>
-                    Communication Center
-                    <span class="nav-pill">NEW</span>
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="announcements"
-                    type="button"
-                >
-                    <span>➤</span>
-                    Announcements
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="reviews"
-                    type="button"
-                >
-                    <span>★</span>
-                    Reviews
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="coupons"
-                    type="button"
-                >
-                    <span>％</span>
-                    Coupons
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="emailLogs"
-                    type="button"
-                >
-                    <span>✉</span>
-                    Email Logs
-                </button>
-
-
-                <div class="nav-group">
-                    Courses &amp; Batches
-                </div>
-
-                <button
-                    class="nav-item"
-                    data-tab="courses"
-                    type="button"
-                >
-                    <span>▦</span>
-                    Courses
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="batches"
-                    type="button"
-                >
-                    <span>◫</span>
-                    Batches
-                </button>
-
-
-                <div class="nav-group">
-                    Analytics
-                </div>
-
-                <button
-                    class="nav-item"
-                    data-tab="visitors"
-                    type="button"
-                >
-                    <span>◉</span>
-                    Visitors
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="visits"
-                    type="button"
-                >
-                    <span>◌</span>
-                    Page Views
-                </button>
-
-
-                <div class="nav-group">
-                    Control
-                </div>
-
-                <button
-                    class="nav-item"
-                    data-tab="settings"
-                    type="button"
-                >
-                    <span>⚙</span>
-                    Academy Settings
-                </button>
-
-                <button
-                    class="nav-item"
-                    data-tab="audit"
-                    type="button"
-                >
-                    <span>◈</span>
-                    Admin Audit
-                </button>
-
-                <button
-                    class="nav-item logout-item"
-                    id="logoutBtn"
-                    type="button"
-                >
-                    <span>↪</span>
-                    Sign Out
-                </button>
-
-            </aside>
-
-
-            <!-- MAIN -->
-
-            <main class="main">
-
-                <!-- MOBILE HEADER -->
-
-                <div class="mobile-admin-header">
-
-                    <button
-                        id="menuBtn"
-                        class="btn btn-light"
-                        type="button"
-                        aria-label="Open navigation"
-                        aria-expanded="false"
-                    >
-                        ☰
-                    </button>
-
-                    <strong>
-                        Apex Command Center
-                    </strong>
-
-                    <button
-                        id="themeBtn"
-                        class="btn btn-light"
-                        type="button"
-                        aria-label="Toggle theme"
-                    >
-                        ◐
-                    </button>
-
-                </div>
-
-
-                <!-- COMMAND BANNER -->
-
-                <div class="command-banner">
-
-                    <div>
-
-                        <div class="eyebrow">
-                            APEX LEARNING ACADEMY
-                        </div>
-
-                        <h3 id="welcomeTitle">
-                            Good morning, Admin
-                        </h3>
-
-                        <p id="liveStatus">
-                            Firebase connected dashboard
-                        </p>
-
-                    </div>
-
-                    <div class="head-actions">
-
-                        <button
-                            class="btn btn-gold"
-                            id="quickStudent"
-                            data-action="student"
-                            type="button"
-                        >
-                            ＋ Add Student
-                        </button>
-
-                        <button
-                            class="btn"
-                            id="quickAnnouncement"
-                            data-action="announcement"
-                            type="button"
-                        >
-                            ＋ Announcement
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PAGE HEADER -->
-
-                <div class="page-head">
-
-                    <div>
-
-                        <div class="eyebrow">
-                            Administration
-                        </div>
-
-                        <h2 id="pageTitle">
-                            Overview
-                        </h2>
-
-                    </div>
-
-                    <div
-                        class="head-actions"
-                        id="headActions"
-                    ></div>
-
-                </div>
-
-
-                <!-- DASHBOARD -->
-
-                <section id="dashboardView">
-
-                    <div class="stats">
-
-                        <div class="stat" data-go="students">
-                            <div class="stat-label">Students</div>
-                            <div class="stat-value" id="s-students">—</div>
-                            <div class="stat-note">Registered learners</div>
-                        </div>
-
-                        <div class="stat" data-go="instructors">
-                            <div class="stat-label">Instructors</div>
-                            <div class="stat-value" id="s-instructors">—</div>
-                            <div class="stat-note">Applications &amp; team</div>
-                        </div>
-
-                        <div class="stat" data-go="fees">
-                            <div class="stat-label">Fee Records</div>
-                            <div class="stat-value" id="s-fees">—</div>
-                            <div class="stat-note">Payment management</div>
-                        </div>
-
-                        <div class="stat" data-go="messages">
-                            <div class="stat-label">Messages</div>
-                            <div class="stat-value" id="s-messages">—</div>
-                            <div class="stat-note">Enquiries &amp; contact</div>
-                        </div>
-
-                        <div class="stat" data-go="tests">
-                            <div class="stat-label">Test Results</div>
-                            <div class="stat-value" id="s-tests">—</div>
-                            <div class="stat-note">Submissions</div>
-                        </div>
-
-                        <div class="stat" data-go="attendance">
-                            <div class="stat-label">Attendance</div>
-                            <div class="stat-value" id="s-attendance">—</div>
-                            <div class="stat-note">Class activity</div>
-                        </div>
-
-                    </div>
-
-                    <section
-                        id="studentSegmentation"
-                        class="student-segmentation"
-                    ></section>
-
-                    <div class="workspace">
-
-                        <div class="card">
-
-                            <div class="card-head">
-
-                                <h3>
-                                    Operational Snapshot
-                                </h3>
-
-                                <button
-                                    class="btn btn-light"
-                                    id="dashboardRefresh"
-                                    type="button"
-                                >
-                                    Refresh data
-                                </button>
-
-                            </div>
-
-                            <div
-                                id="snapshot"
-                                class="table-wrap"
-                            >
-                                <div class="loader">
-                                    Loading dashboard...
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div>
-
-                            <div class="side-card">
-
-                                <h3>
-                                    Quick Actions
-                                </h3>
-
-                                <div class="quick-grid">
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="student"
-                                        type="button"
-                                    >
-                                        Student
-                                    </button>
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="fee"
-                                        type="button"
-                                    >
-                                        Fee Record
-                                    </button>
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="announcement"
-                                        type="button"
-                                    >
-                                        Announcement
-                                    </button>
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="class"
-                                        type="button"
-                                    >
-                                        Live Class
-                                    </button>
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="coupon"
-                                        type="button"
-                                    >
-                                        Coupon
-                                    </button>
-
-                                    <button
-                                        class="btn btn-light"
-                                        data-action="certificate"
-                                        type="button"
-                                    >
-                                        Certificate
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="side-card">
-
-                                <h3>
-                                    Recent Admin Activity
-                                </h3>
-
-                                <div
-                                    id="activity"
-                                    class="activity"
-                                >
-                                    <div class="empty">
-                                        No activity yet.
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-                <!-- CUSTOM -->
-
-                <section
-                    id="customView"
-                    class="hidden"
-                >
-                    <div id="customViewContent"></div>
-                </section>
-
-
-                <!-- MODULE -->
-
-                <section
-                    id="moduleView"
-                    class="hidden"
-                >
-
-                    <section
-                        id="studentModuleSegmentation"
-                        class="student-segmentation"
-                        hidden
-                    ></section>
-
-                    <div class="card">
-
-                        <div class="toolbar">
-
-                            <select
-                                id="studentCourseFilter"
-                                class="btn btn-light"
-                                aria-label="Filter student course"
-                                hidden
-                            >
-                                <option value="">All Courses</option>
-                                <option value="Web Development">
-                                    Web Development
-                                </option>
-                                <option value="Artificial Intelligence">
-                                    Artificial Intelligence
-                                </option>
-                                <option value="__unassigned__">
-                                    Unassigned / Other
-                                </option>
-                            </select>
-
-                            <input
-                                id="moduleSearch"
-                                type="search"
-                                placeholder="Search this module..."
-                                autocomplete="off"
-                                maxlength="120"
-                            >
-
-                            <select
-                                id="statusFilter"
-                                aria-label="Filter by status"
-                            >
-                                <option value="">All statuses</option>
-                                <option value="active">Active</option>
-                                <option value="pending">Pending</option>
-                                <option value="approved">Approved</option>
-                                <option value="paid">Paid</option>
-                                <option value="unpaid">Unpaid</option>
-                                <option value="rejected">Rejected</option>
-                                <option value="completed">Completed</option>
-                            </select>
-
-                            <button
-                                class="btn btn-light"
-                                id="exportBtn"
-                                type="button"
-                            >
-                                ⇩ Export CSV
-                            </button>
-
-                            <button
-                                class="btn btn-primary"
-                                id="addBtn"
-                                type="button"
-                            >
-                                ＋ Add
-                            </button>
-
-                            <button
-                                class="btn btn-light"
-                                id="reloadBtn"
-                                type="button"
-                            >
-                                ↻ Reload
-                            </button>
-
-                        </div>
-
-                        <div
-                            id="moduleTable"
-                            class="table-wrap"
-                        >
-                            <div class="loader">
-                                Loading module...
-                            </div>
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </main>
-
+        <div class="login-brand">
+            <strong>Apex Learning Academy</strong>
+            <span>ADMIN COMMAND CENTER</span>
         </div>
 
-    </div>
+        <h1>Administrator Login</h1>
 
-
-    <!-- MAIN MODAL -->
-
-    <div
-        class="modal-bg"
-        id="modalBg"
-        aria-hidden="true"
-    >
+        <p class="login-description">
+            Secure access to the Apex Learning Academy management system.
+        </p>
 
         <div
-            class="modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modalTitle"
+            id="loginError"
+            class="login-error"
+            role="alert"
+            aria-live="assertive"
+        ></div>
+
+        <form
+            id="adminLoginForm"
+            novalidate
         >
 
-            <div class="modal-head">
+            <div class="field">
 
-                <h3 id="modalTitle">
-                    Details
-                </h3>
+                <label for="adminEmail">
+                    Admin Email
+                </label>
 
-                <button
-                    class="close"
-                    id="modalClose"
-                    type="button"
-                    aria-label="Close dialog"
+                <input
+                    id="adminEmail"
+                    type="email"
+                    autocomplete="username"
+                    required
+                    placeholder="admin@example.com"
                 >
-                    ×
-                </button>
 
             </div>
 
-            <div
-                class="modal-body"
-                id="modalBody"
-            ></div>
+            <div class="field">
 
-            <div
-                class="modal-foot"
-                id="modalFoot"
-            ></div>
+                <label for="adminPassword">
+                    Password
+                </label>
 
-        </div>
-
-    </div>
-
-
-    <!-- LIVE CLASS SETUP -->
-
-    <div
-        class="modal-bg"
-        id="liveBg"
-        aria-hidden="true"
-    >
-
-        <div
-            class="modal live-setup-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="liveModalTitle"
-        >
-
-            <div class="modal-head">
-
-                <h3 id="liveModalTitle">
-                    Host a Live Class
-                </h3>
-
-                <button
-                    class="close"
-                    id="liveClose"
-                    type="button"
-                    aria-label="Close live class setup"
+                <input
+                    id="adminPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="Enter password"
                 >
-                    ×
-                </button>
 
             </div>
-
-            <div class="modal-body">
-
-                <div class="admin-field">
-
-                    <label for="liveRoomName">
-                        Meeting Room
-                    </label>
-
-                    <input
-                        id="liveRoomName"
-                        type="text"
-                        maxlength="100"
-                        autocomplete="off"
-                        placeholder="Apex-Web-Development-01"
-                    >
-
-                </div>
-
-                <div id="classList"></div>
-
-            </div>
-
-            <div class="modal-foot">
-
-                <button
-                    id="startLiveClass"
-                    type="button"
-                    class="btn btn-primary"
-                >
-                    Start Live Class
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- LIVE CLASS -->
-
-    <div
-        class="live-overlay"
-        id="liveClassOverlay"
-        aria-hidden="true"
-    >
-
-        <div class="live-top">
-
-            <strong id="liveTitle">
-                Apex Live Class
-            </strong>
 
             <button
-                class="btn btn-danger"
-                id="endLive"
+                id="adminLoginBtn"
+                class="primary-btn login-btn"
+                type="submit"
+            >
+                Login to Admin Panel
+            </button>
+
+        </form>
+
+        <div class="login-security">
+            <span class="security-dot"></span>
+            Admin-only authenticated access
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ADMIN APPLICATION
+     ========================================================= -->
+
+<div
+    id="adminPanel"
+    class="admin-app"
+    hidden
+>
+
+    <!-- SIDEBAR -->
+
+    <aside
+        id="adminSidebar"
+        class="admin-sidebar"
+    >
+
+        <div class="sidebar-brand">
+
+            <img
+                src="../assets/images/logo.png"
+                alt="Apex"
+            >
+
+            <div>
+                <strong>Apex</strong>
+                <span>ADMIN CENTER</span>
+            </div>
+
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <button
+                class="nav-item active"
+                data-tab="dashboard"
+            >
+                <span>▦</span>
+                Dashboard
+            </button>
+
+            <div class="nav-section">
+                STUDENTS & ACADEMY
+            </div>
+
+            <button class="nav-item" data-tab="students">
+                <span>👨‍🎓</span>
+                Students
+                <b id="navStudents">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="fees">
+                <span>💳</span>
+                Fees
+                <b id="navFees">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="progress">
+                <span>📈</span>
+                Course Progress
+                <b id="navProgress">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="attendance">
+                <span>✓</span>
+                Attendance
+                <b id="navAttendance">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="tests">
+                <span>📝</span>
+                Tests
+                <b id="navTests">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="certificates">
+                <span>🏆</span>
+                Certificates
+                <b id="navCertificates">0</b>
+            </button>
+
+            <div class="nav-section">
+                COMMUNICATION
+            </div>
+
+            <button class="nav-item" data-tab="messages">
+                <span>💬</span>
+                Student Messages
+                <b id="navMessages">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="emailCenter">
+                <span>✉</span>
+                Email Center
+            </button>
+
+            <button class="nav-item" data-tab="emailLogs">
+                <span>📨</span>
+                Email Logs
+                <b id="navEmailLogs">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="reviews">
+                <span>★</span>
+                Reviews
+                <b id="navReviews">0</b>
+            </button>
+
+            <div class="nav-section">
+                MANAGEMENT
+            </div>
+
+            <button class="nav-item" data-tab="instructors">
+                <span>👨‍🏫</span>
+                Instructors
+                <b id="navInstructors">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="liveClasses">
+                <span>🎥</span>
+                Live Classes
+                <b id="navLiveClasses">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="announcements">
+                <span>📢</span>
+                Announcements
+                <b id="navAnnouncements">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="coupons">
+                <span>🎟</span>
+                Coupons
+                <b id="navCoupons">0</b>
+            </button>
+
+            <div class="nav-section">
+                WEBSITE ANALYTICS
+            </div>
+
+            <button class="nav-item" data-tab="visitors">
+                <span>👁</span>
+                Visitors
+                <b id="navVisitors">0</b>
+            </button>
+
+            <button class="nav-item" data-tab="visits">
+                <span>↗</span>
+                Page Visits
+                <b id="navVisits">0</b>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <button
+                id="adminLogoutBtn"
+                class="logout-btn"
                 type="button"
             >
-                End Class
+                ⇥ Logout
             </button>
 
         </div>
 
-        <div
-            class="live-frame"
-            id="jitsiContainer"
-        ></div>
-
-        <div
-            id="jitsiFallback"
-            class="jitsi-fallback"
-            hidden
-        ></div>
-
-    </div>
+    </aside>
 
 
-    <!-- TOAST -->
+    <!-- MAIN -->
 
-    <div
-        class="toast"
-        id="toast"
-        role="status"
-        aria-live="polite"
-    ></div>
+    <main class="admin-main">
+
+        <header class="admin-header">
+
+            <div class="header-left">
+
+                <button
+                    id="mobileMenuBtn"
+                    class="icon-btn mobile-only"
+                    type="button"
+                    aria-label="Open menu"
+                >
+                    ☰
+                </button>
+
+                <div>
+                    <div
+                        id="pageEyebrow"
+                        class="header-eyebrow"
+                    >
+                        ADMIN COMMAND CENTER
+                    </div>
+
+                    <h1 id="pageTitle">
+                        Dashboard
+                    </h1>
+                </div>
+
+            </div>
+
+            <div class="header-actions">
+
+                <span
+                    id="syncStatus"
+                    class="sync-status"
+                >
+                    ● Connecting
+                </span>
+
+                <button
+                    id="refreshBtn"
+                    class="header-btn"
+                    type="button"
+                >
+                    ↻ Refresh
+                </button>
+
+                <button
+                    id="hostClassBtn"
+                    class="header-btn gold"
+                    type="button"
+                >
+                    🎥 Host Class
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <div class="admin-content">
+
+            <!-- DASHBOARD -->
+
+            <section
+                id="dashboardView"
+                class="view"
+            >
+
+                <div class="welcome-banner">
+
+                    <div>
+                        <span class="banner-label">
+                            APEX LEARNING ACADEMY
+                        </span>
+
+                        <h2>
+                            Academy Control Center
+                        </h2>
+
+                        <p>
+                            Manage students, courses, communication,
+                            payments, tests, certificates, instructors
+                            and live classes from one place.
+                        </p>
+                    </div>
+
+                    <div class="banner-actions">
+
+                        <button
+                            class="gold-btn"
+                            data-open-tab="students"
+                            type="button"
+                        >
+                            View Students
+                        </button>
+
+                        <button
+                            class="dark-btn"
+                            data-open-tab="emailCenter"
+                            type="button"
+                        >
+                            Open Email Center
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+                    <button class="stat-card gold" data-open-tab="students">
+                        <span>Students</span>
+                        <strong id="statStudents">0</strong>
+                        <small>Registered learners</small>
+                    </button>
+
+                    <button class="stat-card teal" data-open-tab="fees">
+                        <span>Fees</span>
+                        <strong id="statFees">0</strong>
+                        <small>Financial records</small>
+                    </button>
+
+                    <button class="stat-card blue" data-open-tab="messages">
+                        <span>Messages</span>
+                        <strong id="statMessages">0</strong>
+                        <small>Student enquiries</small>
+                    </button>
+
+                    <button class="stat-card purple" data-open-tab="progress">
+                        <span>Progress</span>
+                        <strong id="statProgress">0</strong>
+                        <small>Progress records</small>
+                    </button>
+
+                    <button class="stat-card orange" data-open-tab="tests">
+                        <span>Tests</span>
+                        <strong id="statTests">0</strong>
+                        <small>Submissions</small>
+                    </button>
+
+                    <button class="stat-card green" data-open-tab="attendance">
+                        <span>Attendance</span>
+                        <strong id="statAttendance">0</strong>
+                        <small>Attendance events</small>
+                    </button>
+
+                    <button class="stat-card pink" data-open-tab="certificates">
+                        <span>Certificates</span>
+                        <strong id="statCertificates">0</strong>
+                        <small>Issued records</small>
+                    </button>
+
+                    <button class="stat-card cyan" data-open-tab="instructors">
+                        <span>Instructors</span>
+                        <strong id="statInstructors">0</strong>
+                        <small>Applications</small>
+                    </button>
+
+                </div>
+
+
+                <div class="dashboard-grid">
+
+                    <section class="panel">
+
+                        <div class="panel-head">
+                            <div>
+                                <h2>Academy Overview</h2>
+                                <p>Live Firebase records</p>
+                            </div>
+
+                            <button
+                                id="dashboardRefreshBtn"
+                                class="small-btn"
+                                type="button"
+                            >
+                                Refresh
+                            </button>
+                        </div>
+
+                        <div id="overviewTable">
+                            <div class="loading">
+                                Loading academy data…
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <section class="panel">
+
+                        <div class="panel-head">
+                            <div>
+                                <h2>Communication Snapshot</h2>
+                                <p>Student response activity</p>
+                            </div>
+                        </div>
+
+                        <div class="communication-snapshot">
+
+                            <div>
+                                <strong id="snapshotMessages">0</strong>
+                                <span>Messages</span>
+                            </div>
+
+                            <div>
+                                <strong id="snapshotSent">0</strong>
+                                <span>Sent Emails</span>
+                            </div>
+
+                            <div>
+                                <strong id="snapshotFailed">0</strong>
+                                <span>Failed Emails</span>
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="full-action"
+                            data-open-tab="emailCenter"
+                            type="button"
+                        >
+                            Open Communication Center →
+                        </button>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+
+            <!-- MODULE VIEW -->
+
+            <section
+                id="moduleView"
+                class="view"
+                hidden
+            >
+
+                <div class="module-toolbar">
+
+                    <div class="toolbar-left">
+
+                        <div class="search-box">
+                            <span>⌕</span>
+
+                            <input
+                                id="globalSearch"
+                                type="search"
+                                placeholder="Search records..."
+                                autocomplete="off"
+                            >
+                        </div>
+
+                        <select
+                            id="courseFilter"
+                            class="toolbar-select"
+                        >
+                            <option value="all">
+                                All Courses
+                            </option>
+
+                            <option value="web">
+                                Web Development
+                            </option>
+
+                            <option value="ai">
+                                Artificial Intelligence
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <div class="toolbar-right">
+
+                        <button
+                            id="exportBtn"
+                            class="small-btn"
+                            type="button"
+                        >
+                            ↓ Export CSV
+                        </button>
+
+                        <button
+                            id="moduleRefreshBtn"
+                            class="small-btn dark"
+                            type="button"
+                        >
+                            ↻ Refresh
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="moduleStats"
+                    class="module-mini-stats"
+                ></div>
+
+
+                <div
+                    id="moduleContent"
+                    class="panel module-panel"
+                >
+
+                    <div class="loading">
+                        Loading…
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
 
 </div>
 
 
-<!-- ONLY ONE ADMIN SCRIPT -->
+<!-- =========================================================
+     DETAIL MODAL
+     ========================================================= -->
+
+<div
+    id="detailModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <div
+        class="modal-card large"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <button
+            class="modal-close"
+            data-close-modal="detailModal"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div id="detailModalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     REPLY / EMAIL MODAL
+     ========================================================= -->
+
+<div
+    id="replyModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <div
+        class="modal-card email-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <button
+            class="modal-close"
+            data-close-modal="replyModal"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div class="modal-heading">
+            <span class="modal-kicker">
+                APEX COMMUNICATION
+            </span>
+
+            <h2 id="replyModalTitle">
+                Reply to Student
+            </h2>
+
+            <p id="replyRecipientText"></p>
+        </div>
+
+        <div
+            id="replyOriginalMessage"
+            class="original-message-box"
+        ></div>
+
+        <div class="email-form">
+
+            <div class="field">
+
+                <label for="replySubject">
+                    Subject
+                </label>
+
+                <input
+                    id="replySubject"
+                    type="text"
+                    autocomplete="off"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label for="replyTemplate">
+                    Quick Reply Template
+                </label>
+
+                <select id="replyTemplate">
+
+                    <option value="">
+                        Custom Reply
+                    </option>
+
+                    <option value="thanks">
+                        Thank you / General
+                    </option>
+
+                    <option value="fees">
+                        Fee Details
+                    </option>
+
+                    <option value="timing">
+                        Class Schedule
+                    </option>
+
+                    <option value="enrollment">
+                        Enrollment Process
+                    </option>
+
+                    <option value="demo">
+                        Free Demo Class
+                    </option>
+
+                    <option value="certificate">
+                        Certificate
+                    </option>
+
+                    <option value="technical">
+                        Technical Support
+                    </option>
+
+                    <option value="payment">
+                        Payment Options
+                    </option>
+
+                    <option value="batch">
+                        Batch Information
+                    </option>
+
+                    <option value="refund">
+                        Refund Policy
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="field">
+
+                <label for="replyMessage">
+                    Message
+                </label>
+
+                <textarea
+                    id="replyMessage"
+                    rows="12"
+                    placeholder="Write your response..."
+                ></textarea>
+
+            </div>
+
+            <div class="reply-actions">
+
+                <button
+                    id="sendReplyBtn"
+                    class="gold-btn"
+                    type="button"
+                >
+                    ✈ Send Email
+                </button>
+
+                <button
+                    id="replyWhatsAppBtn"
+                    class="whatsapp-btn"
+                    type="button"
+                >
+                    WhatsApp
+                </button>
+
+            </div>
+
+            <div
+                id="replyStatus"
+                class="form-status"
+            ></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     EMAIL CENTER
+     ========================================================= -->
+
+<div
+    id="emailCenterModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <div
+        class="modal-card email-center-modal"
+        role="dialog"
+        aria-modal="true"
+    >
+
+        <button
+            class="modal-close"
+            data-close-modal="emailCenterModal"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div class="modal-heading">
+
+            <span class="modal-kicker">
+                APEX EMAIL CENTER
+            </span>
+
+            <h2>
+                Student & Instructor Communication
+            </h2>
+
+            <p>
+                Select real Firebase records and send individual
+                or bulk messages.
+            </p>
+
+        </div>
+
+
+        <div class="email-center-grid">
+
+            <div class="recipient-panel">
+
+                <div class="email-center-toolbar">
+
+                    <input
+                        id="emailRecipientSearch"
+                        type="search"
+                        placeholder="Search name or email..."
+                    >
+
+                    <select id="emailRecipientType">
+
+                        <option value="students">
+                            Students
+                        </option>
+
+                        <option value="messages">
+                            Student Messages
+                        </option>
+
+                        <option value="instructors">
+                            Instructors
+                        </option>
+
+                    </select>
+
+                    <select id="emailCourseFilter">
+
+                        <option value="all">
+                            All Courses
+                        </option>
+
+                        <option value="web">
+                            Web Development
+                        </option>
+
+                        <option value="ai">
+                            Artificial Intelligence
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="recipient-actions">
+
+                    <button
+                        id="selectAllRecipients"
+                        class="small-btn"
+                        type="button"
+                    >
+                        Select All
+                    </button>
+
+                    <button
+                        id="clearRecipients"
+                        class="small-btn"
+                        type="button"
+                    >
+                        Clear
+                    </button>
+
+                    <span id="selectedRecipientCount">
+                        0 selected
+                    </span>
+
+                </div>
+
+                <div
+                    id="emailRecipients"
+                    class="recipient-list"
+                >
+                    Loading recipients…
+                </div>
+
+            </div>
+
+
+            <div class="compose-panel">
+
+                <div class="field">
+
+                    <label for="bulkEmailSubject">
+                        Subject
+                    </label>
+
+                    <input
+                        id="bulkEmailSubject"
+                        type="text"
+                        placeholder="Email subject"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="bulkEmailTemplate">
+                        Template
+                    </label>
+
+                    <select id="bulkEmailTemplate">
+
+                        <option value="">
+                            Custom
+                        </option>
+
+                        <option value="welcome">
+                            Welcome
+                        </option>
+
+                        <option value="idCard">
+                            ID Card Ready
+                        </option>
+
+                        <option value="fees">
+                            Fee Reminder
+                        </option>
+
+                        <option value="classReminder">
+                            Class Reminder
+                        </option>
+
+                        <option value="result">
+                            Result Ready
+                        </option>
+
+                        <option value="certificate">
+                            Certificate
+                        </option>
+
+                        <option value="attendance">
+                            Attendance Alert
+                        </option>
+
+                        <option value="holiday">
+                            Holiday Notice
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="bulkEmailMessage">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="bulkEmailMessage"
+                        rows="16"
+                        placeholder="Write your email..."
+                    ></textarea>
+
+                    <small class="template-help">
+                        Available placeholders:
+                        {NAME} and {COURSE}
+                    </small>
+
+                </div>
+
+
+                <div class="compose-actions">
+
+                    <button
+                        id="sendBulkEmailBtn"
+                        class="gold-btn"
+                        type="button"
+                    >
+                        ✈ Send to Selected
+                    </button>
+
+                    <button
+                        id="openEmailLogsBtn"
+                        class="dark-btn"
+                        type="button"
+                    >
+                        View Email Logs
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="bulkEmailStatus"
+                    class="form-status"
+                ></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     LIVE CLASS MODAL
+     ========================================================= -->
+
+<div
+    id="liveClassModal"
+    class="modal-backdrop"
+    hidden
+>
+
+    <div class="modal-card">
+
+        <button
+            class="modal-close"
+            data-close-modal="liveClassModal"
+            type="button"
+        >
+            ×
+        </button>
+
+        <div class="modal-heading">
+
+            <span class="modal-kicker">
+                LIVE CLASS
+            </span>
+
+            <h2>
+                Start Host Session
+            </h2>
+
+            <p>
+                Select a real scheduled class.
+            </p>
+
+        </div>
+
+        <div id="liveClassList">
+            Loading classes…
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JITSI HOST
+     ========================================================= -->
+
+<div
+    id="jitsiOverlay"
+    class="jitsi-overlay"
+    hidden
+>
+
+    <div class="jitsi-topbar">
+
+        <div class="jitsi-brand">
+
+            <img
+                src="../assets/images/logo.png"
+                alt="Apex"
+            >
+
+            <div>
+
+                <strong id="jitsiTitle">
+                    Apex Live Class
+                </strong>
+
+                <span id="jitsiSubtitle">
+                    Host Session
+                </span>
+
+            </div>
+
+        </div>
+
+        <button
+            id="endJitsiBtn"
+            class="end-class-btn"
+            type="button"
+        >
+            End Class
+        </button>
+
+    </div>
+
+    <div
+        id="jitsiContainer"
+        class="jitsi-container"
+    ></div>
+
+    <div
+        id="jitsiFallback"
+        class="jitsi-fallback"
+        hidden
+    >
+        Jitsi is still loading. Please wait a moment and try again.
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TOAST
+     ========================================================= -->
+
+<div
+    id="toast"
+    class="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+
+<!-- =========================================================
+     EXTERNAL LIBRARIES
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    defer
+></script>
+
+<script
+    src="https://meet.jit.si/external_api.js"
+    defer
+></script>
+
 <script
     type="module"
     src="../js/pages/admin.js"
 ></script>
-
-
-<script>
-(function () {
-    "use strict";
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        try {
-
-            var consent = localStorage.getItem(
-                "apex_cookie_consent"
-            );
-
-            if (
-                consent &&
-                typeof window.gtag === "function"
-            ) {
-                window.gtag("event", "page_view");
-            }
-
-        } catch (_) {
-            /* intentionally silent */
-        }
-
-    }, { once: true });
-
-})();
-</script>
 
 </body>
 </html>
