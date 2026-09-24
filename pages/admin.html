@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -17,22 +15,15 @@
 
     <meta
         name="robots"
-        content="noindex,nofollow"
+        content="noindex,nofollow,noarchive"
     >
 
-    <title>
-        Apex Learning Academy — Command Center
-    </title>
+    <title>Apex Learning Academy — Command Center</title>
 
     <meta
         name="description"
-        content="Apex Learning Academy secure administration command center."
+        content="Secure administration command center for Apex Learning Academy."
     >
-
-
-    <!-- =====================================================
-         ICON
-    ====================================================== -->
 
     <link
         rel="icon"
@@ -44,85 +35,37 @@
         href="../assets/images/logo.png"
     >
 
-
-    <!-- =====================================================
-         FONTS
-    ====================================================== -->
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
         crossorigin
     >
 
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    <link rel="dns-prefetch" href="https://firestore.googleapis.com">
+    <link rel="dns-prefetch" href="https://meet.jit.si">
+    <link rel="dns-prefetch" href="https://api.emailjs.com">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&display=swap"
         rel="stylesheet"
     >
-
-
-    <!-- =====================================================
-         PERFORMANCE / DNS
-    ====================================================== -->
-
-    <link
-        rel="dns-prefetch"
-        href="https://www.gstatic.com"
-    >
-
-    <link
-        rel="dns-prefetch"
-        href="https://firestore.googleapis.com"
-    >
-
-    <link
-        rel="dns-prefetch"
-        href="https://meet.jit.si"
-    >
-
-    <link
-        rel="dns-prefetch"
-        href="https://api.emailjs.com"
-    >
-
-
-    <!-- =====================================================
-         PWA
-    ====================================================== -->
 
     <link
         rel="manifest"
         href="../manifest.json"
     >
 
-
-    <!-- =====================================================
-         SECURITY
-         
-         IMPORTANT:
-         - No frame-ancestors here because meta CSP does not
-           support frame-ancestors.
-         - Jitsi is explicitly allowed.
-         - EmailJS API is explicitly allowed.
-         - Firebase endpoints are explicitly allowed.
-    ====================================================== -->
-
+    <!-- Security -->
     <meta
         http-equiv="Content-Security-Policy"
         content="
             default-src 'self';
-
             base-uri 'self';
-
             object-src 'none';
-
             form-action 'self';
-
             upgrade-insecure-requests;
 
             img-src
@@ -157,7 +100,6 @@
                 https://*.googleapis.com
                 https://firestore.googleapis.com
                 https://*.firebaseio.com
-                https://*.firebaseapp.com
                 https://*.firebaseapp.com
                 https://identitytoolkit.googleapis.com
                 https://securetoken.googleapis.com
@@ -198,11 +140,7 @@
         "
     >
 
-
-    <!-- =====================================================
-         GOOGLE ANALYTICS
-    ====================================================== -->
-
+    <!-- Google Analytics -->
     <script
         async
         src="https://www.googletagmanager.com/gtag/js?id=G-PFXMKDWB3G"
@@ -212,141 +150,79 @@
         window.dataLayer = window.dataLayer || [];
 
         function gtag() {
-            dataLayer.push(arguments);
+            window.dataLayer.push(arguments);
         }
 
-        gtag(
-            "js",
-            new Date()
-        );
+        gtag("js", new Date());
 
-        gtag(
-            "config",
-            "G-PFXMKDWB3G",
-            {
-                anonymize_ip: true,
-                allow_google_signals: false,
-                allow_ad_personalization_signals: false,
-                send_page_view: false
-            }
-        );
-
-        window.addEventListener(
-            "apex:consent",
-            function () {
-                try {
-                    gtag(
-                        "event",
-                        "page_view"
-                    );
-                } catch {}
-            }
-        );
+        gtag("config", "G-PFXMKDWB3G", {
+            anonymize_ip: true,
+            allow_google_signals: false,
+            allow_ad_personalization_signals: false,
+            send_page_view: false
+        });
     </script>
 
-
-    <!-- =====================================================
-         JITSI
-    ====================================================== -->
-
+    <!-- Jitsi -->
     <script
         src="https://meet.jit.si/external_api.js"
         defer
     ></script>
 
-
-    <!-- =====================================================
-         EMAILJS
-    ====================================================== -->
-
+    <!-- EmailJS -->
     <script
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
         defer
     ></script>
 
+    <!-- Main site CSS -->
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/site-pages.css">
+    <link rel="stylesheet" href="../css/enhancements.css">
+    <link rel="stylesheet" href="../css/final-fixes.css">
 
-    <!-- =====================================================
-         CSS
-    ====================================================== -->
-
-    <link
-        rel="stylesheet"
-        href="../css/index.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/site-pages.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/enhancements.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/final-fixes.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/pages/admin.css"
-    >
-
+    <!-- Admin CSS -->
+    <link rel="stylesheet" href="../css/pages/admin.css">
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     ADMIN SHELL
-========================================================== -->
-
 <div class="admin-shell">
 
-
-    <!-- =====================================================
+    <!-- =========================================================
          LOGIN
-    ====================================================== -->
+    ========================================================== -->
 
     <section
         id="login"
+        class="admin-login"
         aria-label="Administrator Login"
     >
 
         <div class="login-card">
 
             <div class="brand-logo">
-
                 <img
                     src="../assets/images/logo.png"
                     alt="Apex Learning Academy"
                     width="96"
                     height="96"
+                    loading="eager"
                 >
-
             </div>
 
-
-            <h1>
-                Academy Command Center
-            </h1>
-
+            <h1>Academy Command Center</h1>
 
             <p>
                 Secure administration for Apex Learning Academy
             </p>
 
-
             <div
                 id="loginError"
-                class="hidden"
+                class="login-error hidden"
                 role="alert"
                 aria-live="polite"
             ></div>
-
 
             <form
                 id="loginForm"
@@ -366,10 +242,10 @@
                         required
                         autocomplete="username"
                         placeholder="admin@email.com"
+                        maxlength="160"
                     >
 
                 </div>
-
 
                 <div class="field">
 
@@ -384,10 +260,10 @@
                         required
                         autocomplete="current-password"
                         placeholder="••••••••"
+                        maxlength="128"
                     >
 
                 </div>
-
 
                 <button
                     id="loginSubmit"
@@ -404,29 +280,21 @@
     </section>
 
 
-
-    <!-- =====================================================
+    <!-- =========================================================
          APPLICATION
-    ====================================================== -->
+    ========================================================== -->
 
-    <div
-        id="app"
-        style="display:none"
-    >
+    <div id="app" class="admin-app hidden">
 
         <div class="layout">
 
-
-            <!-- =================================================
-                 SIDEBAR
-            ================================================== -->
+            <!-- SIDEBAR -->
 
             <aside
                 class="sidebar"
                 id="sidebar"
                 aria-label="Admin Navigation"
             >
-
 
                 <div class="sidebar-brand">
 
@@ -438,15 +306,8 @@
                     >
 
                     <div>
-
-                        <strong>
-                            Apex
-                        </strong>
-
-                        <small>
-                            Command Center
-                        </small>
-
+                        <strong>Apex</strong>
+                        <small>Command Center</small>
                     </div>
 
                 </div>
@@ -455,7 +316,6 @@
                 <div class="nav-group">
                     Command
                 </div>
-
 
                 <button
                     class="nav-item active"
@@ -466,7 +326,6 @@
                     Dashboard
                 </button>
 
-
                 <button
                     class="nav-item"
                     data-tab="students"
@@ -474,14 +333,8 @@
                 >
                     <span>♙</span>
                     Students
-                    <span
-                        class="nav-count"
-                        id="c-students"
-                    >
-                        0
-                    </span>
+                    <span class="nav-count" id="c-students">0</span>
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -490,14 +343,8 @@
                 >
                     <span>♟</span>
                     Instructors
-                    <span
-                        class="nav-count"
-                        id="c-instructors"
-                    >
-                        0
-                    </span>
+                    <span class="nav-count" id="c-instructors">0</span>
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -506,12 +353,7 @@
                 >
                     <span>✉</span>
                     Messages
-                    <span
-                        class="nav-count"
-                        id="c-messages"
-                    >
-                        0
-                    </span>
+                    <span class="nav-count" id="c-messages">0</span>
                 </button>
 
 
@@ -519,16 +361,14 @@
                     Academy Operations
                 </div>
 
-
                 <button
                     class="nav-item"
                     data-tab="fees"
                     type="button"
                 >
                     <span>৳</span>
-                    Fees & Payments
+                    Fees &amp; Payments
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -539,7 +379,6 @@
                     Course Progress
                 </button>
 
-
                 <button
                     class="nav-item"
                     data-tab="attendance"
@@ -549,16 +388,14 @@
                     Attendance
                 </button>
 
-
                 <button
                     class="nav-item"
                     data-tab="tests"
                     type="button"
                 >
                     <span>▣</span>
-                    Tests & Results
+                    Tests &amp; Results
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -568,7 +405,6 @@
                     <span>◇</span>
                     Certificates
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -581,9 +417,8 @@
 
 
                 <div class="nav-group">
-                    Growth & Communication
+                    Growth &amp; Communication
                 </div>
-
 
                 <button
                     class="nav-item"
@@ -592,11 +427,8 @@
                 >
                     <span>✉</span>
                     Communication Center
-                    <span class="nav-pill">
-                        NEW
-                    </span>
+                    <span class="nav-pill">NEW</span>
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -607,7 +439,6 @@
                     Announcements
                 </button>
 
-
                 <button
                     class="nav-item"
                     data-tab="reviews"
@@ -617,7 +448,6 @@
                     Reviews
                 </button>
 
-
                 <button
                     class="nav-item"
                     data-tab="coupons"
@@ -626,7 +456,6 @@
                     <span>％</span>
                     Coupons
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -639,9 +468,8 @@
 
 
                 <div class="nav-group">
-                    Courses & Batches
+                    Courses &amp; Batches
                 </div>
-
 
                 <button
                     class="nav-item"
@@ -651,7 +479,6 @@
                     <span>▦</span>
                     Courses
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -667,7 +494,6 @@
                     Analytics
                 </div>
 
-
                 <button
                     class="nav-item"
                     data-tab="visitors"
@@ -676,7 +502,6 @@
                     <span>◉</span>
                     Visitors
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -692,7 +517,6 @@
                     Control
                 </div>
 
-
                 <button
                     class="nav-item"
                     data-tab="settings"
@@ -701,7 +525,6 @@
                     <span>⚙</span>
                     Academy Settings
                 </button>
-
 
                 <button
                     class="nav-item"
@@ -712,9 +535,8 @@
                     Admin Audit
                 </button>
 
-
                 <button
-                    class="nav-item"
+                    class="nav-item logout-item"
                     id="logoutBtn"
                     type="button"
                 >
@@ -722,21 +544,14 @@
                     Sign Out
                 </button>
 
-
             </aside>
 
 
-
-            <!-- =================================================
-                 MAIN
-            ================================================== -->
+            <!-- MAIN -->
 
             <main class="main">
 
-
-                <!-- =============================================
-                     MOBILE HEADER
-                ============================================== -->
+                <!-- MOBILE HEADER -->
 
                 <div class="mobile-admin-header">
 
@@ -745,15 +560,14 @@
                         class="btn btn-light"
                         type="button"
                         aria-label="Open navigation"
+                        aria-expanded="false"
                     >
                         ☰
                     </button>
 
-
                     <strong>
                         Apex Command Center
                     </strong>
-
 
                     <button
                         id="themeBtn"
@@ -767,34 +581,25 @@
                 </div>
 
 
-
-                <!-- =============================================
-                     COMMAND BANNER
-                ============================================== -->
+                <!-- COMMAND BANNER -->
 
                 <div class="command-banner">
 
                     <div>
 
-                        <div
-                            class="eyebrow"
-                            style="color:#F4B400"
-                        >
+                        <div class="eyebrow">
                             APEX LEARNING ACADEMY
                         </div>
-
 
                         <h3 id="welcomeTitle">
                             Good morning, Admin
                         </h3>
-
 
                         <p id="liveStatus">
                             Firebase connected dashboard
                         </p>
 
                     </div>
-
 
                     <div class="head-actions">
 
@@ -806,7 +611,6 @@
                         >
                             ＋ Add Student
                         </button>
-
 
                         <button
                             class="btn"
@@ -822,10 +626,7 @@
                 </div>
 
 
-
-                <!-- =============================================
-                     PAGE HEADER
-                ============================================== -->
+                <!-- PAGE HEADER -->
 
                 <div class="page-head">
 
@@ -835,13 +636,11 @@
                             Administration
                         </div>
 
-
                         <h2 id="pageTitle">
                             Overview
                         </h2>
 
                     </div>
-
 
                     <div
                         class="head-actions"
@@ -851,162 +650,56 @@
                 </div>
 
 
-
-                <!-- =============================================
-                     DASHBOARD
-                ============================================== -->
+                <!-- DASHBOARD -->
 
                 <section id="dashboardView">
 
-
                     <div class="stats">
 
-
-                        <div
-                            class="stat"
-                            data-go="students"
-                        >
-
-                            <div class="stat-label">
-                                Students
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-students"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Registered learners
-                            </div>
-
+                        <div class="stat" data-go="students">
+                            <div class="stat-label">Students</div>
+                            <div class="stat-value" id="s-students">—</div>
+                            <div class="stat-note">Registered learners</div>
                         </div>
 
-
-                        <div
-                            class="stat"
-                            data-go="instructors"
-                        >
-
-                            <div class="stat-label">
-                                Instructors
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-instructors"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Applications & team
-                            </div>
-
+                        <div class="stat" data-go="instructors">
+                            <div class="stat-label">Instructors</div>
+                            <div class="stat-value" id="s-instructors">—</div>
+                            <div class="stat-note">Applications &amp; team</div>
                         </div>
 
-
-                        <div
-                            class="stat"
-                            data-go="fees"
-                        >
-
-                            <div class="stat-label">
-                                Fee Records
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-fees"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Payment management
-                            </div>
-
+                        <div class="stat" data-go="fees">
+                            <div class="stat-label">Fee Records</div>
+                            <div class="stat-value" id="s-fees">—</div>
+                            <div class="stat-note">Payment management</div>
                         </div>
 
-
-                        <div
-                            class="stat"
-                            data-go="messages"
-                        >
-
-                            <div class="stat-label">
-                                Messages
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-messages"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Enquiries & contact
-                            </div>
-
+                        <div class="stat" data-go="messages">
+                            <div class="stat-label">Messages</div>
+                            <div class="stat-value" id="s-messages">—</div>
+                            <div class="stat-note">Enquiries &amp; contact</div>
                         </div>
 
-
-                        <div
-                            class="stat"
-                            data-go="tests"
-                        >
-
-                            <div class="stat-label">
-                                Test Results
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-tests"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Submissions
-                            </div>
-
+                        <div class="stat" data-go="tests">
+                            <div class="stat-label">Test Results</div>
+                            <div class="stat-value" id="s-tests">—</div>
+                            <div class="stat-note">Submissions</div>
                         </div>
 
-
-                        <div
-                            class="stat"
-                            data-go="attendance"
-                        >
-
-                            <div class="stat-label">
-                                Attendance
-                            </div>
-
-                            <div
-                                class="stat-value"
-                                id="s-attendance"
-                            >
-                                —
-                            </div>
-
-                            <div class="stat-note">
-                                Class activity
-                            </div>
-
+                        <div class="stat" data-go="attendance">
+                            <div class="stat-label">Attendance</div>
+                            <div class="stat-value" id="s-attendance">—</div>
+                            <div class="stat-note">Class activity</div>
                         </div>
-
 
                     </div>
 
-                    <!-- SUBJECT / COURSE DISTRIBUTION -->
-                    <section id="studentSegmentation" class="student-segmentation"></section>
+                    <section
+                        id="studentSegmentation"
+                        class="student-segmentation"
+                    ></section>
 
                     <div class="workspace">
-
 
                         <div class="card">
 
@@ -1015,7 +708,6 @@
                                 <h3>
                                     Operational Snapshot
                                 </h3>
-
 
                                 <button
                                     class="btn btn-light"
@@ -1027,24 +719,19 @@
 
                             </div>
 
-
                             <div
                                 id="snapshot"
                                 class="table-wrap"
                             >
-
                                 <div class="loader">
                                     Loading dashboard...
                                 </div>
-
                             </div>
 
                         </div>
 
 
-
                         <div>
-
 
                             <div class="side-card">
 
@@ -1052,9 +739,7 @@
                                     Quick Actions
                                 </h3>
 
-
                                 <div class="quick-grid">
-
 
                                     <button
                                         class="btn btn-light"
@@ -1064,7 +749,6 @@
                                         Student
                                     </button>
 
-
                                     <button
                                         class="btn btn-light"
                                         data-action="fee"
@@ -1072,7 +756,6 @@
                                     >
                                         Fee Record
                                     </button>
-
 
                                     <button
                                         class="btn btn-light"
@@ -1082,7 +765,6 @@
                                         Announcement
                                     </button>
 
-
                                     <button
                                         class="btn btn-light"
                                         data-action="class"
@@ -1090,7 +772,6 @@
                                     >
                                         Live Class
                                     </button>
-
 
                                     <button
                                         class="btn btn-light"
@@ -1100,7 +781,6 @@
                                         Coupon
                                     </button>
 
-
                                     <button
                                         class="btn btn-light"
                                         data-action="certificate"
@@ -1109,11 +789,9 @@
                                         Certificate
                                     </button>
 
-
                                 </div>
 
                             </div>
-
 
 
                             <div class="side-card">
@@ -1122,20 +800,16 @@
                                     Recent Admin Activity
                                 </h3>
 
-
                                 <div
                                     id="activity"
                                     class="activity"
                                 >
-
                                     <div class="empty">
                                         No activity yet.
                                     </div>
-
                                 </div>
 
                             </div>
-
 
                         </div>
 
@@ -1144,114 +818,72 @@
                 </section>
 
 
-
-                <!-- =============================================
-                     CUSTOM VIEW
-                ============================================== -->
+                <!-- CUSTOM -->
 
                 <section
                     id="customView"
                     class="hidden"
                 >
-
-                    <div
-                        id="customViewContent"
-                    ></div>
-
+                    <div id="customViewContent"></div>
                 </section>
 
 
-
-                <!-- =============================================
-                     MODULE VIEW
-                ============================================== -->
+                <!-- MODULE -->
 
                 <section
                     id="moduleView"
                     class="hidden"
                 >
 
-                    <section id="studentModuleSegmentation" class="student-segmentation" style="display:none"></section>
+                    <section
+                        id="studentModuleSegmentation"
+                        class="student-segmentation"
+                        hidden
+                    ></section>
 
                     <div class="card">
 
-
                         <div class="toolbar">
-
 
                             <select
                                 id="studentCourseFilter"
                                 class="btn btn-light"
                                 aria-label="Filter student course"
-                                style="display:none"
+                                hidden
                             >
-
-                                <option value="">
-                                    All Courses
-                                </option>
-
+                                <option value="">All Courses</option>
                                 <option value="Web Development">
                                     Web Development
                                 </option>
-
                                 <option value="Artificial Intelligence">
                                     Artificial Intelligence
                                 </option>
-
                                 <option value="__unassigned__">
                                     Unassigned / Other
                                 </option>
-
                             </select>
-
 
                             <input
                                 id="moduleSearch"
                                 type="search"
                                 placeholder="Search this module..."
                                 autocomplete="off"
+                                maxlength="120"
                             >
-
 
                             <select
                                 id="statusFilter"
                                 aria-label="Filter by status"
                             >
-
-                                <option value="">
-                                    All statuses
-                                </option>
-
-                                <option value="active">
-                                    Active
-                                </option>
-
-                                <option value="pending">
-                                    Pending
-                                </option>
-
-                                <option value="approved">
-                                    Approved
-                                </option>
-
-                                <option value="paid">
-                                    Paid
-                                </option>
-
-                                <option value="unpaid">
-                                    Unpaid
-                                </option>
-
-                                <option value="rejected">
-                                    Rejected
-                                </option>
-
-                                <option value="completed">
-                                    Completed
-                                </option>
-
+                                <option value="">All statuses</option>
+                                <option value="active">Active</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="paid">Paid</option>
+                                <option value="unpaid">Unpaid</option>
+                                <option value="rejected">Rejected</option>
+                                <option value="completed">Completed</option>
                             </select>
-
 
                             <button
                                 class="btn btn-light"
@@ -1261,7 +893,6 @@
                                 ⇩ Export CSV
                             </button>
 
-
                             <button
                                 class="btn btn-primary"
                                 id="addBtn"
@@ -1269,7 +900,6 @@
                             >
                                 ＋ Add
                             </button>
-
 
                             <button
                                 class="btn btn-light"
@@ -1279,27 +909,20 @@
                                 ↻ Reload
                             </button>
 
-
                         </div>
-
 
                         <div
                             id="moduleTable"
                             class="table-wrap"
                         >
-
                             <div class="loader">
                                 Loading module...
                             </div>
-
                         </div>
-
 
                     </div>
 
-
                 </section>
-
 
             </main>
 
@@ -1308,10 +931,7 @@
     </div>
 
 
-
-    <!-- =====================================================
-         MAIN MODAL
-    ====================================================== -->
+    <!-- MAIN MODAL -->
 
     <div
         class="modal-bg"
@@ -1332,7 +952,6 @@
                     Details
                 </h3>
 
-
                 <button
                     class="close"
                     id="modalClose"
@@ -1344,12 +963,10 @@
 
             </div>
 
-
             <div
                 class="modal-body"
                 id="modalBody"
             ></div>
-
 
             <div
                 class="modal-foot"
@@ -1361,10 +978,7 @@
     </div>
 
 
-
-    <!-- =====================================================
-         LIVE CLASS SETUP MODAL
-    ====================================================== -->
+    <!-- LIVE CLASS SETUP -->
 
     <div
         class="modal-bg"
@@ -1373,18 +987,17 @@
     >
 
         <div
-            class="modal"
-            style="width:min(650px,100%)"
+            class="modal live-setup-modal"
             role="dialog"
             aria-modal="true"
+            aria-labelledby="liveModalTitle"
         >
 
             <div class="modal-head">
 
-                <h3>
+                <h3 id="liveModalTitle">
                     Host a Live Class
                 </h3>
-
 
                 <button
                     class="close"
@@ -1396,7 +1009,6 @@
                 </button>
 
             </div>
-
 
             <div class="modal-body">
 
@@ -1410,28 +1022,25 @@
                         id="liveRoomName"
                         type="text"
                         maxlength="100"
+                        autocomplete="off"
                         placeholder="Apex-Web-Development-01"
                     >
 
                 </div>
 
+                <div id="classList"></div>
 
-                <div
-                    id="classList"
-                ></div>
+            </div>
 
+            <div class="modal-foot">
 
-                <div class="modal-foot">
-
-                    <button
-                        id="startLiveClass"
-                        type="button"
-                        class="btn btn-primary"
-                    >
-                        Start Live Class
-                    </button>
-
-                </div>
+                <button
+                    id="startLiveClass"
+                    type="button"
+                    class="btn btn-primary"
+                >
+                    Start Live Class
+                </button>
 
             </div>
 
@@ -1440,10 +1049,7 @@
     </div>
 
 
-
-    <!-- =====================================================
-         LIVE CLASS OVERLAY
-    ====================================================== -->
+    <!-- LIVE CLASS -->
 
     <div
         class="live-overlay"
@@ -1457,7 +1063,6 @@
                 Apex Live Class
             </strong>
 
-
             <button
                 class="btn btn-danger"
                 id="endLive"
@@ -1468,12 +1073,10 @@
 
         </div>
 
-
         <div
             class="live-frame"
             id="jitsiContainer"
         ></div>
-
 
         <div
             id="jitsiFallback"
@@ -1484,10 +1087,7 @@
     </div>
 
 
-
-    <!-- =====================================================
-         TOAST
-    ====================================================== -->
+    <!-- TOAST -->
 
     <div
         class="toast"
@@ -1496,67 +1096,43 @@
         aria-live="polite"
     ></div>
 
-
-
-    <!-- =====================================================
-         ADMIN JAVASCRIPT
-    ====================================================== -->
-
-    <script
-        type="module"
-        src="../js/pages/admin.js"
-    ></script>
-
-
-    <!-- =====================================================
-         CONSENT-BASED ANALYTICS
-    ====================================================== -->
-
-    <script>
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            function () {
-
-                try {
-
-                    if (
-                        localStorage.getItem(
-                            "apex_cookie_consent"
-                        )
-                    ) {
-
-                        if (
-                            typeof window.gtag ===
-                            "function"
-                        ) {
-
-                            window.gtag(
-                                "event",
-                                "page_view"
-                            );
-
-                        }
-
-                    }
-
-                } catch {}
-
-            },
-            {
-                once: true
-            }
-        );
-
-    </script>
-
-
 </div>
+
+
+<!-- ONLY ONE ADMIN SCRIPT -->
 <script
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    type="module"
+    src="../js/pages/admin.js"
+></script>
+
+
+<script>
+(function () {
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        try {
+
+            var consent = localStorage.getItem(
+                "apex_cookie_consent"
+            );
+
+            if (
+                consent &&
+                typeof window.gtag === "function"
+            ) {
+                window.gtag("event", "page_view");
+            }
+
+        } catch (_) {
+            /* intentionally silent */
+        }
+
+    }, { once: true });
+
+})();
 </script>
 
-<script type="module" src="./admin.js"></script>
 </body>
-
 </html>
